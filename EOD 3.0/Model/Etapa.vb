@@ -1,0 +1,69 @@
+﻿Public Class Etapa
+    Dim hogar As Double
+    Dim persona As Integer
+    Dim viaje As Integer
+    Dim etapa As Integer
+    Dim zonaOrigen As Integer
+    Dim zonaDestino As Integer
+    Dim comunaOrigen As Integer
+    Dim comunaOtraOrigen As String
+    Dim comunaDestino As Integer
+    Dim comunaOtraDestino As String
+    Dim nombreCalle1Origen As String
+    Dim numeroOCalle2Origen As String
+    Dim hitoOrigen As String
+    Dim origenCoordX As Double
+    Dim origenCoordY As Double
+    Dim nombreCalle1Destino As String
+    Dim numeroOCalle2Destino As String
+    Dim hitoDestino As String
+    Dim destinoCoordX As Double
+    Dim destinoCoordY As Double
+    Dim modo As Integer
+    Dim cuadrasAntes As Integer
+    Dim minutosAntes As Integer
+    Dim viajaComo As Integer
+    Dim queVehiculo As Integer
+    Dim idVehiculoHogar As Integer
+    Dim autopista As Integer
+    Dim estaciona As Integer
+    Dim formaPago As Integer
+    Dim costoEstacionamiento As Integer
+    Dim lugarDondeBajo As Integer
+    Dim recorridoBus As Integer
+    Dim tiempoEsperaBus As Integer
+    Dim dejoPasarBus As Integer
+    Dim busesPerdidos As Integer
+    Dim tipoTarifaBus As Integer
+    Dim tarifaBus As Integer
+    Dim tiempoEsperaMetro As Integer
+    Dim subioAlPrimerMetro As Integer
+    Dim dejoPasarMetro As Integer
+    Dim estacionMetroIni As Integer
+    Dim estacionMetroFin As Integer
+    Dim tipoTarifaMetro As Integer
+    Dim tarifaMetro As Integer
+    Dim recorridoTxc As Integer
+    Dim tiempoEsperaTxc As Integer
+    Dim dejoPasarTxc As Integer
+    Dim txcPerdidos As Integer
+    Dim tarifaTxc As Integer
+    Dim tiempoEsperaTaxi As Integer
+    Dim tarifaTaxi As Integer
+    Dim propiedadBicicleta As Integer
+    Dim usaCiclovia As Integer
+    Dim usoHabitualBicicleta As Integer
+    Dim estacionaBicicleta As Integer
+    Dim modoEstacionaBicicleta As Integer
+    Dim ascensor As Integer
+    Dim tiempoEsperaAscensor As Integer
+    Dim lugarAscensorIni As Integer
+    Dim lugarAscensorFin As Integer
+    Dim tarifaAscensor As Integer
+    Dim dejoPasarAscensor As Integer
+    Dim ascensoresPerdidos As Integer
+
+
+
+
+End Class
