@@ -55,6 +55,10 @@ Public Class ModificarViaje
     End Sub
 
     Private Sub ModificarViaje_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'TODO: esta línea de código carga datos en la tabla 'datasetEOD.DondeEstaciona' Puede moverla o quitarla según sea necesario.
+        Me.DondeEstacionaTableAdapter.Fill(Me.datasetEOD.DondeEstaciona)
+        'TODO: esta línea de código carga datos en la tabla 'datasetEOD.EstacionamientoBicicleta' Puede moverla o quitarla según sea necesario.
+        Me.EstacionamientoBicicletaTableAdapter.Fill(Me.datasetEOD.EstacionamientoBicicleta)
         'TODO: esta línea de código carga datos en la tabla 'datasetEOD.Muelle' Puede moverla o quitarla según sea necesario.
         Me.MuelleTableAdapter.Fill(Me.datasetEOD.Muelle)
 
@@ -450,21 +454,21 @@ Public Class ModificarViaje
                 Me.txtMinutosAutoE1.Text = etapa1.MinutosAntes.ToString
                 Me.lkpViajaComoE1.EditValue = etapa1.ViajaComo
                 Me.lkpQueVehiculoE1.EditValue = etapa1.QueVehiculo
-                Me.lkpLugarDondeBajoE1.EditValue = etapa1.LugarDondeBajo
+                Me.lkpLugarDondeBajoE1.EditValue = etapa1.LugarBajadaAuto
 
                 If etapa1.QueVehiculo = 1 Then
                     Me.lkpVehHogarE1.EditValue = etapa1.IdVehiculoHogar
                 End If
 
                 If etapa1.ViajaComo = 1 Then
-                    Me.lkpPagaEstacionamientoE1.EditValue = etapa1.PagaEstacionamiento
-                    If etapa1.PagaEstacionamiento = 1 Then
+                    If etapa1.FormaPago > 0 Then
                         Me.lkpFormaPagoE1.EditValue = etapa1.FormaPago
-                        chkNSNRPagoE1.Checked = etapa1.CostoNSNR
-                        If Not chkNSNRPagoE1.Checked Then
-                            Me.txtCuantoPagoE1.Text = etapa1.CostoEstacionamiento.ToString
-                        End If
                     End If
+                    chkNSNRPagoE1.Checked = etapa1.CostoNSNR
+                    If Not chkNSNRPagoE1.Checked Then
+                        Me.txtCuantoPagoE1.Text = etapa1.CostoEstacionamiento.ToString
+                    End If
+                    Me.lkpDondeEstacionaE1.EditValue = etapa1.DondeEstaciona
                 End If
             Case 2, 10, 11, 12
                 'Carga Bus
@@ -498,13 +502,10 @@ Public Class ModificarViaje
                 End If
                 Me.lkpLugarBajadaBiciE1.EditValue = etapa1.LugarBajadaBicicleta
                 Me.lkpCicloviaE1.EditValue = etapa1.UsaCiclovia
-            Case 13
-                Me.txtCuadrasBarcazaE1.Text = etapa1.CuadrasAntes.ToString
-                Me.txtMinutosBarcazaE1.Text = etapa1.MinutosAntes.ToString
-                Me.txtMinutosEsperaBarcazaE1.Text = etapa1.MinutosEsperaBarcaza.ToString
-                Me.txtTarifaBarcazaE1.Text = etapa1.TarifaBarcaza.ToString
-                Me.lkpMuelleSubidaBarcazaE1.EditValue = etapa1.MuelleSubidaBarcaza
-                Me.lkpMuelleBajadaBarcazaE1.EditValue = etapa1.MuelleBajadaBarcaza
+                If etapa1.UsaCiclovia = 2 Then
+                    Me.txtMotivoNoUsaE1.EditValue = etapa1.MotivoNoUsa
+                End If
+                Me.lkpEstacionamientoBiciE1.EditValue = etapa1.EstacionamientoBicicleta
         End Select
 
         Me.lkpComunaEtapa1.EditValue = etapa1.ComunaDestino
@@ -536,22 +537,25 @@ Public Class ModificarViaje
                     Me.txtMinutosAutoE2.Text = etapa2.MinutosAntes.ToString
                     Me.lkpViajaComoE2.EditValue = etapa2.ViajaComo
                     Me.lkpQueVehiculoE2.EditValue = etapa2.QueVehiculo
-                    Me.lkpLugarDondeBajoE2.EditValue = etapa2.LugarDondeBajo
+                    Me.lkpLugarBajadaAutoE2.EditValue = etapa2.LugarBajadaAuto
 
                     If etapa2.QueVehiculo = 1 Then
                         Me.lkpVehHogarE2.EditValue = etapa2.IdVehiculoHogar
                     End If
 
+
                     If etapa2.ViajaComo = 1 Then
-                        Me.lkpPagaEstacionamientoE2.EditValue = etapa2.PagaEstacionamiento
-                        If etapa2.PagaEstacionamiento = 1 Then
+                        If etapa2.FormaPago > 0 Then
                             Me.lkpFormaPagoE2.EditValue = etapa2.FormaPago
-                            chkNSNRPagoE2.Checked = etapa2.CostoNSNR
-                            If Not chkNSNRPagoE2.Checked Then
-                                Me.txtCuantoPagoE2.Text = etapa2.CostoEstacionamiento.ToString
-                            End If
                         End If
+                        chkNSNRPagoE2.Checked = etapa2.CostoNSNR
+                        If Not chkNSNRPagoE2.Checked Then
+                            Me.txtCuantoPagoE2.Text = etapa2.CostoEstacionamiento.ToString
+                        End If
+                        Me.lkpDondeEstacionaE2.EditValue = etapa2.DondeEstaciona
                     End If
+
+
                 Case 2, 10, 11, 12
                     'Carga Bus
                     Me.lkpLugarBajadaBusE2.EditValue = etapa2.LugarBajadaBus
@@ -584,13 +588,10 @@ Public Class ModificarViaje
                     End If
                     Me.lkpLugarBajadaBiciE2.EditValue = etapa2.LugarBajadaBicicleta
                     Me.lkpCicloviaE2.EditValue = etapa2.UsaCiclovia
-                Case 13
-                    Me.txtCuadrasBarcazaE2.Text = etapa2.CuadrasAntes.ToString
-                    Me.txtMinutosBarcazaE2.Text = etapa2.MinutosAntes.ToString
-                    Me.txtMinutosEsperaBarcazaE2.Text = etapa2.MinutosEsperaBarcaza.ToString
-                    Me.txtTarifaBarcazaE2.Text = etapa2.TarifaBarcaza.ToString
-                    Me.lkpMuelleSubidaBarcazaE2.EditValue = etapa2.MuelleSubidaBarcaza
-                    Me.lkpMuelleBajadaBarcazaE2.EditValue = etapa2.MuelleBajadaBarcaza
+                    Me.lkpEstacionamientoBiciE2.EditValue = etapa2.EstacionamientoBicicleta
+                    If etapa2.UsaCiclovia = 2 Then
+                        Me.txtMotivoNoUsaE2.EditValue = etapa2.MotivoNoUsa
+                    End If
             End Select
 
             Me.lkpComunaEtapa2.EditValue = etapa2.ComunaDestino
@@ -625,21 +626,21 @@ Public Class ModificarViaje
                     Me.txtMinutosAutoE3.Text = etapa3.MinutosAntes.ToString
                     Me.lkpViajaComoE3.EditValue = etapa3.ViajaComo
                     Me.lkpQueVehiculoE3.EditValue = etapa3.QueVehiculo
-                    Me.lkpLugarDondeBajoE3.EditValue = etapa3.LugarDondeBajo
+                    Me.lkpLugarBajadaAutoE3.EditValue = etapa3.LugarBajadaAuto
 
                     If etapa3.QueVehiculo = 1 Then
                         Me.lkpVehHogarE3.EditValue = etapa3.IdVehiculoHogar
                     End If
 
                     If etapa3.ViajaComo = 1 Then
-                        Me.lkpPagaEstacionamientoE3.EditValue = etapa3.PagaEstacionamiento
-                        If etapa3.PagaEstacionamiento = 1 Then
+                        If etapa3.FormaPago > 0 Then
                             Me.lkpFormaPagoE3.EditValue = etapa3.FormaPago
-                            chkNSNRPagoE3.Checked = etapa3.CostoNSNR
-                            If Not chkNSNRPagoE3.Checked Then
-                                Me.txtCuantoPagoE3.Text = etapa3.CostoEstacionamiento.ToString
-                            End If
                         End If
+                        chkNSNRPagoE3.Checked = etapa3.CostoNSNR
+                        If Not chkNSNRPagoE3.Checked Then
+                            Me.txtCuantoPagoE3.Text = etapa3.CostoEstacionamiento.ToString
+                        End If
+                        Me.lkpDondeEstacionaE3.EditValue = etapa3.DondeEstaciona
                     End If
                 Case 2, 10, 11, 12
                     'Carga Bus
@@ -673,13 +674,10 @@ Public Class ModificarViaje
                     End If
                     Me.lkpLugarBajadaBiciE3.EditValue = etapa3.LugarBajadaBicicleta
                     Me.lkpCicloviaE3.EditValue = etapa3.UsaCiclovia
-                Case 13
-                    Me.txtCuadrasBarcazaE3.Text = etapa3.CuadrasAntes.ToString
-                    Me.txtMinutosBarcazaE3.Text = etapa3.MinutosAntes.ToString
-                    Me.txtMinutosEsperaBarcazaE3.Text = etapa3.MinutosEsperaBarcaza.ToString
-                    Me.txtTarifaBarcazaE3.Text = etapa3.TarifaBarcaza.ToString
-                    Me.lkpMuelleSubidaBarcazaE3.EditValue = etapa3.MuelleSubidaBarcaza
-                    Me.lkpMuelleBajadaBarcazaE3.EditValue = etapa3.MuelleBajadaBarcaza
+                    Me.lkpEstacionamientoBiciE3.EditValue = etapa3.EstacionamientoBicicleta
+                    If etapa3.UsaCiclovia = 2 Then
+                        Me.txtMotivoNoUsaE3.EditValue = etapa3.MotivoNoUsa
+                    End If
             End Select
 
             Me.lkpComunaEtapa3.EditValue = etapa3.ComunaDestino
@@ -886,7 +884,7 @@ Public Class ModificarViaje
         Dim opcion As Integer
 
         Me.spcPagoBajadaAutoE1.Collapsed = True
-        Me.lkpPagaEstacionamientoE1.Visible = False
+        Me.lkpDondeEstacionaE1.Visible = False
         Me.txtCuantoPagoE1.Visible = False
         Me.lkpFormaPagoE1.Visible = False
 
@@ -896,7 +894,7 @@ Public Class ModificarViaje
 
         If opcion = 1 Then
             Me.spcPagoBajadaAutoE1.Collapsed = False
-            Me.lkpPagaEstacionamientoE1.Visible = True
+            Me.lkpDondeEstacionaE1.Visible = True
             Me.txtCuantoPagoE1.Visible = True
             Me.lkpFormaPagoE1.Visible = True
 
@@ -1237,7 +1235,6 @@ Public Class ModificarViaje
                 Me.FormaPagoTableAdapter.Fill(datasetEOD.FormaPago)
                 Try
                     Me.EstacionaTableAdapter.Fill(datasetEOD.Estaciona)
-                    Me.LugarDondeBajoTableAdapter.Fill(datasetEOD.LugarDondeBajo)
                 Catch ex As Exception
 
                 End Try
@@ -1531,16 +1528,16 @@ Public Class ModificarViaje
                                 etapa1.IdVehiculoHogar = Me.lkpVehHogarE1.EditValue
                             End If
                             If etapa1.ViajaComo = 1 Then
-                                etapa1.PagaEstacionamiento = Me.lkpPagaEstacionamientoE1.EditValue
-                                If etapa1.PagaEstacionamiento = 1 Then
-                                    etapa1.CostoNSNR = chkNSNRPagoE1.Checked
-                                    etapa1.FormaPago = Me.lkpFormaPagoE1.EditValue
-                                    If Not etapa1.CostoNSNR Then
-                                        etapa1.CostoEstacionamiento = Me.txtCuantoPagoE1.Text
-                                    End If
+                                etapa1.CostoNSNR = Me.chkNSNRPagoE1.Checked
+                                If Not etapa1.CostoNSNR Then
+                                    etapa1.CostoEstacionamiento = Me.txtCuantoPagoE1.Text
                                 End If
+                                If etapa1.CostoEstacionamiento > 0 Then
+                                    etapa1.FormaPago = Me.lkpFormaPagoE1.EditValue
+                                End If
+                                etapa1.DondeEstaciona = Me.lkpDondeEstacionaE1.EditValue
                             End If
-                            etapa1.LugarDondeBajo = Me.lkpLugarDondeBajoE1.EditValue
+                            etapa1.LugarBajadaAuto = Me.lkpLugarDondeBajoE1.EditValue
                             etapa1.MinutosAntes = Me.txtMinutosAutoE1.Text
                             etapa1.CuadrasAntes = Me.txtCuadrasAutoE1.Text
                         Case 2, 10, 11, 12
@@ -1594,13 +1591,11 @@ Public Class ModificarViaje
                             End If
                             etapa1.LugarBajadaBicicleta = Me.lkpLugarBajadaBiciE1.EditValue
                             etapa1.UsaCiclovia = Me.lkpCicloviaE1.EditValue
-                        Case 13
-                            etapa1.MinutosAntes = Me.txtMinutosBarcazaE1.Text
-                            etapa1.CuadrasAntes = Me.txtCuadrasBarcazaE1.Text
-                            etapa1.MinutosEsperaBarcaza = Me.txtMinutosEsperaBarcazaE1.Text
-                            etapa1.TarifaBarcaza = Me.txtTarifaBarcazaE1.Text
-                            etapa1.MuelleSubidaBarcaza = Me.lkpMuelleSubidaBarcazaE1.EditValue
-                            etapa1.MuelleBajadaBarcaza = Me.lkpMuelleBajadaBarcazaE1.EditValue
+                            If etapa1.UsaCiclovia = 2 Then
+                                etapa1.MotivoNoUsa = Me.txtMotivoNoUsaE1.Text
+                            End If
+                            etapa1.EstacionamientoBicicleta = Me.lkpEstacionamientoBiciE1.EditValue
+                            etapa1.LugarBajadaBicicleta = Me.lkpLugarBajadaBiciE1.EditValue
                     End Select
 
                     If etapa1.ComunaDestino = 2 Then
@@ -1660,16 +1655,16 @@ Public Class ModificarViaje
                                     etapa2.IdVehiculoHogar = Me.lkpVehHogarE2.EditValue
                                 End If
                                 If etapa2.ViajaComo = 1 Then
-                                    etapa2.PagaEstacionamiento = Me.lkpPagaEstacionamientoE2.EditValue
-                                    If etapa2.PagaEstacionamiento = 1 Then
-                                        etapa2.CostoNSNR = chkNSNRPagoE2.Checked
-                                        etapa2.FormaPago = Me.lkpFormaPagoE2.EditValue
-                                        If etapa2.CostoNSNR Then
-                                            etapa2.CostoEstacionamiento = Me.txtCuantoPagoE2.Text
-                                        End If
+                                    etapa2.CostoNSNR = Me.chkNSNRPagoE2.Checked
+                                    If Not etapa2.CostoNSNR Then
+                                        etapa2.CostoEstacionamiento = Me.txtCuantoPagoE2.Text
                                     End If
+                                    If etapa2.CostoEstacionamiento > 0 Then
+                                        etapa2.FormaPago = Me.lkpFormaPagoE2.EditValue
+                                    End If
+                                    etapa2.DondeEstaciona = Me.lkpDondeEstacionaE2.EditValue
                                 End If
-                                etapa2.LugarDondeBajo = Me.lkpLugarDondeBajoE2.EditValue
+                                etapa2.LugarBajadaAuto = Me.lkpLugarBajadaAutoE2.EditValue
                                 etapa2.MinutosAntes = Me.txtMinutosAutoE2.Text
                                 etapa2.CuadrasAntes = Me.txtCuadrasAutoE2.Text
                             Case 2, 10, 11, 12
@@ -1698,13 +1693,11 @@ Public Class ModificarViaje
                                 End If
                                 etapa2.LugarBajadaBicicleta = Me.lkpLugarBajadaBiciE2.EditValue
                                 etapa2.UsaCiclovia = Me.lkpCicloviaE2.EditValue
-                            Case 13
-                                etapa2.MinutosAntes = Me.txtMinutosBarcazaE2.Text
-                                etapa2.CuadrasAntes = Me.txtCuadrasBarcazaE2.Text
-                                etapa2.MinutosEsperaBarcaza = Me.txtMinutosEsperaBarcazaE2.Text
-                                etapa2.TarifaBarcaza = Me.txtTarifaBarcazaE2.Text
-                                etapa2.MuelleSubidaBarcaza = Me.lkpMuelleSubidaBarcazaE2.EditValue
-                                etapa2.MuelleBajadaBarcaza = Me.lkpMuelleBajadaBarcazaE2.EditValue
+                                If etapa2.UsaCiclovia = 2 Then
+                                    etapa2.MotivoNoUsa = Me.txtMotivoNoUsaE2.Text
+                                End If
+                                etapa2.EstacionamientoBicicleta = Me.lkpEstacionamientoBiciE2.EditValue
+                                etapa2.LugarBajadaBicicleta = Me.lkpLugarBajadaBiciE2.EditValue
                         End Select
 
                         If etapa2.ComunaDestino = 2 Then
@@ -1773,16 +1766,16 @@ Public Class ModificarViaje
                                         etapa3.IdVehiculoHogar = Me.lkpVehHogarE3.EditValue
                                     End If
                                     If etapa3.ViajaComo = 1 Then
-                                        etapa3.PagaEstacionamiento = Me.lkpPagaEstacionamientoE3.EditValue
-                                        If etapa3.PagaEstacionamiento = 1 Then
-                                            etapa3.CostoNSNR = chkNSNRPagoE3.Checked
-                                            etapa3.FormaPago = Me.lkpFormaPagoE3.EditValue
-                                            If Not etapa3.CostoNSNR Then
-                                                etapa3.CostoEstacionamiento = Me.txtCuantoPagoE3.Text
-                                            End If
+                                        etapa3.CostoNSNR = Me.chkNSNRPagoE3.Checked
+                                        If Not etapa3.CostoNSNR Then
+                                            etapa3.CostoEstacionamiento = Me.txtCuantoPagoE3.Text
                                         End If
+                                        If etapa3.CostoEstacionamiento > 0 Then
+                                            etapa3.FormaPago = Me.lkpFormaPagoE3.EditValue
+                                        End If
+                                        etapa3.DondeEstaciona = Me.lkpDondeEstacionaE3.EditValue
                                     End If
-                                    etapa3.LugarDondeBajo = Me.lkpLugarDondeBajoE3.EditValue
+                                    etapa3.LugarBajadaAuto = Me.lkpLugarBajadaAutoE3.EditValue
                                     etapa3.MinutosAntes = Me.txtMinutosAutoE3.Text
                                     etapa3.CuadrasAntes = Me.txtCuadrasAutoE3.Text
                                 Case 2, 10, 11, 12
@@ -1811,13 +1804,11 @@ Public Class ModificarViaje
                                     End If
                                     etapa3.LugarBajadaBicicleta = Me.lkpLugarBajadaBiciE3.EditValue
                                     etapa3.UsaCiclovia = Me.lkpCicloviaE3.EditValue
-                                Case 13
-                                    etapa3.MinutosAntes = Me.txtMinutosBarcazaE3.Text
-                                    etapa3.CuadrasAntes = Me.txtCuadrasBarcazaE3.Text
-                                    etapa3.MinutosEsperaBarcaza = Me.txtMinutosEsperaBarcazaE3.Text
-                                    etapa3.TarifaBarcaza = Me.txtTarifaBarcazaE3.Text
-                                    etapa3.MuelleSubidaBarcaza = Me.lkpMuelleSubidaBarcazaE3.EditValue
-                                    etapa3.MuelleBajadaBarcaza = Me.lkpMuelleBajadaBarcazaE3.EditValue
+                                    If etapa3.UsaCiclovia = 2 Then
+                                        etapa3.MotivoNoUsa = Me.txtMotivoNoUsaE3.Text
+                                    End If
+                                    etapa3.EstacionamientoBicicleta = Me.lkpEstacionamientoBiciE3.EditValue
+                                    etapa3.LugarBajadaBicicleta = Me.lkpLugarBajadaBiciE3.EditValue
                             End Select
 
                             If etapa3.ComunaDestino = 2 Then
@@ -1924,7 +1915,7 @@ Public Class ModificarViaje
 
                     Select Case etapa3.Modo
                         Case 1, 5, 9
-                            If etapa3.LugarDondeBajo = 1 Then
+                            If etapa3.LugarBajadaAuto = 1 Then
                                 actualizaEtapa = True
                             End If
                         Case 2, 10, 11, 12
@@ -1974,7 +1965,7 @@ Public Class ModificarViaje
 
                     Select Case etapa2.Modo
                         Case 1, 5, 9
-                            If etapa2.LugarDondeBajo = 1 Then
+                            If etapa2.LugarBajadaAuto = 1 Then
                                 actualizaEtapa = True
                             End If
                         Case 2, 10, 11, 12
@@ -2024,7 +2015,7 @@ Public Class ModificarViaje
 
                     Select Case etapa1.Modo
                         Case 1, 5, 9
-                            If etapa1.LugarDondeBajo = 1 Then
+                            If etapa1.LugarBajadaAuto = 1 Then
                                 actualizaEtapa = True
                             End If
                         Case 2, 10, 11, 12
@@ -2162,28 +2153,11 @@ Public Class ModificarViaje
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpPagaEstacionamientoE1_EditValueChanged(sender As Object, e As EventArgs) Handles lkpPagaEstacionamientoE1.EditValueChanged
-        Dim opcion As Integer
-        Me.spcPagoEstacionamientoE1.Collapsed = True
-        Me.txtCuantoPagoE1.Visible = False
-        Me.lkpFormaPagoE1.Visible = False
-
-        If lkpPagaEstacionamientoE1.EditValue IsNot Nothing AndAlso lkpPagaEstacionamientoE1.EditValue.ToString <> "" Then
-            opcion = lkpPagaEstacionamientoE1.EditValue
-        End If
-
-        If opcion = 1 Then
-            Me.spcPagoEstacionamientoE1.Collapsed = False
-            Me.txtCuantoPagoE1.Visible = True
-            Me.lkpFormaPagoE1.Visible = True
-        End If
-    End Sub
-
     Private Sub lkpViajaComoE2_EditValueChanged(sender As Object, e As EventArgs) Handles lkpViajaComoE2.EditValueChanged
         Dim opcion As Integer
 
         Me.spcPagoBajadaAutoE2.Collapsed = True
-        Me.lkpPagaEstacionamientoE2.Visible = False
+        Me.lkpDondeEstacionaE2.Visible = False
         Me.txtCuantoPagoE2.Visible = False
         Me.lkpFormaPagoE2.Visible = False
 
@@ -2193,7 +2167,7 @@ Public Class ModificarViaje
 
         If opcion = 1 Then
             Me.spcPagoBajadaAutoE2.Collapsed = False
-            Me.lkpPagaEstacionamientoE2.Visible = True
+            Me.lkpDondeEstacionaE2.Visible = True
             Me.txtCuantoPagoE2.Visible = True
             Me.lkpFormaPagoE2.Visible = True
 
@@ -2244,28 +2218,11 @@ Public Class ModificarViaje
         End If
     End Sub
 
-    Private Sub lkpPagaEstacionamientoE2_EditValueChanged(sender As Object, e As EventArgs) Handles lkpPagaEstacionamientoE2.EditValueChanged
-        Dim opcion As Integer
-        Me.spcPagoEstacionamientoE2.Collapsed = True
-        Me.txtCuantoPagoE2.Visible = False
-        Me.lkpFormaPagoE2.Visible = False
-
-        If lkpPagaEstacionamientoE2.EditValue IsNot Nothing AndAlso lkpPagaEstacionamientoE2.EditValue.ToString <> "" Then
-            opcion = lkpPagaEstacionamientoE2.EditValue
-        End If
-
-        If opcion = 1 Then
-            Me.spcPagoEstacionamientoE2.Collapsed = False
-            Me.txtCuantoPagoE2.Visible = True
-            Me.lkpFormaPagoE2.Visible = True
-        End If
-    End Sub
-
     Private Sub lkpViajaComoE3_EditValueChanged(sender As Object, e As EventArgs) Handles lkpViajaComoE3.EditValueChanged
         Dim opcion As Integer
 
         Me.spcPagoBajadaAutoE3.Collapsed = True
-        Me.lkpPagaEstacionamientoE3.Visible = False
+        Me.lkpDondeEstacionaE3.Visible = False
         Me.txtCuantoPagoE3.Visible = False
         Me.lkpFormaPagoE3.Visible = False
 
@@ -2275,7 +2232,7 @@ Public Class ModificarViaje
 
         If opcion = 1 Then
             Me.spcPagoBajadaAutoE3.Collapsed = False
-            Me.lkpPagaEstacionamientoE3.Visible = True
+            Me.lkpDondeEstacionaE3.Visible = True
             Me.txtCuantoPagoE3.Visible = True
             Me.lkpFormaPagoE3.Visible = True
 
@@ -2323,23 +2280,6 @@ Public Class ModificarViaje
             Catch ex As Exception
             End Try
 
-        End If
-    End Sub
-
-    Private Sub lkpPagaEstacionamientoE3_EditValueChanged(sender As Object, e As EventArgs) Handles lkpPagaEstacionamientoE3.EditValueChanged
-        Dim opcion As Integer
-        Me.spcPagoEstacionamientoE3.Collapsed = True
-        Me.txtCuantoPagoE3.Visible = False
-        Me.lkpFormaPagoE3.Visible = False
-
-        If lkpPagaEstacionamientoE3.EditValue IsNot Nothing AndAlso lkpPagaEstacionamientoE3.EditValue.ToString <> "" Then
-            opcion = lkpPagaEstacionamientoE3.EditValue
-        End If
-
-        If opcion = 1 Then
-            Me.spcPagoEstacionamientoE3.Collapsed = False
-            Me.txtCuantoPagoE3.Visible = True
-            Me.lkpFormaPagoE3.Visible = True
         End If
     End Sub
 
@@ -2602,11 +2542,11 @@ Public Class ModificarViaje
         End If
     End Sub
 
-    Private Sub lkpLugarDondeBajoE2_EditValueChanged(sender As Object, e As EventArgs) Handles lkpLugarDondeBajoE2.EditValueChanged
+    Private Sub lkpLugarDondeBajoE2_EditValueChanged(sender As Object, e As EventArgs) Handles lkpLugarBajadaAutoE2.EditValueChanged
         Dim opcion As Integer
 
-        If lkpLugarDondeBajoE2.EditValue IsNot Nothing AndAlso Me.lkpLugarDondeBajoE2.EditValue.ToString <> "" Then
-            opcion = Me.lkpLugarDondeBajoE2.EditValue
+        If lkpLugarBajadaAutoE2.EditValue IsNot Nothing AndAlso Me.lkpLugarBajadaAutoE2.EditValue.ToString <> "" Then
+            opcion = Me.lkpLugarBajadaAutoE2.EditValue
         End If
 
         'Desbloquear caminata posterior
@@ -2648,11 +2588,11 @@ Public Class ModificarViaje
         End Select
     End Sub
 
-    Private Sub lkpLugarDondeBajoE3_EditValueChanged(sender As Object, e As EventArgs) Handles lkpLugarDondeBajoE3.EditValueChanged
+    Private Sub lkpLugarDondeBajoE3_EditValueChanged(sender As Object, e As EventArgs) Handles lkpLugarBajadaAutoE3.EditValueChanged
         Dim opcion As Integer
 
-        If lkpLugarDondeBajoE3.EditValue IsNot Nothing AndAlso Me.lkpLugarDondeBajoE3.EditValue.ToString <> "" Then
-            opcion = Me.lkpLugarDondeBajoE3.EditValue
+        If lkpLugarBajadaAutoE3.EditValue IsNot Nothing AndAlso Me.lkpLugarBajadaAutoE3.EditValue.ToString <> "" Then
+            opcion = Me.lkpLugarBajadaAutoE3.EditValue
         End If
 
         'Desbloquear caminata posterior
@@ -4317,8 +4257,8 @@ Public Class ModificarViaje
         Me.txtMinutosAutoE1.Text = "0"
         Me.lkpViajaComoE1.EditValue = -1
         Me.lkpQueVehiculoE1.EditValue = -1
+        Me.lkpDondeEstacionaE1.EditValue = -1
         Me.lkpVehHogarE1.EditValue = -1
-        Me.lkpPagaEstacionamientoE1.EditValue = -1
         Me.txtCuantoPagoE1.Text = "0"
         Me.chkNSNRPagoE1.Checked = False
         Me.lkpFormaPagoE1.EditValue = -1
@@ -4353,16 +4293,9 @@ Public Class ModificarViaje
     Private Sub limpiaBiciE1()
         Me.lkpPropiedadBicicletaE1.EditValue = -1
         Me.txtPropiedadBicicletaOtraE1.Text = ""
+        Me.txtMotivoNoUsaE1.Text = ""
+        Me.lkpEstacionamientoBiciE1.EditValue = -1
         Me.lkpLugarBajadaBiciE1.EditValue = -1
-    End Sub
-
-    Private Sub limpiaBarcazaE1()
-        Me.txtCuadrasBarcazaE1.Text = ""
-        Me.txtMinutosBarcazaE1.Text = ""
-        Me.txtMinutosEsperaBarcazaE1.Text = ""
-        Me.lkpMuelleSubidaBarcazaE1.EditValue = -1
-        Me.lkpMuelleBajadaBarcazaE1.EditValue = -1
-        Me.txtTarifaBarcazaE1.Text = ""
     End Sub
 
     Private Sub limpiaAutoE2()
@@ -4371,11 +4304,11 @@ Public Class ModificarViaje
         Me.lkpViajaComoE2.EditValue = -1
         Me.lkpQueVehiculoE2.EditValue = -1
         Me.lkpVehHogarE2.EditValue = -1
-        Me.lkpPagaEstacionamientoE2.EditValue = -1
+        Me.lkpDondeEstacionaE2.EditValue = -1
         Me.txtCuantoPagoE2.Text = "0"
         Me.chkNSNRPagoE2.Checked = False
         Me.lkpFormaPagoE2.EditValue = -1
-        Me.lkpLugarDondeBajoE2.EditValue = -1
+        Me.lkpLugarBajadaAutoE2.EditValue = -1
     End Sub
 
     Private Sub limpiaBusE2()
@@ -4407,15 +4340,8 @@ Public Class ModificarViaje
         Me.lkpPropiedadBicicletaE2.EditValue = -1
         Me.txtPropiedadBicicletaOtraE2.Text = ""
         Me.lkpLugarBajadaBiciE2.EditValue = -1
-    End Sub
-
-    Private Sub limpiaBarcazaE2()
-        Me.txtCuadrasBarcazaE2.Text = ""
-        Me.txtMinutosBarcazaE2.Text = ""
-        Me.txtMinutosEsperaBarcazaE2.Text = ""
-        Me.lkpMuelleSubidaBarcazaE2.EditValue = -1
-        Me.lkpMuelleBajadaBarcazaE2.EditValue = -1
-        Me.txtTarifaBarcazaE2.Text = ""
+        Me.txtMotivoNoUsaE2.Text = ""
+        Me.lkpEstacionamientoBiciE2.EditValue = -1
     End Sub
 
     Private Sub limpiaAutoE3()
@@ -4424,11 +4350,11 @@ Public Class ModificarViaje
         Me.lkpViajaComoE3.EditValue = -1
         Me.lkpQueVehiculoE3.EditValue = -1
         Me.lkpVehHogarE3.EditValue = -1
-        Me.lkpPagaEstacionamientoE3.EditValue = -1
+        Me.lkpDondeEstacionaE3.EditValue = -1
         Me.txtCuantoPagoE3.Text = "0"
         Me.chkNSNRPagoE3.Checked = False
         Me.lkpFormaPagoE3.EditValue = -1
-        Me.lkpLugarDondeBajoE3.EditValue = -1
+        Me.lkpLugarBajadaAutoE3.EditValue = -1
     End Sub
 
     Private Sub limpiaBusE3()
@@ -4460,15 +4386,8 @@ Public Class ModificarViaje
         Me.lkpPropiedadBicicletaE3.EditValue = -1
         Me.txtPropiedadBicicletaOtraE3.Text = ""
         Me.lkpLugarBajadaBiciE3.EditValue = -1
-    End Sub
-
-    Private Sub limpiaBarcazaE3()
-        Me.txtCuadrasBarcazaE3.Text = ""
-        Me.txtMinutosBarcazaE3.Text = ""
-        Me.txtMinutosEsperaBarcazaE3.Text = ""
-        Me.lkpMuelleSubidaBarcazaE3.EditValue = -1
-        Me.lkpMuelleBajadaBarcazaE3.EditValue = -1
-        Me.txtTarifaBarcazaE3.Text = ""
+        Me.txtMotivoNoUsaE3.Text = ""
+        Me.lkpEstacionamientoBiciE3.EditValue = -1
     End Sub
 
     Private Sub lkpTrabajoDeclarado_EditValueChanged(sender As Object, e As EventArgs) Handles lkpTrabajoDeclarado.EditValueChanged
@@ -4835,9 +4754,10 @@ Public Class ModificarViaje
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpPagaEstacionamientoE1_Enter(sender As Object, e As EventArgs) Handles lkpPagaEstacionamientoE1.Enter
+    Private Sub lkpPagaEstacionamientoE1_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
+
 
     Private Function etapa1Completa(ByVal modo As Integer) As Boolean
         If modo = 7 Then
@@ -4871,31 +4791,31 @@ Public Class ModificarViaje
                         lkpViajaComoE1.Properties.Appearance.BorderColor = Nothing
 
                         If lkpViajaComoE1.EditValue = 1 Then
-                            'Campo Paga Estacionamiento
-                            If lkpPagaEstacionamientoE1.EditValue Is Nothing OrElse lkpPagaEstacionamientoE1.EditValue.ToString = "" Then
-                                completo = False
-                                lkpPagaEstacionamientoE1.Properties.Appearance.BorderColor = Color.Red
-                            Else
-                                lkpPagaEstacionamientoE1.Properties.Appearance.BorderColor = Nothing
-
-                                If lkpPagaEstacionamientoE1.EditValue = 1 Then
-                                    If Not chkNSNRPagoE1.Checked Then
-                                        'Campo Cuánto Paga
-                                        If txtCuantoPagoE1.Text = "" Then
+                            If Not chkNSNRPagoE1.Checked Then
+                                'Campo Cuánto Paga
+                                If txtCuantoPagoE1.Text = "" Then
+                                    completo = False
+                                    txtCuantoPagoE1.Properties.Appearance.BorderColor = Color.Red
+                                Else
+                                    txtCuantoPagoE1.Properties.Appearance.BorderColor = Nothing
+                                    Dim monto As Integer = Me.txtCuantoPagoE1.Text
+                                    If monto > 0 Then
+                                        'Campo Forma Pago
+                                        If lkpFormaPagoE1.EditValue Is Nothing OrElse lkpFormaPagoE1.EditValue.ToString = "" Then
                                             completo = False
-                                            txtCuantoPagoE1.Properties.Appearance.BorderColor = Color.Red
+                                            lkpFormaPagoE1.Properties.Appearance.BorderColor = Color.Red
                                         Else
-                                            txtCuantoPagoE1.Properties.Appearance.BorderColor = Nothing
+                                            lkpFormaPagoE1.Properties.Appearance.BorderColor = Nothing
                                         End If
                                     End If
+                                End If
 
-                                    'Campo Forma Pago
-                                    If lkpFormaPagoE1.EditValue Is Nothing OrElse lkpFormaPagoE1.EditValue.ToString = "" Then
-                                        completo = False
-                                        lkpFormaPagoE1.Properties.Appearance.BorderColor = Color.Red
-                                    Else
-                                        lkpFormaPagoE1.Properties.Appearance.BorderColor = Nothing
-                                    End If
+                                'Campo Donde Estaciona
+                                If lkpDondeEstacionaE1.EditValue Is Nothing OrElse lkpDondeEstacionaE1.EditValue.ToString = "" Then
+                                    completo = False
+                                    lkpDondeEstacionaE1.Properties.Appearance.BorderColor = Color.Red
+                                Else
+                                    lkpDondeEstacionaE1.Properties.Appearance.BorderColor = Nothing
                                 End If
                             End If
                         End If
@@ -5078,6 +4998,25 @@ Public Class ModificarViaje
                         lkpCicloviaE1.Properties.Appearance.BorderColor = Color.Red
                     Else
                         lkpCicloviaE1.Properties.Appearance.BorderColor = Nothing
+
+                        If txtMotivoNoUsaE1.EditValue = 2 Then
+                            'Campo Motivo No Usa
+                            If txtMotivoNoUsaE1.Text = "" Then
+                                completo = False
+                                txtMotivoNoUsaE1.Properties.Appearance.BorderColor = Color.Red
+                            Else
+                                txtMotivoNoUsaE1.Properties.Appearance.BorderColor = Nothing
+                            End If
+                        End If
+
+                    End If
+
+                    'Campo Estacionamiento Bici
+                    If lkpEstacionamientoBiciE1.EditValue Is Nothing OrElse lkpEstacionamientoBiciE1.EditValue.ToString = "" Then
+                        completo = False
+                        lkpEstacionamientoBiciE1.Properties.Appearance.BorderColor = Color.Red
+                    Else
+                        lkpEstacionamientoBiciE1.Properties.Appearance.BorderColor = Nothing
                     End If
 
                     'Campo Lugar Bajada
@@ -5087,56 +5026,9 @@ Public Class ModificarViaje
                     Else
                         lkpLugarBajadaBiciE1.Properties.Appearance.BorderColor = Nothing
                     End If
-                Case 13
-                    'Campo Minutos Antes
-                    If txtMinutosBarcazaE1.Text = "" Then
-                        completo = False
-                        txtMinutosBarcazaE1.Properties.Appearance.BorderColor = Color.Red
-                    Else
-                        txtMinutosBarcazaE1.Properties.Appearance.BorderColor = Nothing
-                    End If
 
-                    'Campo Cuadras Antes
-                    If txtCuadrasBarcazaE1.Text = "" Then
-                        completo = False
-                        txtCuadrasBarcazaE1.Properties.Appearance.BorderColor = Color.Red
-                    Else
-                        txtCuadrasBarcazaE1.Properties.Appearance.BorderColor = Nothing
-                    End If
 
-                    'Campo Minutos Espera
-                    If txtMinutosEsperaBarcazaE1.Text = "" Then
-                        completo = False
-                        txtMinutosEsperaBarcazaE1.Properties.Appearance.BorderColor = Color.Red
-                    Else
-                        txtMinutosEsperaBarcazaE1.Properties.Appearance.BorderColor = Nothing
-                    End If
-
-                    'Campo Monto Tarifa
-                    If txtTarifaBarcazaE1.Text = "" Then
-                        completo = False
-                        txtTarifaBarcazaE1.Properties.Appearance.BorderColor = Color.Red
-                    Else
-                        txtTarifaBarcazaE1.Properties.Appearance.BorderColor = Nothing
-                    End If
-
-                    'Campo Estación Subida
-                    If lkpMuelleSubidaBarcazaE1.EditValue Is Nothing OrElse lkpMuelleSubidaBarcazaE1.EditValue.ToString = "" Then
-                        completo = False
-                        lkpMuelleSubidaBarcazaE1.Properties.Appearance.BorderColor = Color.Red
-                    Else
-                        lkpMuelleSubidaBarcazaE1.Properties.Appearance.BorderColor = Nothing
-                    End If
-
-                    'Campo Estación Bajada
-                    If lkpMuelleBajadaBarcazaE1.EditValue Is Nothing OrElse lkpMuelleBajadaBarcazaE1.EditValue.ToString = "" Then
-                        completo = False
-                        lkpMuelleBajadaBarcazaE1.Properties.Appearance.BorderColor = Color.Red
-                    Else
-                        lkpMuelleBajadaBarcazaE1.Properties.Appearance.BorderColor = Nothing
-                    End If
             End Select
-
 
             If modo < 13 Then
                 'Campo Comuna Etapa1
@@ -5233,31 +5125,31 @@ Public Class ModificarViaje
                     lkpViajaComoE2.Properties.Appearance.BorderColor = Nothing
 
                     If lkpViajaComoE2.EditValue = 1 Then
-                        'Campo Paga Estacionamiento
-                        If lkpPagaEstacionamientoE2.EditValue Is Nothing OrElse lkpPagaEstacionamientoE2.EditValue.ToString = "" Then
-                            completo = False
-                            lkpPagaEstacionamientoE2.Properties.Appearance.BorderColor = Color.Red
-                        Else
-                            lkpPagaEstacionamientoE2.Properties.Appearance.BorderColor = Nothing
-
-                            If lkpPagaEstacionamientoE2.EditValue = 1 Then
-                                If Not chkNSNRPagoE2.Checked Then
-                                    'Campo Cuánto Paga
-                                    If txtCuantoPagoE2.Text = "" Then
+                        If Not chkNSNRPagoE2.Checked Then
+                            'Campo Cuánto Paga
+                            If txtCuantoPagoE2.Text = "" Then
+                                completo = False
+                                txtCuantoPagoE2.Properties.Appearance.BorderColor = Color.Red
+                            Else
+                                txtCuantoPagoE2.Properties.Appearance.BorderColor = Nothing
+                                Dim monto As Integer = Me.txtCuantoPagoE2.Text
+                                If monto > 0 Then
+                                    'Campo Forma Pago
+                                    If lkpFormaPagoE2.EditValue Is Nothing OrElse lkpFormaPagoE2.EditValue.ToString = "" Then
                                         completo = False
-                                        txtCuantoPagoE2.Properties.Appearance.BorderColor = Color.Red
+                                        lkpFormaPagoE2.Properties.Appearance.BorderColor = Color.Red
                                     Else
-                                        txtCuantoPagoE2.Properties.Appearance.BorderColor = Nothing
+                                        lkpFormaPagoE2.Properties.Appearance.BorderColor = Nothing
                                     End If
                                 End If
+                            End If
 
-                                'Campo Forma Pago
-                                If lkpFormaPagoE2.EditValue Is Nothing OrElse lkpFormaPagoE2.EditValue.ToString = "" Then
-                                    completo = False
-                                    lkpFormaPagoE2.Properties.Appearance.BorderColor = Color.Red
-                                Else
-                                    lkpFormaPagoE2.Properties.Appearance.BorderColor = Nothing
-                                End If
+                            'Campo Donde Estaciona
+                            If lkpDondeEstacionaE2.EditValue Is Nothing OrElse lkpDondeEstacionaE2.EditValue.ToString = "" Then
+                                completo = False
+                                lkpDondeEstacionaE2.Properties.Appearance.BorderColor = Color.Red
+                            Else
+                                lkpDondeEstacionaE2.Properties.Appearance.BorderColor = Nothing
                             End If
                         End If
                     End If
@@ -5440,6 +5332,25 @@ Public Class ModificarViaje
                     lkpCicloviaE2.Properties.Appearance.BorderColor = Color.Red
                 Else
                     lkpCicloviaE2.Properties.Appearance.BorderColor = Nothing
+
+                    If txtMotivoNoUsaE2.EditValue = 2 Then
+                        'Campo Motivo No Usa
+                        If txtMotivoNoUsaE2.Text = "" Then
+                            completo = False
+                            txtMotivoNoUsaE2.Properties.Appearance.BorderColor = Color.Red
+                        Else
+                            txtMotivoNoUsaE2.Properties.Appearance.BorderColor = Nothing
+                        End If
+                    End If
+
+                End If
+
+                'Campo Estacionamiento Bici
+                If lkpEstacionamientoBiciE2.EditValue Is Nothing OrElse lkpEstacionamientoBiciE2.EditValue.ToString = "" Then
+                    completo = False
+                    lkpEstacionamientoBiciE2.Properties.Appearance.BorderColor = Color.Red
+                Else
+                    lkpEstacionamientoBiciE2.Properties.Appearance.BorderColor = Nothing
                 End If
 
                 'Campo Lugar Bajada
@@ -5448,54 +5359,6 @@ Public Class ModificarViaje
                     lkpLugarBajadaBiciE2.Properties.Appearance.BorderColor = Color.Red
                 Else
                     lkpLugarBajadaBiciE2.Properties.Appearance.BorderColor = Nothing
-                End If
-            Case 13
-                'Campo Minutos Antes
-                If txtMinutosBarcazaE2.Text = "" Then
-                    completo = False
-                    txtMinutosBarcazaE2.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    txtMinutosBarcazaE2.Properties.Appearance.BorderColor = Nothing
-                End If
-
-                'Campo Cuadras Antes
-                If txtCuadrasBarcazaE2.Text = "" Then
-                    completo = False
-                    txtCuadrasBarcazaE2.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    txtCuadrasBarcazaE2.Properties.Appearance.BorderColor = Nothing
-                End If
-
-                'Campo Minutos Espera
-                If txtMinutosEsperaBarcazaE2.Text = "" Then
-                    completo = False
-                    txtMinutosEsperaBarcazaE2.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    txtMinutosEsperaBarcazaE2.Properties.Appearance.BorderColor = Nothing
-                End If
-
-                'Campo Monto Tarifa
-                If txtTarifaBarcazaE2.Text = "" Then
-                    completo = False
-                    txtTarifaBarcazaE2.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    txtTarifaBarcazaE2.Properties.Appearance.BorderColor = Nothing
-                End If
-
-                'Campo Estación Subida
-                If lkpMuelleSubidaBarcazaE2.EditValue Is Nothing OrElse lkpMuelleSubidaBarcazaE2.EditValue.ToString = "" Then
-                    completo = False
-                    lkpMuelleSubidaBarcazaE2.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    lkpMuelleSubidaBarcazaE2.Properties.Appearance.BorderColor = Nothing
-                End If
-
-                'Campo Estación Bajada
-                If lkpMuelleBajadaBarcazaE2.EditValue Is Nothing OrElse lkpMuelleBajadaBarcazaE2.EditValue.ToString = "" Then
-                    completo = False
-                    lkpMuelleBajadaBarcazaE2.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    lkpMuelleBajadaBarcazaE2.Properties.Appearance.BorderColor = Nothing
                 End If
         End Select
 
@@ -5554,6 +5417,8 @@ Public Class ModificarViaje
             End If
         End If
 
+
+
         If completo = False Then
             tabTransporte2.Appearance.Header.ForeColor = Color.Red
         Else
@@ -5592,31 +5457,31 @@ Public Class ModificarViaje
                     lkpViajaComoE3.Properties.Appearance.BorderColor = Nothing
 
                     If lkpViajaComoE3.EditValue = 1 Then
-                        'Campo Paga Estacionamiento
-                        If lkpPagaEstacionamientoE3.EditValue Is Nothing OrElse lkpPagaEstacionamientoE3.EditValue.ToString = "" Then
-                            completo = False
-                            lkpPagaEstacionamientoE3.Properties.Appearance.BorderColor = Color.Red
-                        Else
-                            lkpPagaEstacionamientoE3.Properties.Appearance.BorderColor = Nothing
-
-                            If lkpPagaEstacionamientoE3.EditValue = 1 Then
-                                If Not chkNSNRPagoE3.Checked Then
-                                    'Campo Cuánto Paga
-                                    If txtCuantoPagoE3.Text = "" Then
+                        If Not chkNSNRPagoE3.Checked Then
+                            'Campo Cuánto Paga
+                            If txtCuantoPagoE3.Text = "" Then
+                                completo = False
+                                txtCuantoPagoE3.Properties.Appearance.BorderColor = Color.Red
+                            Else
+                                txtCuantoPagoE3.Properties.Appearance.BorderColor = Nothing
+                                Dim monto As Integer = Me.txtCuantoPagoE3.Text
+                                If monto > 0 Then
+                                    'Campo Forma Pago
+                                    If lkpFormaPagoE3.EditValue Is Nothing OrElse lkpFormaPagoE3.EditValue.ToString = "" Then
                                         completo = False
-                                        txtCuantoPagoE3.Properties.Appearance.BorderColor = Color.Red
+                                        lkpFormaPagoE3.Properties.Appearance.BorderColor = Color.Red
                                     Else
-                                        txtCuantoPagoE3.Properties.Appearance.BorderColor = Nothing
+                                        lkpFormaPagoE3.Properties.Appearance.BorderColor = Nothing
                                     End If
                                 End If
+                            End If
 
-                                'Campo Forma Pago
-                                If lkpFormaPagoE3.EditValue Is Nothing OrElse lkpFormaPagoE3.EditValue.ToString = "" Then
-                                    completo = False
-                                    lkpFormaPagoE3.Properties.Appearance.BorderColor = Color.Red
-                                Else
-                                    lkpFormaPagoE3.Properties.Appearance.BorderColor = Nothing
-                                End If
+                            'Campo Donde Estaciona
+                            If lkpDondeEstacionaE3.EditValue Is Nothing OrElse lkpDondeEstacionaE3.EditValue.ToString = "" Then
+                                completo = False
+                                lkpDondeEstacionaE3.Properties.Appearance.BorderColor = Color.Red
+                            Else
+                                lkpDondeEstacionaE3.Properties.Appearance.BorderColor = Nothing
                             End If
                         End If
                     End If
@@ -5797,6 +5662,25 @@ Public Class ModificarViaje
                     lkpCicloviaE3.Properties.Appearance.BorderColor = Color.Red
                 Else
                     lkpCicloviaE3.Properties.Appearance.BorderColor = Nothing
+
+                    If txtMotivoNoUsaE3.EditValue = 2 Then
+                        'Campo Motivo No Usa
+                        If txtMotivoNoUsaE3.Text = "" Then
+                            completo = False
+                            txtMotivoNoUsaE3.Properties.Appearance.BorderColor = Color.Red
+                        Else
+                            txtMotivoNoUsaE3.Properties.Appearance.BorderColor = Nothing
+                        End If
+                    End If
+
+                End If
+
+                'Campo Estacionamiento Bici
+                If lkpEstacionamientoBiciE3.EditValue Is Nothing OrElse lkpEstacionamientoBiciE3.EditValue.ToString = "" Then
+                    completo = False
+                    lkpEstacionamientoBiciE3.Properties.Appearance.BorderColor = Color.Red
+                Else
+                    lkpEstacionamientoBiciE3.Properties.Appearance.BorderColor = Nothing
                 End If
 
                 'Campo Lugar Bajada
@@ -5806,54 +5690,7 @@ Public Class ModificarViaje
                 Else
                     lkpLugarBajadaBiciE3.Properties.Appearance.BorderColor = Nothing
                 End If
-            Case 13
-                'Campo Minutos Antes
-                If txtMinutosBarcazaE3.Text = "" Then
-                    completo = False
-                    txtMinutosBarcazaE3.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    txtMinutosBarcazaE3.Properties.Appearance.BorderColor = Nothing
-                End If
 
-                'Campo Cuadras Antes
-                If txtCuadrasBarcazaE3.Text = "" Then
-                    completo = False
-                    txtCuadrasBarcazaE3.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    txtCuadrasBarcazaE3.Properties.Appearance.BorderColor = Nothing
-                End If
-
-                'Campo Minutos Espera
-                If txtMinutosEsperaBarcazaE3.Text = "" Then
-                    completo = False
-                    txtMinutosEsperaBarcazaE3.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    txtMinutosEsperaBarcazaE3.Properties.Appearance.BorderColor = Nothing
-                End If
-
-                'Campo Monto Tarifa
-                If txtTarifaBarcazaE3.Text = "" Then
-                    completo = False
-                    txtTarifaBarcazaE3.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    txtTarifaBarcazaE3.Properties.Appearance.BorderColor = Nothing
-                End If
-
-                'Campo Estación Subida
-                If lkpMuelleSubidaBarcazaE3.EditValue Is Nothing OrElse lkpMuelleSubidaBarcazaE3.EditValue.ToString = "" Then
-                    completo = False
-                    lkpMuelleSubidaBarcazaE3.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    lkpMuelleSubidaBarcazaE3.Properties.Appearance.BorderColor = Nothing
-                End If
-
-                'Campo Estación Bajada
-                If lkpMuelleBajadaBarcazaE3.EditValue Is Nothing OrElse lkpMuelleBajadaBarcazaE3.EditValue.ToString = "" Then
-                    completo = False
-                    lkpMuelleBajadaBarcazaE3.Properties.Appearance.BorderColor = Color.Red
-                Else
-                    lkpMuelleBajadaBarcazaE3.Properties.Appearance.BorderColor = Nothing
-                End If
         End Select
 
         If modo < 13 Then
@@ -5910,6 +5747,8 @@ Public Class ModificarViaje
                 End If
             End If
         End If
+
+
 
         If completo = False Then
             tabTransporte3.Appearance.Header.ForeColor = Color.Red
@@ -6334,7 +6173,7 @@ Public Class ModificarViaje
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpLugarDondeBajoE3_Enter(sender As Object, e As EventArgs) Handles lkpLugarDondeBajoE3.Enter
+    Private Sub lkpLugarDondeBajoE3_Enter(sender As Object, e As EventArgs) Handles lkpLugarBajadaAutoE3.Enter
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
@@ -6346,11 +6185,11 @@ Public Class ModificarViaje
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpPagaEstacionamientoE3_Enter(sender As Object, e As EventArgs) Handles lkpPagaEstacionamientoE3.Enter
+    Private Sub lkpPagaEstacionamientoE3_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpFormaPagoE3_Enter(sender As Object, e As EventArgs) Handles lkpFormaPagoE3.Enter
+    Private Sub lkpFormaPagoE3_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
@@ -6390,7 +6229,7 @@ Public Class ModificarViaje
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpPagaEstacionamientoE2_Enter(sender As Object, e As EventArgs) Handles lkpPagaEstacionamientoE2.Enter
+    Private Sub lkpPagaEstacionamientoE2_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
@@ -6398,7 +6237,7 @@ Public Class ModificarViaje
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpLugarDondeBajoE2_Enter(sender As Object, e As EventArgs) Handles lkpLugarDondeBajoE2.Enter
+    Private Sub lkpLugarDondeBajoE2_Enter(sender As Object, e As EventArgs) Handles lkpLugarBajadaAutoE2.Enter
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 

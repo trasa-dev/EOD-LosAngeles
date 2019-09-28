@@ -44,7 +44,6 @@ Partial Class VentanaCarga
         Me.pictureEdit2.Properties.Appearance.Options.UseBackColor = True
         Me.pictureEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.pictureEdit2.Properties.ShowMenu = False
-        Me.pictureEdit2.Properties.ZoomAccelerationFactor = 1.0R
         Me.pictureEdit2.Size = New System.Drawing.Size(322, 180)
         Me.pictureEdit2.TabIndex = 14
         '
@@ -60,7 +59,6 @@ Partial Class VentanaCarga
         Me.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.pictureEdit1.Properties.ShowMenu = False
         Me.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze
-        Me.pictureEdit1.Properties.ZoomAccelerationFactor = 1.0R
         Me.pictureEdit1.Size = New System.Drawing.Size(141, 48)
         Me.pictureEdit1.TabIndex = 13
         '
@@ -79,7 +77,7 @@ Partial Class VentanaCarga
         Me.labelControl1.Name = "labelControl1"
         Me.labelControl1.Size = New System.Drawing.Size(87, 13)
         Me.labelControl1.TabIndex = 11
-        Me.labelControl1.Text = "Copyright © 2018"
+        Me.labelControl1.Text = "Copyright © 2019"
         '
         'marqueeProgressBarControl1
         '

@@ -35,9 +35,8 @@ Public Class NuevoHogar
     Dim folioAnterior As Integer
 
     Private Sub NuevoHogar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        Me.CombustibleTableAdapter.Fill(Me.datasetEOD.Combustible)
-
+        'TODO: esta línea de código carga datos en la tabla 'datasetEOD.TipoDiscapacidad' Puede moverla o quitarla según sea necesario.
+        Me.TipoDiscapacidadTableAdapter.Fill(Me.datasetEOD.TipoDiscapacidad)
         Me.HogarTableAdapter = New EOD.datasetEODTableAdapters.HogarTableAdapter()
         Me.VehiculoTableAdapter = New EOD.datasetEODTableAdapters.VehiculoTableAdapter()
         Me.PersonaTableAdapter = New EOD.datasetEODTableAdapters.PersonaTableAdapter()
@@ -183,7 +182,10 @@ Public Class NuevoHogar
             nuevoHogar.Propiedad = Me.lkpPropiedad.EditValue.ToString
             nuevoHogar.Telefono = Me.txtTelefono.Text
             nuevoHogar.TipoViviendaActual = Me.lkpTipoVivienda.EditValue.ToString
-            nuevoHogar.Bicicletas = Me.txtBicicletas.Text
+            nuevoHogar.IndicaGFT = Me.lkpIndicaGFT.EditValue
+            If nuevoHogar.IndicaGFT Then
+                nuevoHogar.GastoFamiliarTransporte = Me.txtMontoGFT.Text
+            End If
 
             If dataTableWaypoints IsNot Nothing Then
                 Dim rowWaypoint As DataRow = dataTableWaypoints.Rows(cbWaypoint.SelectedIndex)
@@ -203,7 +205,7 @@ Public Class NuevoHogar
                 nuevoHogar.CasaDepto = Me.txtCasaDepto.Text
             End If
 
-            
+
 
             Select Case nuevoHogar.Propiedad
                 Case 1
@@ -341,10 +343,8 @@ Public Class NuevoHogar
             nuevoVehiculo.TipoVeh = Integer.Parse(Me.lkpTipoVeh.EditValue.ToString)
             nuevoVehiculo.Propiedad = Integer.Parse(Me.lkpPropiedadVeh.EditValue.ToString)
             nuevoVehiculo.PropiedadOtro = Me.txtPropiedadVehOtro.Text
-            nuevoVehiculo.Combustible = Me.lkpCombustible.EditValue
-            If nuevoVehiculo.Combustible = 3 Then
-                nuevoVehiculo.CombustibleOtro = Me.txtCombustibleOtro.Text
-            End If
+            nuevoVehiculo.AnioFabricacion = Integer.Parse(Me.txtAnioFabricacion.Text)
+            nuevoVehiculo.TipoMotor = Integer.Parse(Me.lkpTipoMotor.EditValue.ToString)
 
             Try
                 datasetEOD.Vehiculo.Rows.Add(nuevoVehiculo)
@@ -381,8 +381,8 @@ Public Class NuevoHogar
         Me.lkpPropiedadVeh.EditValue = -1
         Me.lkpOtroVeh.EditValue = -1
         Me.txtPropiedadVehOtro.Text = ""
-        Me.lkpCombustible.EditValue = -1
-        Me.txtCombustibleOtro.Text = ""
+        Me.txtAnioFabricacion.Text = ""
+        Me.lkpTipoMotor.EditValue = -1
     End Sub
 
     Private Sub lkpSexo_Enter(sender As Object, e As EventArgs) Handles lkpSexo.Enter
@@ -1101,6 +1101,12 @@ Public Class NuevoHogar
                             filaHogar.FechaViajesDom = Me.deDomingoLV.EditValue
                     End Select
 
+                    filaHogar.PersonaConDiscapacidad = Me.lkpPersonaDiscapacidad.EditValue
+                    If filaHogar.PersonaConDiscapacidad Then
+                        filaHogar.TipoDiscapacidad = Me.lkpTipoDiscapacidad.EditValue
+                        filaHogar.DiscapacidadAutosuf = Me.lkpPersonaAutosuficiente.EditValue
+                    End If
+
                     filaHogar.NumPer = Me.numPer
                     filaHogar.NumVeh = Me.numVeh
                     filaHogar.EstadoEncuesta = 3
@@ -1134,11 +1140,11 @@ Public Class NuevoHogar
                 strCasaDepto = filaHogar.CasaDepto
             End If
 
-            Dim respuesta As DialogResult = MessageBox.Show("¿Confirma que los datos del hogar encuestado son los siguientes?" + vbCrLf + _
-                                                            "Hogar: " + strHogar + vbCrLf + _
-                                                            "Zona: " + strZona + vbCrLf + _
-                                                            "Manzana: " + strManzana + vbCrLf + _
-                                                            "Calle: " + strCalle + " - Número: " + strNumero + " - Casa/Depto: " + strCasaDepto, _
+            Dim respuesta As DialogResult = MessageBox.Show("¿Confirma que los datos del hogar encuestado son los siguientes?" + vbCrLf +
+                                                            "Hogar: " + strHogar + vbCrLf +
+                                                            "Zona: " + strZona + vbCrLf +
+                                                            "Manzana: " + strManzana + vbCrLf +
+                                                            "Calle: " + strCalle + " - Número: " + strNumero + " - Casa/Depto: " + strCasaDepto,
                                                             "Confirmación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Information)
 
             If respuesta = Windows.Forms.DialogResult.Yes Then
@@ -1161,6 +1167,11 @@ Public Class NuevoHogar
                                 filaHogar.FechaViajesDom = Me.deDomingoLV.EditValue
                         End Select
 
+                        filaHogar.PersonaConDiscapacidad = Me.lkpPersonaDiscapacidad.EditValue
+                        If filaHogar.PersonaConDiscapacidad Then
+                            filaHogar.TipoDiscapacidad = Me.lkpTipoDiscapacidad.EditValue
+                            filaHogar.DiscapacidadAutosuf = Me.lkpPersonaAutosuficiente.EditValue
+                        End If
                         filaHogar.NumPer = Me.numPer
                         filaHogar.NumVeh = Me.numVeh
                         filaHogar.EstadoEncuesta = 3
@@ -1200,19 +1211,19 @@ Public Class NuevoHogar
         End If
     End Sub
 
-    Private Sub lkpTipoDia_Enter(sender As Object, e As EventArgs) Handles lkpTipoDia.Enter
+    Private Sub lkpTipoDia_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub deFechaViajes_Enter(sender As Object, e As EventArgs) Handles deFechaViajes.Enter
+    Private Sub deFechaViajes_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, DateEdit).ShowPopup()))
     End Sub
 
-    Private Sub deSabadoLV_Enter(sender As Object, e As EventArgs) Handles deSabadoLV.Enter
+    Private Sub deSabadoLV_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, DateEdit).ShowPopup()))
     End Sub
 
-    Private Sub deFechaViajes_EditValueChanged(sender As Object, e As EventArgs) Handles deFechaViajes.EditValueChanged
+    Private Sub deFechaViajes_EditValueChanged(sender As Object, e As EventArgs)
 
         If (Not Me.lkpTipoDia.EditValue Is Nothing) Then
             Dim tipoEncuesta As Integer
@@ -1531,7 +1542,7 @@ Public Class NuevoHogar
                             txtDividendo.Focus()
                             validadorHogar.Val10 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtBicicletas.Focus()
+                            txtMontoGFT.Focus()
                             validadorHogar.Val10Resp = True
                         End If
                     ElseIf monto > 900000 Then
@@ -1542,11 +1553,11 @@ Public Class NuevoHogar
                             txtDividendo.Focus()
                             validadorHogar.Val11 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtBicicletas.Focus()
+                            txtMontoGFT.Focus()
                             validadorHogar.Val11Resp = True
                         End If
                     Else
-                        txtBicicletas.Focus()
+                        txtMontoGFT.Focus()
                     End If
                 Else
                     MessageBox.Show("No ha indicado monto de dividendo, ni ha especificado si el encuestado no sabe o no contesta la información. Corrija con uno de estos antecedentes.", "Dato requerido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -1559,7 +1570,7 @@ Public Class NuevoHogar
     Private Sub chkNSNREstima_Leave(sender As Object, e As EventArgs) Handles chkNSNREstima.Leave
         If Not txtEstimaArriendo.Focus Then
             Dim opcion As Boolean = chkNSNREstima.Checked
-            Dim estima As String = txtEstimaArriendo.Text.Replace("$", "").Replace(".", "")
+            Dim estima As String = txtEstimaArriendo.Text.Replace("$", "").Replace(".", "").Replace("€", "").Trim
             Dim monto As Integer
 
             If Not opcion Then
@@ -1574,7 +1585,7 @@ Public Class NuevoHogar
                             txtEstimaArriendo.Focus()
                             validadorHogar.Val12 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtBicicletas.Focus()
+                            txtMontoGFT.Focus()
                             validadorHogar.Val12Resp = True
                         End If
                     ElseIf monto > 900000 Then
@@ -1585,11 +1596,11 @@ Public Class NuevoHogar
                             txtEstimaArriendo.Focus()
                             validadorHogar.Val13 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtBicicletas.Focus()
+                            txtMontoGFT.Focus()
                             validadorHogar.Val13Resp = True
                         End If
                     Else
-                        txtBicicletas.Focus()
+                        txtMontoGFT.Focus()
                     End If
                 Else
                     MessageBox.Show("No ha indicado estimación de arriendo, ni ha especificado si el encuestado no sabe o no contesta la información. Corrija con uno de estos antecedentes.", "Dato requerido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -1618,7 +1629,7 @@ Public Class NuevoHogar
                             txtArriendo.Focus()
                             validadorHogar.Val12 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtBicicletas.Focus()
+                            txtMontoGFT.Focus()
                             validadorHogar.Val12Resp = True
                         End If
                     ElseIf monto > 900000 Then
@@ -1629,11 +1640,11 @@ Public Class NuevoHogar
                             txtArriendo.Focus()
                             validadorHogar.Val13 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtBicicletas.Focus()
+                            txtMontoGFT.Focus()
                             validadorHogar.Val13Resp = True
                         End If
                     Else
-                        txtBicicletas.Focus()
+                        txtMontoGFT.Focus()
                     End If
                 Else
                     MessageBox.Show("No ha indicado monto de arriendo, ni ha especificado si el encuestado no sabe o no contesta la información. Corrija con uno de estos antecedentes.", "Dato requerido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -1688,10 +1699,6 @@ Public Class NuevoHogar
         If Not pressGrabarVehiculo Then
             BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
         End If
-    End Sub
-
-    Private Sub lkpCombustible_Enter(sender As Object, e As EventArgs) Handles lkpCombustible.Enter
-        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
     Private Sub lkpPropiedadVeh_Enter(sender As Object, e As EventArgs) Handles lkpPropiedadVeh.Enter
@@ -1833,13 +1840,24 @@ Public Class NuevoHogar
             End Select
         End If
 
-        'Campo Bicicletas
-        If txtBicicletas.Text = "" Then
+        'Campo Indica GFT
+        If lkpIndicaGFT.EditValue Is Nothing OrElse lkpIndicaGFT.EditValue.ToString = "" Then
             completo = False
-            txtBicicletas.Properties.Appearance.BorderColor = Color.Red
+            lkpIndicaGFT.Properties.Appearance.BorderColor = Color.Red
+        ElseIf lkpIndicaGFT.EditValue = 1 Then
+            lkpIndicaGFT.Properties.Appearance.BorderColor = Nothing
+
+            'Campo MontoGFT
+            If txtMontoGFT.Text = "" Then
+                completo = False
+                txtMontoGFT.Properties.Appearance.BorderColor = Color.Red
+            Else
+                txtMontoGFT.Properties.Appearance.BorderColor = Nothing
+            End If
         Else
-            txtBicicletas.Properties.Appearance.BorderColor = Nothing
+            lkpIndicaGFT.Properties.Appearance.BorderColor = Nothing
         End If
+
 
         'Campo Tiene Vehiculo
         If lkpTieneVeh.EditValue Is Nothing OrElse lkpTieneVeh.EditValue.ToString = "" OrElse lkpTieneVeh.EditValue < 1 Then
@@ -1880,29 +1898,20 @@ Public Class NuevoHogar
             lkpPropiedadVeh.Properties.Appearance.BorderColor = Nothing
         End If
 
-        'Campo Marca Vehículo
-        If lkpCombustible.EditValue Is Nothing OrElse lkpCombustible.EditValue.ToString = "" OrElse lkpCombustible.EditValue < 1 Then
+        'Campo lkpTipoMotor 
+        If lkpTipoMotor.EditValue Is Nothing OrElse lkpTipoMotor.EditValue.ToString = "" OrElse lkpTipoMotor.EditValue < 1 Then
             completo = False
-            lkpCombustible.Properties.Appearance.BorderColor = Color.Red
+            lkpTipoMotor.Properties.Appearance.BorderColor = Color.Red
         Else
-            lkpCombustible.Properties.Appearance.BorderColor = Nothing
+            lkpTipoMotor.Properties.Appearance.BorderColor = Nothing
         End If
 
-        'Campo Combustible
-        If lkpCombustible.EditValue Is Nothing OrElse lkpCombustible.EditValue.ToString = "" OrElse lkpCombustible.EditValue < 1 Then
+        'Campo Año Fabricacion
+        If txtAnioFabricacion.Text = "" Then
             completo = False
-            lkpCombustible.Properties.Appearance.BorderColor = Color.Red
-        ElseIf lkpCombustible.EditValue = 3 Then
-            lkpCombustible.Properties.Appearance.BorderColor = Nothing
-            'Campo Otra Propiedad
-            If txtCombustibleOtro.Text = "" Then
-                completo = False
-                txtCombustibleOtro.Properties.Appearance.BorderColor = Color.Red
-            Else
-                txtCombustibleOtro.Properties.Appearance.BorderColor = Nothing
-            End If
+            txtAnioFabricacion.Properties.Appearance.BorderColor = Color.Red
         Else
-            lkpCombustible.Properties.Appearance.BorderColor = Nothing
+            txtAnioFabricacion.Properties.Appearance.BorderColor = Nothing
         End If
 
         'Campo Otro Vehiculo
@@ -2153,6 +2162,29 @@ Public Class NuevoHogar
     Private Function fechaCompleta() As Boolean
         Dim completo As Boolean = True
 
+        'Campo Hay Discapacitado
+        If lkpPersonaDiscapacidad.EditValue Is Nothing OrElse lkpPersonaDiscapacidad.EditValue.ToString = "" OrElse lkpPersonaDiscapacidad.EditValue < 1 Then
+            completo = False
+            lkpPersonaDiscapacidad.Properties.Appearance.BorderColor = Color.Red
+        ElseIf lkpPersonaDiscapacidad.EditValue = 1 Then
+
+            'Campo Tipo Discapacidad
+            If lkpTipoDiscapacidad.EditValue Is Nothing OrElse lkpTipoDiscapacidad.EditValue.ToString = "" OrElse lkpTipoDiscapacidad.EditValue < 1 Then
+                completo = False
+                lkpTipoDiscapacidad.Properties.Appearance.BorderColor = Color.Red
+            Else
+                lkpTipoDiscapacidad.Properties.Appearance.BorderColor = Nothing
+            End If
+
+            'Campo Autosuficiente
+            If lkpPersonaAutosuficiente.EditValue Is Nothing OrElse lkpPersonaAutosuficiente.EditValue.ToString = "" OrElse lkpPersonaAutosuficiente.EditValue < 1 Then
+                completo = False
+                lkpPersonaAutosuficiente.Properties.Appearance.BorderColor = Color.Red
+            Else
+                lkpPersonaAutosuficiente.Properties.Appearance.BorderColor = Nothing
+            End If
+        End If
+
         'Campo Tipo Encuesta
         If lkpTipoDia.EditValue Is Nothing OrElse lkpTipoDia.EditValue.ToString = "" OrElse lkpTipoDia.EditValue < 1 Then
             completo = False
@@ -2179,7 +2211,7 @@ Public Class NuevoHogar
                 deSabadoLV.Properties.Appearance.BorderColor = Nothing
             End If
         End If
-            
+
         Return completo
     End Function
 
@@ -2259,6 +2291,7 @@ Public Class NuevoHogar
         lanzaPantallaEspera = New DevExpress.XtraSplashScreen.SplashScreenManager(Me, GetType(Global.EOD.PantallaEspera), True, True)
         lanzaPantallaEspera.ShowWaitForm()
 
+        Invoke(DirectCast(AddressOf Me.fillTipoMotor, MethodInvoker))
         Invoke(DirectCast(AddressOf Me.fillZonasCat, MethodInvoker))
         Invoke(DirectCast(AddressOf Me.fillPropiedad, MethodInvoker))
         Invoke(DirectCast(AddressOf Me.fillComuna, MethodInvoker))
@@ -2579,6 +2612,9 @@ Public Class NuevoHogar
     Private Sub fillPropiedad()
         Me.PropiedadTableAdapter.Fill(Me.datasetEOD.Propiedad)
     End Sub
+    Private Sub fillTipoMotor()
+        Me.TipoMotorTableAdapter.Fill(Me.datasetEOD.TipoMotor)
+    End Sub
 
     Private Sub fillComuna()
         Me.ComunaTableAdapter.Fill(Me.datasetEOD.Comuna)
@@ -2786,16 +2822,6 @@ Public Class NuevoHogar
         Return True
     End Function
 
-    Private Sub lkpCombustible_EditValueChanged(sender As Object, e As EventArgs) Handles lkpCombustible.EditValueChanged
-        Dim opcion As Integer = IIf(lkpCombustible.EditValue IsNot Nothing AndAlso lkpCombustible.EditValue.ToString <> "", lkpCombustible.EditValue, 0)
-        Me.lblCombustibleOtro.Visible = False
-        Me.txtCombustibleOtro.Visible = False
-
-        If opcion = 3 Then
-            Me.lblCombustibleOtro.Visible = True
-            Me.txtCombustibleOtro.Visible = True
-        End If
-    End Sub
 
     Private Function coordenadasRepetidas(ByVal coordX As Double, ByVal coordY As Double) As Boolean
         Dim repetida As Boolean = False
@@ -2842,22 +2868,6 @@ Public Class NuevoHogar
         Return valida
     End Function
 
-    Private Sub txtBicicletas_Leave(sender As Object, e As EventArgs) Handles txtBicicletas.Leave
-        Dim num As Integer
-        If Integer.TryParse(txtBicicletas.Text, num) Then
-            If num > 9 Then
-                Dim confirma As DialogResult = MessageBox.Show("El encuestado posee más de 9 bicicletas, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtBicicletas.Text = ""
-                    txtBicicletas.Focus()
-                    ' validadorHogar.Val13 = False
-                ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                    'validadorHogar.Val13Resp = True
-                End If
-            End If
-        End If
-    End Sub
-
     Private Sub chkActividad_Leave(sender As Object, e As EventArgs) Handles chkActividad.Leave
         Dim relacion As Integer
         If lkpRelacion.EditValue IsNot Nothing AndAlso lkpRelacion.EditValue.ToString <> "" Then
@@ -2878,7 +2888,7 @@ Public Class NuevoHogar
 
     End Sub
 
-    Private Sub deSabadoLV_EditValueChanged(sender As Object, e As EventArgs) Handles deSabadoLV.EditValueChanged
+    Private Sub deSabadoLV_EditValueChanged(sender As Object, e As EventArgs)
         If deSabadoLV.EditValue IsNot Nothing AndAlso deSabadoLV.EditValue.ToString <> "" Then
             Dim fechaSeleccionada As DateTime = deSabadoLV.EditValue
             Dim diaSemana As Integer = fechaSeleccionada.DayOfWeek
@@ -2892,7 +2902,7 @@ Public Class NuevoHogar
         End If
     End Sub
 
-    Private Sub lkpTipoDia_EditValueChanged(sender As Object, e As EventArgs) Handles lkpTipoDia.EditValueChanged
+    Private Sub lkpTipoDia_EditValueChanged(sender As Object, e As EventArgs)
         Dim opcion As Integer
 
         If lkpTipoDia.EditValue IsNot Nothing AndAlso lkpTipoDia.EditValue.ToString <> "" Then
@@ -2930,5 +2940,47 @@ Public Class NuevoHogar
         Finally
             GC.Collect()
         End Try
+    End Sub
+
+    Private Sub lkpTipoMotor_Enter(sender As Object, e As EventArgs) Handles lkpTipoMotor.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub lkpPersonaDiscapacidad_Enter(sender As Object, e As EventArgs) Handles lkpPersonaDiscapacidad.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub lkpPersonaAutosuficiente_Enter(sender As Object, e As EventArgs) Handles lkpPersonaAutosuficiente.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub lkpTipoDiscapacidad_Enter(sender As Object, e As EventArgs) Handles lkpTipoDiscapacidad.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub lkpIndicaGFT_Enter(sender As Object, e As EventArgs) Handles lkpIndicaGFT.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub LkpPersonaDiscapacidad_EditValueChanged(sender As Object, e As EventArgs) Handles lkpPersonaDiscapacidad.EditValueChanged
+        Dim opcion As Integer = Integer.TryParse(lkpPersonaDiscapacidad.EditValue, 0)
+
+        spcDiscapacidad.Collapsed = True
+        If opcion = 1 Then
+            spcDiscapacidad.Collapsed = False
+        End If
+
+    End Sub
+
+    Private Sub LkpIndicaGFT_EditValueChanged(sender As Object, e As EventArgs) Handles lkpIndicaGFT.EditValueChanged
+        txtMontoGFT.Visible = False
+        lblMontoGFT.Visible = False
+
+        If lkpIndicaGFT.EditValue IsNot Nothing AndAlso lkpIndicaGFT.EditValue.ToString <> "" Then
+            If lkpIndicaGFT.EditValue = 1 Then
+                txtMontoGFT.Visible = True
+                lblMontoGFT.Visible = True
+            End If
+        End If
     End Sub
 End Class

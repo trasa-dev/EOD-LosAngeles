@@ -32,7 +32,11 @@ Partial Class NuevoHogar
         Me.colOpcion = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.LabelControl21 = New DevExpress.XtraEditors.LabelControl()
         Me.GroupControl3 = New DevExpress.XtraEditors.GroupControl()
-        Me.txtBicicletas = New DevExpress.XtraEditors.TextEdit()
+        Me.lblMontoGFT = New DevExpress.XtraEditors.LabelControl()
+        Me.lkpIndicaGFT = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView15 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.txtMontoGFT = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl27 = New DevExpress.XtraEditors.LabelControl()
         Me.splitPropiedadPago = New DevExpress.XtraEditors.SplitContainerControl()
         Me.lblPropiedadOtra = New DevExpress.XtraEditors.LabelControl()
@@ -105,16 +109,15 @@ Partial Class NuevoHogar
         Me.colHogar = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colVehículo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colvehiculo1 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCombustible = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTipoMotor = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.btnCancelarVeh = New DevExpress.XtraEditors.SimpleButton()
         Me.GroupControl1 = New DevExpress.XtraEditors.GroupControl()
-        Me.txtCombustibleOtro = New DevExpress.XtraEditors.TextEdit()
-        Me.lblCombustibleOtro = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpCombustible = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.CombustibleBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.GridView15 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn1 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMarcaVeh = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.lkpTipoMotor = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.TipoMotorBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.GridView19 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn2 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl26 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtAnioFabricacion = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl23 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpOtroVeh = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView13 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -260,13 +263,21 @@ Partial Class NuevoHogar
         Me.colSexo1 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.tabPageFecha = New DevExpress.XtraBars.Navigation.TabNavigationPage()
+        Me.spcDiscapacidad = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.LabelControl30 = New DevExpress.XtraEditors.LabelControl()
+        Me.lkpPersonaAutosuficiente = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView32 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn5 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.lkpTipoDiscapacidad = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.TipoDiscapacidadBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.GridView31 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn4 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl33 = New DevExpress.XtraEditors.LabelControl()
         Me.lblNotaLV = New DevExpress.XtraEditors.LabelControl()
         Me.deDomingoLV = New DevExpress.XtraEditors.DateEdit()
         Me.lblDomingoLV = New DevExpress.XtraEditors.LabelControl()
         Me.deSabadoLV = New DevExpress.XtraEditors.DateEdit()
         Me.lblSabadoLV = New DevExpress.XtraEditors.LabelControl()
-        Me.btnRechazoFecha = New DevExpress.XtraEditors.SimpleButton()
-        Me.btnGuardarEncuesta = New DevExpress.XtraEditors.SimpleButton()
         Me.deFechaViajes = New DevExpress.XtraEditors.DateEdit()
         Me.LabelControl43 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpTipoDia = New DevExpress.XtraEditors.GridLookUpEdit()
@@ -276,6 +287,13 @@ Partial Class NuevoHogar
         Me.LabelControl42 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl41 = New DevExpress.XtraEditors.LabelControl()
         Me.txtObservacion = New DevExpress.XtraEditors.MemoEdit()
+        Me.lkpPersonaDiscapacidad = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView23 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn3 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl29 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl28 = New DevExpress.XtraEditors.LabelControl()
+        Me.btnRechazoFecha = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnGuardarEncuesta = New DevExpress.XtraEditors.SimpleButton()
         Me.ResumenVehiculosTableAdapter = New EOD.datasetEODTableAdapters.ResumenVehiculosTableAdapter()
         Me.ResumenPersonasTableAdapter = New EOD.datasetEODTableAdapters.ResumenPersonasTableAdapter()
         Me.ComunaTableAdapter = New EOD.datasetEODTableAdapters.ComunaTableAdapter()
@@ -305,9 +323,10 @@ Partial Class NuevoHogar
         Me.cargaPreguntasFecha = New System.ComponentModel.BackgroundWorker()
         Me.ValidaHogarTableAdapter = New EOD.datasetEODTableAdapters.ValidaHogarTableAdapter()
         Me.ValidaPersonaTableAdapter = New EOD.datasetEODTableAdapters.ValidaPersonaTableAdapter()
-        Me.CombustibleTableAdapter = New EOD.datasetEODTableAdapters.CombustibleTableAdapter()
         Me.ConsultaCalle2TrabajoTableAdapter = New EOD.datasetEODTableAdapters.ConsultaCalle2TrabajoTableAdapter()
         Me.ConsultaCalle2EstudioTableAdapter = New EOD.datasetEODTableAdapters.ConsultaCalle2EstudioTableAdapter()
+        Me.TipoMotorTableAdapter = New EOD.datasetEODTableAdapters.TipoMotorTableAdapter()
+        Me.TipoDiscapacidadTableAdapter = New EOD.datasetEODTableAdapters.TipoDiscapacidadTableAdapter()
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tabPaneHogar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPaneHogar.SuspendLayout()
@@ -318,7 +337,9 @@ Partial Class NuevoHogar
         CType(Me.GridView9, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl3.SuspendLayout()
-        CType(Me.txtBicicletas.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lkpIndicaGFT.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView15, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtMontoGFT.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.splitPropiedadPago, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.splitPropiedadPago.SuspendLayout()
         CType(Me.txtPropiedadOtra.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -367,10 +388,10 @@ Partial Class NuevoHogar
         CType(Me.GridView7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl1.SuspendLayout()
-        CType(Me.txtCombustibleOtro.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lkpCombustible.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.CombustibleBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridView15, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lkpTipoMotor.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TipoMotorBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView19, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAnioFabricacion.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lkpOtroVeh.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView13, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPropiedadVehOtro.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -452,6 +473,13 @@ Partial Class NuevoHogar
         CType(Me.SexoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridLookUpEdit3View, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPageFecha.SuspendLayout()
+        CType(Me.spcDiscapacidad, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.spcDiscapacidad.SuspendLayout()
+        CType(Me.lkpPersonaAutosuficiente.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView32, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lkpTipoDiscapacidad.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TipoDiscapacidadBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView31, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deDomingoLV.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deDomingoLV.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.deSabadoLV.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -462,6 +490,8 @@ Partial Class NuevoHogar
         CType(Me.TipoDiaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridLookUpEdit28View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtObservacion.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lkpPersonaDiscapacidad.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView23, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -479,7 +509,7 @@ Partial Class NuevoHogar
         Me.RibbonControl.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide
         Me.RibbonControl.ShowQatLocationSelector = False
         Me.RibbonControl.ShowToolbarCustomizeItem = False
-        Me.RibbonControl.Size = New System.Drawing.Size(976, 27)
+        Me.RibbonControl.Size = New System.Drawing.Size(984, 32)
         Me.RibbonControl.Toolbar.ShowCustomizeItem = False
         '
         'tabPaneHogar
@@ -489,12 +519,12 @@ Partial Class NuevoHogar
         Me.tabPaneHogar.Controls.Add(Me.tabPagePersonas)
         Me.tabPaneHogar.Controls.Add(Me.tabPageFecha)
         Me.tabPaneHogar.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tabPaneHogar.Location = New System.Drawing.Point(0, 27)
+        Me.tabPaneHogar.Location = New System.Drawing.Point(0, 32)
         Me.tabPaneHogar.Name = "tabPaneHogar"
         Me.tabPaneHogar.Pages.AddRange(New DevExpress.XtraBars.Navigation.NavigationPageBase() {Me.tabPageHogar, Me.tabPageVehículos, Me.tabPagePersonas, Me.tabPageFecha})
-        Me.tabPaneHogar.RegularSize = New System.Drawing.Size(976, 496)
+        Me.tabPaneHogar.RegularSize = New System.Drawing.Size(984, 495)
         Me.tabPaneHogar.SelectedPage = Me.tabPageVehículos
-        Me.tabPaneHogar.Size = New System.Drawing.Size(976, 496)
+        Me.tabPaneHogar.Size = New System.Drawing.Size(984, 495)
         Me.tabPaneHogar.TabIndex = 2
         Me.tabPaneHogar.Text = "TabPane1"
         '
@@ -508,7 +538,7 @@ Partial Class NuevoHogar
         Me.tabPageHogar.Controls.Add(Me.GroupControl3)
         Me.tabPageHogar.Controls.Add(Me.GroupControl2)
         Me.tabPageHogar.Name = "tabPageHogar"
-        Me.tabPageHogar.Size = New System.Drawing.Size(958, 447)
+        Me.tabPageHogar.Size = New System.Drawing.Size(966, 451)
         '
         'btnCancelarHogar
         '
@@ -545,7 +575,7 @@ Partial Class NuevoHogar
         'lkpTieneVeh
         '
         Me.lkpTieneVeh.EditValue = ""
-        Me.lkpTieneVeh.Location = New System.Drawing.Point(806, 264)
+        Me.lkpTieneVeh.Location = New System.Drawing.Point(819, 249)
         Me.lkpTieneVeh.MenuManager = Me.RibbonControl
         Me.lkpTieneVeh.Name = "lkpTieneVeh"
         Me.lkpTieneVeh.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -597,7 +627,7 @@ Partial Class NuevoHogar
         '
         'LabelControl21
         '
-        Me.LabelControl21.Location = New System.Drawing.Point(5, 267)
+        Me.LabelControl21.Location = New System.Drawing.Point(18, 252)
         Me.LabelControl21.Name = "LabelControl21"
         Me.LabelControl21.Size = New System.Drawing.Size(788, 13)
         Me.LabelControl21.TabIndex = 34
@@ -607,35 +637,92 @@ Partial Class NuevoHogar
         '
         'GroupControl3
         '
-        Me.GroupControl3.Controls.Add(Me.txtBicicletas)
+        Me.GroupControl3.Controls.Add(Me.lblMontoGFT)
+        Me.GroupControl3.Controls.Add(Me.lkpIndicaGFT)
+        Me.GroupControl3.Controls.Add(Me.txtMontoGFT)
         Me.GroupControl3.Controls.Add(Me.LabelControl27)
         Me.GroupControl3.Controls.Add(Me.splitPropiedadPago)
         Me.GroupControl3.Controls.Add(Me.LabelControl17)
         Me.GroupControl3.Controls.Add(Me.lkpPropiedad)
         Me.GroupControl3.Location = New System.Drawing.Point(3, 135)
         Me.GroupControl3.Name = "GroupControl3"
-        Me.GroupControl3.Size = New System.Drawing.Size(925, 126)
+        Me.GroupControl3.Size = New System.Drawing.Size(925, 111)
         Me.GroupControl3.TabIndex = 9
         Me.GroupControl3.Text = "Datos generales de la vivienda"
         '
-        'txtBicicletas
+        'lblMontoGFT
         '
-        Me.txtBicicletas.Location = New System.Drawing.Point(15, 97)
-        Me.txtBicicletas.MenuManager = Me.RibbonControl
-        Me.txtBicicletas.Name = "txtBicicletas"
-        Me.txtBicicletas.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.txtBicicletas.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.txtBicicletas.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.txtBicicletas.Size = New System.Drawing.Size(37, 20)
-        Me.txtBicicletas.TabIndex = 60
+        Me.lblMontoGFT.Appearance.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
+        Me.lblMontoGFT.Appearance.Options.UseForeColor = True
+        Me.lblMontoGFT.Location = New System.Drawing.Point(535, 79)
+        Me.lblMontoGFT.Name = "lblMontoGFT"
+        Me.lblMontoGFT.Size = New System.Drawing.Size(34, 13)
+        Me.lblMontoGFT.TabIndex = 30
+        Me.lblMontoGFT.Text = "Monto:"
+        Me.lblMontoGFT.Visible = False
+        '
+        'lkpIndicaGFT
+        '
+        Me.lkpIndicaGFT.EditValue = ""
+        Me.lkpIndicaGFT.Location = New System.Drawing.Point(445, 76)
+        Me.lkpIndicaGFT.MenuManager = Me.RibbonControl
+        Me.lkpIndicaGFT.Name = "lkpIndicaGFT"
+        Me.lkpIndicaGFT.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpIndicaGFT.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpIndicaGFT.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpIndicaGFT.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpIndicaGFT.Properties.DataSource = Me.SiNoBindingSource
+        Me.lkpIndicaGFT.Properties.DisplayMember = "Opcion"
+        Me.lkpIndicaGFT.Properties.ImmediatePopup = True
+        Me.lkpIndicaGFT.Properties.PopupFormMinSize = New System.Drawing.Size(63, 40)
+        Me.lkpIndicaGFT.Properties.PopupFormSize = New System.Drawing.Size(63, 40)
+        Me.lkpIndicaGFT.Properties.ShowFooter = False
+        Me.lkpIndicaGFT.Properties.ValueMember = "Id"
+        Me.lkpIndicaGFT.Properties.View = Me.GridView15
+        Me.lkpIndicaGFT.Size = New System.Drawing.Size(63, 20)
+        Me.lkpIndicaGFT.TabIndex = 59
+        '
+        'GridView15
+        '
+        Me.GridView15.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1})
+        Me.GridView15.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView15.Name = "GridView15"
+        Me.GridView15.OptionsBehavior.Editable = False
+        Me.GridView15.OptionsCustomization.AllowFilter = False
+        Me.GridView15.OptionsCustomization.AllowGroup = False
+        Me.GridView15.OptionsCustomization.AllowSort = False
+        Me.GridView15.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView15.OptionsView.ShowColumnHeaders = False
+        Me.GridView15.OptionsView.ShowGroupPanel = False
+        Me.GridView15.OptionsView.ShowIndicator = False
+        '
+        'GridColumn1
+        '
+        Me.GridColumn1.FieldName = "Opcion"
+        Me.GridColumn1.Name = "GridColumn1"
+        Me.GridColumn1.Visible = True
+        Me.GridColumn1.VisibleIndex = 0
+        '
+        'txtMontoGFT
+        '
+        Me.txtMontoGFT.Location = New System.Drawing.Point(578, 76)
+        Me.txtMontoGFT.MenuManager = Me.RibbonControl
+        Me.txtMontoGFT.Name = "txtMontoGFT"
+        Me.txtMontoGFT.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.txtMontoGFT.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.txtMontoGFT.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.txtMontoGFT.Size = New System.Drawing.Size(87, 20)
+        Me.txtMontoGFT.TabIndex = 60
+        Me.txtMontoGFT.Visible = False
         '
         'LabelControl27
         '
         Me.LabelControl27.Location = New System.Drawing.Point(16, 79)
         Me.LabelControl27.Name = "LabelControl27"
-        Me.LabelControl27.Size = New System.Drawing.Size(285, 13)
+        Me.LabelControl27.Size = New System.Drawing.Size(414, 13)
         Me.LabelControl27.TabIndex = 28
-        Me.LabelControl27.Text = "¿Cuántas bicicletas para adulto tiene disponibles para usar?"
+        Me.LabelControl27.Text = "¿Nos podría indicar aproximadamente cuánto es el gasto familiar en transporte al " &
+    "mes?"
         '
         'splitPropiedadPago
         '
@@ -1334,7 +1421,7 @@ Partial Class NuevoHogar
         Me.tabPageVehículos.Controls.Add(Me.GroupControl1)
         Me.tabPageVehículos.Controls.Add(Me.btnGuardarVehiculo)
         Me.tabPageVehículos.Name = "tabPageVehículos"
-        Me.tabPageVehículos.Size = New System.Drawing.Size(958, 451)
+        Me.tabPageVehículos.Size = New System.Drawing.Size(966, 451)
         '
         'btnRechazoVehiculo
         '
@@ -1380,7 +1467,7 @@ Partial Class NuevoHogar
         '
         'GridView7
         '
-        Me.GridView7.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colHogar, Me.colVehículo, Me.colvehiculo1, Me.colCombustible})
+        Me.GridView7.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colHogar, Me.colVehículo, Me.colvehiculo1, Me.colTipoMotor})
         Me.GridView7.GridControl = Me.GridControl1
         Me.GridView7.Name = "GridView7"
         Me.GridView7.OptionsBehavior.Editable = False
@@ -1408,14 +1495,14 @@ Partial Class NuevoHogar
         Me.colvehiculo1.VisibleIndex = 1
         Me.colvehiculo1.Width = 327
         '
-        'colCombustible
+        'colTipoMotor
         '
-        Me.colCombustible.FieldName = "Combustible"
-        Me.colCombustible.Name = "colCombustible"
-        Me.colCombustible.OptionsColumn.AllowEdit = False
-        Me.colCombustible.Visible = True
-        Me.colCombustible.VisibleIndex = 2
-        Me.colCombustible.Width = 95
+        Me.colTipoMotor.FieldName = "TipoMotor"
+        Me.colTipoMotor.Name = "colTipoMotor"
+        Me.colTipoMotor.OptionsColumn.AllowEdit = False
+        Me.colTipoMotor.Visible = True
+        Me.colTipoMotor.VisibleIndex = 2
+        Me.colTipoMotor.Width = 95
         '
         'btnCancelarVeh
         '
@@ -1427,7 +1514,7 @@ Partial Class NuevoHogar
         Me.btnCancelarVeh.Appearance.Options.UseBorderColor = True
         Me.btnCancelarVeh.Appearance.Options.UseForeColor = True
         Me.btnCancelarVeh.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnCancelarVeh.Location = New System.Drawing.Point(376, 156)
+        Me.btnCancelarVeh.Location = New System.Drawing.Point(376, 169)
         Me.btnCancelarVeh.Name = "btnCancelarVeh"
         Me.btnCancelarVeh.Size = New System.Drawing.Size(85, 28)
         Me.btnCancelarVeh.TabIndex = 8
@@ -1435,9 +1522,9 @@ Partial Class NuevoHogar
         '
         'GroupControl1
         '
-        Me.GroupControl1.Controls.Add(Me.txtCombustibleOtro)
-        Me.GroupControl1.Controls.Add(Me.lblCombustibleOtro)
-        Me.GroupControl1.Controls.Add(Me.lkpCombustible)
+        Me.GroupControl1.Controls.Add(Me.lkpTipoMotor)
+        Me.GroupControl1.Controls.Add(Me.LabelControl26)
+        Me.GroupControl1.Controls.Add(Me.txtAnioFabricacion)
         Me.GroupControl1.Controls.Add(Me.LabelControl23)
         Me.GroupControl1.Controls.Add(Me.lkpOtroVeh)
         Me.GroupControl1.Controls.Add(Me.LabelControl11)
@@ -1449,95 +1536,89 @@ Partial Class NuevoHogar
         Me.GroupControl1.Controls.Add(Me.lkpTipoVeh)
         Me.GroupControl1.Location = New System.Drawing.Point(3, 3)
         Me.GroupControl1.Name = "GroupControl1"
-        Me.GroupControl1.Size = New System.Drawing.Size(458, 147)
+        Me.GroupControl1.Size = New System.Drawing.Size(458, 160)
         Me.GroupControl1.TabIndex = 1
         Me.GroupControl1.Text = "Datos generales del vehículo"
         '
-        'txtCombustibleOtro
+        'lkpTipoMotor
         '
-        Me.txtCombustibleOtro.Location = New System.Drawing.Point(340, 81)
-        Me.txtCombustibleOtro.MenuManager = Me.RibbonControl
-        Me.txtCombustibleOtro.Name = "txtCombustibleOtro"
-        Me.txtCombustibleOtro.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.txtCombustibleOtro.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.txtCombustibleOtro.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.txtCombustibleOtro.Size = New System.Drawing.Size(102, 20)
-        Me.txtCombustibleOtro.TabIndex = 5
-        Me.txtCombustibleOtro.Visible = False
+        Me.lkpTipoMotor.EditValue = ""
+        Me.lkpTipoMotor.Location = New System.Drawing.Point(152, 107)
+        Me.lkpTipoMotor.MenuManager = Me.RibbonControl
+        Me.lkpTipoMotor.Name = "lkpTipoMotor"
+        Me.lkpTipoMotor.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpTipoMotor.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpTipoMotor.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpTipoMotor.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpTipoMotor.Properties.DataSource = Me.TipoMotorBindingSource
+        Me.lkpTipoMotor.Properties.DisplayMember = "TipoMotor"
+        Me.lkpTipoMotor.Properties.ImmediatePopup = True
+        Me.lkpTipoMotor.Properties.PopupFormMinSize = New System.Drawing.Size(215, 120)
+        Me.lkpTipoMotor.Properties.PopupFormSize = New System.Drawing.Size(215, 120)
+        Me.lkpTipoMotor.Properties.ShowFooter = False
+        Me.lkpTipoMotor.Properties.ValueMember = "ID"
+        Me.lkpTipoMotor.Properties.View = Me.GridView19
+        Me.lkpTipoMotor.Size = New System.Drawing.Size(215, 20)
+        Me.lkpTipoMotor.TabIndex = 5
         '
-        'lblCombustibleOtro
+        'TipoMotorBindingSource
         '
-        Me.lblCombustibleOtro.Location = New System.Drawing.Point(312, 84)
-        Me.lblCombustibleOtro.Name = "lblCombustibleOtro"
-        Me.lblCombustibleOtro.Size = New System.Drawing.Size(22, 13)
-        Me.lblCombustibleOtro.TabIndex = 12
-        Me.lblCombustibleOtro.Text = "Otro"
-        Me.lblCombustibleOtro.Visible = False
+        Me.TipoMotorBindingSource.DataMember = "TipoMotor"
+        Me.TipoMotorBindingSource.DataSource = Me.datasetEOD
         '
-        'lkpCombustible
+        'GridView19
         '
-        Me.lkpCombustible.EditValue = ""
-        Me.lkpCombustible.Location = New System.Drawing.Point(176, 81)
-        Me.lkpCombustible.MenuManager = Me.RibbonControl
-        Me.lkpCombustible.Name = "lkpCombustible"
-        Me.lkpCombustible.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpCombustible.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpCombustible.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpCombustible.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpCombustible.Properties.DataSource = Me.CombustibleBindingSource
-        Me.lkpCombustible.Properties.DisplayMember = "Combustible"
-        Me.lkpCombustible.Properties.ImmediatePopup = True
-        Me.lkpCombustible.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains
-        Me.lkpCombustible.Properties.PopupFormMinSize = New System.Drawing.Size(120, 60)
-        Me.lkpCombustible.Properties.PopupFormSize = New System.Drawing.Size(120, 60)
-        Me.lkpCombustible.Properties.ShowFooter = False
-        Me.lkpCombustible.Properties.ValueMember = "ID"
-        Me.lkpCombustible.Properties.View = Me.GridView15
-        Me.lkpCombustible.Size = New System.Drawing.Size(120, 20)
-        Me.lkpCombustible.TabIndex = 4
+        Me.GridView19.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn2})
+        Me.GridView19.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView19.Name = "GridView19"
+        Me.GridView19.OptionsCustomization.AllowFilter = False
+        Me.GridView19.OptionsCustomization.AllowGroup = False
+        Me.GridView19.OptionsCustomization.AllowSort = False
+        Me.GridView19.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView19.OptionsView.ShowColumnHeaders = False
+        Me.GridView19.OptionsView.ShowGroupPanel = False
+        Me.GridView19.OptionsView.ShowIndicator = False
         '
-        'CombustibleBindingSource
+        'GridColumn2
         '
-        Me.CombustibleBindingSource.DataMember = "Combustible"
-        Me.CombustibleBindingSource.DataSource = Me.datasetEOD
+        Me.GridColumn2.FieldName = "TipoMotor"
+        Me.GridColumn2.Name = "GridColumn2"
+        Me.GridColumn2.Visible = True
+        Me.GridColumn2.VisibleIndex = 0
         '
-        'GridView15
+        'LabelControl26
         '
-        Me.GridView15.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1, Me.colMarcaVeh})
-        Me.GridView15.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView15.Name = "GridView15"
-        Me.GridView15.OptionsCustomization.AllowFilter = False
-        Me.GridView15.OptionsCustomization.AllowGroup = False
-        Me.GridView15.OptionsCustomization.AllowSort = False
-        Me.GridView15.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView15.OptionsView.ShowColumnHeaders = False
-        Me.GridView15.OptionsView.ShowGroupPanel = False
-        Me.GridView15.OptionsView.ShowIndicator = False
+        Me.LabelControl26.Location = New System.Drawing.Point(14, 110)
+        Me.LabelControl26.Name = "LabelControl26"
+        Me.LabelControl26.Size = New System.Drawing.Size(124, 13)
+        Me.LabelControl26.TabIndex = 14
+        Me.LabelControl26.Text = "¿Qué tipo de motor tiene?"
         '
-        'GridColumn1
+        'txtAnioFabricacion
         '
-        Me.GridColumn1.FieldName = "ID"
-        Me.GridColumn1.Name = "GridColumn1"
-        '
-        'colMarcaVeh
-        '
-        Me.colMarcaVeh.FieldName = "Combustible"
-        Me.colMarcaVeh.Name = "colMarcaVeh"
-        Me.colMarcaVeh.Visible = True
-        Me.colMarcaVeh.VisibleIndex = 0
+        Me.txtAnioFabricacion.Location = New System.Drawing.Point(167, 81)
+        Me.txtAnioFabricacion.MenuManager = Me.RibbonControl
+        Me.txtAnioFabricacion.Name = "txtAnioFabricacion"
+        Me.txtAnioFabricacion.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.txtAnioFabricacion.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.txtAnioFabricacion.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.txtAnioFabricacion.Properties.Mask.EditMask = "n0"
+        Me.txtAnioFabricacion.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtAnioFabricacion.Size = New System.Drawing.Size(102, 20)
+        Me.txtAnioFabricacion.TabIndex = 4
         '
         'LabelControl23
         '
         Me.LabelControl23.Location = New System.Drawing.Point(14, 84)
         Me.LabelControl23.Name = "LabelControl23"
-        Me.LabelControl23.Size = New System.Drawing.Size(145, 13)
+        Me.LabelControl23.Size = New System.Drawing.Size(147, 13)
         Me.LabelControl23.TabIndex = 10
-        Me.LabelControl23.Text = "¿Qué tipo de combustible usa?"
+        Me.LabelControl23.Text = "¿Cuál es el año de fabricación?"
         '
         'lkpOtroVeh
         '
         Me.lkpOtroVeh.EditValue = ""
-        Me.lkpOtroVeh.Location = New System.Drawing.Point(245, 107)
+        Me.lkpOtroVeh.Location = New System.Drawing.Point(245, 133)
         Me.lkpOtroVeh.MenuManager = Me.RibbonControl
         Me.lkpOtroVeh.Name = "lkpOtroVeh"
         Me.lkpOtroVeh.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1577,7 +1658,7 @@ Partial Class NuevoHogar
         '
         'LabelControl11
         '
-        Me.LabelControl11.Location = New System.Drawing.Point(14, 110)
+        Me.LabelControl11.Location = New System.Drawing.Point(14, 136)
         Me.LabelControl11.Name = "LabelControl11"
         Me.LabelControl11.Size = New System.Drawing.Size(225, 13)
         Me.LabelControl11.TabIndex = 8
@@ -1685,8 +1766,8 @@ Partial Class NuevoHogar
         Me.lkpTipoVeh.Properties.DataSource = Me.TipoVehBindingSource
         Me.lkpTipoVeh.Properties.DisplayMember = "vehiculo"
         Me.lkpTipoVeh.Properties.ImmediatePopup = True
-        Me.lkpTipoVeh.Properties.PopupFormMinSize = New System.Drawing.Size(290, 180)
-        Me.lkpTipoVeh.Properties.PopupFormSize = New System.Drawing.Size(290, 180)
+        Me.lkpTipoVeh.Properties.PopupFormMinSize = New System.Drawing.Size(350, 180)
+        Me.lkpTipoVeh.Properties.PopupFormSize = New System.Drawing.Size(350, 180)
         Me.lkpTipoVeh.Properties.ShowFooter = False
         Me.lkpTipoVeh.Properties.ValueMember = "ID"
         Me.lkpTipoVeh.Properties.View = Me.GridView2
@@ -1730,7 +1811,7 @@ Partial Class NuevoHogar
         Me.btnGuardarVehiculo.Appearance.Options.UseBorderColor = True
         Me.btnGuardarVehiculo.Appearance.Options.UseForeColor = True
         Me.btnGuardarVehiculo.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnGuardarVehiculo.Location = New System.Drawing.Point(285, 156)
+        Me.btnGuardarVehiculo.Location = New System.Drawing.Point(285, 169)
         Me.btnGuardarVehiculo.Name = "btnGuardarVehiculo"
         Me.btnGuardarVehiculo.Size = New System.Drawing.Size(85, 28)
         Me.btnGuardarVehiculo.TabIndex = 7
@@ -1758,7 +1839,7 @@ Partial Class NuevoHogar
         Me.tabPagePersonas.Controls.Add(Me.lkpSexo)
         Me.tabPagePersonas.Controls.Add(Me.LabelControl2)
         Me.tabPagePersonas.Name = "tabPagePersonas"
-        Me.tabPagePersonas.Size = New System.Drawing.Size(958, 447)
+        Me.tabPagePersonas.Size = New System.Drawing.Size(966, 451)
         '
         'btnRechazoPersona
         '
@@ -3180,30 +3261,154 @@ Partial Class NuevoHogar
         'tabPageFecha
         '
         Me.tabPageFecha.Caption = "4. Día de viajes"
-        Me.tabPageFecha.Controls.Add(Me.lblNotaLV)
-        Me.tabPageFecha.Controls.Add(Me.deDomingoLV)
-        Me.tabPageFecha.Controls.Add(Me.lblDomingoLV)
-        Me.tabPageFecha.Controls.Add(Me.deSabadoLV)
-        Me.tabPageFecha.Controls.Add(Me.lblSabadoLV)
+        Me.tabPageFecha.Controls.Add(Me.spcDiscapacidad)
+        Me.tabPageFecha.Controls.Add(Me.lkpPersonaDiscapacidad)
+        Me.tabPageFecha.Controls.Add(Me.LabelControl29)
+        Me.tabPageFecha.Controls.Add(Me.LabelControl28)
         Me.tabPageFecha.Controls.Add(Me.btnRechazoFecha)
         Me.tabPageFecha.Controls.Add(Me.btnGuardarEncuesta)
-        Me.tabPageFecha.Controls.Add(Me.deFechaViajes)
-        Me.tabPageFecha.Controls.Add(Me.LabelControl43)
-        Me.tabPageFecha.Controls.Add(Me.lkpTipoDia)
-        Me.tabPageFecha.Controls.Add(Me.LabelControl42)
-        Me.tabPageFecha.Controls.Add(Me.LabelControl41)
-        Me.tabPageFecha.Controls.Add(Me.txtObservacion)
         Me.tabPageFecha.Name = "tabPageFecha"
-        Me.tabPageFecha.Size = New System.Drawing.Size(958, 451)
+        Me.tabPageFecha.Size = New System.Drawing.Size(966, 451)
+        '
+        'spcDiscapacidad
+        '
+        Me.spcDiscapacidad.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
+        Me.spcDiscapacidad.Horizontal = False
+        Me.spcDiscapacidad.Location = New System.Drawing.Point(174, 92)
+        Me.spcDiscapacidad.Name = "spcDiscapacidad"
+        Me.spcDiscapacidad.Panel1.Controls.Add(Me.LabelControl30)
+        Me.spcDiscapacidad.Panel1.Controls.Add(Me.lkpPersonaAutosuficiente)
+        Me.spcDiscapacidad.Panel1.Controls.Add(Me.lkpTipoDiscapacidad)
+        Me.spcDiscapacidad.Panel1.Controls.Add(Me.LabelControl33)
+        Me.spcDiscapacidad.Panel1.Text = "Panel1"
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.lblNotaLV)
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.deDomingoLV)
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.lblDomingoLV)
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.deSabadoLV)
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.lblSabadoLV)
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.deFechaViajes)
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.LabelControl43)
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.lkpTipoDia)
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.LabelControl42)
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.LabelControl41)
+        Me.spcDiscapacidad.Panel2.Controls.Add(Me.txtObservacion)
+        Me.spcDiscapacidad.Panel2.Text = "Panel2"
+        Me.spcDiscapacidad.Size = New System.Drawing.Size(621, 243)
+        Me.spcDiscapacidad.SplitterPosition = 60
+        Me.spcDiscapacidad.TabIndex = 54
+        Me.spcDiscapacidad.Text = "SplitContainerControl1"
+        '
+        'LabelControl30
+        '
+        Me.LabelControl30.Location = New System.Drawing.Point(17, 3)
+        Me.LabelControl30.Name = "LabelControl30"
+        Me.LabelControl30.Size = New System.Drawing.Size(137, 13)
+        Me.LabelControl30.TabIndex = 51
+        Me.LabelControl30.Text = "Indicar tipo de discapacidad:"
+        '
+        'lkpPersonaAutosuficiente
+        '
+        Me.lkpPersonaAutosuficiente.EditValue = ""
+        Me.lkpPersonaAutosuficiente.Location = New System.Drawing.Point(175, 33)
+        Me.lkpPersonaAutosuficiente.MenuManager = Me.RibbonControl
+        Me.lkpPersonaAutosuficiente.Name = "lkpPersonaAutosuficiente"
+        Me.lkpPersonaAutosuficiente.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpPersonaAutosuficiente.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpPersonaAutosuficiente.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpPersonaAutosuficiente.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpPersonaAutosuficiente.Properties.DataSource = Me.SiNoBindingSource
+        Me.lkpPersonaAutosuficiente.Properties.DisplayMember = "Opcion"
+        Me.lkpPersonaAutosuficiente.Properties.ImmediatePopup = True
+        Me.lkpPersonaAutosuficiente.Properties.PopupFormMinSize = New System.Drawing.Size(95, 40)
+        Me.lkpPersonaAutosuficiente.Properties.PopupFormSize = New System.Drawing.Size(95, 40)
+        Me.lkpPersonaAutosuficiente.Properties.ShowFooter = False
+        Me.lkpPersonaAutosuficiente.Properties.ValueMember = "Id"
+        Me.lkpPersonaAutosuficiente.Properties.View = Me.GridView32
+        Me.lkpPersonaAutosuficiente.Size = New System.Drawing.Size(95, 20)
+        Me.lkpPersonaAutosuficiente.TabIndex = 47
+        '
+        'GridView32
+        '
+        Me.GridView32.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn5})
+        Me.GridView32.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView32.Name = "GridView32"
+        Me.GridView32.OptionsCustomization.AllowFilter = False
+        Me.GridView32.OptionsCustomization.AllowGroup = False
+        Me.GridView32.OptionsCustomization.AllowSort = False
+        Me.GridView32.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView32.OptionsView.ShowColumnHeaders = False
+        Me.GridView32.OptionsView.ShowGroupPanel = False
+        Me.GridView32.OptionsView.ShowIndicator = False
+        '
+        'GridColumn5
+        '
+        Me.GridColumn5.FieldName = "Opcion"
+        Me.GridColumn5.Name = "GridColumn5"
+        Me.GridColumn5.Visible = True
+        Me.GridColumn5.VisibleIndex = 0
+        '
+        'lkpTipoDiscapacidad
+        '
+        Me.lkpTipoDiscapacidad.EditValue = ""
+        Me.lkpTipoDiscapacidad.Location = New System.Drawing.Point(175, 0)
+        Me.lkpTipoDiscapacidad.MenuManager = Me.RibbonControl
+        Me.lkpTipoDiscapacidad.Name = "lkpTipoDiscapacidad"
+        Me.lkpTipoDiscapacidad.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpTipoDiscapacidad.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpTipoDiscapacidad.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpTipoDiscapacidad.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpTipoDiscapacidad.Properties.DataSource = Me.TipoDiscapacidadBindingSource
+        Me.lkpTipoDiscapacidad.Properties.DisplayMember = "TipoDiscapacidad"
+        Me.lkpTipoDiscapacidad.Properties.PopupFormMinSize = New System.Drawing.Size(431, 80)
+        Me.lkpTipoDiscapacidad.Properties.PopupFormSize = New System.Drawing.Size(431, 80)
+        Me.lkpTipoDiscapacidad.Properties.ShowFooter = False
+        Me.lkpTipoDiscapacidad.Properties.ValueMember = "ID"
+        Me.lkpTipoDiscapacidad.Properties.View = Me.GridView31
+        Me.lkpTipoDiscapacidad.Size = New System.Drawing.Size(431, 20)
+        Me.lkpTipoDiscapacidad.TabIndex = 46
+        '
+        'TipoDiscapacidadBindingSource
+        '
+        Me.TipoDiscapacidadBindingSource.DataMember = "TipoDiscapacidad"
+        Me.TipoDiscapacidadBindingSource.DataSource = Me.datasetEOD
+        '
+        'GridView31
+        '
+        Me.GridView31.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn4})
+        Me.GridView31.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView31.Name = "GridView31"
+        Me.GridView31.OptionsBehavior.Editable = False
+        Me.GridView31.OptionsCustomization.AllowFilter = False
+        Me.GridView31.OptionsCustomization.AllowGroup = False
+        Me.GridView31.OptionsCustomization.AllowSort = False
+        Me.GridView31.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView31.OptionsView.ShowColumnHeaders = False
+        Me.GridView31.OptionsView.ShowGroupPanel = False
+        Me.GridView31.OptionsView.ShowIndicator = False
+        '
+        'GridColumn4
+        '
+        Me.GridColumn4.FieldName = "TipoDiscapacidad"
+        Me.GridColumn4.Name = "GridColumn4"
+        Me.GridColumn4.Visible = True
+        Me.GridColumn4.VisibleIndex = 0
+        '
+        'LabelControl33
+        '
+        Me.LabelControl33.Location = New System.Drawing.Point(17, 36)
+        Me.LabelControl33.Name = "LabelControl33"
+        Me.LabelControl33.Size = New System.Drawing.Size(148, 13)
+        Me.LabelControl33.TabIndex = 52
+        Me.LabelControl33.Text = "¿La persona es autosuficiente?"
         '
         'lblNotaLV
         '
         Me.lblNotaLV.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Italic)
         Me.lblNotaLV.Appearance.Options.UseFont = True
-        Me.lblNotaLV.Location = New System.Drawing.Point(465, 277)
+        Me.lblNotaLV.Location = New System.Drawing.Point(465, 123)
         Me.lblNotaLV.Name = "lblNotaLV"
         Me.lblNotaLV.Size = New System.Drawing.Size(91, 13)
-        Me.lblNotaLV.TabIndex = 46
+        Me.lblNotaLV.TabIndex = 57
         Me.lblNotaLV.Text = "(Autocompletado):"
         Me.lblNotaLV.Visible = False
         '
@@ -3211,7 +3416,7 @@ Partial Class NuevoHogar
         '
         Me.deDomingoLV.EditValue = Nothing
         Me.deDomingoLV.Enabled = False
-        Me.deDomingoLV.Location = New System.Drawing.Point(322, 296)
+        Me.deDomingoLV.Location = New System.Drawing.Point(322, 142)
         Me.deDomingoLV.MenuManager = Me.RibbonControl
         Me.deDomingoLV.Name = "deDomingoLV"
         Me.deDomingoLV.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -3221,22 +3426,22 @@ Partial Class NuevoHogar
         Me.deDomingoLV.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deDomingoLV.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         Me.deDomingoLV.Size = New System.Drawing.Size(284, 20)
-        Me.deDomingoLV.TabIndex = 45
+        Me.deDomingoLV.TabIndex = 56
         Me.deDomingoLV.Visible = False
         '
         'lblDomingoLV
         '
-        Me.lblDomingoLV.Location = New System.Drawing.Point(322, 277)
+        Me.lblDomingoLV.Location = New System.Drawing.Point(322, 123)
         Me.lblDomingoLV.Name = "lblDomingoLV"
         Me.lblDomingoLV.Size = New System.Drawing.Size(137, 13)
-        Me.lblDomingoLV.TabIndex = 44
+        Me.lblDomingoLV.TabIndex = 55
         Me.lblDomingoLV.Text = "Libro de Viajes - Día domingo"
         Me.lblDomingoLV.Visible = False
         '
         'deSabadoLV
         '
         Me.deSabadoLV.EditValue = Nothing
-        Me.deSabadoLV.Location = New System.Drawing.Point(322, 248)
+        Me.deSabadoLV.Location = New System.Drawing.Point(17, 142)
         Me.deSabadoLV.MenuManager = Me.RibbonControl
         Me.deSabadoLV.Name = "deSabadoLV"
         Me.deSabadoLV.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -3246,54 +3451,22 @@ Partial Class NuevoHogar
         Me.deSabadoLV.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deSabadoLV.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         Me.deSabadoLV.Size = New System.Drawing.Size(284, 20)
-        Me.deSabadoLV.TabIndex = 4
+        Me.deSabadoLV.TabIndex = 52
         Me.deSabadoLV.Visible = False
         '
         'lblSabadoLV
         '
-        Me.lblSabadoLV.Location = New System.Drawing.Point(322, 229)
+        Me.lblSabadoLV.Location = New System.Drawing.Point(17, 123)
         Me.lblSabadoLV.Name = "lblSabadoLV"
         Me.lblSabadoLV.Size = New System.Drawing.Size(136, 13)
-        Me.lblSabadoLV.TabIndex = 43
+        Me.lblSabadoLV.TabIndex = 54
         Me.lblSabadoLV.Text = "Libro de Viajes - Día sábado:"
         Me.lblSabadoLV.Visible = False
-        '
-        'btnRechazoFecha
-        '
-        Me.btnRechazoFecha.Appearance.BackColor = System.Drawing.Color.Red
-        Me.btnRechazoFecha.Appearance.BackColor2 = System.Drawing.Color.DarkRed
-        Me.btnRechazoFecha.Appearance.BorderColor = System.Drawing.Color.DarkRed
-        Me.btnRechazoFecha.Appearance.ForeColor = System.Drawing.Color.White
-        Me.btnRechazoFecha.Appearance.Options.UseBackColor = True
-        Me.btnRechazoFecha.Appearance.Options.UseBorderColor = True
-        Me.btnRechazoFecha.Appearance.Options.UseForeColor = True
-        Me.btnRechazoFecha.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnRechazoFecha.Location = New System.Drawing.Point(15, 360)
-        Me.btnRechazoFecha.Name = "btnRechazoFecha"
-        Me.btnRechazoFecha.Size = New System.Drawing.Size(128, 28)
-        Me.btnRechazoFecha.TabIndex = 41
-        Me.btnRechazoFecha.Text = "Rechazar encuesta"
-        '
-        'btnGuardarEncuesta
-        '
-        Me.btnGuardarEncuesta.Appearance.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.btnGuardarEncuesta.Appearance.BackColor2 = System.Drawing.SystemColors.HotTrack
-        Me.btnGuardarEncuesta.Appearance.BorderColor = System.Drawing.SystemColors.HotTrack
-        Me.btnGuardarEncuesta.Appearance.ForeColor = System.Drawing.Color.White
-        Me.btnGuardarEncuesta.Appearance.Options.UseBackColor = True
-        Me.btnGuardarEncuesta.Appearance.Options.UseBorderColor = True
-        Me.btnGuardarEncuesta.Appearance.Options.UseForeColor = True
-        Me.btnGuardarEncuesta.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnGuardarEncuesta.Location = New System.Drawing.Point(502, 332)
-        Me.btnGuardarEncuesta.Name = "btnGuardarEncuesta"
-        Me.btnGuardarEncuesta.Size = New System.Drawing.Size(104, 28)
-        Me.btnGuardarEncuesta.TabIndex = 5
-        Me.btnGuardarEncuesta.Text = "Guardar encuesta"
         '
         'deFechaViajes
         '
         Me.deFechaViajes.EditValue = Nothing
-        Me.deFechaViajes.Location = New System.Drawing.Point(322, 200)
+        Me.deFechaViajes.Location = New System.Drawing.Point(322, 84)
         Me.deFechaViajes.MenuManager = Me.RibbonControl
         Me.deFechaViajes.Name = "deFechaViajes"
         Me.deFechaViajes.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -3303,20 +3476,20 @@ Partial Class NuevoHogar
         Me.deFechaViajes.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.deFechaViajes.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         Me.deFechaViajes.Size = New System.Drawing.Size(284, 20)
-        Me.deFechaViajes.TabIndex = 3
+        Me.deFechaViajes.TabIndex = 51
         '
         'LabelControl43
         '
-        Me.LabelControl43.Location = New System.Drawing.Point(322, 181)
+        Me.LabelControl43.Location = New System.Drawing.Point(322, 65)
         Me.LabelControl43.Name = "LabelControl43"
         Me.LabelControl43.Size = New System.Drawing.Size(65, 13)
-        Me.LabelControl43.TabIndex = 4
+        Me.LabelControl43.TabIndex = 53
         Me.LabelControl43.Text = "Día de viajes:"
         '
         'lkpTipoDia
         '
         Me.lkpTipoDia.EditValue = ""
-        Me.lkpTipoDia.Location = New System.Drawing.Point(322, 155)
+        Me.lkpTipoDia.Location = New System.Drawing.Point(17, 84)
         Me.lkpTipoDia.MenuManager = Me.RibbonControl
         Me.lkpTipoDia.Name = "lkpTipoDia"
         Me.lkpTipoDia.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -3330,8 +3503,8 @@ Partial Class NuevoHogar
         Me.lkpTipoDia.Properties.ShowFooter = False
         Me.lkpTipoDia.Properties.ValueMember = "ID"
         Me.lkpTipoDia.Properties.View = Me.GridLookUpEdit28View
-        Me.lkpTipoDia.Size = New System.Drawing.Size(152, 20)
-        Me.lkpTipoDia.TabIndex = 2
+        Me.lkpTipoDia.Size = New System.Drawing.Size(284, 20)
+        Me.lkpTipoDia.TabIndex = 49
         '
         'TipoDiaBindingSource
         '
@@ -3361,30 +3534,121 @@ Partial Class NuevoHogar
         '
         'LabelControl42
         '
-        Me.LabelControl42.Location = New System.Drawing.Point(322, 135)
+        Me.LabelControl42.Location = New System.Drawing.Point(17, 65)
         Me.LabelControl42.Name = "LabelControl42"
         Me.LabelControl42.Size = New System.Drawing.Size(92, 13)
-        Me.LabelControl42.TabIndex = 2
+        Me.LabelControl42.TabIndex = 50
         Me.LabelControl42.Text = "¿Esta encuesta es?"
         '
         'LabelControl41
         '
-        Me.LabelControl41.Location = New System.Drawing.Point(322, 25)
+        Me.LabelControl41.Location = New System.Drawing.Point(17, 10)
         Me.LabelControl41.Name = "LabelControl41"
         Me.LabelControl41.Size = New System.Drawing.Size(190, 13)
-        Me.LabelControl41.TabIndex = 0
+        Me.LabelControl41.TabIndex = 47
         Me.LabelControl41.Text = "¿Tiene alguna observación o acotación?"
         '
         'txtObservacion
         '
-        Me.txtObservacion.Location = New System.Drawing.Point(322, 44)
+        Me.txtObservacion.Location = New System.Drawing.Point(213, 8)
         Me.txtObservacion.MenuManager = Me.RibbonControl
         Me.txtObservacion.Name = "txtObservacion"
         Me.txtObservacion.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.txtObservacion.Properties.AppearanceFocused.Options.UseBorderColor = True
         Me.txtObservacion.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.txtObservacion.Size = New System.Drawing.Size(284, 72)
-        Me.txtObservacion.TabIndex = 1
+        Me.txtObservacion.Size = New System.Drawing.Size(393, 41)
+        Me.txtObservacion.TabIndex = 48
+        '
+        'lkpPersonaDiscapacidad
+        '
+        Me.lkpPersonaDiscapacidad.EditValue = ""
+        Me.lkpPersonaDiscapacidad.Location = New System.Drawing.Point(444, 62)
+        Me.lkpPersonaDiscapacidad.MenuManager = Me.RibbonControl
+        Me.lkpPersonaDiscapacidad.Name = "lkpPersonaDiscapacidad"
+        Me.lkpPersonaDiscapacidad.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpPersonaDiscapacidad.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpPersonaDiscapacidad.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpPersonaDiscapacidad.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpPersonaDiscapacidad.Properties.DataSource = Me.SiNoBindingSource
+        Me.lkpPersonaDiscapacidad.Properties.DisplayMember = "Opcion"
+        Me.lkpPersonaDiscapacidad.Properties.ImmediatePopup = True
+        Me.lkpPersonaDiscapacidad.Properties.PopupFormMinSize = New System.Drawing.Size(95, 40)
+        Me.lkpPersonaDiscapacidad.Properties.PopupFormSize = New System.Drawing.Size(95, 40)
+        Me.lkpPersonaDiscapacidad.Properties.ShowFooter = False
+        Me.lkpPersonaDiscapacidad.Properties.ValueMember = "Id"
+        Me.lkpPersonaDiscapacidad.Properties.View = Me.GridView23
+        Me.lkpPersonaDiscapacidad.Size = New System.Drawing.Size(95, 20)
+        Me.lkpPersonaDiscapacidad.TabIndex = 45
+        '
+        'GridView23
+        '
+        Me.GridView23.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn3})
+        Me.GridView23.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView23.Name = "GridView23"
+        Me.GridView23.OptionsCustomization.AllowFilter = False
+        Me.GridView23.OptionsCustomization.AllowGroup = False
+        Me.GridView23.OptionsCustomization.AllowSort = False
+        Me.GridView23.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView23.OptionsView.ShowColumnHeaders = False
+        Me.GridView23.OptionsView.ShowGroupPanel = False
+        Me.GridView23.OptionsView.ShowIndicator = False
+        '
+        'GridColumn3
+        '
+        Me.GridColumn3.FieldName = "Opcion"
+        Me.GridColumn3.Name = "GridColumn3"
+        Me.GridColumn3.Visible = True
+        Me.GridColumn3.VisibleIndex = 0
+        '
+        'LabelControl29
+        '
+        Me.LabelControl29.Location = New System.Drawing.Point(191, 65)
+        Me.LabelControl29.Name = "LabelControl29"
+        Me.LabelControl29.Size = New System.Drawing.Size(247, 13)
+        Me.LabelControl29.TabIndex = 48
+        Me.LabelControl29.Text = "¿Hay alguna persona con discapacidad en el hogar?"
+        '
+        'LabelControl28
+        '
+        Me.LabelControl28.Location = New System.Drawing.Point(191, 24)
+        Me.LabelControl28.Name = "LabelControl28"
+        Me.LabelControl28.Size = New System.Drawing.Size(581, 26)
+        Me.LabelControl28.TabIndex = 47
+        Me.LabelControl28.Text = "A nivel nacional, se tiene como objetivo dar accesibilidad universal a toda la po" &
+    "blación, por lo tanto, interesa saber cuáles" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "son las limitaciones y a cuántas p" &
+    "ersonas afecta."
+        '
+        'btnRechazoFecha
+        '
+        Me.btnRechazoFecha.Appearance.BackColor = System.Drawing.Color.Red
+        Me.btnRechazoFecha.Appearance.BackColor2 = System.Drawing.Color.DarkRed
+        Me.btnRechazoFecha.Appearance.BorderColor = System.Drawing.Color.DarkRed
+        Me.btnRechazoFecha.Appearance.ForeColor = System.Drawing.Color.White
+        Me.btnRechazoFecha.Appearance.Options.UseBackColor = True
+        Me.btnRechazoFecha.Appearance.Options.UseBorderColor = True
+        Me.btnRechazoFecha.Appearance.Options.UseForeColor = True
+        Me.btnRechazoFecha.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
+        Me.btnRechazoFecha.Location = New System.Drawing.Point(193, 341)
+        Me.btnRechazoFecha.Name = "btnRechazoFecha"
+        Me.btnRechazoFecha.Size = New System.Drawing.Size(128, 28)
+        Me.btnRechazoFecha.TabIndex = 41
+        Me.btnRechazoFecha.Text = "Rechazar encuesta"
+        '
+        'btnGuardarEncuesta
+        '
+        Me.btnGuardarEncuesta.Appearance.BackColor = System.Drawing.SystemColors.HotTrack
+        Me.btnGuardarEncuesta.Appearance.BackColor2 = System.Drawing.SystemColors.HotTrack
+        Me.btnGuardarEncuesta.Appearance.BorderColor = System.Drawing.SystemColors.HotTrack
+        Me.btnGuardarEncuesta.Appearance.ForeColor = System.Drawing.Color.White
+        Me.btnGuardarEncuesta.Appearance.Options.UseBackColor = True
+        Me.btnGuardarEncuesta.Appearance.Options.UseBorderColor = True
+        Me.btnGuardarEncuesta.Appearance.Options.UseForeColor = True
+        Me.btnGuardarEncuesta.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
+        Me.btnGuardarEncuesta.Location = New System.Drawing.Point(655, 341)
+        Me.btnGuardarEncuesta.Name = "btnGuardarEncuesta"
+        Me.btnGuardarEncuesta.Size = New System.Drawing.Size(127, 28)
+        Me.btnGuardarEncuesta.TabIndex = 5
+        Me.btnGuardarEncuesta.Text = "Guardar encuesta"
         '
         'ResumenVehiculosTableAdapter
         '
@@ -3492,10 +3756,6 @@ Partial Class NuevoHogar
         '
         Me.ValidaPersonaTableAdapter.ClearBeforeFill = True
         '
-        'CombustibleTableAdapter
-        '
-        Me.CombustibleTableAdapter.ClearBeforeFill = True
-        '
         'ConsultaCalle2TrabajoTableAdapter
         '
         Me.ConsultaCalle2TrabajoTableAdapter.ClearBeforeFill = True
@@ -3504,11 +3764,19 @@ Partial Class NuevoHogar
         '
         Me.ConsultaCalle2EstudioTableAdapter.ClearBeforeFill = True
         '
+        'TipoMotorTableAdapter
+        '
+        Me.TipoMotorTableAdapter.ClearBeforeFill = True
+        '
+        'TipoDiscapacidadTableAdapter
+        '
+        Me.TipoDiscapacidadTableAdapter.ClearBeforeFill = True
+        '
         'NuevoHogar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(976, 523)
+        Me.ClientSize = New System.Drawing.Size(984, 527)
         Me.Controls.Add(Me.tabPaneHogar)
         Me.Controls.Add(Me.RibbonControl)
         Me.Name = "NuevoHogar"
@@ -3527,7 +3795,9 @@ Partial Class NuevoHogar
         CType(Me.GroupControl3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupControl3.ResumeLayout(False)
         Me.GroupControl3.PerformLayout()
-        CType(Me.txtBicicletas.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lkpIndicaGFT.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView15, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtMontoGFT.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.splitPropiedadPago, System.ComponentModel.ISupportInitialize).EndInit()
         Me.splitPropiedadPago.ResumeLayout(False)
         CType(Me.txtPropiedadOtra.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3581,10 +3851,10 @@ Partial Class NuevoHogar
         CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupControl1.ResumeLayout(False)
         Me.GroupControl1.PerformLayout()
-        CType(Me.txtCombustibleOtro.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lkpCombustible.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.CombustibleBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridView15, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lkpTipoMotor.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TipoMotorBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView19, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAnioFabricacion.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.lkpOtroVeh.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView13, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPropiedadVehOtro.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3668,6 +3938,13 @@ Partial Class NuevoHogar
         CType(Me.GridLookUpEdit3View, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabPageFecha.ResumeLayout(False)
         Me.tabPageFecha.PerformLayout()
+        CType(Me.spcDiscapacidad, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.spcDiscapacidad.ResumeLayout(False)
+        CType(Me.lkpPersonaAutosuficiente.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView32, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lkpTipoDiscapacidad.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TipoDiscapacidadBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView31, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.deDomingoLV.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.deDomingoLV.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.deSabadoLV.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3678,6 +3955,8 @@ Partial Class NuevoHogar
         CType(Me.TipoDiaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridLookUpEdit28View, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtObservacion.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lkpPersonaDiscapacidad.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView23, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -3829,13 +4108,6 @@ Partial Class NuevoHogar
     Friend WithEvents lkpTieneTNE As DevExpress.XtraEditors.GridLookUpEdit
     Friend WithEvents GridView28 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents LabelControl40 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl41 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents txtObservacion As DevExpress.XtraEditors.MemoEdit
-    Friend WithEvents LabelControl42 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents lkpTipoDia As DevExpress.XtraEditors.GridLookUpEdit
-    Friend WithEvents GridLookUpEdit28View As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents deFechaViajes As DevExpress.XtraEditors.DateEdit
-    Friend WithEvents LabelControl43 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents btnGuardarEncuesta As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents chkActividad As DevExpress.XtraEditors.CheckedComboBoxEdit
     Friend WithEvents ComunaBindingSource As System.Windows.Forms.BindingSource
@@ -3931,15 +4203,10 @@ Partial Class NuevoHogar
     Friend WithEvents colTipoViviendaActual As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colOpcion5 As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents ResumenHogaresTableAdapter1 As EOD.datasetEODTableAdapters.ResumenHogaresTableAdapter
-    Friend WithEvents colTipoDia As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents CatastroHogaresTableAdapter1 As EOD.datasetEODTableAdapters.CatastroHogaresTableAdapter
     Friend WithEvents lblReferenciaHogar As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtReferenciaHogar As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents lkpCombustible As DevExpress.XtraEditors.GridLookUpEdit
-    Friend WithEvents GridView15 As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents GridColumn1 As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents LabelControl23 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents colMarcaVeh As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents splitPropiedadPago As DevExpress.XtraEditors.SplitContainerControl
     Friend WithEvents lblPropiedadOtra As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtPropiedadOtra As DevExpress.XtraEditors.TextEdit
@@ -3959,22 +4226,53 @@ Partial Class NuevoHogar
     Friend WithEvents ValidaHogarTableAdapter As EOD.datasetEODTableAdapters.ValidaHogarTableAdapter
     Friend WithEvents ValidaPersonaTableAdapter As EOD.datasetEODTableAdapters.ValidaPersonaTableAdapter
     Friend WithEvents SplashScreenManager1 As DevExpress.XtraSplashScreen.SplashScreenManager
-    Friend WithEvents txtBicicletas As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents txtMontoGFT As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl27 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents txtCombustibleOtro As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents lblCombustibleOtro As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents CombustibleBindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents CombustibleTableAdapter As EOD.datasetEODTableAdapters.CombustibleTableAdapter
+    Friend WithEvents txtAnioFabricacion As DevExpress.XtraEditors.TextEdit
     Friend WithEvents txtDondeEstudiaOtro As DevExpress.XtraEditors.TextEdit
     Friend WithEvents lblDondeEstudiaOtro As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents colCombustible As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents deSabadoLV As DevExpress.XtraEditors.DateEdit
-    Friend WithEvents lblSabadoLV As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents deDomingoLV As DevExpress.XtraEditors.DateEdit
-    Friend WithEvents lblDomingoLV As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents lblNotaLV As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents colTipoMotor As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents ConsultaCalle2TrabajoBindingSource As BindingSource
     Friend WithEvents ConsultaCalle2TrabajoTableAdapter As datasetEODTableAdapters.ConsultaCalle2TrabajoTableAdapter
     Friend WithEvents ConsultaCalle2EstudioBindingSource As BindingSource
     Friend WithEvents ConsultaCalle2EstudioTableAdapter As datasetEODTableAdapters.ConsultaCalle2EstudioTableAdapter
+    Friend WithEvents lkpTipoMotor As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridView19 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents GridColumn2 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents LabelControl26 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents TipoMotorBindingSource As BindingSource
+    Friend WithEvents TipoMotorTableAdapter As datasetEODTableAdapters.TipoMotorTableAdapter
+    Friend WithEvents lblMontoGFT As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lkpIndicaGFT As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridView15 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents GridColumn1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents LabelControl28 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lkpPersonaAutosuficiente As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridView32 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents GridColumn5 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents LabelControl33 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lkpTipoDiscapacidad As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridView31 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents GridColumn4 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents LabelControl30 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lkpPersonaDiscapacidad As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridView23 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents GridColumn3 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents LabelControl29 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents spcDiscapacidad As DevExpress.XtraEditors.SplitContainerControl
+    Friend WithEvents lblNotaLV As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents deDomingoLV As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents lblDomingoLV As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents deSabadoLV As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents lblSabadoLV As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents deFechaViajes As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents LabelControl43 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lkpTipoDia As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridLookUpEdit28View As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents colTipoDia As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents LabelControl42 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl41 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtObservacion As DevExpress.XtraEditors.MemoEdit
+    Friend WithEvents TipoDiscapacidadBindingSource As BindingSource
+    Friend WithEvents TipoDiscapacidadTableAdapter As datasetEODTableAdapters.TipoDiscapacidadTableAdapter
 End Class

@@ -89,7 +89,11 @@ Public Class RestaurarBase
                 nuevoHogar.Hogar = IIf(hogares.Item("Hogar") IsNot DBNull.Value, hogares.Item("Hogar"), Nothing)
                 nuevoHogar.IDEncuestador = IIf(hogares.Item("IDEncuestador") IsNot DBNull.Value, hogares.Item("IDEncuestador"), Nothing)
                 Try
-                    nuevoHogar.Bicicletas = IIf(hogares.Item("Bicicletas") IsNot DBNull.Value, hogares.Item("Bicicletas"), Nothing)
+                    nuevoHogar.PersonaConDiscapacidad = IIf(hogares.Item("PersonaConDiscapacidad") IsNot DBNull.Value, hogares.Item("PersonaConDiscapacidad"), Nothing)
+                    nuevoHogar.DiscapacidadAutosuf = IIf(hogares.Item("DiscapacidadAutosuf") IsNot DBNull.Value, hogares.Item("DiscapacidadAutosuf"), Nothing)
+                    nuevoHogar.TipoDiscapacidad = IIf(hogares.Item("TipoDiscapacidad") IsNot DBNull.Value, hogares.Item("TipoDiscapacidad"), Nothing)
+                    nuevoHogar.GastoFamiliarTransporte = IIf(hogares.Item("GastoFamiliarTransporte") IsNot DBNull.Value, hogares.Item("GastoFamiliarTransporte"), Nothing)
+                    nuevoHogar.IndicaGFT = IIf(hogares.Item("IndicaGFT") IsNot DBNull.Value, hogares.Item("IndicaGFT"), Nothing)
                 Catch ex As Exception
 
                 End Try
@@ -156,8 +160,8 @@ Public Class RestaurarBase
                 nuevoVehiculo.Propiedad = IIf(vehiculos.Item("Propiedad") IsNot DBNull.Value, vehiculos.Item("Propiedad"), Nothing)
                 nuevoVehiculo.PropiedadOtro = IIf(vehiculos.Item("PropiedadOtro") IsNot DBNull.Value, vehiculos.Item("PropiedadOtro"), Nothing)
                 Try
-                    nuevoVehiculo.Combustible = IIf(vehiculos.Item("Combustible") IsNot DBNull.Value, vehiculos.Item("Combustible"), Nothing)
-                    nuevoVehiculo.CombustibleOtro = IIf(vehiculos.Item("CombustibleOtro") IsNot DBNull.Value, vehiculos.Item("CombustibleOtro"), Nothing)
+                    nuevoVehiculo.TipoMotor = IIf(vehiculos.Item("TipoMotor") IsNot DBNull.Value, vehiculos.Item("TipoMotor"), Nothing)
+                    nuevoVehiculo.AnioFabricacion = IIf(vehiculos.Item("AnioFabricacion") IsNot DBNull.Value, vehiculos.Item("AnioFabricacion"), Nothing)
                 Catch ex As Exception
 
                 End Try
@@ -375,16 +379,15 @@ Public Class RestaurarBase
                     Case 1, 5, 9
                         nuevaEtapa.ViajaComo = IIf(etapas.Item("ViajaComo") IsNot DBNull.Value, etapas.Item("ViajaComo"), Nothing)
                         nuevaEtapa.QueVehiculo = IIf(etapas.Item("QueVehiculo") IsNot DBNull.Value, etapas.Item("QueVehiculo"), Nothing)
-                        nuevaEtapa.LugarDondeBajo = IIf(etapas.Item("LugarDondeBajo") IsNot DBNull.Value, etapas.Item("LugarDondeBajo"), Nothing)
+                        nuevaEtapa.LugarBajadaAuto = IIf(etapas.Item("LugarBajadaAuto") IsNot DBNull.Value, etapas.Item("LugarBajadaAuto"), Nothing)
                         If nuevaEtapa.ViajaComo = 1 Then
-                            nuevaEtapa.PagaEstacionamiento = IIf(etapas.Item("PagaEstacionamiento") IsNot DBNull.Value, etapas.Item("PagaEstacionamiento"), Nothing)
-                            If nuevaEtapa.PagaEstacionamiento = 1 Then
-                                nuevaEtapa.CostoNSNR = IIf(etapas.Item("CostoNSNR") IsNot DBNull.Value, etapas.Item("CostoNSNR"), Nothing)
-                                If Not nuevaEtapa.CostoNSNR Then
-                                    nuevaEtapa.CostoEstacionamiento = IIf(etapas.Item("CostoEstacionamiento") IsNot DBNull.Value, etapas.Item("CostoEstacionamiento"), Nothing)
-                                End If
-                                nuevaEtapa.FormaPago = IIf(etapas.Item("FormaPago") IsNot DBNull.Value, etapas.Item("FormaPago"), Nothing)
+                            nuevaEtapa.DondeEstaciona = IIf(etapas.Item("DondeEstaciona") IsNot DBNull.Value, etapas.Item("DondeEstaciona"), Nothing)
+                            nuevaEtapa.CostoNSNR = IIf(etapas.Item("CostoNSNR") IsNot DBNull.Value, etapas.Item("CostoNSNR"), Nothing)
+                            If Not nuevaEtapa.CostoNSNR Then
+                                nuevaEtapa.CostoEstacionamiento = IIf(etapas.Item("CostoEstacionamiento") IsNot DBNull.Value, etapas.Item("CostoEstacionamiento"), Nothing)
                             End If
+                            nuevaEtapa.FormaPago = IIf(etapas.Item("FormaPago") IsNot DBNull.Value, etapas.Item("FormaPago"), Nothing)
+
                         End If
                         If nuevaEtapa.QueVehiculo = 1 Then
                             nuevaEtapa.IdVehiculoHogar = IIf(etapas.Item("IdVehiculoHogar") IsNot DBNull.Value, etapas.Item("IdVehiculoHogar"), Nothing)
@@ -411,15 +414,8 @@ Public Class RestaurarBase
                         End If
                         nuevaEtapa.LugarBajadaBicicleta = IIf(etapas.Item("LugarBajadaBicicleta") IsNot DBNull.Value, etapas.Item("LugarBajadaBicicleta"), Nothing)
                         nuevaEtapa.UsaCiclovia = IIf(etapas.Item("UsaCiclovia") IsNot DBNull.Value, etapas.Item("UsaCiclovia"), Nothing)
-                    Case 13
-                        Try
-                            nuevaEtapa.MinutosEsperaBarcaza = IIf(etapas.Item("MinutosEsperaBarcaza") IsNot DBNull.Value, etapas.Item("MinutosEsperaMetrotren"), Nothing)
-                            nuevaEtapa.MuelleSubidaBarcaza = IIf(etapas.Item("MuelleSubidaBarcaza") IsNot DBNull.Value, etapas.Item("EstacionSubidaMetrotren"), Nothing)
-                            nuevaEtapa.MuelleBajadaBarcaza = IIf(etapas.Item("MuelleBajadaBarcaza") IsNot DBNull.Value, etapas.Item("EstacionBajadaMetrotren"), Nothing)
-                            nuevaEtapa.TarifaBarcaza = IIf(etapas.Item("TarifaBarcaza") IsNot DBNull.Value, etapas.Item("TarifaMetrotren"), Nothing)
-                        Catch ex As Exception
-
-                        End Try
+                        nuevaEtapa.EstacionamientoBicicleta = IIf(etapas.Item("EstacionamientoBicicleta") IsNot DBNull.Value, etapas.Item("EstacionamientoBicicleta"), Nothing)
+                        nuevaEtapa.MotivoNoUsa = IIf(etapas.Item("MotivoNoUsa") IsNot DBNull.Value, etapas.Item("MotivoNoUsa"), Nothing)
 
                 End Select
 
@@ -779,8 +775,8 @@ Public Class RestaurarBase
                 nuevoVehiculoH.Propiedad = IIf(vehiculosH.Item("Propiedad") IsNot DBNull.Value, vehiculosH.Item("Propiedad"), Nothing)
                 nuevoVehiculoH.PropiedadOtro = IIf(vehiculosH.Item("PropiedadOtro") IsNot DBNull.Value, vehiculosH.Item("PropiedadOtro"), Nothing)
                 Try
-                    nuevoVehiculoH.Combustible = IIf(vehiculosH.Item("Combustible") IsNot DBNull.Value, vehiculosH.Item("Combustible"), Nothing)
-                    nuevoVehiculoH.CombustibleOtro = IIf(vehiculosH.Item("CombustibleOtro") IsNot DBNull.Value, vehiculosH.Item("CombustibleOtro"), Nothing)
+                    nuevoVehiculoH.TipoMotor = IIf(vehiculosH.Item("TipoMotor") IsNot DBNull.Value, vehiculosH.Item("TipoMotor"), Nothing)
+                    nuevoVehiculoH.AnioFabricacion = IIf(vehiculosH.Item("AnioFabricacion") IsNot DBNull.Value, vehiculosH.Item("AnioFabricacion"), Nothing)
                 Catch ex As Exception
 
                 End Try
@@ -974,11 +970,11 @@ Public Class RestaurarBase
                 nuevaEtapaH.QueVehiculo = IIf(etapasH.Item("QueVehiculo") IsNot DBNull.Value, etapasH.Item("QueVehiculo"), Nothing)
                 nuevaEtapaH.IdVehiculoHogar = IIf(etapasH.Item("IdVehiculoHogar") IsNot DBNull.Value, etapasH.Item("IdVehiculoHogar"), Nothing)
                 nuevaEtapaH.Autopista = IIf(etapasH.Item("Autopista") IsNot DBNull.Value, etapasH.Item("Autopista"), Nothing)
-                nuevaEtapaH.PagaEstacionamiento = IIf(etapasH.Item("PagaEstacionamiento") IsNot DBNull.Value, etapasH.Item("PagaEstacionamiento"), Nothing)
+                nuevaEtapaH.DondeEstaciona = IIf(etapasH.Item("DondeEstaciona") IsNot DBNull.Value, etapasH.Item("DondeEstaciona"), Nothing)
                 nuevaEtapaH.CostoEstacionamiento = IIf(etapasH.Item("CostoEstacionamiento") IsNot DBNull.Value, etapasH.Item("CostoEstacionamiento"), Nothing)
                 nuevaEtapaH.CostoNSNR = IIf(etapasH.Item("CostoNSNR") IsNot DBNull.Value, etapasH.Item("CostoNSNR"), Nothing)
                 nuevaEtapaH.FormaPago = IIf(etapasH.Item("FormaPago") IsNot DBNull.Value, etapasH.Item("FormaPago"), Nothing)
-                nuevaEtapaH.LugarDondeBajo = IIf(etapasH.Item("LugarDondeBajo") IsNot DBNull.Value, etapasH.Item("LugarDondeBajo"), Nothing)
+                nuevaEtapaH.LugarBajadaAuto = IIf(etapasH.Item("LugarBajadaAuto") IsNot DBNull.Value, etapasH.Item("LugarBajadaAuto"), Nothing)
                 nuevaEtapaH.TiempoEsperaBus = IIf(etapasH.Item("TiempoEsperaBus") IsNot DBNull.Value, etapasH.Item("TiempoEsperaBus"), Nothing)
                 nuevaEtapaH.TipoTarifaBus = IIf(etapasH.Item("TipoTarifaBus") IsNot DBNull.Value, etapasH.Item("TipoTarifaBus"), Nothing)
                 nuevaEtapaH.TarifaBus = IIf(etapasH.Item("TarifaBus") IsNot DBNull.Value, etapasH.Item("TarifaBus"), Nothing)
@@ -995,10 +991,9 @@ Public Class RestaurarBase
 
                 Try
                     nuevaEtapaH.UsaCiclovia = IIf(etapasH.Item("UsaCiclovia") IsNot DBNull.Value, etapasH.Item("UsaCiclovia"), Nothing)
-                    nuevaEtapaH.TarifaBarcaza = IIf(etapasH.Item("TarifaBarcaza") IsNot DBNull.Value, etapasH.Item("TarifaBarcaza"), Nothing)
-                    nuevaEtapaH.MinutosEsperaBarcaza = IIf(etapasH.Item("MinutosEsperaBarcaza") IsNot DBNull.Value, etapasH.Item("MinutosEsperaBarcaza"), Nothing)
-                    nuevaEtapaH.MuelleSubidaBarcaza = IIf(etapasH.Item("MuelleSubidaBarcaza") IsNot DBNull.Value, etapasH.Item("MuelleSubidaBarcaza"), Nothing)
-                    nuevaEtapaH.MuelleBajadaBarcaza = IIf(etapasH.Item("MuelleBajadaBarcaza") IsNot DBNull.Value, etapasH.Item("MuelleBajadaBarcaza"), Nothing)
+                    nuevaEtapaH.MotivoNoUsa = IIf(etapasH.Item("MotivoNoUsa") IsNot DBNull.Value, etapasH.Item("MotivoNoUsa"), Nothing)
+                    nuevaEtapaH.EstacionamientoBicicleta = IIf(etapasH.Item("EstacionamientoBicicleta") IsNot DBNull.Value, etapasH.Item("EstacionamientoBicicleta"), Nothing)
+
                 Catch ex As Exception
 
                 End Try

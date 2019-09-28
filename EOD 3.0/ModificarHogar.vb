@@ -23,6 +23,8 @@ Public Class ModificarHogar
     End Sub
 
     Private Sub ModificarHogar_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'TODO: esta línea de código carga datos en la tabla 'datasetEOD.TipoDiscapacidad' Puede moverla o quitarla según sea necesario.
+        Me.TipoDiscapacidadTableAdapter.Fill(Me.datasetEOD.TipoDiscapacidad)
         cargaHogarBackground.RunWorkerAsync()
         Me.deFechaViajes.Properties.MinValue = DateTime.Today.AddDays(1)
 
@@ -163,7 +165,6 @@ Public Class ModificarHogar
         Me.lkpComuna.EditValue = hogar.Comuna
         Me.txtCalle.Text = hogar.NombreCalle
         Me.txtNumero.Text = hogar.Numero
-        Me.txtBicicletas.Text = CType(hogar.Bicicletas, String)
 
         Try
             Me.txtCasaDepto.Text = hogar.CasaDepto
@@ -320,6 +321,47 @@ Public Class ModificarHogar
             End Select
         End If
 
+        'Campo Indica GFT
+        If lkpIndicaGFT.EditValue Is Nothing OrElse lkpIndicaGFT.EditValue.ToString = "" Then
+            completo = False
+            lkpIndicaGFT.Properties.Appearance.BorderColor = Color.Red
+        ElseIf lkpIndicaGFT.EditValue = 1 Then
+            lkpIndicaGFT.Properties.Appearance.BorderColor = Nothing
+
+            'Campo MontoGFT
+            If txtMontoGFT.Text = "" Then
+                completo = False
+                txtMontoGFT.Properties.Appearance.BorderColor = Color.Red
+            Else
+                txtMontoGFT.Properties.Appearance.BorderColor = Nothing
+            End If
+        Else
+            lkpIndicaGFT.Properties.Appearance.BorderColor = Nothing
+        End If
+
+        'Campo Hay Discapacitado
+        If lkpPersonaDiscapacidad.EditValue Is Nothing OrElse lkpPersonaDiscapacidad.EditValue.ToString = "" OrElse lkpPersonaDiscapacidad.EditValue < 1 Then
+            completo = False
+            lkpPersonaDiscapacidad.Properties.Appearance.BorderColor = Color.Red
+        ElseIf lkpPersonaDiscapacidad.EditValue = 1 Then
+
+            'Campo Tipo Discapacidad
+            If lkpTipoDiscapacidad.EditValue Is Nothing OrElse lkpTipoDiscapacidad.EditValue.ToString = "" OrElse lkpTipoDiscapacidad.EditValue < 1 Then
+                completo = False
+                lkpTipoDiscapacidad.Properties.Appearance.BorderColor = Color.Red
+            Else
+                lkpTipoDiscapacidad.Properties.Appearance.BorderColor = Nothing
+            End If
+
+            'Campo Autosuficiente
+            If lkpPersonaAutosuficiente.EditValue Is Nothing OrElse lkpPersonaAutosuficiente.EditValue.ToString = "" OrElse lkpPersonaAutosuficiente.EditValue < 1 Then
+                completo = False
+                lkpPersonaAutosuficiente.Properties.Appearance.BorderColor = Color.Red
+            Else
+                lkpPersonaAutosuficiente.Properties.Appearance.BorderColor = Nothing
+            End If
+        End If
+
         If hogar.EstadoEncuesta = 1 Then
             'Campo Tipo Dia
             If lkpTipoDia.EditValue Is Nothing OrElse lkpTipoDia.EditValue.ToString = "" OrElse lkpTipoDia.EditValue < 1 Then
@@ -363,8 +405,18 @@ Public Class ModificarHogar
             hogar.Telefono = Me.txtTelefono.Text
             hogar.TipoViviendaActual = Me.lkpTipoVivienda.EditValue.ToString
 
+            hogar.IndicaGFT = Me.lkpIndicaGFT.EditValue
+            If hogar.IndicaGFT Then
+                hogar.GastoFamiliarTransporte = Me.txtMontoGFT.Text
+            End If
+
+            hogar.PersonaConDiscapacidad = Me.lkpPersonaDiscapacidad.EditValue
+            If hogar.PersonaConDiscapacidad = 1 Then
+                hogar.TipoDiscapacidad = Me.lkpTipoDiscapacidad.EditValue
+                hogar.DiscapacidadAutosuf = Me.lkpPersonaAutosuficiente.EditValue
+            End If
+
             hogar.Observacion = Me.txtObservacion.Text
-            hogar.Bicicletas = Me.txtBicicletas.Text
 
             If hogar.EstadoEncuesta = 1 Then
                 hogar.TipoDia = Me.lkpTipoDia.EditValue
@@ -552,7 +604,7 @@ Public Class ModificarHogar
 
     End Sub
 
-    Private Sub deFechaViajes_EditValueChanged(sender As Object, e As EventArgs) Handles deFechaViajes.EditValueChanged
+    Private Sub deFechaViajes_EditValueChanged(sender As Object, e As EventArgs)
         If (Not Me.lkpTipoDia.EditValue Is Nothing) Then
             Dim tipoEncuesta As Integer
             Dim fechaSeleccionada As DateTime = deFechaViajes.EditValue
@@ -594,11 +646,11 @@ Public Class ModificarHogar
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpTipoDia_Enter(sender As Object, e As EventArgs) Handles lkpTipoDia.Enter
+    Private Sub lkpTipoDia_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub deFechaViajes_Enter(sender As Object, e As EventArgs) Handles deFechaViajes.Enter
+    Private Sub deFechaViajes_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, DateEdit).ShowPopup()))
     End Sub
 
@@ -744,23 +796,7 @@ Public Class ModificarHogar
         Return True
     End Function
 
-    Private Sub txtBicicletas_Leave(sender As Object, e As EventArgs) Handles txtBicicletas.Leave
-        Dim num As Integer
-        If Integer.TryParse(txtBicicletas.Text, num) Then
-            If num > 9 Then
-                Dim confirma As DialogResult = MessageBox.Show("El encuestado posee más de 9 bicicletas, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtBicicletas.Text = ""
-                    txtBicicletas.Focus()
-                    ' validadorHogar.Val13 = False
-                ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                    'validadorHogar.Val13Resp = True
-                End If
-            End If
-        End If
-    End Sub
-
-    Private Sub lkpTipoDia_EditValueChanged(sender As Object, e As EventArgs) Handles lkpTipoDia.EditValueChanged
+    Private Sub lkpTipoDia_EditValueChanged(sender As Object, e As EventArgs)
         Dim opcion As Integer
 
         If lkpTipoDia.EditValue IsNot Nothing AndAlso lkpTipoDia.EditValue.ToString <> "" Then
@@ -780,7 +816,7 @@ Public Class ModificarHogar
         End If
     End Sub
 
-    Private Sub deSabadoLV_EditValueChanged(sender As Object, e As EventArgs) Handles deSabadoLV.EditValueChanged
+    Private Sub deSabadoLV_EditValueChanged(sender As Object, e As EventArgs)
         If deSabadoLV.EditValue IsNot Nothing AndAlso deSabadoLV.EditValue.ToString <> "" Then
             Dim fechaSeleccionada As DateTime = deSabadoLV.EditValue
             Dim diaSemana As Integer = fechaSeleccionada.DayOfWeek
@@ -792,6 +828,21 @@ Public Class ModificarHogar
                 deDomingoLV.EditValue = fechaSeleccionada.AddDays(1)
             End If
         End If
-        
+
+    End Sub
+
+    Private Sub LkpIndicaGFT_EditValueChanged(sender As Object, e As EventArgs) Handles lkpIndicaGFT.EditValueChanged
+        Dim opcion As Integer
+        lblMontoGFT.Visible = False
+        txtMontoGFT.Visible = False
+
+        If lkpIndicaGFT.EditValue IsNot Nothing AndAlso lkpIndicaGFT.EditValue.ToString <> "" Then
+            opcion = lkpIndicaGFT.EditValue
+        End If
+
+        If opcion = 1 Then
+            lblMontoGFT.Visible = True
+            txtMontoGFT.Visible = True
+        End If
     End Sub
 End Class

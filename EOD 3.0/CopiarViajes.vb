@@ -258,9 +258,10 @@ Public Class CopiarViajes
                 If Not etapa.IsIdVehiculoHogarNull Then
                     etapaNueva.IdVehiculoHogar = etapa.IdVehiculoHogar
                 End If
-                If Not etapa.IsPagaEstacionamientoNull Then
-                    etapaNueva.PagaEstacionamiento = etapa.PagaEstacionamiento
+                If Not etapa.IsDondeEstacionaNull Then
+                    etapaNueva.DondeEstaciona = etapa.DondeEstaciona
                 End If
+
                 If Not etapa.IsCostoEstacionamientoNull Then
                     etapaNueva.CostoEstacionamiento = etapa.CostoEstacionamiento
                 End If
@@ -268,8 +269,8 @@ Public Class CopiarViajes
                 If Not etapa.IsFormaPagoNull Then
                     etapaNueva.FormaPago = etapa.FormaPago
                 End If
-                If Not etapa.IsLugarDondeBajoNull Then
-                    etapaNueva.LugarDondeBajo = etapa.LugarDondeBajo
+                If Not etapa.IsLugarBajadaAutoNull Then
+                    etapaNueva.LugarBajadaAuto = etapa.LugarBajadaAuto
                 End If
                 If Not etapa.IsTiempoEsperaBusNull Then
                     etapaNueva.TiempoEsperaBus = etapa.TiempoEsperaBus
@@ -296,13 +297,12 @@ Public Class CopiarViajes
                     End If
                     etapaNueva.UsaCiclovia = etapa.UsaCiclovia
                     etapaNueva.LugarBajadaBicicleta = etapa.LugarBajadaBicicleta
-                End If
-
-                If Not etapa.IsMinutosEsperaBarcazaNull Then
-                    etapaNueva.MinutosEsperaBarcaza = etapa.MinutosEsperaBarcaza
-                    etapaNueva.TarifaBarcaza = etapa.TarifaBarcaza
-                    etapaNueva.MuelleSubidaBarcaza = etapa.MuelleSubidaBarcaza
-                    etapaNueva.MuelleBajadaBarcaza = etapa.MuelleBajadaBarcaza
+                    If Not etapa.IsEstacionamientoBicicletaNull Then
+                        etapaNueva.EstacionamientoBicicleta = etapa.EstacionamientoBicicleta
+                    End If
+                    If Not etapa.IsMotivoNoUsaNull Then
+                        etapaNueva.MotivoNoUsa = etapa.MotivoNoUsa
+                    End If
                 End If
 
                 datasetEOD.Etapa.Rows.Add(etapaNueva)

@@ -38,14 +38,6 @@ Partial Class ModificarVehiculo
         Me.colPropiedadVehiculo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.SiNoBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GroupControl1 = New DevExpress.XtraEditors.GroupControl()
-        Me.txtCombustibleOtro = New DevExpress.XtraEditors.TextEdit()
-        Me.lblCombustibleOtro = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpCombustible = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.CombustibleBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.GridView15 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn1 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCombustible = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.LabelControl23 = New DevExpress.XtraEditors.LabelControl()
         Me.txtPropiedadVehOtro = New DevExpress.XtraEditors.TextEdit()
         Me.lblPropiedadVehOtro = New DevExpress.XtraEditors.LabelControl()
         Me.btnCancelar = New DevExpress.XtraEditors.SimpleButton()
@@ -58,7 +50,15 @@ Partial Class ModificarVehiculo
         Me.VehiculoTableAdapter = New EOD.datasetEODTableAdapters.VehiculoTableAdapter()
         Me.cargaVehiculoBackground = New System.ComponentModel.BackgroundWorker()
         Me.SplashScreenManager1 = New DevExpress.XtraSplashScreen.SplashScreenManager(Me, GetType(Global.EOD.PantallaEspera), True, True)
-        Me.CombustibleTableAdapter = New EOD.datasetEODTableAdapters.CombustibleTableAdapter()
+        Me.lkpTipoMotor = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn2 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtAnioFabricacion = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl23 = New DevExpress.XtraEditors.LabelControl()
+        Me.TipoMotorBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.TipoMotorTableAdapter = New EOD.datasetEODTableAdapters.TipoMotorTableAdapter()
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.VehBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.datasetEOD, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -71,13 +71,13 @@ Partial Class ModificarVehiculo
         CType(Me.SiNoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupControl1.SuspendLayout()
-        CType(Me.txtCombustibleOtro.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.lkpCombustible.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.CombustibleBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridView15, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtPropiedadVehOtro.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridLookUpEdit1.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView6, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lkpTipoMotor.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAnioFabricacion.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TipoMotorBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'RibbonControl
@@ -89,8 +89,8 @@ Partial Class ModificarVehiculo
         Me.RibbonControl.Name = "RibbonControl"
         Me.RibbonControl.ShowApplicationButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.RibbonControl.ShowCategoryInCaption = False
+        Me.RibbonControl.ShowDisplayOptionsMenuButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.RibbonControl.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.RibbonControl.ShowFullScreenButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.RibbonControl.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide
         Me.RibbonControl.ShowQatLocationSelector = False
         Me.RibbonControl.ShowToolbarCustomizeItem = False
@@ -237,9 +237,9 @@ Partial Class ModificarVehiculo
         '
         'GroupControl1
         '
-        Me.GroupControl1.Controls.Add(Me.txtCombustibleOtro)
-        Me.GroupControl1.Controls.Add(Me.lblCombustibleOtro)
-        Me.GroupControl1.Controls.Add(Me.lkpCombustible)
+        Me.GroupControl1.Controls.Add(Me.lkpTipoMotor)
+        Me.GroupControl1.Controls.Add(Me.LabelControl2)
+        Me.GroupControl1.Controls.Add(Me.txtAnioFabricacion)
         Me.GroupControl1.Controls.Add(Me.LabelControl23)
         Me.GroupControl1.Controls.Add(Me.txtPropiedadVehOtro)
         Me.GroupControl1.Controls.Add(Me.lblPropiedadVehOtro)
@@ -249,90 +249,9 @@ Partial Class ModificarVehiculo
         Me.GroupControl1.Controls.Add(Me.lkpTipoVeh)
         Me.GroupControl1.Location = New System.Drawing.Point(12, 38)
         Me.GroupControl1.Name = "GroupControl1"
-        Me.GroupControl1.Size = New System.Drawing.Size(495, 126)
+        Me.GroupControl1.Size = New System.Drawing.Size(495, 143)
         Me.GroupControl1.TabIndex = 17
         Me.GroupControl1.Text = "Datos generales del vehículo"
-        '
-        'txtCombustibleOtro
-        '
-        Me.txtCombustibleOtro.Location = New System.Drawing.Point(377, 81)
-        Me.txtCombustibleOtro.MenuManager = Me.RibbonControl
-        Me.txtCombustibleOtro.Name = "txtCombustibleOtro"
-        Me.txtCombustibleOtro.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.txtCombustibleOtro.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.txtCombustibleOtro.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.txtCombustibleOtro.Size = New System.Drawing.Size(110, 20)
-        Me.txtCombustibleOtro.TabIndex = 20
-        Me.txtCombustibleOtro.Visible = False
-        '
-        'lblCombustibleOtro
-        '
-        Me.lblCombustibleOtro.Location = New System.Drawing.Point(349, 84)
-        Me.lblCombustibleOtro.Name = "lblCombustibleOtro"
-        Me.lblCombustibleOtro.Size = New System.Drawing.Size(22, 13)
-        Me.lblCombustibleOtro.TabIndex = 21
-        Me.lblCombustibleOtro.Text = "Otro"
-        Me.lblCombustibleOtro.Visible = False
-        '
-        'lkpCombustible
-        '
-        Me.lkpCombustible.EditValue = ""
-        Me.lkpCombustible.Location = New System.Drawing.Point(177, 81)
-        Me.lkpCombustible.MenuManager = Me.RibbonControl
-        Me.lkpCombustible.Name = "lkpCombustible"
-        Me.lkpCombustible.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpCombustible.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpCombustible.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpCombustible.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpCombustible.Properties.DataSource = Me.CombustibleBindingSource
-        Me.lkpCombustible.Properties.DisplayMember = "Combustible"
-        Me.lkpCombustible.Properties.ImmediatePopup = True
-        Me.lkpCombustible.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains
-        Me.lkpCombustible.Properties.PopupFormMinSize = New System.Drawing.Size(144, 60)
-        Me.lkpCombustible.Properties.PopupFormSize = New System.Drawing.Size(144, 60)
-        Me.lkpCombustible.Properties.ShowFooter = False
-        Me.lkpCombustible.Properties.ValueMember = "ID"
-        Me.lkpCombustible.Properties.View = Me.GridView15
-        Me.lkpCombustible.Size = New System.Drawing.Size(142, 20)
-        Me.lkpCombustible.TabIndex = 18
-        '
-        'CombustibleBindingSource
-        '
-        Me.CombustibleBindingSource.DataMember = "Combustible"
-        Me.CombustibleBindingSource.DataSource = Me.datasetEOD
-        '
-        'GridView15
-        '
-        Me.GridView15.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1, Me.colCombustible})
-        Me.GridView15.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView15.Name = "GridView15"
-        Me.GridView15.OptionsCustomization.AllowFilter = False
-        Me.GridView15.OptionsCustomization.AllowGroup = False
-        Me.GridView15.OptionsCustomization.AllowSort = False
-        Me.GridView15.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView15.OptionsView.ShowColumnHeaders = False
-        Me.GridView15.OptionsView.ShowGroupPanel = False
-        Me.GridView15.OptionsView.ShowIndicator = False
-        '
-        'GridColumn1
-        '
-        Me.GridColumn1.FieldName = "ID"
-        Me.GridColumn1.Name = "GridColumn1"
-        '
-        'colCombustible
-        '
-        Me.colCombustible.FieldName = "Combustible"
-        Me.colCombustible.Name = "colCombustible"
-        Me.colCombustible.Visible = True
-        Me.colCombustible.VisibleIndex = 0
-        '
-        'LabelControl23
-        '
-        Me.LabelControl23.Location = New System.Drawing.Point(15, 84)
-        Me.LabelControl23.Name = "LabelControl23"
-        Me.LabelControl23.Size = New System.Drawing.Size(145, 13)
-        Me.LabelControl23.TabIndex = 19
-        Me.LabelControl23.Text = "¿Qué tipo de combustible usa?"
         '
         'txtPropiedadVehOtro
         '
@@ -365,7 +284,7 @@ Partial Class ModificarVehiculo
         Me.btnCancelar.Appearance.Options.UseBorderColor = True
         Me.btnCancelar.Appearance.Options.UseForeColor = True
         Me.btnCancelar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnCancelar.Location = New System.Drawing.Point(422, 170)
+        Me.btnCancelar.Location = New System.Drawing.Point(422, 187)
         Me.btnCancelar.Name = "btnCancelar"
         Me.btnCancelar.Size = New System.Drawing.Size(85, 28)
         Me.btnCancelar.TabIndex = 34
@@ -381,7 +300,7 @@ Partial Class ModificarVehiculo
         Me.btnGuardar.Appearance.Options.UseBorderColor = True
         Me.btnGuardar.Appearance.Options.UseForeColor = True
         Me.btnGuardar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnGuardar.Location = New System.Drawing.Point(331, 170)
+        Me.btnGuardar.Location = New System.Drawing.Point(331, 187)
         Me.btnGuardar.Name = "btnGuardar"
         Me.btnGuardar.Size = New System.Drawing.Size(85, 28)
         Me.btnGuardar.TabIndex = 33
@@ -423,19 +342,95 @@ Partial Class ModificarVehiculo
         'cargaVehiculoBackground
         '
         '
-        'SplashScreenManager1
+        'lkpTipoMotor
         '
-        Me.SplashScreenManager1.ClosingDelay = 500
+        Me.lkpTipoMotor.EditValue = ""
+        Me.lkpTipoMotor.Location = New System.Drawing.Point(157, 106)
+        Me.lkpTipoMotor.MenuManager = Me.RibbonControl
+        Me.lkpTipoMotor.Name = "lkpTipoMotor"
+        Me.lkpTipoMotor.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpTipoMotor.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpTipoMotor.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpTipoMotor.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpTipoMotor.Properties.DataSource = Me.TipoMotorBindingSource
+        Me.lkpTipoMotor.Properties.DisplayMember = "TipoMotor"
+        Me.lkpTipoMotor.Properties.ImmediatePopup = True
+        Me.lkpTipoMotor.Properties.PopupFormMinSize = New System.Drawing.Size(177, 40)
+        Me.lkpTipoMotor.Properties.PopupFormSize = New System.Drawing.Size(177, 40)
+        Me.lkpTipoMotor.Properties.ShowFooter = False
+        Me.lkpTipoMotor.Properties.ValueMember = "ID"
+        Me.lkpTipoMotor.Properties.View = Me.GridView2
+        Me.lkpTipoMotor.Size = New System.Drawing.Size(162, 20)
+        Me.lkpTipoMotor.TabIndex = 30
         '
-        'CombustibleTableAdapter
+        'GridView2
         '
-        Me.CombustibleTableAdapter.ClearBeforeFill = True
+        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1, Me.GridColumn2})
+        Me.GridView2.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView2.Name = "GridView2"
+        Me.GridView2.OptionsCustomization.AllowFilter = False
+        Me.GridView2.OptionsCustomization.AllowGroup = False
+        Me.GridView2.OptionsCustomization.AllowSort = False
+        Me.GridView2.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView2.OptionsView.ShowColumnHeaders = False
+        Me.GridView2.OptionsView.ShowGroupPanel = False
+        Me.GridView2.OptionsView.ShowIndicator = False
+        '
+        'GridColumn1
+        '
+        Me.GridColumn1.FieldName = "ID"
+        Me.GridColumn1.Name = "GridColumn1"
+        '
+        'GridColumn2
+        '
+        Me.GridColumn2.FieldName = "PropiedadVehiculo"
+        Me.GridColumn2.Name = "GridColumn2"
+        Me.GridColumn2.OptionsColumn.AllowEdit = False
+        Me.GridColumn2.Visible = True
+        Me.GridColumn2.VisibleIndex = 0
+        '
+        'LabelControl2
+        '
+        Me.LabelControl2.Location = New System.Drawing.Point(14, 109)
+        Me.LabelControl2.Name = "LabelControl2"
+        Me.LabelControl2.Size = New System.Drawing.Size(124, 13)
+        Me.LabelControl2.TabIndex = 29
+        Me.LabelControl2.Text = "¿Qué tipo de motor tiene?"
+        '
+        'txtAnioFabricacion
+        '
+        Me.txtAnioFabricacion.Location = New System.Drawing.Point(179, 81)
+        Me.txtAnioFabricacion.MenuManager = Me.RibbonControl
+        Me.txtAnioFabricacion.Name = "txtAnioFabricacion"
+        Me.txtAnioFabricacion.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.txtAnioFabricacion.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.txtAnioFabricacion.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.txtAnioFabricacion.Size = New System.Drawing.Size(140, 20)
+        Me.txtAnioFabricacion.TabIndex = 28
+        Me.txtAnioFabricacion.Visible = False
+        '
+        'LabelControl23
+        '
+        Me.LabelControl23.Location = New System.Drawing.Point(15, 84)
+        Me.LabelControl23.Name = "LabelControl23"
+        Me.LabelControl23.Size = New System.Drawing.Size(147, 13)
+        Me.LabelControl23.TabIndex = 27
+        Me.LabelControl23.Text = "¿Cuál es el año de fabricación?"
+        '
+        'TipoMotorBindingSource
+        '
+        Me.TipoMotorBindingSource.DataMember = "TipoMotor"
+        Me.TipoMotorBindingSource.DataSource = Me.datasetEOD
+        '
+        'TipoMotorTableAdapter
+        '
+        Me.TipoMotorTableAdapter.ClearBeforeFill = True
         '
         'ModificarVehiculo
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(518, 210)
+        Me.ClientSize = New System.Drawing.Size(518, 227)
         Me.Controls.Add(Me.btnCancelar)
         Me.Controls.Add(Me.GroupControl1)
         Me.Controls.Add(Me.btnGuardar)
@@ -460,13 +455,13 @@ Partial Class ModificarVehiculo
         CType(Me.GroupControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupControl1.ResumeLayout(False)
         Me.GroupControl1.PerformLayout()
-        CType(Me.txtCombustibleOtro.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.lkpCombustible.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.CombustibleBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridView15, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPropiedadVehOtro.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridLookUpEdit1.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView6, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lkpTipoMotor.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAnioFabricacion.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TipoMotorBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -501,15 +496,13 @@ Partial Class ModificarVehiculo
     Friend WithEvents lblPropiedadVehOtro As DevExpress.XtraEditors.LabelControl
     Friend WithEvents cargaVehiculoBackground As System.ComponentModel.BackgroundWorker
     Friend WithEvents SplashScreenManager1 As DevExpress.XtraSplashScreen.SplashScreenManager
-    Friend WithEvents txtCombustibleOtro As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents lblCombustibleOtro As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents lkpCombustible As DevExpress.XtraEditors.GridLookUpEdit
-    Friend WithEvents GridView15 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents lkpTipoMotor As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridView2 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents GridColumn1 As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colCombustible As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents GridColumn2 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtAnioFabricacion As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl23 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents CombustibleBindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents CombustibleTableAdapter As EOD.datasetEODTableAdapters.CombustibleTableAdapter
-
-
+    Friend WithEvents TipoMotorBindingSource As BindingSource
+    Friend WithEvents TipoMotorTableAdapter As datasetEODTableAdapters.TipoMotorTableAdapter
 End Class

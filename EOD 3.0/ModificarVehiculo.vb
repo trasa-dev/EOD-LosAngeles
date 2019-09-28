@@ -44,10 +44,8 @@ Public Class ModificarVehiculo
             vehiculo.TipoVeh = Integer.Parse(Me.lkpTipoVeh.EditValue.ToString)
             vehiculo.Propiedad = Integer.Parse(Me.lkpPropiedadVeh.EditValue.ToString)
             vehiculo.PropiedadOtro = Me.txtPropiedadVehOtro.Text
-            vehiculo.Combustible = Me.lkpCombustible.EditValue
-            If vehiculo.Combustible = 3 Then
-                vehiculo.CombustibleOtro = Me.txtCombustibleOtro.Text
-            End If
+            vehiculo.TipoMotor = Me.lkpTipoMotor.EditValue
+            vehiculo.AnioFabricacion = Me.txtAnioFabricacion.Text
 
             Try
                 VehiculoTableAdapter.Update(datasetEOD.Vehiculo)
@@ -65,13 +63,13 @@ Public Class ModificarVehiculo
         SplashScreenManager1 = New DevExpress.XtraSplashScreen.SplashScreenManager(Me, GetType(Global.EOD.PantallaEspera), True, True)
         SplashScreenManager1.ShowWaitForm()
 
-        Invoke(DirectCast(AddressOf Me.fillCombustible, MethodInvoker))
+        Invoke(DirectCast(AddressOf Me.fillTipoMotor, MethodInvoker))
         Invoke(DirectCast(AddressOf Me.fillTipoVeh, MethodInvoker))
         Invoke(DirectCast(AddressOf Me.fillPropiedadVehiculo, MethodInvoker))
     End Sub
 
-    Private Sub fillCombustible()
-        Me.CombustibleTableAdapter.Fill(Me.datasetEOD.Combustible)
+    Private Sub fillTipoMotor()
+        Me.TipoMotorTableAdapter.Fill(Me.datasetEOD.TipoMotor)
     End Sub
 
     Private Sub fillTipoVeh()
@@ -89,10 +87,8 @@ Public Class ModificarVehiculo
         If vehiculo.Propiedad = 2 Then
             txtPropiedadVehOtro.Text = vehiculo.PropiedadOtro
         End If
-        Me.lkpCombustible.EditValue = vehiculo.Combustible
-        If vehiculo.Combustible = 3 Then
-            Me.txtCombustibleOtro.Text = vehiculo.CombustibleOtro
-        End If
+        Me.lkpTipoMotor.EditValue = vehiculo.TipoMotor
+        Me.txtAnioFabricacion.Text = vehiculo.AnioFabricacion.ToString
 
         If SplashScreenManager1 IsNot Nothing Then
             SplashScreenManager1.CloseWaitForm()
@@ -127,43 +123,34 @@ Public Class ModificarVehiculo
             lkpPropiedadVeh.Properties.Appearance.BorderColor = Nothing
         End If
 
-        'Campo Combustible
-        If lkpCombustible.EditValue Is Nothing OrElse lkpCombustible.EditValue.ToString = "" OrElse lkpCombustible.EditValue < 1 Then
+        'Campo Año Fabricacion
+        If txtAnioFabricacion.Text = "" Then
             completo = False
-            lkpCombustible.Properties.Appearance.BorderColor = Color.Red
-        ElseIf lkpCombustible.EditValue = 3 Then
-            lkpCombustible.Properties.Appearance.BorderColor = Nothing
-            'Campo Otra Propiedad
-            If txtCombustibleOtro.Text = "" Then
-                completo = False
-                txtCombustibleOtro.Properties.Appearance.BorderColor = Color.Red
-            Else
-                txtCombustibleOtro.Properties.Appearance.BorderColor = Nothing
-            End If
+            txtAnioFabricacion.Properties.Appearance.BorderColor = Color.Red
         Else
-            lkpCombustible.Properties.Appearance.BorderColor = Nothing
+            txtAnioFabricacion.Properties.Appearance.BorderColor = Nothing
         End If
 
+        'Campo TipoMotor
+        If lkpTipoMotor.EditValue Is Nothing OrElse lkpTipoMotor.EditValue.ToString = "" OrElse lkpTipoMotor.EditValue < 1 Then
+            completo = False
+            lkpTipoMotor.Properties.Appearance.BorderColor = Color.Red
+        Else
+            lkpTipoMotor.Properties.Appearance.BorderColor = Nothing
+        End If
 
         Return completo
     End Function
 
-    Private Sub lkpCombustible_EditValueChanged(sender As Object, e As EventArgs) Handles lkpCombustible.EditValueChanged
-        Dim opcion As Integer = IIf(lkpCombustible.EditValue IsNot Nothing AndAlso lkpCombustible.EditValue.ToString <> "", lkpCombustible.EditValue, 0)
-        Me.lblCombustibleOtro.Visible = False
-        Me.txtCombustibleOtro.Visible = False
-
-        If opcion = 3 Then
-            Me.lblCombustibleOtro.Visible = True
-            Me.txtCombustibleOtro.Visible = True
-        End If
+    Private Sub lkpTipoMotor_Enter(sender As Object, e As EventArgs) Handles lkpTipoMotor.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
     Private Sub lkpTipoVeh_Enter(sender As Object, e As EventArgs) Handles lkpTipoVeh.Enter
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpCombustible_Enter(sender As Object, e As EventArgs) Handles lkpCombustible.Enter
+    Private Sub lkpCombustible_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 

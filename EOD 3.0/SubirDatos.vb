@@ -72,7 +72,7 @@ Public Class SubirDatos
 
     Public Sub cargaArchivoFTP()
         Dim FilePath As String = archivoTemporalRAR
-        Dim RemotePath As String = "ftp://" + ftpIP + "/dataparenas"
+        Dim RemotePath As String = "ftp://" + ftpIP + "/datalosangeles"
         Dim Login As String = ftpUSER
         Dim Password As String = ftpPASS
 
@@ -147,7 +147,7 @@ Public Class SubirDatos
     Private Sub eliminaDataAnterior()
 
         bw.ReportProgress(33)
-        Dim request As FtpWebRequest = DirectCast(WebRequest.Create("ftp://" + ftpIP + "/dataparenas"), FtpWebRequest)
+        Dim request As FtpWebRequest = DirectCast(WebRequest.Create("ftp://" + ftpIP + "/datalosangeles"), FtpWebRequest)
         request.Credentials = New NetworkCredential(ftpUSER, ftpPASS)
         request.Method = WebRequestMethods.Ftp.ListDirectory
 
@@ -172,7 +172,7 @@ Public Class SubirDatos
         streamReader = Nothing
 
         If archivoBorrar <> "" Then
-            Dim requestFileDelete As FtpWebRequest = DirectCast(WebRequest.Create("ftp://" + ftpIP + "/dataparenas/" + archivoBorrar), FtpWebRequest)
+            Dim requestFileDelete As FtpWebRequest = DirectCast(WebRequest.Create("ftp://" + ftpIP + "/datalosangeles/" + archivoBorrar), FtpWebRequest)
             requestFileDelete.Credentials = New NetworkCredential(ftpUSER, ftpPASS)
             requestFileDelete.Method = WebRequestMethods.Ftp.DeleteFile
             Dim responseFileDelete As FtpWebResponse = DirectCast(requestFileDelete.GetResponse(), FtpWebResponse)
