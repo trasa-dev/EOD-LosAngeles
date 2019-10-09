@@ -339,29 +339,6 @@ Public Class ModificarHogar
             lkpIndicaGFT.Properties.Appearance.BorderColor = Nothing
         End If
 
-        'Campo Hay Discapacitado
-        If lkpPersonaDiscapacidad.EditValue Is Nothing OrElse lkpPersonaDiscapacidad.EditValue.ToString = "" OrElse lkpPersonaDiscapacidad.EditValue < 1 Then
-            completo = False
-            lkpPersonaDiscapacidad.Properties.Appearance.BorderColor = Color.Red
-        ElseIf lkpPersonaDiscapacidad.EditValue = 1 Then
-
-            'Campo Tipo Discapacidad
-            If lkpTipoDiscapacidad.EditValue Is Nothing OrElse lkpTipoDiscapacidad.EditValue.ToString = "" OrElse lkpTipoDiscapacidad.EditValue < 1 Then
-                completo = False
-                lkpTipoDiscapacidad.Properties.Appearance.BorderColor = Color.Red
-            Else
-                lkpTipoDiscapacidad.Properties.Appearance.BorderColor = Nothing
-            End If
-
-            'Campo Autosuficiente
-            If lkpPersonaAutosuficiente.EditValue Is Nothing OrElse lkpPersonaAutosuficiente.EditValue.ToString = "" OrElse lkpPersonaAutosuficiente.EditValue < 1 Then
-                completo = False
-                lkpPersonaAutosuficiente.Properties.Appearance.BorderColor = Color.Red
-            Else
-                lkpPersonaAutosuficiente.Properties.Appearance.BorderColor = Nothing
-            End If
-        End If
-
         If hogar.EstadoEncuesta = 1 Then
             'Campo Tipo Dia
             If lkpTipoDia.EditValue Is Nothing OrElse lkpTipoDia.EditValue.ToString = "" OrElse lkpTipoDia.EditValue < 1 Then
@@ -408,12 +385,6 @@ Public Class ModificarHogar
             hogar.IndicaGFT = Me.lkpIndicaGFT.EditValue
             If hogar.IndicaGFT Then
                 hogar.GastoFamiliarTransporte = Me.txtMontoGFT.Text
-            End If
-
-            hogar.PersonaConDiscapacidad = Me.lkpPersonaDiscapacidad.EditValue
-            If hogar.PersonaConDiscapacidad = 1 Then
-                hogar.TipoDiscapacidad = Me.lkpTipoDiscapacidad.EditValue
-                hogar.DiscapacidadAutosuf = Me.lkpPersonaAutosuficiente.EditValue
             End If
 
             hogar.Observacion = Me.txtObservacion.Text

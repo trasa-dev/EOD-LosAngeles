@@ -45,6 +45,7 @@ Partial Class AgregarPersona
         Me.GridView18 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colcalle2 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.lkpCalle1Trabajo = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.Calle1TrabajoBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GridView17 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colcalle = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.lblCalle2Trabajo = New DevExpress.XtraEditors.LabelControl()
@@ -146,9 +147,21 @@ Partial Class AgregarPersona
         Me.GridColumn2 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.cargaPersonaBackground = New System.ComponentModel.BackgroundWorker()
         Me.ValidaPersonaTableAdapter = New EOD.datasetEODTableAdapters.ValidaPersonaTableAdapter()
-        Me.Calle1TrabajoBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.ConsultaCalle2TrabajoTableAdapter = New EOD.datasetEODTableAdapters.ConsultaCalle2TrabajoTableAdapter()
         Me.ConsultaCalle2EstudioTableAdapter = New EOD.datasetEODTableAdapters.ConsultaCalle2EstudioTableAdapter()
+        Me.lkpDiscapacitado = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView33 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn6 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl35 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl34 = New DevExpress.XtraEditors.LabelControl()
+        Me.lblTipoDiscapacidad = New DevExpress.XtraEditors.LabelControl()
+        Me.lkpAutosuficiente = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView34 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn7 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.lblAutosuficiente = New DevExpress.XtraEditors.LabelControl()
+        Me.chkTipoDiscapacidad = New DevExpress.XtraEditors.CheckedComboBoxEdit()
+        Me.TipoDiscapacidadBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.TipoDiscapacidadTableAdapter = New EOD.datasetEODTableAdapters.TipoDiscapacidadTableAdapter()
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.spcTrabajaEstudia, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.spcTrabajaEstudia.SuspendLayout()
@@ -165,6 +178,7 @@ Partial Class AgregarPersona
         CType(Me.ConsultaCalle2TrabajoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView18, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lkpCalle1Trabajo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Calle1TrabajoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView17, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtComunaTrabajoOtra.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lkpComunaTrabajo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -213,7 +227,12 @@ Partial Class AgregarPersona
         CType(Me.txtNombrePila.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lkpSexo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Calle1TrabajoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lkpDiscapacitado.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView33, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.lkpAutosuficiente.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView34, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkTipoDiscapacidad.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TipoDiscapacidadBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'RibbonControl
@@ -230,7 +249,7 @@ Partial Class AgregarPersona
         Me.RibbonControl.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide
         Me.RibbonControl.ShowQatLocationSelector = False
         Me.RibbonControl.ShowToolbarCustomizeItem = False
-        Me.RibbonControl.Size = New System.Drawing.Size(674, 27)
+        Me.RibbonControl.Size = New System.Drawing.Size(674, 32)
         Me.RibbonControl.Toolbar.ShowCustomizeItem = False
         '
         'btnCancelarPersona
@@ -243,7 +262,7 @@ Partial Class AgregarPersona
         Me.btnCancelarPersona.Appearance.Options.UseBorderColor = True
         Me.btnCancelarPersona.Appearance.Options.UseForeColor = True
         Me.btnCancelarPersona.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnCancelarPersona.Location = New System.Drawing.Point(576, 432)
+        Me.btnCancelarPersona.Location = New System.Drawing.Point(577, 539)
         Me.btnCancelarPersona.Name = "btnCancelarPersona"
         Me.btnCancelarPersona.Size = New System.Drawing.Size(85, 28)
         Me.btnCancelarPersona.TabIndex = 27
@@ -259,7 +278,7 @@ Partial Class AgregarPersona
         Me.btnGuardarPersona.Appearance.Options.UseBorderColor = True
         Me.btnGuardarPersona.Appearance.Options.UseForeColor = True
         Me.btnGuardarPersona.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnGuardarPersona.Location = New System.Drawing.Point(485, 432)
+        Me.btnGuardarPersona.Location = New System.Drawing.Point(486, 539)
         Me.btnGuardarPersona.Name = "btnGuardarPersona"
         Me.btnGuardarPersona.Size = New System.Drawing.Size(85, 28)
         Me.btnGuardarPersona.TabIndex = 26
@@ -558,6 +577,12 @@ Partial Class AgregarPersona
         Me.lkpCalle1Trabajo.Properties.View = Me.GridView17
         Me.lkpCalle1Trabajo.Size = New System.Drawing.Size(161, 20)
         Me.lkpCalle1Trabajo.TabIndex = 12
+        '
+        'Calle1TrabajoBindingSource
+        '
+        Me.Calle1TrabajoBindingSource.DataMember = "Calles"
+        Me.Calle1TrabajoBindingSource.DataSource = Me.datasetEOD
+        Me.Calle1TrabajoBindingSource.Filter = "ID < 10000"
         '
         'GridView17
         '
@@ -1560,12 +1585,6 @@ Partial Class AgregarPersona
         '
         Me.ValidaPersonaTableAdapter.ClearBeforeFill = True
         '
-        'Calle1TrabajoBindingSource
-        '
-        Me.Calle1TrabajoBindingSource.DataMember = "Calles"
-        Me.Calle1TrabajoBindingSource.DataSource = Me.datasetEOD
-        Me.Calle1TrabajoBindingSource.Filter = "ID < 10000"
-        '
         'ConsultaCalle2TrabajoTableAdapter
         '
         Me.ConsultaCalle2TrabajoTableAdapter.ClearBeforeFill = True
@@ -1574,11 +1593,166 @@ Partial Class AgregarPersona
         '
         Me.ConsultaCalle2EstudioTableAdapter.ClearBeforeFill = True
         '
+        'lkpDiscapacitado
+        '
+        Me.lkpDiscapacitado.EditValue = ""
+        Me.lkpDiscapacitado.Location = New System.Drawing.Point(196, 475)
+        Me.lkpDiscapacitado.MenuManager = Me.RibbonControl
+        Me.lkpDiscapacitado.Name = "lkpDiscapacitado"
+        Me.lkpDiscapacitado.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpDiscapacitado.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpDiscapacitado.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpDiscapacitado.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpDiscapacitado.Properties.DataSource = Me.SiNoBindingSource
+        Me.lkpDiscapacitado.Properties.DisplayMember = "Opcion"
+        Me.lkpDiscapacitado.Properties.ImmediatePopup = True
+        Me.lkpDiscapacitado.Properties.PopupFormMinSize = New System.Drawing.Size(95, 40)
+        Me.lkpDiscapacitado.Properties.PopupFormSize = New System.Drawing.Size(95, 40)
+        Me.lkpDiscapacitado.Properties.ShowFooter = False
+        Me.lkpDiscapacitado.Properties.ValueMember = "Id"
+        Me.lkpDiscapacitado.Properties.View = Me.GridView33
+        Me.lkpDiscapacitado.Size = New System.Drawing.Size(95, 20)
+        Me.lkpDiscapacitado.TabIndex = 52
+        '
+        'GridView33
+        '
+        Me.GridView33.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn6})
+        Me.GridView33.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView33.Name = "GridView33"
+        Me.GridView33.OptionsCustomization.AllowFilter = False
+        Me.GridView33.OptionsCustomization.AllowGroup = False
+        Me.GridView33.OptionsCustomization.AllowSort = False
+        Me.GridView33.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView33.OptionsView.ShowColumnHeaders = False
+        Me.GridView33.OptionsView.ShowGroupPanel = False
+        Me.GridView33.OptionsView.ShowIndicator = False
+        '
+        'GridColumn6
+        '
+        Me.GridColumn6.FieldName = "Opcion"
+        Me.GridColumn6.Name = "GridColumn6"
+        Me.GridColumn6.Visible = True
+        Me.GridColumn6.VisibleIndex = 0
+        '
+        'LabelControl35
+        '
+        Me.LabelControl35.Location = New System.Drawing.Point(15, 478)
+        Me.LabelControl35.Name = "LabelControl35"
+        Me.LabelControl35.Size = New System.Drawing.Size(165, 13)
+        Me.LabelControl35.TabIndex = 53
+        Me.LabelControl35.Text = "¿Tiene usted alguna discapacidad?"
+        '
+        'LabelControl34
+        '
+        Me.LabelControl34.Location = New System.Drawing.Point(14, 441)
+        Me.LabelControl34.Name = "LabelControl34"
+        Me.LabelControl34.Size = New System.Drawing.Size(581, 26)
+        Me.LabelControl34.TabIndex = 51
+        Me.LabelControl34.Text = "A nivel nacional, se tiene como objetivo dar accesibilidad universal a toda la po" &
+    "blación, por lo tanto, interesa saber cuáles" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "son las limitaciones y a cuántas p" &
+    "ersonas afecta."
+        '
+        'lblTipoDiscapacidad
+        '
+        Me.lblTipoDiscapacidad.Location = New System.Drawing.Point(15, 504)
+        Me.lblTipoDiscapacidad.Name = "lblTipoDiscapacidad"
+        Me.lblTipoDiscapacidad.Size = New System.Drawing.Size(210, 13)
+        Me.lblTipoDiscapacidad.TabIndex = 57
+        Me.lblTipoDiscapacidad.Text = "Tiene usted alguna de estas discapacidades"
+        Me.lblTipoDiscapacidad.Visible = False
+        '
+        'lkpAutosuficiente
+        '
+        Me.lkpAutosuficiente.EditValue = ""
+        Me.lkpAutosuficiente.Location = New System.Drawing.Point(145, 526)
+        Me.lkpAutosuficiente.MenuManager = Me.RibbonControl
+        Me.lkpAutosuficiente.Name = "lkpAutosuficiente"
+        Me.lkpAutosuficiente.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpAutosuficiente.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpAutosuficiente.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpAutosuficiente.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpAutosuficiente.Properties.DataSource = Me.SiNoBindingSource
+        Me.lkpAutosuficiente.Properties.DisplayMember = "Opcion"
+        Me.lkpAutosuficiente.Properties.ImmediatePopup = True
+        Me.lkpAutosuficiente.Properties.PopupFormMinSize = New System.Drawing.Size(95, 40)
+        Me.lkpAutosuficiente.Properties.PopupFormSize = New System.Drawing.Size(95, 40)
+        Me.lkpAutosuficiente.Properties.ShowFooter = False
+        Me.lkpAutosuficiente.Properties.ValueMember = "Id"
+        Me.lkpAutosuficiente.Properties.View = Me.GridView34
+        Me.lkpAutosuficiente.Size = New System.Drawing.Size(95, 20)
+        Me.lkpAutosuficiente.TabIndex = 58
+        Me.lkpAutosuficiente.Visible = False
+        '
+        'GridView34
+        '
+        Me.GridView34.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn7})
+        Me.GridView34.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView34.Name = "GridView34"
+        Me.GridView34.OptionsCustomization.AllowFilter = False
+        Me.GridView34.OptionsCustomization.AllowGroup = False
+        Me.GridView34.OptionsCustomization.AllowSort = False
+        Me.GridView34.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView34.OptionsView.ShowColumnHeaders = False
+        Me.GridView34.OptionsView.ShowGroupPanel = False
+        Me.GridView34.OptionsView.ShowIndicator = False
+        '
+        'GridColumn7
+        '
+        Me.GridColumn7.FieldName = "Opcion"
+        Me.GridColumn7.Name = "GridColumn7"
+        Me.GridColumn7.Visible = True
+        Me.GridColumn7.VisibleIndex = 0
+        '
+        'lblAutosuficiente
+        '
+        Me.lblAutosuficiente.Location = New System.Drawing.Point(17, 529)
+        Me.lblAutosuficiente.Name = "lblAutosuficiente"
+        Me.lblAutosuficiente.Size = New System.Drawing.Size(122, 13)
+        Me.lblAutosuficiente.TabIndex = 59
+        Me.lblAutosuficiente.Text = "¿Es usted autosuficiente?"
+        Me.lblAutosuficiente.Visible = False
+        '
+        'chkTipoDiscapacidad
+        '
+        Me.chkTipoDiscapacidad.EditValue = ""
+        Me.chkTipoDiscapacidad.Location = New System.Drawing.Point(232, 501)
+        Me.chkTipoDiscapacidad.MenuManager = Me.RibbonControl
+        Me.chkTipoDiscapacidad.Name = "chkTipoDiscapacidad"
+        Me.chkTipoDiscapacidad.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.chkTipoDiscapacidad.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.chkTipoDiscapacidad.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.chkTipoDiscapacidad.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.chkTipoDiscapacidad.Properties.DataSource = Me.TipoDiscapacidadBindingSource
+        Me.chkTipoDiscapacidad.Properties.DisplayMember = "TipoDiscapacidad"
+        Me.chkTipoDiscapacidad.Properties.NullText = "[Vacío]"
+        Me.chkTipoDiscapacidad.Properties.PopupFormMinSize = New System.Drawing.Size(431, 80)
+        Me.chkTipoDiscapacidad.Properties.PopupFormSize = New System.Drawing.Size(431, 80)
+        Me.chkTipoDiscapacidad.Properties.ValueMember = "ID"
+        Me.chkTipoDiscapacidad.Size = New System.Drawing.Size(380, 20)
+        Me.chkTipoDiscapacidad.TabIndex = 56
+        Me.chkTipoDiscapacidad.Visible = False
+        '
+        'TipoDiscapacidadBindingSource
+        '
+        Me.TipoDiscapacidadBindingSource.DataMember = "TipoDiscapacidad"
+        Me.TipoDiscapacidadBindingSource.DataSource = Me.datasetEOD
+        '
+        'TipoDiscapacidadTableAdapter
+        '
+        Me.TipoDiscapacidadTableAdapter.ClearBeforeFill = True
+        '
         'AgregarPersona
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(674, 480)
+        Me.ClientSize = New System.Drawing.Size(674, 579)
+        Me.Controls.Add(Me.lblTipoDiscapacidad)
+        Me.Controls.Add(Me.lkpAutosuficiente)
+        Me.Controls.Add(Me.lblAutosuficiente)
+        Me.Controls.Add(Me.chkTipoDiscapacidad)
+        Me.Controls.Add(Me.lkpDiscapacitado)
+        Me.Controls.Add(Me.LabelControl35)
+        Me.Controls.Add(Me.LabelControl34)
         Me.Controls.Add(Me.lkpSexo)
         Me.Controls.Add(Me.txtNombrePila)
         Me.Controls.Add(Me.txtAnoNacimiento)
@@ -1621,6 +1795,7 @@ Partial Class AgregarPersona
         CType(Me.ConsultaCalle2TrabajoBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView18, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.lkpCalle1Trabajo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Calle1TrabajoBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView17, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtComunaTrabajoOtra.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.lkpComunaTrabajo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1669,7 +1844,12 @@ Partial Class AgregarPersona
         CType(Me.txtNombrePila.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.lkpSexo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Calle1TrabajoBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lkpDiscapacitado.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView33, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.lkpAutosuficiente.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView34, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkTipoDiscapacidad.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TipoDiscapacidadBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1804,4 +1984,17 @@ Partial Class AgregarPersona
     Friend WithEvents ConsultaCalle2TrabajoTableAdapter As datasetEODTableAdapters.ConsultaCalle2TrabajoTableAdapter
     Friend WithEvents ConsultaCalle2EstudioBindingSource As BindingSource
     Friend WithEvents ConsultaCalle2EstudioTableAdapter As datasetEODTableAdapters.ConsultaCalle2EstudioTableAdapter
+    Friend WithEvents lkpDiscapacitado As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridView33 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents GridColumn6 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents LabelControl35 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl34 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblTipoDiscapacidad As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lkpAutosuficiente As DevExpress.XtraEditors.GridLookUpEdit
+    Friend WithEvents GridView34 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents GridColumn7 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents lblAutosuficiente As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents chkTipoDiscapacidad As DevExpress.XtraEditors.CheckedComboBoxEdit
+    Friend WithEvents TipoDiscapacidadBindingSource As BindingSource
+    Friend WithEvents TipoDiscapacidadTableAdapter As datasetEODTableAdapters.TipoDiscapacidadTableAdapter
 End Class

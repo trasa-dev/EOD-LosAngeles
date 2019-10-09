@@ -101,7 +101,6 @@ Partial Class ModificarViaje
         Me.tabsEtapa1 = New DevExpress.XtraTab.XtraTabControl()
         Me.tabTaxi = New DevExpress.XtraTab.XtraTabPage()
         Me.LabelControl211 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl82 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl83 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl85 = New DevExpress.XtraEditors.LabelControl()
         Me.txtMinutosEsperaTaxiE1 = New DevExpress.XtraEditors.TextEdit()
@@ -111,7 +110,6 @@ Partial Class ModificarViaje
         Me.txtMinutosTaxiE1 = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl89 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl87 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl88 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpLugarBajadaTaxiE1 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView35 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colId35 = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -127,11 +125,19 @@ Partial Class ModificarViaje
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.txtCuantoPagoE1 = New DevExpress.XtraEditors.TextEdit()
+        Me.lblCuantoPagoE1 = New DevExpress.XtraEditors.LabelControl()
+        Me.spcFormaPagoE1 = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.LabelControl26 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpFormaPagoE1 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView18 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colID20 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colFormaPago = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.lblCuantoPagoE1 = New DevExpress.XtraEditors.LabelControl()
+        Me.lkpDondeEstacionaE1 = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.DondeEstacionaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.GridView59 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn50 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn57 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl27 = New DevExpress.XtraEditors.LabelControl()
         Me.lblLugarDondeBajoE1 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpLugarDondeBajoE1 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView16 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -164,21 +170,30 @@ Partial Class ModificarViaje
         Me.spcPropiedadBicicletaE1 = New DevExpress.XtraEditors.SplitContainerControl()
         Me.txtPropiedadBicicletaOtraE1 = New DevExpress.XtraEditors.TextEdit()
         Me.lblPropiedadBiciOtraE1 = New DevExpress.XtraEditors.LabelControl()
+        Me.spcMotivoNoUsaE1 = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.txtMotivoNoUsaE1 = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl18 = New DevExpress.XtraEditors.LabelControl()
+        Me.lkpEstacionamientoBiciE1 = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.EstacionamientoBicicletaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.GridView22 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn19 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn20 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl154 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl57 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpCicloviaE1 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView26 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GridColumn51 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridColumn52 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.LabelControl137 = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpLugarBajadaBiciE1 = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.GridView53 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn33 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.GridColumn34 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.LabelControl48 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl137 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpPropiedadBicicletaE1 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView25 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colID26 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colPropiedadBicicleta = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.lkpLugarBajadaBiciE1 = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView53 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn33 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn34 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.tabBus = New DevExpress.XtraTab.XtraTabPage()
         Me.txtMinutosEsperaBusE1 = New DevExpress.XtraEditors.TextEdit()
         Me.spcCuantoPagoBusE1 = New DevExpress.XtraEditors.SplitContainerControl()
@@ -281,7 +296,6 @@ Partial Class ModificarViaje
         Me.tabsEtapa2 = New DevExpress.XtraTab.XtraTabControl()
         Me.tabTaxiE2 = New DevExpress.XtraTab.XtraTabPage()
         Me.LabelControl208 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl34 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl40 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl41 = New DevExpress.XtraEditors.LabelControl()
         Me.txtMinutosEsperaTaxiE2 = New DevExpress.XtraEditors.TextEdit()
@@ -291,7 +305,6 @@ Partial Class ModificarViaje
         Me.txtMinutosTaxiE2 = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl43 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl44 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl45 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpLugarBajadaTaxiE2 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.DondeSeBajoE2BindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GridView36 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -303,11 +316,18 @@ Partial Class ModificarViaje
         Me.spcPagoEstacionamientoE2 = New DevExpress.XtraEditors.SplitContainerControl()
         Me.chkNSNRPagoE2 = New DevExpress.XtraEditors.CheckEdit()
         Me.txtCuantoPagoE2 = New DevExpress.XtraEditors.TextEdit()
+        Me.lblCuantoPagoE2 = New DevExpress.XtraEditors.LabelControl()
+        Me.spcFormaPagoE2 = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.LabelControl54 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpFormaPagoE2 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView43 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GridColumn14 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridColumn15 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.lblCuantoPagoE2 = New DevExpress.XtraEditors.LabelControl()
+        Me.lkpDondeEstacionaE2 = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView37 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn58 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn79 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl56 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl58 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpLugarBajadaAutoE2 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView44 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -338,21 +358,29 @@ Partial Class ModificarViaje
         Me.spcPropiedadBicicletaE2 = New DevExpress.XtraEditors.SplitContainerControl()
         Me.txtPropiedadBicicletaOtraE2 = New DevExpress.XtraEditors.TextEdit()
         Me.lblPropiedadBiciOtraE2 = New DevExpress.XtraEditors.LabelControl()
+        Me.spcMotivoNoUsaE2 = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.txtMotivoNoUsaE2 = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl155 = New DevExpress.XtraEditors.LabelControl()
+        Me.lkpEstacionamientoBiciE2 = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView62 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn44 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn93 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl156 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl28 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpCicloviaE2 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView24 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GridColumn78 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridColumn109 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.LabelControl172 = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpLugarBajadaBiciE2 = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.GridView14 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn74 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.GridColumn75 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.LabelControl94 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl172 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpPropiedadBicicletaE2 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView49 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GridColumn25 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridColumn26 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.lkpLugarBajadaBiciE2 = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView14 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn74 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn75 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.tabBusE2 = New DevExpress.XtraTab.XtraTabPage()
         Me.txtMinutosEsperaBusE2 = New DevExpress.XtraEditors.TextEdit()
         Me.spcCuantoPagoBusE2 = New DevExpress.XtraEditors.SplitContainerControl()
@@ -453,7 +481,6 @@ Partial Class ModificarViaje
         Me.tabsEtapa3 = New DevExpress.XtraTab.XtraTabControl()
         Me.tabTaxiE3 = New DevExpress.XtraTab.XtraTabPage()
         Me.LabelControl216 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl71 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl72 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl73 = New DevExpress.XtraEditors.LabelControl()
         Me.txtMinutosEsperaTaxiE3 = New DevExpress.XtraEditors.TextEdit()
@@ -463,7 +490,6 @@ Partial Class ModificarViaje
         Me.txtMinutosTaxiE3 = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl75 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl76 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl77 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpLugarBajadaTaxiE3 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.DondeSeBajoE3BindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GridView38 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -476,6 +502,17 @@ Partial Class ModificarViaje
         Me.chkNSNRPagoE3 = New DevExpress.XtraEditors.CheckEdit()
         Me.txtCuantoPagoE3 = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl80 = New DevExpress.XtraEditors.LabelControl()
+        Me.spcFormaPagoE3 = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.lkpFormaPagoE3 = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView56 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn39 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn40 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl78 = New DevExpress.XtraEditors.LabelControl()
+        Me.lkpDondeEstacionaE3 = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView55 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn96 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn105 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl79 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl81 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpLugarBajadaAutoE3 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView57 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -506,21 +543,29 @@ Partial Class ModificarViaje
         Me.spcPropiedadBicicletaE3 = New DevExpress.XtraEditors.SplitContainerControl()
         Me.txtPropiedadBicicletaOtraE3 = New DevExpress.XtraEditors.TextEdit()
         Me.lblPropiedadBiciOtraE3 = New DevExpress.XtraEditors.LabelControl()
+        Me.spcMotivoNoUsaE3 = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.txtMotivoNoUsaE3 = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl157 = New DevExpress.XtraEditors.LabelControl()
+        Me.lkpEstacionamientoBiciE3 = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView69 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn94 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn95 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl158 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl16 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpCicloviaE3 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView23 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GridColumn110 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridColumn111 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.LabelControl140 = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpLugarBajadaBiciE3 = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.GridView54 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn35 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.GridColumn36 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.LabelControl141 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl140 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpPropiedadBicicletaE3 = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView65 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GridColumn66 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridColumn67 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.lkpLugarBajadaBiciE3 = New DevExpress.XtraEditors.GridLookUpEdit()
+        Me.GridView54 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.GridColumn35 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.GridColumn36 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.tabBusE3 = New DevExpress.XtraTab.XtraTabPage()
         Me.txtMinutosEsperaBusE3 = New DevExpress.XtraEditors.TextEdit()
         Me.spcCuantoPagoBusE3 = New DevExpress.XtraEditors.SplitContainerControl()
@@ -755,59 +800,14 @@ Partial Class ModificarViaje
         Me.ConsultaCalle2Etapa2TableAdapter = New EOD.datasetEODTableAdapters.ConsultaCalle2Etapa2TableAdapter()
         Me.ConsultaCalle2Etapa3TableAdapter = New EOD.datasetEODTableAdapters.ConsultaCalle2Etapa3TableAdapter()
         Me.MuelleTableAdapter = New EOD.datasetEODTableAdapters.MuelleTableAdapter()
-        Me.spcMotivoNoUsaE1 = New DevExpress.XtraEditors.SplitContainerControl()
-        Me.txtMotivoNoUsaE1 = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl18 = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpEstacionamientoBiciE1 = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.GridView22 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn19 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.GridColumn20 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.LabelControl154 = New DevExpress.XtraEditors.LabelControl()
-        Me.spcMotivoNoUsaE2 = New DevExpress.XtraEditors.SplitContainerControl()
-        Me.txtMotivoNoUsaE2 = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl155 = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpEstacionamientoBiciE2 = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.GridView62 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn44 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.GridColumn93 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.LabelControl156 = New DevExpress.XtraEditors.LabelControl()
-        Me.spcMotivoNoUsaE3 = New DevExpress.XtraEditors.SplitContainerControl()
-        Me.txtMotivoNoUsaE3 = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl157 = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpEstacionamientoBiciE3 = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.GridView69 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn94 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.GridColumn95 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.LabelControl158 = New DevExpress.XtraEditors.LabelControl()
-        Me.EstacionamientoBicicletaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.EstacionamientoBicicletaTableAdapter = New EOD.datasetEODTableAdapters.EstacionamientoBicicletaTableAdapter()
-        Me.spcFormaPagoE1 = New DevExpress.XtraEditors.SplitContainerControl()
-        Me.LabelControl26 = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpDondeEstacionaE1 = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.GridView59 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn50 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.GridColumn57 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.LabelControl27 = New DevExpress.XtraEditors.LabelControl()
-        Me.DondeEstacionaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DondeEstacionaTableAdapter = New EOD.datasetEODTableAdapters.DondeEstacionaTableAdapter()
-        Me.spcFormaPagoE2 = New DevExpress.XtraEditors.SplitContainerControl()
-        Me.LabelControl54 = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpDondeEstacionaE2 = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.GridView37 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn58 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.GridColumn79 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.LabelControl56 = New DevExpress.XtraEditors.LabelControl()
-        Me.spcFormaPagoE3 = New DevExpress.XtraEditors.SplitContainerControl()
-        Me.LabelControl78 = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpDondeEstacionaE3 = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.GridView55 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn96 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.GridColumn105 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.LabelControl79 = New DevExpress.XtraEditors.LabelControl()
-        Me.lkpFormaPagoE3 = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.GridView56 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.GridColumn39 = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.GridColumn40 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.LabelControl82 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl88 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl34 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl45 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl71 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl77 = New DevExpress.XtraEditors.LabelControl()
         CType(Me.SiNoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.datasetEOD, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.LugarPrimerViajeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
@@ -866,8 +866,13 @@ Partial Class ModificarViaje
         CType(Me.chkNSNRPagoE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.TabFormDefaultManager1, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.txtCuantoPagoE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.spcFormaPagoE1, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.spcFormaPagoE1.SuspendLayout
         CType(Me.lkpFormaPagoE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView18, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.lkpDondeEstacionaE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.DondeEstacionaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.GridView59, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.lkpLugarDondeBajoE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView16, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.spVehiculoHogarE1, System.ComponentModel.ISupportInitialize).BeginInit
@@ -886,12 +891,18 @@ Partial Class ModificarViaje
         CType(Me.spcPropiedadBicicletaE1, System.ComponentModel.ISupportInitialize).BeginInit
         Me.spcPropiedadBicicletaE1.SuspendLayout
         CType(Me.txtPropiedadBicicletaOtraE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.spcMotivoNoUsaE1, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.spcMotivoNoUsaE1.SuspendLayout
+        CType(Me.txtMotivoNoUsaE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.lkpEstacionamientoBiciE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.EstacionamientoBicicletaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.GridView22, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.lkpCicloviaE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView26, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.lkpLugarBajadaBiciE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView53, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.lkpPropiedadBicicletaE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView25, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.lkpLugarBajadaBiciE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.GridView53, System.ComponentModel.ISupportInitialize).BeginInit
         Me.tabBus.SuspendLayout
         CType(Me.txtMinutosEsperaBusE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.spcCuantoPagoBusE1, System.ComponentModel.ISupportInitialize).BeginInit
@@ -958,8 +969,12 @@ Partial Class ModificarViaje
         Me.spcPagoEstacionamientoE2.SuspendLayout
         CType(Me.chkNSNRPagoE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.txtCuantoPagoE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.spcFormaPagoE2, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.spcFormaPagoE2.SuspendLayout
         CType(Me.lkpFormaPagoE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView43, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.lkpDondeEstacionaE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.GridView37, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.lkpLugarBajadaAutoE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView44, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.spVehiculoHogarE2, System.ComponentModel.ISupportInitialize).BeginInit
@@ -976,12 +991,17 @@ Partial Class ModificarViaje
         CType(Me.spcPropiedadBicicletaE2, System.ComponentModel.ISupportInitialize).BeginInit
         Me.spcPropiedadBicicletaE2.SuspendLayout
         CType(Me.txtPropiedadBicicletaOtraE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.spcMotivoNoUsaE2, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.spcMotivoNoUsaE2.SuspendLayout
+        CType(Me.txtMotivoNoUsaE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.lkpEstacionamientoBiciE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.GridView62, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.lkpCicloviaE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView24, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.lkpLugarBajadaBiciE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView14, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.lkpPropiedadBicicletaE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView49, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.lkpLugarBajadaBiciE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.GridView14, System.ComponentModel.ISupportInitialize).BeginInit
         Me.tabBusE2.SuspendLayout
         CType(Me.txtMinutosEsperaBusE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.spcCuantoPagoBusE2, System.ComponentModel.ISupportInitialize).BeginInit
@@ -1046,6 +1066,12 @@ Partial Class ModificarViaje
         Me.spcPagoEstacionamientoE3.SuspendLayout
         CType(Me.chkNSNRPagoE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.txtCuantoPagoE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.spcFormaPagoE3, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.spcFormaPagoE3.SuspendLayout
+        CType(Me.lkpFormaPagoE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.GridView56, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.lkpDondeEstacionaE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.GridView55, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.lkpLugarBajadaAutoE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView57, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.spVehiculoHogarE3, System.ComponentModel.ISupportInitialize).BeginInit
@@ -1062,12 +1088,17 @@ Partial Class ModificarViaje
         CType(Me.spcPropiedadBicicletaE3, System.ComponentModel.ISupportInitialize).BeginInit
         Me.spcPropiedadBicicletaE3.SuspendLayout
         CType(Me.txtPropiedadBicicletaOtraE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.spcMotivoNoUsaE3, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.spcMotivoNoUsaE3.SuspendLayout
+        CType(Me.txtMotivoNoUsaE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.lkpEstacionamientoBiciE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.GridView69, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.lkpCicloviaE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView23, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.lkpLugarBajadaBiciE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView54, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.lkpPropiedadBicicletaE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.GridView65, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.lkpLugarBajadaBiciE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.GridView54, System.ComponentModel.ISupportInitialize).BeginInit
         Me.tabBusE3.SuspendLayout
         CType(Me.txtMinutosEsperaBusE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.spcCuantoPagoBusE3, System.ComponentModel.ISupportInitialize).BeginInit
@@ -1181,37 +1212,6 @@ Partial Class ModificarViaje
         CType(Me.Etapa1BindingSource, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.Etapa2BindingSource, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.Etapa3BindingSource, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.spcMotivoNoUsaE1, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.spcMotivoNoUsaE1.SuspendLayout
-        CType(Me.txtMotivoNoUsaE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.lkpEstacionamientoBiciE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView22, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.spcMotivoNoUsaE2, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.spcMotivoNoUsaE2.SuspendLayout
-        CType(Me.txtMotivoNoUsaE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.lkpEstacionamientoBiciE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView62, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.spcMotivoNoUsaE3, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.spcMotivoNoUsaE3.SuspendLayout
-        CType(Me.txtMotivoNoUsaE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.lkpEstacionamientoBiciE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView69, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.EstacionamientoBicicletaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.spcFormaPagoE1, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.spcFormaPagoE1.SuspendLayout
-        CType(Me.lkpDondeEstacionaE1.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView59, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.DondeEstacionaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.spcFormaPagoE2, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.spcFormaPagoE2.SuspendLayout
-        CType(Me.lkpDondeEstacionaE2.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView37, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.spcFormaPagoE3, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.spcFormaPagoE3.SuspendLayout
-        CType(Me.lkpDondeEstacionaE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView55, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.lkpFormaPagoE3.Properties, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView56, System.ComponentModel.ISupportInitialize).BeginInit
         Me.SuspendLayout
         '
         'SiNoBindingSource
@@ -1833,8 +1833,9 @@ Partial Class ModificarViaje
         '
         'tabTaxi
         '
-        Me.tabTaxi.Controls.Add(Me.LabelControl211)
         Me.tabTaxi.Controls.Add(Me.LabelControl82)
+        Me.tabTaxi.Controls.Add(Me.LabelControl88)
+        Me.tabTaxi.Controls.Add(Me.LabelControl211)
         Me.tabTaxi.Controls.Add(Me.LabelControl83)
         Me.tabTaxi.Controls.Add(Me.LabelControl85)
         Me.tabTaxi.Controls.Add(Me.txtMinutosEsperaTaxiE1)
@@ -1844,7 +1845,6 @@ Partial Class ModificarViaje
         Me.tabTaxi.Controls.Add(Me.txtMinutosTaxiE1)
         Me.tabTaxi.Controls.Add(Me.LabelControl89)
         Me.tabTaxi.Controls.Add(Me.LabelControl87)
-        Me.tabTaxi.Controls.Add(Me.LabelControl88)
         Me.tabTaxi.Controls.Add(Me.lkpLugarBajadaTaxiE1)
         Me.tabTaxi.Name = "tabTaxi"
         Me.tabTaxi.Size = New System.Drawing.Size(995, 179)
@@ -1852,19 +1852,11 @@ Partial Class ModificarViaje
         '
         'LabelControl211
         '
-        Me.LabelControl211.Location = New System.Drawing.Point(597, 28)
+        Me.LabelControl211.Location = New System.Drawing.Point(69, 86)
         Me.LabelControl211.Name = "LabelControl211"
         Me.LabelControl211.Size = New System.Drawing.Size(65, 13)
         Me.LabelControl211.TabIndex = 95
         Me.LabelControl211.Text = "(NS/NR = 99)"
-        '
-        'LabelControl82
-        '
-        Me.LabelControl82.Location = New System.Drawing.Point(3, 5)
-        Me.LabelControl82.Name = "LabelControl82"
-        Me.LabelControl82.Size = New System.Drawing.Size(256, 13)
-        Me.LabelControl82.TabIndex = 49
-        Me.LabelControl82.Text = "¿Cuánto caminó antes de tomar este taxi o radiotaxi?"
         '
         'LabelControl83
         '
@@ -1884,7 +1876,7 @@ Partial Class ModificarViaje
         '
         'txtMinutosEsperaTaxiE1
         '
-        Me.txtMinutosEsperaTaxiE1.Location = New System.Drawing.Point(277, 24)
+        Me.txtMinutosEsperaTaxiE1.Location = New System.Drawing.Point(442, 24)
         Me.txtMinutosEsperaTaxiE1.Name = "txtMinutosEsperaTaxiE1"
         Me.txtMinutosEsperaTaxiE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.txtMinutosEsperaTaxiE1.Properties.AppearanceFocused.Options.UseBorderColor = True
@@ -1896,7 +1888,7 @@ Partial Class ModificarViaje
         '
         'LabelControl90
         '
-        Me.LabelControl90.Location = New System.Drawing.Point(531, 5)
+        Me.LabelControl90.Location = New System.Drawing.Point(3, 63)
         Me.LabelControl90.Name = "LabelControl90"
         Me.LabelControl90.Size = New System.Drawing.Size(118, 13)
         Me.LabelControl90.TabIndex = 65
@@ -1916,7 +1908,7 @@ Partial Class ModificarViaje
         '
         'txtTarifaMontoTaxiE1
         '
-        Me.txtTarifaMontoTaxiE1.Location = New System.Drawing.Point(531, 24)
+        Me.txtTarifaMontoTaxiE1.Location = New System.Drawing.Point(3, 82)
         Me.txtTarifaMontoTaxiE1.Name = "txtTarifaMontoTaxiE1"
         Me.txtTarifaMontoTaxiE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.txtTarifaMontoTaxiE1.Properties.AppearanceFocused.Options.UseBorderColor = True
@@ -1940,7 +1932,7 @@ Partial Class ModificarViaje
         '
         'LabelControl89
         '
-        Me.LabelControl89.Location = New System.Drawing.Point(334, 27)
+        Me.LabelControl89.Location = New System.Drawing.Point(499, 27)
         Me.LabelControl89.Name = "LabelControl89"
         Me.LabelControl89.Size = New System.Drawing.Size(37, 13)
         Me.LabelControl89.TabIndex = 56
@@ -1948,24 +1940,16 @@ Partial Class ModificarViaje
         '
         'LabelControl87
         '
-        Me.LabelControl87.Location = New System.Drawing.Point(678, 5)
+        Me.LabelControl87.Location = New System.Drawing.Point(150, 63)
         Me.LabelControl87.Name = "LabelControl87"
         Me.LabelControl87.Size = New System.Drawing.Size(79, 13)
         Me.LabelControl87.TabIndex = 67
         Me.LabelControl87.Text = "¿Dónde se bajó?"
         '
-        'LabelControl88
-        '
-        Me.LabelControl88.Location = New System.Drawing.Point(277, 5)
-        Me.LabelControl88.Name = "LabelControl88"
-        Me.LabelControl88.Size = New System.Drawing.Size(235, 13)
-        Me.LabelControl88.TabIndex = 55
-        Me.LabelControl88.Text = "¿Cuánto rato esperó para abordar el transporte?"
-        '
         'lkpLugarBajadaTaxiE1
         '
         Me.lkpLugarBajadaTaxiE1.EditValue = ""
-        Me.lkpLugarBajadaTaxiE1.Location = New System.Drawing.Point(678, 24)
+        Me.lkpLugarBajadaTaxiE1.Location = New System.Drawing.Point(150, 82)
         Me.lkpLugarBajadaTaxiE1.Name = "lkpLugarBajadaTaxiE1"
         Me.lkpLugarBajadaTaxiE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.lkpLugarBajadaTaxiE1.Properties.AppearanceFocused.Options.UseBorderColor = True
@@ -2130,6 +2114,38 @@ Partial Class ModificarViaje
         Me.txtCuantoPagoE1.Size = New System.Drawing.Size(76, 20)
         Me.txtCuantoPagoE1.TabIndex = 32
         '
+        'lblCuantoPagoE1
+        '
+        Me.lblCuantoPagoE1.Location = New System.Drawing.Point(2, 6)
+        Me.lblCuantoPagoE1.Name = "lblCuantoPagoE1"
+        Me.lblCuantoPagoE1.Size = New System.Drawing.Size(144, 13)
+        Me.lblCuantoPagoE1.TabIndex = 6
+        Me.lblCuantoPagoE1.Text = "¿Cuánto pagó por estacionar?"
+        '
+        'spcFormaPagoE1
+        '
+        Me.spcFormaPagoE1.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
+        Me.spcFormaPagoE1.Location = New System.Drawing.Point(1, 6)
+        Me.spcFormaPagoE1.Name = "spcFormaPagoE1"
+        Me.spcFormaPagoE1.Panel1.Controls.Add(Me.LabelControl26)
+        Me.spcFormaPagoE1.Panel1.Controls.Add(Me.lkpFormaPagoE1)
+        Me.spcFormaPagoE1.Panel1.Text = "Panel1"
+        Me.spcFormaPagoE1.Panel2.Controls.Add(Me.lkpDondeEstacionaE1)
+        Me.spcFormaPagoE1.Panel2.Controls.Add(Me.LabelControl27)
+        Me.spcFormaPagoE1.Panel2.Text = "Panel2"
+        Me.spcFormaPagoE1.Size = New System.Drawing.Size(392, 48)
+        Me.spcFormaPagoE1.SplitterPosition = 176
+        Me.spcFormaPagoE1.TabIndex = 96
+        Me.spcFormaPagoE1.Text = "SplitContainerControl2"
+        '
+        'LabelControl26
+        '
+        Me.LabelControl26.Location = New System.Drawing.Point(6, 3)
+        Me.LabelControl26.Name = "LabelControl26"
+        Me.LabelControl26.Size = New System.Drawing.Size(72, 13)
+        Me.LabelControl26.TabIndex = 4
+        Me.LabelControl26.Text = "¿Este pago es?"
+        '
         'lkpFormaPagoE1
         '
         Me.lkpFormaPagoE1.EditValue = ""
@@ -2175,13 +2191,64 @@ Partial Class ModificarViaje
         Me.colFormaPago.Visible = True
         Me.colFormaPago.VisibleIndex = 0
         '
-        'lblCuantoPagoE1
+        'lkpDondeEstacionaE1
         '
-        Me.lblCuantoPagoE1.Location = New System.Drawing.Point(2, 6)
-        Me.lblCuantoPagoE1.Name = "lblCuantoPagoE1"
-        Me.lblCuantoPagoE1.Size = New System.Drawing.Size(144, 13)
-        Me.lblCuantoPagoE1.TabIndex = 6
-        Me.lblCuantoPagoE1.Text = "¿Cuánto pagó por estacionar?"
+        Me.lkpDondeEstacionaE1.EditValue = ""
+        Me.lkpDondeEstacionaE1.Location = New System.Drawing.Point(3, 21)
+        Me.lkpDondeEstacionaE1.Name = "lkpDondeEstacionaE1"
+        Me.lkpDondeEstacionaE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpDondeEstacionaE1.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpDondeEstacionaE1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpDondeEstacionaE1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpDondeEstacionaE1.Properties.DataSource = Me.DondeEstacionaBindingSource
+        Me.lkpDondeEstacionaE1.Properties.DisplayMember = "DondeEstaciona"
+        Me.lkpDondeEstacionaE1.Properties.ImmediatePopup = True
+        Me.lkpDondeEstacionaE1.Properties.PopupFormMinSize = New System.Drawing.Size(147, 100)
+        Me.lkpDondeEstacionaE1.Properties.PopupFormSize = New System.Drawing.Size(147, 100)
+        Me.lkpDondeEstacionaE1.Properties.ShowFooter = False
+        Me.lkpDondeEstacionaE1.Properties.ValueMember = "ID"
+        Me.lkpDondeEstacionaE1.Properties.View = Me.GridView59
+        Me.lkpDondeEstacionaE1.Size = New System.Drawing.Size(186, 20)
+        Me.lkpDondeEstacionaE1.TabIndex = 35
+        '
+        'DondeEstacionaBindingSource
+        '
+        Me.DondeEstacionaBindingSource.DataMember = "DondeEstaciona"
+        Me.DondeEstacionaBindingSource.DataSource = Me.datasetEOD
+        '
+        'GridView59
+        '
+        Me.GridView59.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn50, Me.GridColumn57})
+        Me.GridView59.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView59.Name = "GridView59"
+        Me.GridView59.OptionsCustomization.AllowFilter = False
+        Me.GridView59.OptionsCustomization.AllowGroup = False
+        Me.GridView59.OptionsCustomization.AllowSort = False
+        Me.GridView59.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView59.OptionsView.ShowColumnHeaders = False
+        Me.GridView59.OptionsView.ShowGroupPanel = False
+        Me.GridView59.OptionsView.ShowIndicator = False
+        Me.GridView59.SortInfo.AddRange(New DevExpress.XtraGrid.Columns.GridColumnSortInfo() {New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.GridColumn50, DevExpress.Data.ColumnSortOrder.Ascending), New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.GridColumn57, DevExpress.Data.ColumnSortOrder.Ascending)})
+        '
+        'GridColumn50
+        '
+        Me.GridColumn50.FieldName = "ID"
+        Me.GridColumn50.Name = "GridColumn50"
+        '
+        'GridColumn57
+        '
+        Me.GridColumn57.FieldName = "DondeEstaciona"
+        Me.GridColumn57.Name = "GridColumn57"
+        Me.GridColumn57.Visible = True
+        Me.GridColumn57.VisibleIndex = 0
+        '
+        'LabelControl27
+        '
+        Me.LabelControl27.Location = New System.Drawing.Point(3, 3)
+        Me.LabelControl27.Name = "LabelControl27"
+        Me.LabelControl27.Size = New System.Drawing.Size(90, 13)
+        Me.LabelControl27.TabIndex = 5
+        Me.LabelControl27.Text = "¿Dónde estacionó?"
         '
         'lblLugarDondeBajoE1
         '
@@ -2522,6 +2589,98 @@ Partial Class ModificarViaje
         Me.lblPropiedadBiciOtraE1.Text = "Otra (indicar)"
         Me.lblPropiedadBiciOtraE1.Visible = False
         '
+        'spcMotivoNoUsaE1
+        '
+        Me.spcMotivoNoUsaE1.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
+        Me.spcMotivoNoUsaE1.Location = New System.Drawing.Point(191, 0)
+        Me.spcMotivoNoUsaE1.Name = "spcMotivoNoUsaE1"
+        Me.spcMotivoNoUsaE1.Panel1.Controls.Add(Me.txtMotivoNoUsaE1)
+        Me.spcMotivoNoUsaE1.Panel1.Controls.Add(Me.LabelControl18)
+        Me.spcMotivoNoUsaE1.Panel1.Text = "Panel1"
+        Me.spcMotivoNoUsaE1.Panel2.Controls.Add(Me.lkpEstacionamientoBiciE1)
+        Me.spcMotivoNoUsaE1.Panel2.Controls.Add(Me.LabelControl154)
+        Me.spcMotivoNoUsaE1.Panel2.Text = "Panel2"
+        Me.spcMotivoNoUsaE1.Size = New System.Drawing.Size(570, 44)
+        Me.spcMotivoNoUsaE1.SplitterPosition = 136
+        Me.spcMotivoNoUsaE1.TabIndex = 47
+        Me.spcMotivoNoUsaE1.Text = "SplitContainerControl2"
+        '
+        'txtMotivoNoUsaE1
+        '
+        Me.txtMotivoNoUsaE1.Location = New System.Drawing.Point(0, 17)
+        Me.txtMotivoNoUsaE1.Name = "txtMotivoNoUsaE1"
+        Me.txtMotivoNoUsaE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.txtMotivoNoUsaE1.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.txtMotivoNoUsaE1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.txtMotivoNoUsaE1.Size = New System.Drawing.Size(131, 20)
+        Me.txtMotivoNoUsaE1.TabIndex = 40
+        '
+        'LabelControl18
+        '
+        Me.LabelControl18.Location = New System.Drawing.Point(0, 0)
+        Me.LabelControl18.Name = "LabelControl18"
+        Me.LabelControl18.Size = New System.Drawing.Size(91, 13)
+        Me.LabelControl18.TabIndex = 39
+        Me.LabelControl18.Text = "¿Por qué? (Indicar)"
+        '
+        'lkpEstacionamientoBiciE1
+        '
+        Me.lkpEstacionamientoBiciE1.EditValue = ""
+        Me.lkpEstacionamientoBiciE1.Location = New System.Drawing.Point(11, 17)
+        Me.lkpEstacionamientoBiciE1.Name = "lkpEstacionamientoBiciE1"
+        Me.lkpEstacionamientoBiciE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpEstacionamientoBiciE1.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpEstacionamientoBiciE1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpEstacionamientoBiciE1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpEstacionamientoBiciE1.Properties.DataSource = Me.EstacionamientoBicicletaBindingSource
+        Me.lkpEstacionamientoBiciE1.Properties.DisplayMember = "EstacionamientoBicicleta"
+        Me.lkpEstacionamientoBiciE1.Properties.ImmediatePopup = True
+        Me.lkpEstacionamientoBiciE1.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
+        Me.lkpEstacionamientoBiciE1.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
+        Me.lkpEstacionamientoBiciE1.Properties.ShowFooter = False
+        Me.lkpEstacionamientoBiciE1.Properties.ValueMember = "ID"
+        Me.lkpEstacionamientoBiciE1.Properties.View = Me.GridView22
+        Me.lkpEstacionamientoBiciE1.Size = New System.Drawing.Size(277, 20)
+        Me.lkpEstacionamientoBiciE1.TabIndex = 42
+        '
+        'EstacionamientoBicicletaBindingSource
+        '
+        Me.EstacionamientoBicicletaBindingSource.DataMember = "EstacionamientoBicicleta"
+        Me.EstacionamientoBicicletaBindingSource.DataSource = Me.datasetEOD
+        '
+        'GridView22
+        '
+        Me.GridView22.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn19, Me.GridColumn20})
+        Me.GridView22.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView22.Name = "GridView22"
+        Me.GridView22.OptionsCustomization.AllowFilter = False
+        Me.GridView22.OptionsCustomization.AllowGroup = False
+        Me.GridView22.OptionsCustomization.AllowSort = False
+        Me.GridView22.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView22.OptionsView.ShowColumnHeaders = False
+        Me.GridView22.OptionsView.ShowGroupPanel = False
+        Me.GridView22.OptionsView.ShowIndicator = False
+        '
+        'GridColumn19
+        '
+        Me.GridColumn19.FieldName = "ID"
+        Me.GridColumn19.Name = "GridColumn19"
+        '
+        'GridColumn20
+        '
+        Me.GridColumn20.FieldName = "EstacionamientoBicicleta"
+        Me.GridColumn20.Name = "GridColumn20"
+        Me.GridColumn20.Visible = True
+        Me.GridColumn20.VisibleIndex = 0
+        '
+        'LabelControl154
+        '
+        Me.LabelControl154.Location = New System.Drawing.Point(11, -2)
+        Me.LabelControl154.Name = "LabelControl154"
+        Me.LabelControl154.Size = New System.Drawing.Size(145, 13)
+        Me.LabelControl154.TabIndex = 41
+        Me.LabelControl154.Text = "¿Dónde estacionó su bicicleta?"
+        '
         'LabelControl57
         '
         Me.LabelControl57.Location = New System.Drawing.Point(3, 0)
@@ -2575,59 +2734,6 @@ Partial Class ModificarViaje
         Me.GridColumn52.Visible = True
         Me.GridColumn52.VisibleIndex = 0
         '
-        'LabelControl137
-        '
-        Me.LabelControl137.Location = New System.Drawing.Point(3, 54)
-        Me.LabelControl137.Name = "LabelControl137"
-        Me.LabelControl137.Size = New System.Drawing.Size(79, 13)
-        Me.LabelControl137.TabIndex = 38
-        Me.LabelControl137.Text = "¿Dónde se bajó?"
-        '
-        'lkpLugarBajadaBiciE1
-        '
-        Me.lkpLugarBajadaBiciE1.EditValue = ""
-        Me.lkpLugarBajadaBiciE1.Location = New System.Drawing.Point(3, 73)
-        Me.lkpLugarBajadaBiciE1.Name = "lkpLugarBajadaBiciE1"
-        Me.lkpLugarBajadaBiciE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpLugarBajadaBiciE1.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpLugarBajadaBiciE1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpLugarBajadaBiciE1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpLugarBajadaBiciE1.Properties.DataSource = Me.DondeSeBajoE1BindingSource
-        Me.lkpLugarBajadaBiciE1.Properties.DisplayMember = "DondeSeBajo"
-        Me.lkpLugarBajadaBiciE1.Properties.ImmediatePopup = True
-        Me.lkpLugarBajadaBiciE1.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
-        Me.lkpLugarBajadaBiciE1.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
-        Me.lkpLugarBajadaBiciE1.Properties.ShowFooter = False
-        Me.lkpLugarBajadaBiciE1.Properties.ValueMember = "Id"
-        Me.lkpLugarBajadaBiciE1.Properties.View = Me.GridView53
-        Me.lkpLugarBajadaBiciE1.Size = New System.Drawing.Size(167, 20)
-        Me.lkpLugarBajadaBiciE1.TabIndex = 40
-        '
-        'GridView53
-        '
-        Me.GridView53.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn33, Me.GridColumn34})
-        Me.GridView53.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView53.Name = "GridView53"
-        Me.GridView53.OptionsCustomization.AllowFilter = False
-        Me.GridView53.OptionsCustomization.AllowGroup = False
-        Me.GridView53.OptionsCustomization.AllowSort = False
-        Me.GridView53.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView53.OptionsView.ShowColumnHeaders = False
-        Me.GridView53.OptionsView.ShowGroupPanel = False
-        Me.GridView53.OptionsView.ShowIndicator = False
-        '
-        'GridColumn33
-        '
-        Me.GridColumn33.FieldName = "Id"
-        Me.GridColumn33.Name = "GridColumn33"
-        '
-        'GridColumn34
-        '
-        Me.GridColumn34.FieldName = "DondeSeBajo"
-        Me.GridColumn34.Name = "GridColumn34"
-        Me.GridColumn34.Visible = True
-        Me.GridColumn34.VisibleIndex = 0
-        '
         'LabelControl48
         '
         Me.LabelControl48.Location = New System.Drawing.Point(2, 3)
@@ -2635,6 +2741,14 @@ Partial Class ModificarViaje
         Me.LabelControl48.Size = New System.Drawing.Size(182, 13)
         Me.LabelControl48.TabIndex = 35
         Me.LabelControl48.Text = "¿La bicicleta que usó en este viaje es?"
+        '
+        'LabelControl137
+        '
+        Me.LabelControl137.Location = New System.Drawing.Point(3, 54)
+        Me.LabelControl137.Name = "LabelControl137"
+        Me.LabelControl137.Size = New System.Drawing.Size(79, 13)
+        Me.LabelControl137.TabIndex = 38
+        Me.LabelControl137.Text = "¿Dónde se bajó?"
         '
         'lkpPropiedadBicicletaE1
         '
@@ -2680,6 +2794,51 @@ Partial Class ModificarViaje
         Me.colPropiedadBicicleta.Name = "colPropiedadBicicleta"
         Me.colPropiedadBicicleta.Visible = True
         Me.colPropiedadBicicleta.VisibleIndex = 0
+        '
+        'lkpLugarBajadaBiciE1
+        '
+        Me.lkpLugarBajadaBiciE1.EditValue = ""
+        Me.lkpLugarBajadaBiciE1.Location = New System.Drawing.Point(3, 73)
+        Me.lkpLugarBajadaBiciE1.Name = "lkpLugarBajadaBiciE1"
+        Me.lkpLugarBajadaBiciE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpLugarBajadaBiciE1.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpLugarBajadaBiciE1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpLugarBajadaBiciE1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpLugarBajadaBiciE1.Properties.DataSource = Me.DondeSeBajoE1BindingSource
+        Me.lkpLugarBajadaBiciE1.Properties.DisplayMember = "DondeSeBajo"
+        Me.lkpLugarBajadaBiciE1.Properties.ImmediatePopup = True
+        Me.lkpLugarBajadaBiciE1.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
+        Me.lkpLugarBajadaBiciE1.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
+        Me.lkpLugarBajadaBiciE1.Properties.ShowFooter = False
+        Me.lkpLugarBajadaBiciE1.Properties.ValueMember = "Id"
+        Me.lkpLugarBajadaBiciE1.Properties.View = Me.GridView53
+        Me.lkpLugarBajadaBiciE1.Size = New System.Drawing.Size(167, 20)
+        Me.lkpLugarBajadaBiciE1.TabIndex = 40
+        '
+        'GridView53
+        '
+        Me.GridView53.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn33, Me.GridColumn34})
+        Me.GridView53.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView53.Name = "GridView53"
+        Me.GridView53.OptionsCustomization.AllowFilter = False
+        Me.GridView53.OptionsCustomization.AllowGroup = False
+        Me.GridView53.OptionsCustomization.AllowSort = False
+        Me.GridView53.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView53.OptionsView.ShowColumnHeaders = False
+        Me.GridView53.OptionsView.ShowGroupPanel = False
+        Me.GridView53.OptionsView.ShowIndicator = False
+        '
+        'GridColumn33
+        '
+        Me.GridColumn33.FieldName = "Id"
+        Me.GridColumn33.Name = "GridColumn33"
+        '
+        'GridColumn34
+        '
+        Me.GridColumn34.FieldName = "DondeSeBajo"
+        Me.GridColumn34.Name = "GridColumn34"
+        Me.GridColumn34.Visible = True
+        Me.GridColumn34.VisibleIndex = 0
         '
         'tabBus
         '
@@ -3720,8 +3879,9 @@ Partial Class ModificarViaje
         '
         'tabTaxiE2
         '
-        Me.tabTaxiE2.Controls.Add(Me.LabelControl208)
         Me.tabTaxiE2.Controls.Add(Me.LabelControl34)
+        Me.tabTaxiE2.Controls.Add(Me.LabelControl45)
+        Me.tabTaxiE2.Controls.Add(Me.LabelControl208)
         Me.tabTaxiE2.Controls.Add(Me.LabelControl40)
         Me.tabTaxiE2.Controls.Add(Me.LabelControl41)
         Me.tabTaxiE2.Controls.Add(Me.txtMinutosEsperaTaxiE2)
@@ -3731,7 +3891,6 @@ Partial Class ModificarViaje
         Me.tabTaxiE2.Controls.Add(Me.txtMinutosTaxiE2)
         Me.tabTaxiE2.Controls.Add(Me.LabelControl43)
         Me.tabTaxiE2.Controls.Add(Me.LabelControl44)
-        Me.tabTaxiE2.Controls.Add(Me.LabelControl45)
         Me.tabTaxiE2.Controls.Add(Me.lkpLugarBajadaTaxiE2)
         Me.tabTaxiE2.Name = "tabTaxiE2"
         Me.tabTaxiE2.Size = New System.Drawing.Size(995, 179)
@@ -3739,19 +3898,11 @@ Partial Class ModificarViaje
         '
         'LabelControl208
         '
-        Me.LabelControl208.Location = New System.Drawing.Point(591, 27)
+        Me.LabelControl208.Location = New System.Drawing.Point(68, 85)
         Me.LabelControl208.Name = "LabelControl208"
         Me.LabelControl208.Size = New System.Drawing.Size(65, 13)
         Me.LabelControl208.TabIndex = 95
         Me.LabelControl208.Text = "(NS/NR = 99)"
-        '
-        'LabelControl34
-        '
-        Me.LabelControl34.Location = New System.Drawing.Point(3, 5)
-        Me.LabelControl34.Name = "LabelControl34"
-        Me.LabelControl34.Size = New System.Drawing.Size(256, 13)
-        Me.LabelControl34.TabIndex = 49
-        Me.LabelControl34.Text = "¿Cuánto caminó antes de tomar este taxi o radiotaxi?"
         '
         'LabelControl40
         '
@@ -3771,7 +3922,7 @@ Partial Class ModificarViaje
         '
         'txtMinutosEsperaTaxiE2
         '
-        Me.txtMinutosEsperaTaxiE2.Location = New System.Drawing.Point(274, 24)
+        Me.txtMinutosEsperaTaxiE2.Location = New System.Drawing.Point(443, 25)
         Me.txtMinutosEsperaTaxiE2.Name = "txtMinutosEsperaTaxiE2"
         Me.txtMinutosEsperaTaxiE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.txtMinutosEsperaTaxiE2.Properties.AppearanceFocused.Options.UseBorderColor = True
@@ -3783,7 +3934,7 @@ Partial Class ModificarViaje
         '
         'LabelControl42
         '
-        Me.LabelControl42.Location = New System.Drawing.Point(525, 5)
+        Me.LabelControl42.Location = New System.Drawing.Point(2, 63)
         Me.LabelControl42.Name = "LabelControl42"
         Me.LabelControl42.Size = New System.Drawing.Size(118, 13)
         Me.LabelControl42.TabIndex = 65
@@ -3803,7 +3954,7 @@ Partial Class ModificarViaje
         '
         'txtTarifaMontoTaxiE2
         '
-        Me.txtTarifaMontoTaxiE2.Location = New System.Drawing.Point(525, 24)
+        Me.txtTarifaMontoTaxiE2.Location = New System.Drawing.Point(2, 82)
         Me.txtTarifaMontoTaxiE2.Name = "txtTarifaMontoTaxiE2"
         Me.txtTarifaMontoTaxiE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.txtTarifaMontoTaxiE2.Properties.AppearanceFocused.Options.UseBorderColor = True
@@ -3827,7 +3978,7 @@ Partial Class ModificarViaje
         '
         'LabelControl43
         '
-        Me.LabelControl43.Location = New System.Drawing.Point(331, 27)
+        Me.LabelControl43.Location = New System.Drawing.Point(500, 28)
         Me.LabelControl43.Name = "LabelControl43"
         Me.LabelControl43.Size = New System.Drawing.Size(37, 13)
         Me.LabelControl43.TabIndex = 56
@@ -3835,24 +3986,16 @@ Partial Class ModificarViaje
         '
         'LabelControl44
         '
-        Me.LabelControl44.Location = New System.Drawing.Point(668, 5)
+        Me.LabelControl44.Location = New System.Drawing.Point(145, 63)
         Me.LabelControl44.Name = "LabelControl44"
         Me.LabelControl44.Size = New System.Drawing.Size(79, 13)
         Me.LabelControl44.TabIndex = 67
         Me.LabelControl44.Text = "¿Dónde se bajó?"
         '
-        'LabelControl45
-        '
-        Me.LabelControl45.Location = New System.Drawing.Point(274, 5)
-        Me.LabelControl45.Name = "LabelControl45"
-        Me.LabelControl45.Size = New System.Drawing.Size(235, 13)
-        Me.LabelControl45.TabIndex = 55
-        Me.LabelControl45.Text = "¿Cuánto rato esperó para abordar el transporte?"
-        '
         'lkpLugarBajadaTaxiE2
         '
         Me.lkpLugarBajadaTaxiE2.EditValue = ""
-        Me.lkpLugarBajadaTaxiE2.Location = New System.Drawing.Point(668, 24)
+        Me.lkpLugarBajadaTaxiE2.Location = New System.Drawing.Point(145, 82)
         Me.lkpLugarBajadaTaxiE2.Name = "lkpLugarBajadaTaxiE2"
         Me.lkpLugarBajadaTaxiE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.lkpLugarBajadaTaxiE2.Properties.AppearanceFocused.Options.UseBorderColor = True
@@ -3980,6 +4123,38 @@ Partial Class ModificarViaje
         Me.txtCuantoPagoE2.Size = New System.Drawing.Size(76, 20)
         Me.txtCuantoPagoE2.TabIndex = 68
         '
+        'lblCuantoPagoE2
+        '
+        Me.lblCuantoPagoE2.Location = New System.Drawing.Point(0, 6)
+        Me.lblCuantoPagoE2.Name = "lblCuantoPagoE2"
+        Me.lblCuantoPagoE2.Size = New System.Drawing.Size(144, 13)
+        Me.lblCuantoPagoE2.TabIndex = 6
+        Me.lblCuantoPagoE2.Text = "¿Cuánto pagó por estacionar?"
+        '
+        'spcFormaPagoE2
+        '
+        Me.spcFormaPagoE2.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
+        Me.spcFormaPagoE2.Location = New System.Drawing.Point(2, 3)
+        Me.spcFormaPagoE2.Name = "spcFormaPagoE2"
+        Me.spcFormaPagoE2.Panel1.Controls.Add(Me.LabelControl54)
+        Me.spcFormaPagoE2.Panel1.Controls.Add(Me.lkpFormaPagoE2)
+        Me.spcFormaPagoE2.Panel1.Text = "Panel1"
+        Me.spcFormaPagoE2.Panel2.Controls.Add(Me.lkpDondeEstacionaE2)
+        Me.spcFormaPagoE2.Panel2.Controls.Add(Me.LabelControl56)
+        Me.spcFormaPagoE2.Panel2.Text = "Panel2"
+        Me.spcFormaPagoE2.Size = New System.Drawing.Size(368, 48)
+        Me.spcFormaPagoE2.SplitterPosition = 159
+        Me.spcFormaPagoE2.TabIndex = 97
+        Me.spcFormaPagoE2.Text = "SplitContainerControl2"
+        '
+        'LabelControl54
+        '
+        Me.LabelControl54.Location = New System.Drawing.Point(6, 3)
+        Me.LabelControl54.Name = "LabelControl54"
+        Me.LabelControl54.Size = New System.Drawing.Size(72, 13)
+        Me.LabelControl54.TabIndex = 4
+        Me.LabelControl54.Text = "¿Este pago es?"
+        '
         'lkpFormaPagoE2
         '
         Me.lkpFormaPagoE2.EditValue = ""
@@ -4025,13 +4200,59 @@ Partial Class ModificarViaje
         Me.GridColumn15.Visible = True
         Me.GridColumn15.VisibleIndex = 0
         '
-        'lblCuantoPagoE2
+        'lkpDondeEstacionaE2
         '
-        Me.lblCuantoPagoE2.Location = New System.Drawing.Point(0, 6)
-        Me.lblCuantoPagoE2.Name = "lblCuantoPagoE2"
-        Me.lblCuantoPagoE2.Size = New System.Drawing.Size(144, 13)
-        Me.lblCuantoPagoE2.TabIndex = 6
-        Me.lblCuantoPagoE2.Text = "¿Cuánto pagó por estacionar?"
+        Me.lkpDondeEstacionaE2.EditValue = ""
+        Me.lkpDondeEstacionaE2.Location = New System.Drawing.Point(3, 21)
+        Me.lkpDondeEstacionaE2.Name = "lkpDondeEstacionaE2"
+        Me.lkpDondeEstacionaE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpDondeEstacionaE2.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpDondeEstacionaE2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpDondeEstacionaE2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpDondeEstacionaE2.Properties.DataSource = Me.DondeEstacionaBindingSource
+        Me.lkpDondeEstacionaE2.Properties.DisplayMember = "DondeEstaciona"
+        Me.lkpDondeEstacionaE2.Properties.ImmediatePopup = True
+        Me.lkpDondeEstacionaE2.Properties.PopupFormMinSize = New System.Drawing.Size(147, 100)
+        Me.lkpDondeEstacionaE2.Properties.PopupFormSize = New System.Drawing.Size(147, 100)
+        Me.lkpDondeEstacionaE2.Properties.ShowFooter = False
+        Me.lkpDondeEstacionaE2.Properties.ValueMember = "ID"
+        Me.lkpDondeEstacionaE2.Properties.View = Me.GridView37
+        Me.lkpDondeEstacionaE2.Size = New System.Drawing.Size(186, 20)
+        Me.lkpDondeEstacionaE2.TabIndex = 35
+        '
+        'GridView37
+        '
+        Me.GridView37.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn58, Me.GridColumn79})
+        Me.GridView37.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView37.Name = "GridView37"
+        Me.GridView37.OptionsCustomization.AllowFilter = False
+        Me.GridView37.OptionsCustomization.AllowGroup = False
+        Me.GridView37.OptionsCustomization.AllowSort = False
+        Me.GridView37.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView37.OptionsView.ShowColumnHeaders = False
+        Me.GridView37.OptionsView.ShowGroupPanel = False
+        Me.GridView37.OptionsView.ShowIndicator = False
+        Me.GridView37.SortInfo.AddRange(New DevExpress.XtraGrid.Columns.GridColumnSortInfo() {New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.GridColumn79, DevExpress.Data.ColumnSortOrder.Ascending), New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.GridColumn58, DevExpress.Data.ColumnSortOrder.Ascending)})
+        '
+        'GridColumn58
+        '
+        Me.GridColumn58.FieldName = "ID"
+        Me.GridColumn58.Name = "GridColumn58"
+        '
+        'GridColumn79
+        '
+        Me.GridColumn79.FieldName = "DondeEstaciona"
+        Me.GridColumn79.Name = "GridColumn79"
+        Me.GridColumn79.Visible = True
+        Me.GridColumn79.VisibleIndex = 0
+        '
+        'LabelControl56
+        '
+        Me.LabelControl56.Location = New System.Drawing.Point(3, 3)
+        Me.LabelControl56.Name = "LabelControl56"
+        Me.LabelControl56.Size = New System.Drawing.Size(90, 13)
+        Me.LabelControl56.TabIndex = 5
+        Me.LabelControl56.Text = "¿Dónde estacionó?"
         '
         'LabelControl58
         '
@@ -4361,6 +4582,93 @@ Partial Class ModificarViaje
         Me.lblPropiedadBiciOtraE2.Text = "Otra (indicar)"
         Me.lblPropiedadBiciOtraE2.Visible = False
         '
+        'spcMotivoNoUsaE2
+        '
+        Me.spcMotivoNoUsaE2.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
+        Me.spcMotivoNoUsaE2.Location = New System.Drawing.Point(191, 0)
+        Me.spcMotivoNoUsaE2.Name = "spcMotivoNoUsaE2"
+        Me.spcMotivoNoUsaE2.Panel1.Controls.Add(Me.txtMotivoNoUsaE2)
+        Me.spcMotivoNoUsaE2.Panel1.Controls.Add(Me.LabelControl155)
+        Me.spcMotivoNoUsaE2.Panel1.Text = "Panel1"
+        Me.spcMotivoNoUsaE2.Panel2.Controls.Add(Me.lkpEstacionamientoBiciE2)
+        Me.spcMotivoNoUsaE2.Panel2.Controls.Add(Me.LabelControl156)
+        Me.spcMotivoNoUsaE2.Panel2.Text = "Panel2"
+        Me.spcMotivoNoUsaE2.Size = New System.Drawing.Size(570, 44)
+        Me.spcMotivoNoUsaE2.SplitterPosition = 136
+        Me.spcMotivoNoUsaE2.TabIndex = 47
+        Me.spcMotivoNoUsaE2.Text = "SplitContainerControl2"
+        '
+        'txtMotivoNoUsaE2
+        '
+        Me.txtMotivoNoUsaE2.Location = New System.Drawing.Point(0, 17)
+        Me.txtMotivoNoUsaE2.Name = "txtMotivoNoUsaE2"
+        Me.txtMotivoNoUsaE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.txtMotivoNoUsaE2.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.txtMotivoNoUsaE2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.txtMotivoNoUsaE2.Size = New System.Drawing.Size(131, 20)
+        Me.txtMotivoNoUsaE2.TabIndex = 40
+        '
+        'LabelControl155
+        '
+        Me.LabelControl155.Location = New System.Drawing.Point(0, 0)
+        Me.LabelControl155.Name = "LabelControl155"
+        Me.LabelControl155.Size = New System.Drawing.Size(91, 13)
+        Me.LabelControl155.TabIndex = 39
+        Me.LabelControl155.Text = "¿Por qué? (Indicar)"
+        '
+        'lkpEstacionamientoBiciE2
+        '
+        Me.lkpEstacionamientoBiciE2.EditValue = ""
+        Me.lkpEstacionamientoBiciE2.Location = New System.Drawing.Point(11, 17)
+        Me.lkpEstacionamientoBiciE2.Name = "lkpEstacionamientoBiciE2"
+        Me.lkpEstacionamientoBiciE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpEstacionamientoBiciE2.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpEstacionamientoBiciE2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpEstacionamientoBiciE2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpEstacionamientoBiciE2.Properties.DataSource = Me.EstacionamientoBicicletaBindingSource
+        Me.lkpEstacionamientoBiciE2.Properties.DisplayMember = "EstacionamientoBicicleta"
+        Me.lkpEstacionamientoBiciE2.Properties.ImmediatePopup = True
+        Me.lkpEstacionamientoBiciE2.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
+        Me.lkpEstacionamientoBiciE2.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
+        Me.lkpEstacionamientoBiciE2.Properties.ShowFooter = False
+        Me.lkpEstacionamientoBiciE2.Properties.ValueMember = "ID"
+        Me.lkpEstacionamientoBiciE2.Properties.View = Me.GridView62
+        Me.lkpEstacionamientoBiciE2.Size = New System.Drawing.Size(283, 20)
+        Me.lkpEstacionamientoBiciE2.TabIndex = 42
+        '
+        'GridView62
+        '
+        Me.GridView62.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn44, Me.GridColumn93})
+        Me.GridView62.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView62.Name = "GridView62"
+        Me.GridView62.OptionsCustomization.AllowFilter = False
+        Me.GridView62.OptionsCustomization.AllowGroup = False
+        Me.GridView62.OptionsCustomization.AllowSort = False
+        Me.GridView62.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView62.OptionsView.ShowColumnHeaders = False
+        Me.GridView62.OptionsView.ShowGroupPanel = False
+        Me.GridView62.OptionsView.ShowIndicator = False
+        '
+        'GridColumn44
+        '
+        Me.GridColumn44.FieldName = "ID"
+        Me.GridColumn44.Name = "GridColumn44"
+        '
+        'GridColumn93
+        '
+        Me.GridColumn93.FieldName = "EstacionamientoBicicleta"
+        Me.GridColumn93.Name = "GridColumn93"
+        Me.GridColumn93.Visible = True
+        Me.GridColumn93.VisibleIndex = 0
+        '
+        'LabelControl156
+        '
+        Me.LabelControl156.Location = New System.Drawing.Point(11, -2)
+        Me.LabelControl156.Name = "LabelControl156"
+        Me.LabelControl156.Size = New System.Drawing.Size(145, 13)
+        Me.LabelControl156.TabIndex = 41
+        Me.LabelControl156.Text = "¿Dónde estacionó su bicicleta?"
+        '
         'LabelControl28
         '
         Me.LabelControl28.Location = New System.Drawing.Point(3, 0)
@@ -4414,59 +4722,6 @@ Partial Class ModificarViaje
         Me.GridColumn109.Visible = True
         Me.GridColumn109.VisibleIndex = 0
         '
-        'LabelControl172
-        '
-        Me.LabelControl172.Location = New System.Drawing.Point(3, 53)
-        Me.LabelControl172.Name = "LabelControl172"
-        Me.LabelControl172.Size = New System.Drawing.Size(79, 13)
-        Me.LabelControl172.TabIndex = 38
-        Me.LabelControl172.Text = "¿Dónde se bajó?"
-        '
-        'lkpLugarBajadaBiciE2
-        '
-        Me.lkpLugarBajadaBiciE2.EditValue = ""
-        Me.lkpLugarBajadaBiciE2.Location = New System.Drawing.Point(3, 72)
-        Me.lkpLugarBajadaBiciE2.Name = "lkpLugarBajadaBiciE2"
-        Me.lkpLugarBajadaBiciE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpLugarBajadaBiciE2.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpLugarBajadaBiciE2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpLugarBajadaBiciE2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpLugarBajadaBiciE2.Properties.DataSource = Me.DondeSeBajoE2BindingSource
-        Me.lkpLugarBajadaBiciE2.Properties.DisplayMember = "DondeSeBajo"
-        Me.lkpLugarBajadaBiciE2.Properties.ImmediatePopup = True
-        Me.lkpLugarBajadaBiciE2.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
-        Me.lkpLugarBajadaBiciE2.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
-        Me.lkpLugarBajadaBiciE2.Properties.ShowFooter = False
-        Me.lkpLugarBajadaBiciE2.Properties.ValueMember = "Id"
-        Me.lkpLugarBajadaBiciE2.Properties.View = Me.GridView14
-        Me.lkpLugarBajadaBiciE2.Size = New System.Drawing.Size(167, 20)
-        Me.lkpLugarBajadaBiciE2.TabIndex = 40
-        '
-        'GridView14
-        '
-        Me.GridView14.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn74, Me.GridColumn75})
-        Me.GridView14.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView14.Name = "GridView14"
-        Me.GridView14.OptionsCustomization.AllowFilter = False
-        Me.GridView14.OptionsCustomization.AllowGroup = False
-        Me.GridView14.OptionsCustomization.AllowSort = False
-        Me.GridView14.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView14.OptionsView.ShowColumnHeaders = False
-        Me.GridView14.OptionsView.ShowGroupPanel = False
-        Me.GridView14.OptionsView.ShowIndicator = False
-        '
-        'GridColumn74
-        '
-        Me.GridColumn74.FieldName = "Id"
-        Me.GridColumn74.Name = "GridColumn74"
-        '
-        'GridColumn75
-        '
-        Me.GridColumn75.FieldName = "DondeSeBajo"
-        Me.GridColumn75.Name = "GridColumn75"
-        Me.GridColumn75.Visible = True
-        Me.GridColumn75.VisibleIndex = 0
-        '
         'LabelControl94
         '
         Me.LabelControl94.Location = New System.Drawing.Point(2, 3)
@@ -4474,6 +4729,14 @@ Partial Class ModificarViaje
         Me.LabelControl94.Size = New System.Drawing.Size(182, 13)
         Me.LabelControl94.TabIndex = 35
         Me.LabelControl94.Text = "¿La bicicleta que usó en este viaje es?"
+        '
+        'LabelControl172
+        '
+        Me.LabelControl172.Location = New System.Drawing.Point(3, 53)
+        Me.LabelControl172.Name = "LabelControl172"
+        Me.LabelControl172.Size = New System.Drawing.Size(79, 13)
+        Me.LabelControl172.TabIndex = 38
+        Me.LabelControl172.Text = "¿Dónde se bajó?"
         '
         'lkpPropiedadBicicletaE2
         '
@@ -4519,6 +4782,51 @@ Partial Class ModificarViaje
         Me.GridColumn26.Name = "GridColumn26"
         Me.GridColumn26.Visible = True
         Me.GridColumn26.VisibleIndex = 0
+        '
+        'lkpLugarBajadaBiciE2
+        '
+        Me.lkpLugarBajadaBiciE2.EditValue = ""
+        Me.lkpLugarBajadaBiciE2.Location = New System.Drawing.Point(3, 72)
+        Me.lkpLugarBajadaBiciE2.Name = "lkpLugarBajadaBiciE2"
+        Me.lkpLugarBajadaBiciE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpLugarBajadaBiciE2.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpLugarBajadaBiciE2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpLugarBajadaBiciE2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpLugarBajadaBiciE2.Properties.DataSource = Me.DondeSeBajoE2BindingSource
+        Me.lkpLugarBajadaBiciE2.Properties.DisplayMember = "DondeSeBajo"
+        Me.lkpLugarBajadaBiciE2.Properties.ImmediatePopup = True
+        Me.lkpLugarBajadaBiciE2.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
+        Me.lkpLugarBajadaBiciE2.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
+        Me.lkpLugarBajadaBiciE2.Properties.ShowFooter = False
+        Me.lkpLugarBajadaBiciE2.Properties.ValueMember = "Id"
+        Me.lkpLugarBajadaBiciE2.Properties.View = Me.GridView14
+        Me.lkpLugarBajadaBiciE2.Size = New System.Drawing.Size(167, 20)
+        Me.lkpLugarBajadaBiciE2.TabIndex = 40
+        '
+        'GridView14
+        '
+        Me.GridView14.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn74, Me.GridColumn75})
+        Me.GridView14.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView14.Name = "GridView14"
+        Me.GridView14.OptionsCustomization.AllowFilter = False
+        Me.GridView14.OptionsCustomization.AllowGroup = False
+        Me.GridView14.OptionsCustomization.AllowSort = False
+        Me.GridView14.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView14.OptionsView.ShowColumnHeaders = False
+        Me.GridView14.OptionsView.ShowGroupPanel = False
+        Me.GridView14.OptionsView.ShowIndicator = False
+        '
+        'GridColumn74
+        '
+        Me.GridColumn74.FieldName = "Id"
+        Me.GridColumn74.Name = "GridColumn74"
+        '
+        'GridColumn75
+        '
+        Me.GridColumn75.FieldName = "DondeSeBajo"
+        Me.GridColumn75.Name = "GridColumn75"
+        Me.GridColumn75.Visible = True
+        Me.GridColumn75.VisibleIndex = 0
         '
         'tabBusE2
         '
@@ -5550,8 +5858,9 @@ Partial Class ModificarViaje
         '
         'tabTaxiE3
         '
-        Me.tabTaxiE3.Controls.Add(Me.LabelControl216)
         Me.tabTaxiE3.Controls.Add(Me.LabelControl71)
+        Me.tabTaxiE3.Controls.Add(Me.LabelControl77)
+        Me.tabTaxiE3.Controls.Add(Me.LabelControl216)
         Me.tabTaxiE3.Controls.Add(Me.LabelControl72)
         Me.tabTaxiE3.Controls.Add(Me.LabelControl73)
         Me.tabTaxiE3.Controls.Add(Me.txtMinutosEsperaTaxiE3)
@@ -5561,7 +5870,6 @@ Partial Class ModificarViaje
         Me.tabTaxiE3.Controls.Add(Me.txtMinutosTaxiE3)
         Me.tabTaxiE3.Controls.Add(Me.LabelControl75)
         Me.tabTaxiE3.Controls.Add(Me.LabelControl76)
-        Me.tabTaxiE3.Controls.Add(Me.LabelControl77)
         Me.tabTaxiE3.Controls.Add(Me.lkpLugarBajadaTaxiE3)
         Me.tabTaxiE3.Name = "tabTaxiE3"
         Me.tabTaxiE3.Size = New System.Drawing.Size(995, 179)
@@ -5569,19 +5877,11 @@ Partial Class ModificarViaje
         '
         'LabelControl216
         '
-        Me.LabelControl216.Location = New System.Drawing.Point(594, 27)
+        Me.LabelControl216.Location = New System.Drawing.Point(69, 75)
         Me.LabelControl216.Name = "LabelControl216"
         Me.LabelControl216.Size = New System.Drawing.Size(65, 13)
         Me.LabelControl216.TabIndex = 95
         Me.LabelControl216.Text = "(NS/NR = 99)"
-        '
-        'LabelControl71
-        '
-        Me.LabelControl71.Location = New System.Drawing.Point(3, 5)
-        Me.LabelControl71.Name = "LabelControl71"
-        Me.LabelControl71.Size = New System.Drawing.Size(256, 13)
-        Me.LabelControl71.TabIndex = 49
-        Me.LabelControl71.Text = "¿Cuánto caminó antes de tomar este taxi o radiotaxi?"
         '
         'LabelControl72
         '
@@ -5601,7 +5901,7 @@ Partial Class ModificarViaje
         '
         'txtMinutosEsperaTaxiE3
         '
-        Me.txtMinutosEsperaTaxiE3.Location = New System.Drawing.Point(277, 25)
+        Me.txtMinutosEsperaTaxiE3.Location = New System.Drawing.Point(443, 24)
         Me.txtMinutosEsperaTaxiE3.Name = "txtMinutosEsperaTaxiE3"
         Me.txtMinutosEsperaTaxiE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.txtMinutosEsperaTaxiE3.Properties.AppearanceFocused.Options.UseBorderColor = True
@@ -5613,7 +5913,7 @@ Partial Class ModificarViaje
         '
         'LabelControl74
         '
-        Me.LabelControl74.Location = New System.Drawing.Point(528, 6)
+        Me.LabelControl74.Location = New System.Drawing.Point(3, 54)
         Me.LabelControl74.Name = "LabelControl74"
         Me.LabelControl74.Size = New System.Drawing.Size(118, 13)
         Me.LabelControl74.TabIndex = 65
@@ -5633,7 +5933,7 @@ Partial Class ModificarViaje
         '
         'txtTarifaMontoTaxiE3
         '
-        Me.txtTarifaMontoTaxiE3.Location = New System.Drawing.Point(528, 25)
+        Me.txtTarifaMontoTaxiE3.Location = New System.Drawing.Point(3, 73)
         Me.txtTarifaMontoTaxiE3.Name = "txtTarifaMontoTaxiE3"
         Me.txtTarifaMontoTaxiE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.txtTarifaMontoTaxiE3.Properties.AppearanceFocused.Options.UseBorderColor = True
@@ -5657,7 +5957,7 @@ Partial Class ModificarViaje
         '
         'LabelControl75
         '
-        Me.LabelControl75.Location = New System.Drawing.Point(334, 28)
+        Me.LabelControl75.Location = New System.Drawing.Point(500, 27)
         Me.LabelControl75.Name = "LabelControl75"
         Me.LabelControl75.Size = New System.Drawing.Size(37, 13)
         Me.LabelControl75.TabIndex = 56
@@ -5665,24 +5965,16 @@ Partial Class ModificarViaje
         '
         'LabelControl76
         '
-        Me.LabelControl76.Location = New System.Drawing.Point(679, 6)
+        Me.LabelControl76.Location = New System.Drawing.Point(154, 54)
         Me.LabelControl76.Name = "LabelControl76"
         Me.LabelControl76.Size = New System.Drawing.Size(79, 13)
         Me.LabelControl76.TabIndex = 67
         Me.LabelControl76.Text = "¿Dónde se bajó?"
         '
-        'LabelControl77
-        '
-        Me.LabelControl77.Location = New System.Drawing.Point(277, 6)
-        Me.LabelControl77.Name = "LabelControl77"
-        Me.LabelControl77.Size = New System.Drawing.Size(235, 13)
-        Me.LabelControl77.TabIndex = 55
-        Me.LabelControl77.Text = "¿Cuánto rato esperó para abordar el transporte?"
-        '
         'lkpLugarBajadaTaxiE3
         '
         Me.lkpLugarBajadaTaxiE3.EditValue = ""
-        Me.lkpLugarBajadaTaxiE3.Location = New System.Drawing.Point(679, 25)
+        Me.lkpLugarBajadaTaxiE3.Location = New System.Drawing.Point(154, 73)
         Me.lkpLugarBajadaTaxiE3.Name = "lkpLugarBajadaTaxiE3"
         Me.lkpLugarBajadaTaxiE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.lkpLugarBajadaTaxiE3.Properties.AppearanceFocused.Options.UseBorderColor = True
@@ -5818,6 +6110,129 @@ Partial Class ModificarViaje
         Me.LabelControl80.Size = New System.Drawing.Size(144, 13)
         Me.LabelControl80.TabIndex = 6
         Me.LabelControl80.Text = "¿Cuánto pagó por estacionar?"
+        '
+        'spcFormaPagoE3
+        '
+        Me.spcFormaPagoE3.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
+        Me.spcFormaPagoE3.Location = New System.Drawing.Point(12, 3)
+        Me.spcFormaPagoE3.Name = "spcFormaPagoE3"
+        Me.spcFormaPagoE3.Panel1.Controls.Add(Me.lkpFormaPagoE3)
+        Me.spcFormaPagoE3.Panel1.Controls.Add(Me.LabelControl78)
+        Me.spcFormaPagoE3.Panel1.Text = "Panel1"
+        Me.spcFormaPagoE3.Panel2.Controls.Add(Me.lkpDondeEstacionaE3)
+        Me.spcFormaPagoE3.Panel2.Controls.Add(Me.LabelControl79)
+        Me.spcFormaPagoE3.Panel2.Text = "Panel2"
+        Me.spcFormaPagoE3.Size = New System.Drawing.Size(368, 48)
+        Me.spcFormaPagoE3.SplitterPosition = 156
+        Me.spcFormaPagoE3.TabIndex = 98
+        Me.spcFormaPagoE3.Text = "SplitContainerControl2"
+        '
+        'lkpFormaPagoE3
+        '
+        Me.lkpFormaPagoE3.EditValue = ""
+        Me.lkpFormaPagoE3.Location = New System.Drawing.Point(6, 22)
+        Me.lkpFormaPagoE3.Name = "lkpFormaPagoE3"
+        Me.lkpFormaPagoE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpFormaPagoE3.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpFormaPagoE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpFormaPagoE3.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpFormaPagoE3.Properties.DataSource = Me.FormaPagoBindingSource
+        Me.lkpFormaPagoE3.Properties.DisplayMember = "FormaPago"
+        Me.lkpFormaPagoE3.Properties.ImmediatePopup = True
+        Me.lkpFormaPagoE3.Properties.PopupFormMinSize = New System.Drawing.Size(147, 100)
+        Me.lkpFormaPagoE3.Properties.PopupFormSize = New System.Drawing.Size(147, 100)
+        Me.lkpFormaPagoE3.Properties.ShowFooter = False
+        Me.lkpFormaPagoE3.Properties.ValueMember = "ID"
+        Me.lkpFormaPagoE3.Properties.View = Me.GridView56
+        Me.lkpFormaPagoE3.Size = New System.Drawing.Size(147, 20)
+        Me.lkpFormaPagoE3.TabIndex = 35
+        '
+        'GridView56
+        '
+        Me.GridView56.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn39, Me.GridColumn40})
+        Me.GridView56.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView56.Name = "GridView56"
+        Me.GridView56.OptionsCustomization.AllowFilter = False
+        Me.GridView56.OptionsCustomization.AllowGroup = False
+        Me.GridView56.OptionsCustomization.AllowSort = False
+        Me.GridView56.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView56.OptionsView.ShowColumnHeaders = False
+        Me.GridView56.OptionsView.ShowGroupPanel = False
+        Me.GridView56.OptionsView.ShowIndicator = False
+        '
+        'GridColumn39
+        '
+        Me.GridColumn39.FieldName = "ID"
+        Me.GridColumn39.Name = "GridColumn39"
+        '
+        'GridColumn40
+        '
+        Me.GridColumn40.FieldName = "FormaPago"
+        Me.GridColumn40.Name = "GridColumn40"
+        Me.GridColumn40.Visible = True
+        Me.GridColumn40.VisibleIndex = 0
+        '
+        'LabelControl78
+        '
+        Me.LabelControl78.Location = New System.Drawing.Point(6, 3)
+        Me.LabelControl78.Name = "LabelControl78"
+        Me.LabelControl78.Size = New System.Drawing.Size(72, 13)
+        Me.LabelControl78.TabIndex = 4
+        Me.LabelControl78.Text = "¿Este pago es?"
+        '
+        'lkpDondeEstacionaE3
+        '
+        Me.lkpDondeEstacionaE3.EditValue = ""
+        Me.lkpDondeEstacionaE3.Location = New System.Drawing.Point(3, 21)
+        Me.lkpDondeEstacionaE3.Name = "lkpDondeEstacionaE3"
+        Me.lkpDondeEstacionaE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpDondeEstacionaE3.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpDondeEstacionaE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpDondeEstacionaE3.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpDondeEstacionaE3.Properties.DataSource = Me.DondeEstacionaBindingSource
+        Me.lkpDondeEstacionaE3.Properties.DisplayMember = "DondeEstaciona"
+        Me.lkpDondeEstacionaE3.Properties.ImmediatePopup = True
+        Me.lkpDondeEstacionaE3.Properties.PopupFormMinSize = New System.Drawing.Size(147, 100)
+        Me.lkpDondeEstacionaE3.Properties.PopupFormSize = New System.Drawing.Size(147, 100)
+        Me.lkpDondeEstacionaE3.Properties.ShowFooter = False
+        Me.lkpDondeEstacionaE3.Properties.ValueMember = "ID"
+        Me.lkpDondeEstacionaE3.Properties.View = Me.GridView55
+        Me.lkpDondeEstacionaE3.Size = New System.Drawing.Size(186, 20)
+        Me.lkpDondeEstacionaE3.TabIndex = 35
+        '
+        'GridView55
+        '
+        Me.GridView55.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn96, Me.GridColumn105})
+        Me.GridView55.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView55.Name = "GridView55"
+        Me.GridView55.OptionsCustomization.AllowFilter = False
+        Me.GridView55.OptionsCustomization.AllowGroup = False
+        Me.GridView55.OptionsCustomization.AllowSort = False
+        Me.GridView55.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView55.OptionsView.ShowColumnHeaders = False
+        Me.GridView55.OptionsView.ShowGroupPanel = False
+        Me.GridView55.OptionsView.ShowIndicator = False
+        Me.GridView55.SortInfo.AddRange(New DevExpress.XtraGrid.Columns.GridColumnSortInfo() {New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.GridColumn96, DevExpress.Data.ColumnSortOrder.Ascending), New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.GridColumn105, DevExpress.Data.ColumnSortOrder.Ascending)})
+        '
+        'GridColumn96
+        '
+        Me.GridColumn96.FieldName = "ID"
+        Me.GridColumn96.Name = "GridColumn96"
+        '
+        'GridColumn105
+        '
+        Me.GridColumn105.FieldName = "DondeEstaciona"
+        Me.GridColumn105.Name = "GridColumn105"
+        Me.GridColumn105.Visible = True
+        Me.GridColumn105.VisibleIndex = 0
+        '
+        'LabelControl79
+        '
+        Me.LabelControl79.Location = New System.Drawing.Point(3, 3)
+        Me.LabelControl79.Name = "LabelControl79"
+        Me.LabelControl79.Size = New System.Drawing.Size(90, 13)
+        Me.LabelControl79.TabIndex = 5
+        Me.LabelControl79.Text = "¿Dónde estacionó?"
         '
         'LabelControl81
         '
@@ -6145,6 +6560,93 @@ Partial Class ModificarViaje
         Me.lblPropiedadBiciOtraE3.Text = "Otra (indicar)"
         Me.lblPropiedadBiciOtraE3.Visible = False
         '
+        'spcMotivoNoUsaE3
+        '
+        Me.spcMotivoNoUsaE3.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
+        Me.spcMotivoNoUsaE3.Location = New System.Drawing.Point(191, 0)
+        Me.spcMotivoNoUsaE3.Name = "spcMotivoNoUsaE3"
+        Me.spcMotivoNoUsaE3.Panel1.Controls.Add(Me.txtMotivoNoUsaE3)
+        Me.spcMotivoNoUsaE3.Panel1.Controls.Add(Me.LabelControl157)
+        Me.spcMotivoNoUsaE3.Panel1.Text = "Panel1"
+        Me.spcMotivoNoUsaE3.Panel2.Controls.Add(Me.lkpEstacionamientoBiciE3)
+        Me.spcMotivoNoUsaE3.Panel2.Controls.Add(Me.LabelControl158)
+        Me.spcMotivoNoUsaE3.Panel2.Text = "Panel2"
+        Me.spcMotivoNoUsaE3.Size = New System.Drawing.Size(570, 44)
+        Me.spcMotivoNoUsaE3.SplitterPosition = 136
+        Me.spcMotivoNoUsaE3.TabIndex = 48
+        Me.spcMotivoNoUsaE3.Text = "SplitContainerControl2"
+        '
+        'txtMotivoNoUsaE3
+        '
+        Me.txtMotivoNoUsaE3.Location = New System.Drawing.Point(0, 17)
+        Me.txtMotivoNoUsaE3.Name = "txtMotivoNoUsaE3"
+        Me.txtMotivoNoUsaE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.txtMotivoNoUsaE3.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.txtMotivoNoUsaE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.txtMotivoNoUsaE3.Size = New System.Drawing.Size(131, 20)
+        Me.txtMotivoNoUsaE3.TabIndex = 40
+        '
+        'LabelControl157
+        '
+        Me.LabelControl157.Location = New System.Drawing.Point(0, 0)
+        Me.LabelControl157.Name = "LabelControl157"
+        Me.LabelControl157.Size = New System.Drawing.Size(91, 13)
+        Me.LabelControl157.TabIndex = 39
+        Me.LabelControl157.Text = "¿Por qué? (Indicar)"
+        '
+        'lkpEstacionamientoBiciE3
+        '
+        Me.lkpEstacionamientoBiciE3.EditValue = ""
+        Me.lkpEstacionamientoBiciE3.Location = New System.Drawing.Point(11, 17)
+        Me.lkpEstacionamientoBiciE3.Name = "lkpEstacionamientoBiciE3"
+        Me.lkpEstacionamientoBiciE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.lkpEstacionamientoBiciE3.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.lkpEstacionamientoBiciE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpEstacionamientoBiciE3.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpEstacionamientoBiciE3.Properties.DataSource = Me.EstacionamientoBicicletaBindingSource
+        Me.lkpEstacionamientoBiciE3.Properties.DisplayMember = "EstacionamientoBicicleta"
+        Me.lkpEstacionamientoBiciE3.Properties.ImmediatePopup = True
+        Me.lkpEstacionamientoBiciE3.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
+        Me.lkpEstacionamientoBiciE3.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
+        Me.lkpEstacionamientoBiciE3.Properties.ShowFooter = False
+        Me.lkpEstacionamientoBiciE3.Properties.ValueMember = "ID"
+        Me.lkpEstacionamientoBiciE3.Properties.View = Me.GridView69
+        Me.lkpEstacionamientoBiciE3.Size = New System.Drawing.Size(296, 20)
+        Me.lkpEstacionamientoBiciE3.TabIndex = 42
+        '
+        'GridView69
+        '
+        Me.GridView69.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn94, Me.GridColumn95})
+        Me.GridView69.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView69.Name = "GridView69"
+        Me.GridView69.OptionsCustomization.AllowFilter = False
+        Me.GridView69.OptionsCustomization.AllowGroup = False
+        Me.GridView69.OptionsCustomization.AllowSort = False
+        Me.GridView69.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView69.OptionsView.ShowColumnHeaders = False
+        Me.GridView69.OptionsView.ShowGroupPanel = False
+        Me.GridView69.OptionsView.ShowIndicator = False
+        '
+        'GridColumn94
+        '
+        Me.GridColumn94.FieldName = "ID"
+        Me.GridColumn94.Name = "GridColumn94"
+        '
+        'GridColumn95
+        '
+        Me.GridColumn95.FieldName = "EstacionamientoBicicleta"
+        Me.GridColumn95.Name = "GridColumn95"
+        Me.GridColumn95.Visible = True
+        Me.GridColumn95.VisibleIndex = 0
+        '
+        'LabelControl158
+        '
+        Me.LabelControl158.Location = New System.Drawing.Point(11, -2)
+        Me.LabelControl158.Name = "LabelControl158"
+        Me.LabelControl158.Size = New System.Drawing.Size(145, 13)
+        Me.LabelControl158.TabIndex = 41
+        Me.LabelControl158.Text = "¿Dónde estacionó su bicicleta?"
+        '
         'LabelControl16
         '
         Me.LabelControl16.Location = New System.Drawing.Point(3, 0)
@@ -6196,57 +6698,6 @@ Partial Class ModificarViaje
         Me.GridColumn111.Visible = True
         Me.GridColumn111.VisibleIndex = 0
         '
-        'LabelControl140
-        '
-        Me.LabelControl140.Location = New System.Drawing.Point(1, 54)
-        Me.LabelControl140.Name = "LabelControl140"
-        Me.LabelControl140.Size = New System.Drawing.Size(79, 13)
-        Me.LabelControl140.TabIndex = 38
-        Me.LabelControl140.Text = "¿Dónde se bajó?"
-        '
-        'lkpLugarBajadaBiciE3
-        '
-        Me.lkpLugarBajadaBiciE3.EditValue = ""
-        Me.lkpLugarBajadaBiciE3.Location = New System.Drawing.Point(1, 73)
-        Me.lkpLugarBajadaBiciE3.Name = "lkpLugarBajadaBiciE3"
-        Me.lkpLugarBajadaBiciE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpLugarBajadaBiciE3.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpLugarBajadaBiciE3.Properties.DataSource = Me.DondeSeBajoE3BindingSource
-        Me.lkpLugarBajadaBiciE3.Properties.DisplayMember = "DondeSeBajo"
-        Me.lkpLugarBajadaBiciE3.Properties.ImmediatePopup = True
-        Me.lkpLugarBajadaBiciE3.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
-        Me.lkpLugarBajadaBiciE3.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
-        Me.lkpLugarBajadaBiciE3.Properties.ShowFooter = False
-        Me.lkpLugarBajadaBiciE3.Properties.ValueMember = "Id"
-        Me.lkpLugarBajadaBiciE3.Properties.View = Me.GridView54
-        Me.lkpLugarBajadaBiciE3.Size = New System.Drawing.Size(167, 20)
-        Me.lkpLugarBajadaBiciE3.TabIndex = 40
-        '
-        'GridView54
-        '
-        Me.GridView54.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn35, Me.GridColumn36})
-        Me.GridView54.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView54.Name = "GridView54"
-        Me.GridView54.OptionsCustomization.AllowFilter = False
-        Me.GridView54.OptionsCustomization.AllowGroup = False
-        Me.GridView54.OptionsCustomization.AllowSort = False
-        Me.GridView54.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView54.OptionsView.ShowColumnHeaders = False
-        Me.GridView54.OptionsView.ShowGroupPanel = False
-        Me.GridView54.OptionsView.ShowIndicator = False
-        '
-        'GridColumn35
-        '
-        Me.GridColumn35.FieldName = "Id"
-        Me.GridColumn35.Name = "GridColumn35"
-        '
-        'GridColumn36
-        '
-        Me.GridColumn36.FieldName = "DondeSeBajo"
-        Me.GridColumn36.Name = "GridColumn36"
-        Me.GridColumn36.Visible = True
-        Me.GridColumn36.VisibleIndex = 0
-        '
         'LabelControl141
         '
         Me.LabelControl141.Location = New System.Drawing.Point(2, 3)
@@ -6254,6 +6705,14 @@ Partial Class ModificarViaje
         Me.LabelControl141.Size = New System.Drawing.Size(182, 13)
         Me.LabelControl141.TabIndex = 35
         Me.LabelControl141.Text = "¿La bicicleta que usó en este viaje es?"
+        '
+        'LabelControl140
+        '
+        Me.LabelControl140.Location = New System.Drawing.Point(1, 54)
+        Me.LabelControl140.Name = "LabelControl140"
+        Me.LabelControl140.Size = New System.Drawing.Size(79, 13)
+        Me.LabelControl140.TabIndex = 38
+        Me.LabelControl140.Text = "¿Dónde se bajó?"
         '
         'lkpPropiedadBicicletaE3
         '
@@ -6297,6 +6756,49 @@ Partial Class ModificarViaje
         Me.GridColumn67.Name = "GridColumn67"
         Me.GridColumn67.Visible = True
         Me.GridColumn67.VisibleIndex = 0
+        '
+        'lkpLugarBajadaBiciE3
+        '
+        Me.lkpLugarBajadaBiciE3.EditValue = ""
+        Me.lkpLugarBajadaBiciE3.Location = New System.Drawing.Point(1, 73)
+        Me.lkpLugarBajadaBiciE3.Name = "lkpLugarBajadaBiciE3"
+        Me.lkpLugarBajadaBiciE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.lkpLugarBajadaBiciE3.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.lkpLugarBajadaBiciE3.Properties.DataSource = Me.DondeSeBajoE3BindingSource
+        Me.lkpLugarBajadaBiciE3.Properties.DisplayMember = "DondeSeBajo"
+        Me.lkpLugarBajadaBiciE3.Properties.ImmediatePopup = True
+        Me.lkpLugarBajadaBiciE3.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
+        Me.lkpLugarBajadaBiciE3.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
+        Me.lkpLugarBajadaBiciE3.Properties.ShowFooter = False
+        Me.lkpLugarBajadaBiciE3.Properties.ValueMember = "Id"
+        Me.lkpLugarBajadaBiciE3.Properties.View = Me.GridView54
+        Me.lkpLugarBajadaBiciE3.Size = New System.Drawing.Size(167, 20)
+        Me.lkpLugarBajadaBiciE3.TabIndex = 40
+        '
+        'GridView54
+        '
+        Me.GridView54.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn35, Me.GridColumn36})
+        Me.GridView54.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.GridView54.Name = "GridView54"
+        Me.GridView54.OptionsCustomization.AllowFilter = False
+        Me.GridView54.OptionsCustomization.AllowGroup = False
+        Me.GridView54.OptionsCustomization.AllowSort = False
+        Me.GridView54.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.GridView54.OptionsView.ShowColumnHeaders = False
+        Me.GridView54.OptionsView.ShowGroupPanel = False
+        Me.GridView54.OptionsView.ShowIndicator = False
+        '
+        'GridColumn35
+        '
+        Me.GridColumn35.FieldName = "Id"
+        Me.GridColumn35.Name = "GridColumn35"
+        '
+        'GridColumn36
+        '
+        Me.GridColumn36.FieldName = "DondeSeBajo"
+        Me.GridColumn36.Name = "GridColumn36"
+        Me.GridColumn36.Visible = True
+        Me.GridColumn36.VisibleIndex = 0
         '
         'tabBusE3
         '
@@ -8696,560 +9198,67 @@ Partial Class ModificarViaje
         '
         Me.MuelleTableAdapter.ClearBeforeFill = True
         '
-        'spcMotivoNoUsaE1
-        '
-        Me.spcMotivoNoUsaE1.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
-        Me.spcMotivoNoUsaE1.Location = New System.Drawing.Point(191, 0)
-        Me.spcMotivoNoUsaE1.Name = "spcMotivoNoUsaE1"
-        Me.spcMotivoNoUsaE1.Panel1.Controls.Add(Me.txtMotivoNoUsaE1)
-        Me.spcMotivoNoUsaE1.Panel1.Controls.Add(Me.LabelControl18)
-        Me.spcMotivoNoUsaE1.Panel1.Text = "Panel1"
-        Me.spcMotivoNoUsaE1.Panel2.Controls.Add(Me.lkpEstacionamientoBiciE1)
-        Me.spcMotivoNoUsaE1.Panel2.Controls.Add(Me.LabelControl154)
-        Me.spcMotivoNoUsaE1.Panel2.Text = "Panel2"
-        Me.spcMotivoNoUsaE1.Size = New System.Drawing.Size(570, 44)
-        Me.spcMotivoNoUsaE1.SplitterPosition = 136
-        Me.spcMotivoNoUsaE1.TabIndex = 47
-        Me.spcMotivoNoUsaE1.Text = "SplitContainerControl2"
-        '
-        'txtMotivoNoUsaE1
-        '
-        Me.txtMotivoNoUsaE1.Location = New System.Drawing.Point(0, 17)
-        Me.txtMotivoNoUsaE1.Name = "txtMotivoNoUsaE1"
-        Me.txtMotivoNoUsaE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.txtMotivoNoUsaE1.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.txtMotivoNoUsaE1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.txtMotivoNoUsaE1.Size = New System.Drawing.Size(131, 20)
-        Me.txtMotivoNoUsaE1.TabIndex = 40
-        '
-        'LabelControl18
-        '
-        Me.LabelControl18.Location = New System.Drawing.Point(0, 0)
-        Me.LabelControl18.Name = "LabelControl18"
-        Me.LabelControl18.Size = New System.Drawing.Size(91, 13)
-        Me.LabelControl18.TabIndex = 39
-        Me.LabelControl18.Text = "¿Por qué? (Indicar)"
-        '
-        'lkpEstacionamientoBiciE1
-        '
-        Me.lkpEstacionamientoBiciE1.EditValue = ""
-        Me.lkpEstacionamientoBiciE1.Location = New System.Drawing.Point(11, 17)
-        Me.lkpEstacionamientoBiciE1.Name = "lkpEstacionamientoBiciE1"
-        Me.lkpEstacionamientoBiciE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpEstacionamientoBiciE1.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpEstacionamientoBiciE1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpEstacionamientoBiciE1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpEstacionamientoBiciE1.Properties.DataSource = Me.EstacionamientoBicicletaBindingSource
-        Me.lkpEstacionamientoBiciE1.Properties.DisplayMember = "EstacionamientoBicicleta"
-        Me.lkpEstacionamientoBiciE1.Properties.ImmediatePopup = True
-        Me.lkpEstacionamientoBiciE1.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
-        Me.lkpEstacionamientoBiciE1.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
-        Me.lkpEstacionamientoBiciE1.Properties.ShowFooter = False
-        Me.lkpEstacionamientoBiciE1.Properties.ValueMember = "ID"
-        Me.lkpEstacionamientoBiciE1.Properties.View = Me.GridView22
-        Me.lkpEstacionamientoBiciE1.Size = New System.Drawing.Size(277, 20)
-        Me.lkpEstacionamientoBiciE1.TabIndex = 42
-        '
-        'GridView22
-        '
-        Me.GridView22.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn19, Me.GridColumn20})
-        Me.GridView22.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView22.Name = "GridView22"
-        Me.GridView22.OptionsCustomization.AllowFilter = False
-        Me.GridView22.OptionsCustomization.AllowGroup = False
-        Me.GridView22.OptionsCustomization.AllowSort = False
-        Me.GridView22.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView22.OptionsView.ShowColumnHeaders = False
-        Me.GridView22.OptionsView.ShowGroupPanel = False
-        Me.GridView22.OptionsView.ShowIndicator = False
-        '
-        'GridColumn19
-        '
-        Me.GridColumn19.FieldName = "ID"
-        Me.GridColumn19.Name = "GridColumn19"
-        '
-        'GridColumn20
-        '
-        Me.GridColumn20.FieldName = "EstacionamientoBicicleta"
-        Me.GridColumn20.Name = "GridColumn20"
-        Me.GridColumn20.Visible = True
-        Me.GridColumn20.VisibleIndex = 0
-        '
-        'LabelControl154
-        '
-        Me.LabelControl154.Location = New System.Drawing.Point(11, -2)
-        Me.LabelControl154.Name = "LabelControl154"
-        Me.LabelControl154.Size = New System.Drawing.Size(145, 13)
-        Me.LabelControl154.TabIndex = 41
-        Me.LabelControl154.Text = "¿Dónde estacionó su bicicleta?"
-        '
-        'spcMotivoNoUsaE2
-        '
-        Me.spcMotivoNoUsaE2.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
-        Me.spcMotivoNoUsaE2.Location = New System.Drawing.Point(191, 0)
-        Me.spcMotivoNoUsaE2.Name = "spcMotivoNoUsaE2"
-        Me.spcMotivoNoUsaE2.Panel1.Controls.Add(Me.txtMotivoNoUsaE2)
-        Me.spcMotivoNoUsaE2.Panel1.Controls.Add(Me.LabelControl155)
-        Me.spcMotivoNoUsaE2.Panel1.Text = "Panel1"
-        Me.spcMotivoNoUsaE2.Panel2.Controls.Add(Me.lkpEstacionamientoBiciE2)
-        Me.spcMotivoNoUsaE2.Panel2.Controls.Add(Me.LabelControl156)
-        Me.spcMotivoNoUsaE2.Panel2.Text = "Panel2"
-        Me.spcMotivoNoUsaE2.Size = New System.Drawing.Size(570, 44)
-        Me.spcMotivoNoUsaE2.SplitterPosition = 136
-        Me.spcMotivoNoUsaE2.TabIndex = 47
-        Me.spcMotivoNoUsaE2.Text = "SplitContainerControl2"
-        '
-        'txtMotivoNoUsaE2
-        '
-        Me.txtMotivoNoUsaE2.Location = New System.Drawing.Point(0, 17)
-        Me.txtMotivoNoUsaE2.Name = "txtMotivoNoUsaE2"
-        Me.txtMotivoNoUsaE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.txtMotivoNoUsaE2.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.txtMotivoNoUsaE2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.txtMotivoNoUsaE2.Size = New System.Drawing.Size(131, 20)
-        Me.txtMotivoNoUsaE2.TabIndex = 40
-        '
-        'LabelControl155
-        '
-        Me.LabelControl155.Location = New System.Drawing.Point(0, 0)
-        Me.LabelControl155.Name = "LabelControl155"
-        Me.LabelControl155.Size = New System.Drawing.Size(91, 13)
-        Me.LabelControl155.TabIndex = 39
-        Me.LabelControl155.Text = "¿Por qué? (Indicar)"
-        '
-        'lkpEstacionamientoBiciE2
-        '
-        Me.lkpEstacionamientoBiciE2.EditValue = ""
-        Me.lkpEstacionamientoBiciE2.Location = New System.Drawing.Point(11, 17)
-        Me.lkpEstacionamientoBiciE2.Name = "lkpEstacionamientoBiciE2"
-        Me.lkpEstacionamientoBiciE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpEstacionamientoBiciE2.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpEstacionamientoBiciE2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpEstacionamientoBiciE2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpEstacionamientoBiciE2.Properties.DataSource = Me.EstacionamientoBicicletaBindingSource
-        Me.lkpEstacionamientoBiciE2.Properties.DisplayMember = "EstacionamientoBicicleta"
-        Me.lkpEstacionamientoBiciE2.Properties.ImmediatePopup = True
-        Me.lkpEstacionamientoBiciE2.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
-        Me.lkpEstacionamientoBiciE2.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
-        Me.lkpEstacionamientoBiciE2.Properties.ShowFooter = False
-        Me.lkpEstacionamientoBiciE2.Properties.ValueMember = "ID"
-        Me.lkpEstacionamientoBiciE2.Properties.View = Me.GridView62
-        Me.lkpEstacionamientoBiciE2.Size = New System.Drawing.Size(283, 20)
-        Me.lkpEstacionamientoBiciE2.TabIndex = 42
-        '
-        'GridView62
-        '
-        Me.GridView62.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn44, Me.GridColumn93})
-        Me.GridView62.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView62.Name = "GridView62"
-        Me.GridView62.OptionsCustomization.AllowFilter = False
-        Me.GridView62.OptionsCustomization.AllowGroup = False
-        Me.GridView62.OptionsCustomization.AllowSort = False
-        Me.GridView62.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView62.OptionsView.ShowColumnHeaders = False
-        Me.GridView62.OptionsView.ShowGroupPanel = False
-        Me.GridView62.OptionsView.ShowIndicator = False
-        '
-        'GridColumn44
-        '
-        Me.GridColumn44.FieldName = "ID"
-        Me.GridColumn44.Name = "GridColumn44"
-        '
-        'GridColumn93
-        '
-        Me.GridColumn93.FieldName = "EstacionamientoBicicleta"
-        Me.GridColumn93.Name = "GridColumn93"
-        Me.GridColumn93.Visible = True
-        Me.GridColumn93.VisibleIndex = 0
-        '
-        'LabelControl156
-        '
-        Me.LabelControl156.Location = New System.Drawing.Point(11, -2)
-        Me.LabelControl156.Name = "LabelControl156"
-        Me.LabelControl156.Size = New System.Drawing.Size(145, 13)
-        Me.LabelControl156.TabIndex = 41
-        Me.LabelControl156.Text = "¿Dónde estacionó su bicicleta?"
-        '
-        'spcMotivoNoUsaE3
-        '
-        Me.spcMotivoNoUsaE3.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
-        Me.spcMotivoNoUsaE3.Location = New System.Drawing.Point(191, 0)
-        Me.spcMotivoNoUsaE3.Name = "spcMotivoNoUsaE3"
-        Me.spcMotivoNoUsaE3.Panel1.Controls.Add(Me.txtMotivoNoUsaE3)
-        Me.spcMotivoNoUsaE3.Panel1.Controls.Add(Me.LabelControl157)
-        Me.spcMotivoNoUsaE3.Panel1.Text = "Panel1"
-        Me.spcMotivoNoUsaE3.Panel2.Controls.Add(Me.lkpEstacionamientoBiciE3)
-        Me.spcMotivoNoUsaE3.Panel2.Controls.Add(Me.LabelControl158)
-        Me.spcMotivoNoUsaE3.Panel2.Text = "Panel2"
-        Me.spcMotivoNoUsaE3.Size = New System.Drawing.Size(570, 44)
-        Me.spcMotivoNoUsaE3.SplitterPosition = 136
-        Me.spcMotivoNoUsaE3.TabIndex = 48
-        Me.spcMotivoNoUsaE3.Text = "SplitContainerControl2"
-        '
-        'txtMotivoNoUsaE3
-        '
-        Me.txtMotivoNoUsaE3.Location = New System.Drawing.Point(0, 17)
-        Me.txtMotivoNoUsaE3.Name = "txtMotivoNoUsaE3"
-        Me.txtMotivoNoUsaE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.txtMotivoNoUsaE3.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.txtMotivoNoUsaE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.txtMotivoNoUsaE3.Size = New System.Drawing.Size(131, 20)
-        Me.txtMotivoNoUsaE3.TabIndex = 40
-        '
-        'LabelControl157
-        '
-        Me.LabelControl157.Location = New System.Drawing.Point(0, 0)
-        Me.LabelControl157.Name = "LabelControl157"
-        Me.LabelControl157.Size = New System.Drawing.Size(91, 13)
-        Me.LabelControl157.TabIndex = 39
-        Me.LabelControl157.Text = "¿Por qué? (Indicar)"
-        '
-        'lkpEstacionamientoBiciE3
-        '
-        Me.lkpEstacionamientoBiciE3.EditValue = ""
-        Me.lkpEstacionamientoBiciE3.Location = New System.Drawing.Point(11, 17)
-        Me.lkpEstacionamientoBiciE3.Name = "lkpEstacionamientoBiciE3"
-        Me.lkpEstacionamientoBiciE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpEstacionamientoBiciE3.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpEstacionamientoBiciE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpEstacionamientoBiciE3.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpEstacionamientoBiciE3.Properties.DataSource = Me.EstacionamientoBicicletaBindingSource
-        Me.lkpEstacionamientoBiciE3.Properties.DisplayMember = "EstacionamientoBicicleta"
-        Me.lkpEstacionamientoBiciE3.Properties.ImmediatePopup = True
-        Me.lkpEstacionamientoBiciE3.Properties.PopupFormMinSize = New System.Drawing.Size(167, 40)
-        Me.lkpEstacionamientoBiciE3.Properties.PopupFormSize = New System.Drawing.Size(167, 40)
-        Me.lkpEstacionamientoBiciE3.Properties.ShowFooter = False
-        Me.lkpEstacionamientoBiciE3.Properties.ValueMember = "ID"
-        Me.lkpEstacionamientoBiciE3.Properties.View = Me.GridView69
-        Me.lkpEstacionamientoBiciE3.Size = New System.Drawing.Size(296, 20)
-        Me.lkpEstacionamientoBiciE3.TabIndex = 42
-        '
-        'GridView69
-        '
-        Me.GridView69.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn94, Me.GridColumn95})
-        Me.GridView69.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView69.Name = "GridView69"
-        Me.GridView69.OptionsCustomization.AllowFilter = False
-        Me.GridView69.OptionsCustomization.AllowGroup = False
-        Me.GridView69.OptionsCustomization.AllowSort = False
-        Me.GridView69.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView69.OptionsView.ShowColumnHeaders = False
-        Me.GridView69.OptionsView.ShowGroupPanel = False
-        Me.GridView69.OptionsView.ShowIndicator = False
-        '
-        'GridColumn94
-        '
-        Me.GridColumn94.FieldName = "ID"
-        Me.GridColumn94.Name = "GridColumn94"
-        '
-        'GridColumn95
-        '
-        Me.GridColumn95.FieldName = "EstacionamientoBicicleta"
-        Me.GridColumn95.Name = "GridColumn95"
-        Me.GridColumn95.Visible = True
-        Me.GridColumn95.VisibleIndex = 0
-        '
-        'LabelControl158
-        '
-        Me.LabelControl158.Location = New System.Drawing.Point(11, -2)
-        Me.LabelControl158.Name = "LabelControl158"
-        Me.LabelControl158.Size = New System.Drawing.Size(145, 13)
-        Me.LabelControl158.TabIndex = 41
-        Me.LabelControl158.Text = "¿Dónde estacionó su bicicleta?"
-        '
-        'EstacionamientoBicicletaBindingSource
-        '
-        Me.EstacionamientoBicicletaBindingSource.DataMember = "EstacionamientoBicicleta"
-        Me.EstacionamientoBicicletaBindingSource.DataSource = Me.datasetEOD
-        '
         'EstacionamientoBicicletaTableAdapter
         '
         Me.EstacionamientoBicicletaTableAdapter.ClearBeforeFill = True
-        '
-        'spcFormaPagoE1
-        '
-        Me.spcFormaPagoE1.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
-        Me.spcFormaPagoE1.Location = New System.Drawing.Point(1, 6)
-        Me.spcFormaPagoE1.Name = "spcFormaPagoE1"
-        Me.spcFormaPagoE1.Panel1.Controls.Add(Me.LabelControl26)
-        Me.spcFormaPagoE1.Panel1.Controls.Add(Me.lkpFormaPagoE1)
-        Me.spcFormaPagoE1.Panel1.Text = "Panel1"
-        Me.spcFormaPagoE1.Panel2.Controls.Add(Me.lkpDondeEstacionaE1)
-        Me.spcFormaPagoE1.Panel2.Controls.Add(Me.LabelControl27)
-        Me.spcFormaPagoE1.Panel2.Text = "Panel2"
-        Me.spcFormaPagoE1.Size = New System.Drawing.Size(392, 48)
-        Me.spcFormaPagoE1.SplitterPosition = 176
-        Me.spcFormaPagoE1.TabIndex = 96
-        Me.spcFormaPagoE1.Text = "SplitContainerControl2"
-        '
-        'LabelControl26
-        '
-        Me.LabelControl26.Location = New System.Drawing.Point(6, 3)
-        Me.LabelControl26.Name = "LabelControl26"
-        Me.LabelControl26.Size = New System.Drawing.Size(72, 13)
-        Me.LabelControl26.TabIndex = 4
-        Me.LabelControl26.Text = "¿Este pago es?"
-        '
-        'lkpDondeEstacionaE1
-        '
-        Me.lkpDondeEstacionaE1.EditValue = ""
-        Me.lkpDondeEstacionaE1.Location = New System.Drawing.Point(3, 21)
-        Me.lkpDondeEstacionaE1.Name = "lkpDondeEstacionaE1"
-        Me.lkpDondeEstacionaE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpDondeEstacionaE1.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpDondeEstacionaE1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpDondeEstacionaE1.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpDondeEstacionaE1.Properties.DataSource = Me.DondeEstacionaBindingSource
-        Me.lkpDondeEstacionaE1.Properties.DisplayMember = "DondeEstaciona"
-        Me.lkpDondeEstacionaE1.Properties.ImmediatePopup = True
-        Me.lkpDondeEstacionaE1.Properties.PopupFormMinSize = New System.Drawing.Size(147, 100)
-        Me.lkpDondeEstacionaE1.Properties.PopupFormSize = New System.Drawing.Size(147, 100)
-        Me.lkpDondeEstacionaE1.Properties.ShowFooter = False
-        Me.lkpDondeEstacionaE1.Properties.ValueMember = "ID"
-        Me.lkpDondeEstacionaE1.Properties.View = Me.GridView59
-        Me.lkpDondeEstacionaE1.Size = New System.Drawing.Size(186, 20)
-        Me.lkpDondeEstacionaE1.TabIndex = 35
-        '
-        'GridView59
-        '
-        Me.GridView59.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn50, Me.GridColumn57})
-        Me.GridView59.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView59.Name = "GridView59"
-        Me.GridView59.OptionsCustomization.AllowFilter = False
-        Me.GridView59.OptionsCustomization.AllowGroup = False
-        Me.GridView59.OptionsCustomization.AllowSort = False
-        Me.GridView59.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView59.OptionsView.ShowColumnHeaders = False
-        Me.GridView59.OptionsView.ShowGroupPanel = False
-        Me.GridView59.OptionsView.ShowIndicator = False
-        '
-        'GridColumn50
-        '
-        Me.GridColumn50.FieldName = "ID"
-        Me.GridColumn50.Name = "GridColumn50"
-        '
-        'GridColumn57
-        '
-        Me.GridColumn57.FieldName = "DondeEstaciona"
-        Me.GridColumn57.Name = "GridColumn57"
-        Me.GridColumn57.Visible = True
-        Me.GridColumn57.VisibleIndex = 0
-        '
-        'LabelControl27
-        '
-        Me.LabelControl27.Location = New System.Drawing.Point(3, 3)
-        Me.LabelControl27.Name = "LabelControl27"
-        Me.LabelControl27.Size = New System.Drawing.Size(90, 13)
-        Me.LabelControl27.TabIndex = 5
-        Me.LabelControl27.Text = "¿Dónde estacionó?"
-        '
-        'DondeEstacionaBindingSource
-        '
-        Me.DondeEstacionaBindingSource.DataMember = "DondeEstaciona"
-        Me.DondeEstacionaBindingSource.DataSource = Me.datasetEOD
         '
         'DondeEstacionaTableAdapter
         '
         Me.DondeEstacionaTableAdapter.ClearBeforeFill = True
         '
-        'spcFormaPagoE2
+        'LabelControl82
         '
-        Me.spcFormaPagoE2.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
-        Me.spcFormaPagoE2.Location = New System.Drawing.Point(2, 3)
-        Me.spcFormaPagoE2.Name = "spcFormaPagoE2"
-        Me.spcFormaPagoE2.Panel1.Controls.Add(Me.LabelControl54)
-        Me.spcFormaPagoE2.Panel1.Controls.Add(Me.lkpFormaPagoE2)
-        Me.spcFormaPagoE2.Panel1.Text = "Panel1"
-        Me.spcFormaPagoE2.Panel2.Controls.Add(Me.lkpDondeEstacionaE2)
-        Me.spcFormaPagoE2.Panel2.Controls.Add(Me.LabelControl56)
-        Me.spcFormaPagoE2.Panel2.Text = "Panel2"
-        Me.spcFormaPagoE2.Size = New System.Drawing.Size(368, 48)
-        Me.spcFormaPagoE2.SplitterPosition = 159
-        Me.spcFormaPagoE2.TabIndex = 97
-        Me.spcFormaPagoE2.Text = "SplitContainerControl2"
+        Me.LabelControl82.Location = New System.Drawing.Point(0, 5)
+        Me.LabelControl82.Name = "LabelControl82"
+        Me.LabelControl82.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl82.TabIndex = 96
+        Me.LabelControl82.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
+    "imilar)?"
         '
-        'LabelControl54
+        'LabelControl88
         '
-        Me.LabelControl54.Location = New System.Drawing.Point(6, 3)
-        Me.LabelControl54.Name = "LabelControl54"
-        Me.LabelControl54.Size = New System.Drawing.Size(72, 13)
-        Me.LabelControl54.TabIndex = 4
-        Me.LabelControl54.Text = "¿Este pago es?"
+        Me.LabelControl88.Location = New System.Drawing.Point(442, 5)
+        Me.LabelControl88.Name = "LabelControl88"
+        Me.LabelControl88.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl88.TabIndex = 97
+        Me.LabelControl88.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
+    "similar)?"
         '
-        'lkpDondeEstacionaE2
+        'LabelControl34
         '
-        Me.lkpDondeEstacionaE2.EditValue = ""
-        Me.lkpDondeEstacionaE2.Location = New System.Drawing.Point(3, 21)
-        Me.lkpDondeEstacionaE2.Name = "lkpDondeEstacionaE2"
-        Me.lkpDondeEstacionaE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpDondeEstacionaE2.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpDondeEstacionaE2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpDondeEstacionaE2.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpDondeEstacionaE2.Properties.DataSource = Me.DondeEstacionaBindingSource
-        Me.lkpDondeEstacionaE2.Properties.DisplayMember = "DondeEstaciona"
-        Me.lkpDondeEstacionaE2.Properties.ImmediatePopup = True
-        Me.lkpDondeEstacionaE2.Properties.PopupFormMinSize = New System.Drawing.Size(147, 100)
-        Me.lkpDondeEstacionaE2.Properties.PopupFormSize = New System.Drawing.Size(147, 100)
-        Me.lkpDondeEstacionaE2.Properties.ShowFooter = False
-        Me.lkpDondeEstacionaE2.Properties.ValueMember = "ID"
-        Me.lkpDondeEstacionaE2.Properties.View = Me.GridView37
-        Me.lkpDondeEstacionaE2.Size = New System.Drawing.Size(186, 20)
-        Me.lkpDondeEstacionaE2.TabIndex = 35
+        Me.LabelControl34.Location = New System.Drawing.Point(1, 5)
+        Me.LabelControl34.Name = "LabelControl34"
+        Me.LabelControl34.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl34.TabIndex = 96
+        Me.LabelControl34.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
+    "imilar)?"
         '
-        'GridView37
+        'LabelControl45
         '
-        Me.GridView37.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn58, Me.GridColumn79})
-        Me.GridView37.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView37.Name = "GridView37"
-        Me.GridView37.OptionsCustomization.AllowFilter = False
-        Me.GridView37.OptionsCustomization.AllowGroup = False
-        Me.GridView37.OptionsCustomization.AllowSort = False
-        Me.GridView37.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView37.OptionsView.ShowColumnHeaders = False
-        Me.GridView37.OptionsView.ShowGroupPanel = False
-        Me.GridView37.OptionsView.ShowIndicator = False
+        Me.LabelControl45.Location = New System.Drawing.Point(443, 5)
+        Me.LabelControl45.Name = "LabelControl45"
+        Me.LabelControl45.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl45.TabIndex = 97
+        Me.LabelControl45.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
+    "similar)?"
         '
-        'GridColumn58
+        'LabelControl71
         '
-        Me.GridColumn58.FieldName = "ID"
-        Me.GridColumn58.Name = "GridColumn58"
+        Me.LabelControl71.Location = New System.Drawing.Point(1, 5)
+        Me.LabelControl71.Name = "LabelControl71"
+        Me.LabelControl71.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl71.TabIndex = 96
+        Me.LabelControl71.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
+    "imilar)?"
         '
-        'GridColumn79
+        'LabelControl77
         '
-        Me.GridColumn79.FieldName = "DondeEstaciona"
-        Me.GridColumn79.Name = "GridColumn79"
-        Me.GridColumn79.Visible = True
-        Me.GridColumn79.VisibleIndex = 0
-        '
-        'LabelControl56
-        '
-        Me.LabelControl56.Location = New System.Drawing.Point(3, 3)
-        Me.LabelControl56.Name = "LabelControl56"
-        Me.LabelControl56.Size = New System.Drawing.Size(90, 13)
-        Me.LabelControl56.TabIndex = 5
-        Me.LabelControl56.Text = "¿Dónde estacionó?"
-        '
-        'spcFormaPagoE3
-        '
-        Me.spcFormaPagoE3.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
-        Me.spcFormaPagoE3.Location = New System.Drawing.Point(12, 3)
-        Me.spcFormaPagoE3.Name = "spcFormaPagoE3"
-        Me.spcFormaPagoE3.Panel1.Controls.Add(Me.lkpFormaPagoE3)
-        Me.spcFormaPagoE3.Panel1.Controls.Add(Me.LabelControl78)
-        Me.spcFormaPagoE3.Panel1.Text = "Panel1"
-        Me.spcFormaPagoE3.Panel2.Controls.Add(Me.lkpDondeEstacionaE3)
-        Me.spcFormaPagoE3.Panel2.Controls.Add(Me.LabelControl79)
-        Me.spcFormaPagoE3.Panel2.Text = "Panel2"
-        Me.spcFormaPagoE3.Size = New System.Drawing.Size(368, 48)
-        Me.spcFormaPagoE3.SplitterPosition = 156
-        Me.spcFormaPagoE3.TabIndex = 98
-        Me.spcFormaPagoE3.Text = "SplitContainerControl2"
-        '
-        'LabelControl78
-        '
-        Me.LabelControl78.Location = New System.Drawing.Point(6, 3)
-        Me.LabelControl78.Name = "LabelControl78"
-        Me.LabelControl78.Size = New System.Drawing.Size(72, 13)
-        Me.LabelControl78.TabIndex = 4
-        Me.LabelControl78.Text = "¿Este pago es?"
-        '
-        'lkpDondeEstacionaE3
-        '
-        Me.lkpDondeEstacionaE3.EditValue = ""
-        Me.lkpDondeEstacionaE3.Location = New System.Drawing.Point(3, 21)
-        Me.lkpDondeEstacionaE3.Name = "lkpDondeEstacionaE3"
-        Me.lkpDondeEstacionaE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpDondeEstacionaE3.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpDondeEstacionaE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpDondeEstacionaE3.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpDondeEstacionaE3.Properties.DataSource = Me.DondeEstacionaBindingSource
-        Me.lkpDondeEstacionaE3.Properties.DisplayMember = "DondeEstaciona"
-        Me.lkpDondeEstacionaE3.Properties.ImmediatePopup = True
-        Me.lkpDondeEstacionaE3.Properties.PopupFormMinSize = New System.Drawing.Size(147, 100)
-        Me.lkpDondeEstacionaE3.Properties.PopupFormSize = New System.Drawing.Size(147, 100)
-        Me.lkpDondeEstacionaE3.Properties.ShowFooter = False
-        Me.lkpDondeEstacionaE3.Properties.ValueMember = "ID"
-        Me.lkpDondeEstacionaE3.Properties.View = Me.GridView55
-        Me.lkpDondeEstacionaE3.Size = New System.Drawing.Size(186, 20)
-        Me.lkpDondeEstacionaE3.TabIndex = 35
-        '
-        'GridView55
-        '
-        Me.GridView55.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn96, Me.GridColumn105})
-        Me.GridView55.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView55.Name = "GridView55"
-        Me.GridView55.OptionsCustomization.AllowFilter = False
-        Me.GridView55.OptionsCustomization.AllowGroup = False
-        Me.GridView55.OptionsCustomization.AllowSort = False
-        Me.GridView55.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView55.OptionsView.ShowColumnHeaders = False
-        Me.GridView55.OptionsView.ShowGroupPanel = False
-        Me.GridView55.OptionsView.ShowIndicator = False
-        '
-        'GridColumn96
-        '
-        Me.GridColumn96.FieldName = "ID"
-        Me.GridColumn96.Name = "GridColumn96"
-        '
-        'GridColumn105
-        '
-        Me.GridColumn105.FieldName = "DondeEstaciona"
-        Me.GridColumn105.Name = "GridColumn105"
-        Me.GridColumn105.Visible = True
-        Me.GridColumn105.VisibleIndex = 0
-        '
-        'LabelControl79
-        '
-        Me.LabelControl79.Location = New System.Drawing.Point(3, 3)
-        Me.LabelControl79.Name = "LabelControl79"
-        Me.LabelControl79.Size = New System.Drawing.Size(90, 13)
-        Me.LabelControl79.TabIndex = 5
-        Me.LabelControl79.Text = "¿Dónde estacionó?"
-        '
-        'lkpFormaPagoE3
-        '
-        Me.lkpFormaPagoE3.EditValue = ""
-        Me.lkpFormaPagoE3.Location = New System.Drawing.Point(6, 22)
-        Me.lkpFormaPagoE3.Name = "lkpFormaPagoE3"
-        Me.lkpFormaPagoE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
-        Me.lkpFormaPagoE3.Properties.AppearanceFocused.Options.UseBorderColor = True
-        Me.lkpFormaPagoE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.lkpFormaPagoE3.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.lkpFormaPagoE3.Properties.DataSource = Me.FormaPagoBindingSource
-        Me.lkpFormaPagoE3.Properties.DisplayMember = "FormaPago"
-        Me.lkpFormaPagoE3.Properties.ImmediatePopup = True
-        Me.lkpFormaPagoE3.Properties.PopupFormMinSize = New System.Drawing.Size(147, 100)
-        Me.lkpFormaPagoE3.Properties.PopupFormSize = New System.Drawing.Size(147, 100)
-        Me.lkpFormaPagoE3.Properties.ShowFooter = False
-        Me.lkpFormaPagoE3.Properties.ValueMember = "ID"
-        Me.lkpFormaPagoE3.Properties.View = Me.GridView56
-        Me.lkpFormaPagoE3.Size = New System.Drawing.Size(147, 20)
-        Me.lkpFormaPagoE3.TabIndex = 35
-        '
-        'GridView56
-        '
-        Me.GridView56.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn39, Me.GridColumn40})
-        Me.GridView56.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.GridView56.Name = "GridView56"
-        Me.GridView56.OptionsCustomization.AllowFilter = False
-        Me.GridView56.OptionsCustomization.AllowGroup = False
-        Me.GridView56.OptionsCustomization.AllowSort = False
-        Me.GridView56.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.GridView56.OptionsView.ShowColumnHeaders = False
-        Me.GridView56.OptionsView.ShowGroupPanel = False
-        Me.GridView56.OptionsView.ShowIndicator = False
-        '
-        'GridColumn39
-        '
-        Me.GridColumn39.FieldName = "ID"
-        Me.GridColumn39.Name = "GridColumn39"
-        '
-        'GridColumn40
-        '
-        Me.GridColumn40.FieldName = "FormaPago"
-        Me.GridColumn40.Name = "GridColumn40"
-        Me.GridColumn40.Visible = True
-        Me.GridColumn40.VisibleIndex = 0
+        Me.LabelControl77.Location = New System.Drawing.Point(443, 5)
+        Me.LabelControl77.Name = "LabelControl77"
+        Me.LabelControl77.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl77.TabIndex = 97
+        Me.LabelControl77.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
+    "similar)?"
         '
         'ModificarViaje
         '
@@ -9340,8 +9349,13 @@ Partial Class ModificarViaje
         CType(Me.chkNSNRPagoE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.TabFormDefaultManager1, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.txtCuantoPagoE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.spcFormaPagoE1, System.ComponentModel.ISupportInitialize).EndInit
+        Me.spcFormaPagoE1.ResumeLayout(False)
         CType(Me.lkpFormaPagoE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView18, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.lkpDondeEstacionaE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.DondeEstacionaBindingSource, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GridView59, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.lkpLugarDondeBajoE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView16, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.spVehiculoHogarE1, System.ComponentModel.ISupportInitialize).EndInit
@@ -9361,12 +9375,18 @@ Partial Class ModificarViaje
         CType(Me.spcPropiedadBicicletaE1, System.ComponentModel.ISupportInitialize).EndInit
         Me.spcPropiedadBicicletaE1.ResumeLayout(False)
         CType(Me.txtPropiedadBicicletaOtraE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.spcMotivoNoUsaE1, System.ComponentModel.ISupportInitialize).EndInit
+        Me.spcMotivoNoUsaE1.ResumeLayout(False)
+        CType(Me.txtMotivoNoUsaE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.lkpEstacionamientoBiciE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.EstacionamientoBicicletaBindingSource, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GridView22, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.lkpCicloviaE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView26, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.lkpLugarBajadaBiciE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView53, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.lkpPropiedadBicicletaE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView25, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.lkpLugarBajadaBiciE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GridView53, System.ComponentModel.ISupportInitialize).EndInit
         Me.tabBus.ResumeLayout(False)
         Me.tabBus.PerformLayout
         CType(Me.txtMinutosEsperaBusE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
@@ -9439,8 +9459,12 @@ Partial Class ModificarViaje
         Me.spcPagoEstacionamientoE2.ResumeLayout(False)
         CType(Me.chkNSNRPagoE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.txtCuantoPagoE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.spcFormaPagoE2, System.ComponentModel.ISupportInitialize).EndInit
+        Me.spcFormaPagoE2.ResumeLayout(False)
         CType(Me.lkpFormaPagoE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView43, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.lkpDondeEstacionaE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GridView37, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.lkpLugarBajadaAutoE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView44, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.spVehiculoHogarE2, System.ComponentModel.ISupportInitialize).EndInit
@@ -9458,12 +9482,17 @@ Partial Class ModificarViaje
         CType(Me.spcPropiedadBicicletaE2, System.ComponentModel.ISupportInitialize).EndInit
         Me.spcPropiedadBicicletaE2.ResumeLayout(False)
         CType(Me.txtPropiedadBicicletaOtraE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.spcMotivoNoUsaE2, System.ComponentModel.ISupportInitialize).EndInit
+        Me.spcMotivoNoUsaE2.ResumeLayout(False)
+        CType(Me.txtMotivoNoUsaE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.lkpEstacionamientoBiciE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GridView62, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.lkpCicloviaE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView24, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.lkpLugarBajadaBiciE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView14, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.lkpPropiedadBicicletaE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView49, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.lkpLugarBajadaBiciE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GridView14, System.ComponentModel.ISupportInitialize).EndInit
         Me.tabBusE2.ResumeLayout(False)
         Me.tabBusE2.PerformLayout
         CType(Me.txtMinutosEsperaBusE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
@@ -9534,6 +9563,12 @@ Partial Class ModificarViaje
         Me.spcPagoEstacionamientoE3.ResumeLayout(False)
         CType(Me.chkNSNRPagoE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.txtCuantoPagoE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.spcFormaPagoE3, System.ComponentModel.ISupportInitialize).EndInit
+        Me.spcFormaPagoE3.ResumeLayout(False)
+        CType(Me.lkpFormaPagoE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GridView56, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.lkpDondeEstacionaE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GridView55, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.lkpLugarBajadaAutoE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView57, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.spVehiculoHogarE3, System.ComponentModel.ISupportInitialize).EndInit
@@ -9551,12 +9586,17 @@ Partial Class ModificarViaje
         CType(Me.spcPropiedadBicicletaE3, System.ComponentModel.ISupportInitialize).EndInit
         Me.spcPropiedadBicicletaE3.ResumeLayout(False)
         CType(Me.txtPropiedadBicicletaOtraE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.spcMotivoNoUsaE3, System.ComponentModel.ISupportInitialize).EndInit
+        Me.spcMotivoNoUsaE3.ResumeLayout(False)
+        CType(Me.txtMotivoNoUsaE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.lkpEstacionamientoBiciE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GridView69, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.lkpCicloviaE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView23, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.lkpLugarBajadaBiciE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView54, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.lkpPropiedadBicicletaE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.GridView65, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.lkpLugarBajadaBiciE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.GridView54, System.ComponentModel.ISupportInitialize).EndInit
         Me.tabBusE3.ResumeLayout(False)
         Me.tabBusE3.PerformLayout
         CType(Me.txtMinutosEsperaBusE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
@@ -9676,37 +9716,6 @@ Partial Class ModificarViaje
         CType(Me.Etapa1BindingSource, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.Etapa2BindingSource, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.Etapa3BindingSource, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.spcMotivoNoUsaE1, System.ComponentModel.ISupportInitialize).EndInit
-        Me.spcMotivoNoUsaE1.ResumeLayout(False)
-        CType(Me.txtMotivoNoUsaE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.lkpEstacionamientoBiciE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView22, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.spcMotivoNoUsaE2, System.ComponentModel.ISupportInitialize).EndInit
-        Me.spcMotivoNoUsaE2.ResumeLayout(False)
-        CType(Me.txtMotivoNoUsaE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.lkpEstacionamientoBiciE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView62, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.spcMotivoNoUsaE3, System.ComponentModel.ISupportInitialize).EndInit
-        Me.spcMotivoNoUsaE3.ResumeLayout(False)
-        CType(Me.txtMotivoNoUsaE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.lkpEstacionamientoBiciE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView69, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.EstacionamientoBicicletaBindingSource, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.spcFormaPagoE1, System.ComponentModel.ISupportInitialize).EndInit
-        Me.spcFormaPagoE1.ResumeLayout(False)
-        CType(Me.lkpDondeEstacionaE1.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView59, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.DondeEstacionaBindingSource, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.spcFormaPagoE2, System.ComponentModel.ISupportInitialize).EndInit
-        Me.spcFormaPagoE2.ResumeLayout(False)
-        CType(Me.lkpDondeEstacionaE2.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView37, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.spcFormaPagoE3, System.ComponentModel.ISupportInitialize).EndInit
-        Me.spcFormaPagoE3.ResumeLayout(False)
-        CType(Me.lkpDondeEstacionaE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView55, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.lkpFormaPagoE3.Properties, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView56, System.ComponentModel.ISupportInitialize).EndInit
         Me.ResumeLayout(False)
         Me.PerformLayout
 
@@ -9753,13 +9762,11 @@ Partial Class ModificarViaje
     Friend WithEvents tabTransporte1 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents tabsEtapa1 As DevExpress.XtraTab.XtraTabControl
     Friend WithEvents tabTaxi As DevExpress.XtraTab.XtraTabPage
-    Friend WithEvents LabelControl82 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl83 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl85 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtCuadrasTaxiE1 As DevExpress.XtraEditors.TextEdit
     Friend WithEvents txtMinutosTaxiE1 As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl87 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl88 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl89 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtTarifaMontoTaxiE1 As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl90 As DevExpress.XtraEditors.LabelControl
@@ -10042,7 +10049,6 @@ Partial Class ModificarViaje
     Friend WithEvents LabelControl148 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents tabsEtapa2 As DevExpress.XtraTab.XtraTabControl
     Friend WithEvents tabTaxiE2 As DevExpress.XtraTab.XtraTabPage
-    Friend WithEvents LabelControl34 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl40 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl41 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtMinutosEsperaTaxiE2 As DevExpress.XtraEditors.TextEdit
@@ -10052,7 +10058,6 @@ Partial Class ModificarViaje
     Friend WithEvents txtMinutosTaxiE2 As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl43 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl44 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl45 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents lkpLugarBajadaTaxiE2 As DevExpress.XtraEditors.GridLookUpEdit
     Friend WithEvents GridView36 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents GridColumn12 As DevExpress.XtraGrid.Columns.GridColumn
@@ -10143,7 +10148,6 @@ Partial Class ModificarViaje
     Friend WithEvents GridColumn34 As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents tabsEtapa3 As DevExpress.XtraTab.XtraTabControl
     Friend WithEvents tabTaxiE3 As DevExpress.XtraTab.XtraTabPage
-    Friend WithEvents LabelControl71 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl72 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl73 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtMinutosEsperaTaxiE3 As DevExpress.XtraEditors.TextEdit
@@ -10153,7 +10157,6 @@ Partial Class ModificarViaje
     Friend WithEvents txtMinutosTaxiE3 As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl75 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl76 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl77 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents lkpLugarBajadaTaxiE3 As DevExpress.XtraEditors.GridLookUpEdit
     Friend WithEvents GridView38 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents GridColumn37 As DevExpress.XtraGrid.Columns.GridColumn
@@ -10501,4 +10504,10 @@ Partial Class ModificarViaje
     Friend WithEvents GridView55 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents GridColumn96 As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents GridColumn105 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents LabelControl82 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl88 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl34 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl45 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl71 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl77 As DevExpress.XtraEditors.LabelControl
 End Class

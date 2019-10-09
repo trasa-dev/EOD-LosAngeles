@@ -31,6 +31,8 @@ Public Class AgregarPersona
     End Sub
 
     Private Sub AgregarPersona_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'TODO: esta línea de código carga datos en la tabla 'datasetEOD.TipoDiscapacidad' Puede moverla o quitarla según sea necesario.
+        Me.TipoDiscapacidadTableAdapter.Fill(Me.datasetEOD.TipoDiscapacidad)
         'TODO: esta línea de código carga datos en la tabla 'datasetEOD.ConsultaCalle2Estudio' Puede moverla o quitarla según sea necesario.
         'Me.ConsultaCalle2EstudioTableAdapter.Fill(Me.datasetEOD.ConsultaCalle2Estudio)
         'TODO: esta línea de código carga datos en la tabla 'datasetEOD.ConsultaCalle2Trabajo' Puede moverla o quitarla según sea necesario.
@@ -315,6 +317,11 @@ Public Class AgregarPersona
             persona.NoViajaLab = -1
             persona.NoViajaSab = -1
             persona.NoViajaDom = -1
+            persona.Discapacitado = Me.lkpDiscapacitado.EditValue
+            If persona.Discapacitado Then
+                persona.TipoDiscapacidad = Me.chkTipoDiscapacidad.EditValue
+                persona.DiscapacidadAutosuficiente = Me.lkpAutosuficiente.EditValue
+            End If
 
             'Datos de trabajo
             If persona.Actividad.Contains("1") Then
@@ -576,6 +583,34 @@ Public Class AgregarPersona
                     lkpEstudiosCompletos.Properties.Appearance.BorderColor = Nothing
                 End If
             End If
+        End If
+
+        'Campo Discapacitado
+        If lkpDiscapacitado.EditValue Is Nothing OrElse lkpDiscapacitado.EditValue.ToString = "" OrElse lkpDiscapacitado.EditValue < 0 Then
+            completo = False
+            lkpDiscapacitado.Properties.Appearance.BorderColor = Color.Red
+        Else
+            lkpDiscapacitado.Properties.Appearance.BorderColor = Nothing
+
+            If lkpDiscapacitado.EditValue = 1 Then
+
+                'Campo TipoDiscapacidad
+                If chkTipoDiscapacidad.EditValue Is Nothing OrElse chkTipoDiscapacidad.EditValue.ToString = "" Then
+                    completo = False
+                    chkTipoDiscapacidad.Properties.Appearance.BorderColor = Color.Red
+                Else
+                    chkTipoDiscapacidad.Properties.Appearance.BorderColor = Nothing
+                End If
+
+                'Campo Autosuficiente
+                If lkpAutosuficiente.EditValue Is Nothing OrElse lkpAutosuficiente.EditValue.ToString = "" OrElse lkpAutosuficiente.EditValue < 0 Then
+                    completo = False
+                    lkpAutosuficiente.Properties.Appearance.BorderColor = Color.Red
+                Else
+                    lkpAutosuficiente.Properties.Appearance.BorderColor = Nothing
+                End If
+            End If
+
         End If
 
         'Campo Actividad
@@ -1438,5 +1473,25 @@ Public Class AgregarPersona
             End If
         End If
 
+    End Sub
+
+    Private Sub LkpDiscapacitado_EditValueChanged(sender As Object, e As EventArgs) Handles lkpDiscapacitado.EditValueChanged
+        Dim opcion As Integer
+
+        If lkpDiscapacitado.EditValue IsNot Nothing AndAlso lkpDiscapacitado.EditValue.ToString <> "" Then
+            opcion = lkpDiscapacitado.EditValue
+        End If
+
+        lblAutosuficiente.Visible = False
+        lblTipoDiscapacidad.Visible = False
+        lkpAutosuficiente.Visible = False
+        chkTipoDiscapacidad.Visible = False
+
+        If opcion = 1 Then
+            lblAutosuficiente.Visible = True
+            lblTipoDiscapacidad.Visible = True
+            lkpAutosuficiente.Visible = True
+            chkTipoDiscapacidad.Visible = True
+        End If
     End Sub
 End Class

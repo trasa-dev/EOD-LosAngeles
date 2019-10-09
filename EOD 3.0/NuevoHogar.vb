@@ -926,6 +926,11 @@ Public Class NuevoHogar
             nuevaPersona.NoViajaSab = -1
             nuevaPersona.NoViajaDom = -1
             nuevaPersona.Encuestado = False
+            nuevaPersona.Discapacitado = Me.lkpDiscapacitado.EditValue
+            If nuevaPersona.Discapacitado Then
+                nuevaPersona.TipoDiscapacidad = Me.chkTipoDiscapacidad.EditValue
+                nuevaPersona.DiscapacidadAutosuficiente = Me.lkpAutosuficiente.EditValue
+            End If
 
             'Validador Servicio doméstico y no trabaja
             If nuevaPersona.Relacion = 6 AndAlso Not nuevaPersona.Actividad.Contains("1") Then
@@ -1101,12 +1106,6 @@ Public Class NuevoHogar
                             filaHogar.FechaViajesDom = Me.deDomingoLV.EditValue
                     End Select
 
-                    filaHogar.PersonaConDiscapacidad = Me.lkpPersonaDiscapacidad.EditValue
-                    If filaHogar.PersonaConDiscapacidad Then
-                        filaHogar.TipoDiscapacidad = Me.lkpTipoDiscapacidad.EditValue
-                        filaHogar.DiscapacidadAutosuf = Me.lkpPersonaAutosuficiente.EditValue
-                    End If
-
                     filaHogar.NumPer = Me.numPer
                     filaHogar.NumVeh = Me.numVeh
                     filaHogar.EstadoEncuesta = 3
@@ -1167,11 +1166,6 @@ Public Class NuevoHogar
                                 filaHogar.FechaViajesDom = Me.deDomingoLV.EditValue
                         End Select
 
-                        filaHogar.PersonaConDiscapacidad = Me.lkpPersonaDiscapacidad.EditValue
-                        If filaHogar.PersonaConDiscapacidad Then
-                            filaHogar.TipoDiscapacidad = Me.lkpTipoDiscapacidad.EditValue
-                            filaHogar.DiscapacidadAutosuf = Me.lkpPersonaAutosuficiente.EditValue
-                        End If
                         filaHogar.NumPer = Me.numPer
                         filaHogar.NumVeh = Me.numVeh
                         filaHogar.EstadoEncuesta = 3
@@ -1972,6 +1966,34 @@ Public Class NuevoHogar
             lkpRelacion.Properties.Appearance.BorderColor = Nothing
         End If
 
+        'Campo Discapacitado
+        If lkpDiscapacitado.EditValue Is Nothing OrElse lkpDiscapacitado.EditValue.ToString = "" OrElse lkpDiscapacitado.EditValue < 0 Then
+            completo = False
+            lkpDiscapacitado.Properties.Appearance.BorderColor = Color.Red
+        Else
+            lkpDiscapacitado.Properties.Appearance.BorderColor = Nothing
+
+            If lkpDiscapacitado.EditValue = 1 Then
+
+                'Campo TipoDiscapacidad
+                If chkTipoDiscapacidad.EditValue Is Nothing OrElse chkTipoDiscapacidad.EditValue.ToString = "" Then
+                    completo = False
+                    chkTipoDiscapacidad.Properties.Appearance.BorderColor = Color.Red
+                Else
+                    chkTipoDiscapacidad.Properties.Appearance.BorderColor = Nothing
+                End If
+
+                'Campo Autosuficiente
+                If lkpAutosuficiente.EditValue Is Nothing OrElse lkpAutosuficiente.EditValue.ToString = "" OrElse lkpAutosuficiente.EditValue < 0 Then
+                    completo = False
+                    lkpAutosuficiente.Properties.Appearance.BorderColor = Color.Red
+                Else
+                    lkpAutosuficiente.Properties.Appearance.BorderColor = Nothing
+                End If
+            End If
+
+        End If
+
         'Campo Estudios
         If lkpEstudios.EditValue Is Nothing OrElse lkpEstudios.EditValue.ToString = "" OrElse lkpEstudios.EditValue < 1 Then
             completo = False
@@ -2161,29 +2183,6 @@ Public Class NuevoHogar
 
     Private Function fechaCompleta() As Boolean
         Dim completo As Boolean = True
-
-        'Campo Hay Discapacitado
-        If lkpPersonaDiscapacidad.EditValue Is Nothing OrElse lkpPersonaDiscapacidad.EditValue.ToString = "" OrElse lkpPersonaDiscapacidad.EditValue < 1 Then
-            completo = False
-            lkpPersonaDiscapacidad.Properties.Appearance.BorderColor = Color.Red
-        ElseIf lkpPersonaDiscapacidad.EditValue = 1 Then
-
-            'Campo Tipo Discapacidad
-            If lkpTipoDiscapacidad.EditValue Is Nothing OrElse lkpTipoDiscapacidad.EditValue.ToString = "" OrElse lkpTipoDiscapacidad.EditValue < 1 Then
-                completo = False
-                lkpTipoDiscapacidad.Properties.Appearance.BorderColor = Color.Red
-            Else
-                lkpTipoDiscapacidad.Properties.Appearance.BorderColor = Nothing
-            End If
-
-            'Campo Autosuficiente
-            If lkpPersonaAutosuficiente.EditValue Is Nothing OrElse lkpPersonaAutosuficiente.EditValue.ToString = "" OrElse lkpPersonaAutosuficiente.EditValue < 1 Then
-                completo = False
-                lkpPersonaAutosuficiente.Properties.Appearance.BorderColor = Color.Red
-            Else
-                lkpPersonaAutosuficiente.Properties.Appearance.BorderColor = Nothing
-            End If
-        End If
 
         'Campo Tipo Encuesta
         If lkpTipoDia.EditValue Is Nothing OrElse lkpTipoDia.EditValue.ToString = "" OrElse lkpTipoDia.EditValue < 1 Then
@@ -2946,15 +2945,15 @@ Public Class NuevoHogar
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpPersonaDiscapacidad_Enter(sender As Object, e As EventArgs) Handles lkpPersonaDiscapacidad.Enter
+    Private Sub lkpPersonaDiscapacidad_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpPersonaAutosuficiente_Enter(sender As Object, e As EventArgs) Handles lkpPersonaAutosuficiente.Enter
+    Private Sub lkpPersonaAutosuficiente_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpTipoDiscapacidad_Enter(sender As Object, e As EventArgs) Handles lkpTipoDiscapacidad.Enter
+    Private Sub lkpTipoDiscapacidad_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
@@ -2962,8 +2961,8 @@ Public Class NuevoHogar
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub LkpPersonaDiscapacidad_EditValueChanged(sender As Object, e As EventArgs) Handles lkpPersonaDiscapacidad.EditValueChanged
-        Dim opcion As Integer = Integer.TryParse(lkpPersonaDiscapacidad.EditValue, 0)
+    Private Sub LkpDiscapacitado_EditValueChanged(sender As Object, e As EventArgs) Handles lkpDiscapacitado.EditValueChanged
+        Dim opcion As Integer = Integer.TryParse(lkpDiscapacitado.EditValue, 0)
 
         spcDiscapacidad.Collapsed = True
         If opcion = 1 Then
@@ -2983,4 +2982,5 @@ Public Class NuevoHogar
             End If
         End If
     End Sub
+
 End Class
