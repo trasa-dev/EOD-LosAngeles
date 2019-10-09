@@ -89,9 +89,6 @@ Public Class RestaurarBase
                 nuevoHogar.Hogar = IIf(hogares.Item("Hogar") IsNot DBNull.Value, hogares.Item("Hogar"), Nothing)
                 nuevoHogar.IDEncuestador = IIf(hogares.Item("IDEncuestador") IsNot DBNull.Value, hogares.Item("IDEncuestador"), Nothing)
                 Try
-                    nuevoHogar.PersonaConDiscapacidad = IIf(hogares.Item("PersonaConDiscapacidad") IsNot DBNull.Value, hogares.Item("PersonaConDiscapacidad"), Nothing)
-                    nuevoHogar.DiscapacidadAutosuf = IIf(hogares.Item("DiscapacidadAutosuf") IsNot DBNull.Value, hogares.Item("DiscapacidadAutosuf"), Nothing)
-                    nuevoHogar.TipoDiscapacidad = IIf(hogares.Item("TipoDiscapacidad") IsNot DBNull.Value, hogares.Item("TipoDiscapacidad"), Nothing)
                     nuevoHogar.GastoFamiliarTransporte = IIf(hogares.Item("GastoFamiliarTransporte") IsNot DBNull.Value, hogares.Item("GastoFamiliarTransporte"), Nothing)
                     nuevoHogar.IndicaGFT = IIf(hogares.Item("IndicaGFT") IsNot DBNull.Value, hogares.Item("IndicaGFT"), Nothing)
                 Catch ex As Exception
@@ -188,6 +185,9 @@ Public Class RestaurarBase
                     nuevaPersona.ViajesLab = IIf(personas.Item("ViajesLab") IsNot DBNull.Value, personas.Item("ViajesLab"), Nothing)
                     nuevaPersona.ViajesSab = IIf(personas.Item("ViajesSab") IsNot DBNull.Value, personas.Item("ViajesSab"), Nothing)
                     nuevaPersona.ViajesDom = IIf(personas.Item("ViajesDom") IsNot DBNull.Value, personas.Item("ViajesDom"), Nothing)
+                    nuevaPersona.Discapacitado = IIf(personas.Item("Discapacitado") IsNot DBNull.Value, personas.Item("Discapacitado"), Nothing)
+                    nuevaPersona.TipoDiscapacidad = IIf(personas.Item("TipoDiscapacidad") IsNot DBNull.Value, personas.Item("TipoDiscapacidad"), Nothing)
+                    nuevaPersona.DiscapacidadAutosuficiente = IIf(personas.Item("DiscapacidadAutosuficiente") IsNot DBNull.Value, personas.Item("DiscapacidadAutosuficiente"), Nothing)
                 Catch ex As Exception
 
                 End Try
@@ -708,12 +708,13 @@ Public Class RestaurarBase
                 nuevoHogarH.Hogar = IIf(hogaresH.Item("Hogar") IsNot DBNull.Value, hogaresH.Item("Hogar"), Nothing)
                 nuevoHogarH.IDEncuestador = IIf(hogaresH.Item("IDEncuestador") IsNot DBNull.Value, hogaresH.Item("IDEncuestador"), Nothing)
                 nuevoHogarH.Macrozona = IIf(hogaresH.Item("Macrozona") IsNot DBNull.Value, hogaresH.Item("Macrozona"), Nothing)
+
                 Try
-                    nuevoHogarH.Bicicletas = IIf(hogaresH.Item("Bicicletas") IsNot DBNull.Value, hogaresH.Item("Bicicletas"), Nothing)
+                    nuevoHogarH.GastoFamiliarTransporte = IIf(hogaresH.Item("GastoFamiliarTransporte") IsNot DBNull.Value, hogaresH.Item("GastoFamiliarTransporte"), Nothing)
+                    nuevoHogarH.IndicaGFT = IIf(hogaresH.Item("IndicaGFT") IsNot DBNull.Value, hogaresH.Item("IndicaGFT"), Nothing)
                 Catch ex As Exception
 
                 End Try
-
                 nuevoHogarH.Zona = IIf(hogaresH.Item("Zona") IsNot DBNull.Value, hogaresH.Item("Zona"), Nothing)
                 nuevoHogarH.Manzana = IIf(hogaresH.Item("Manzana") IsNot DBNull.Value, hogaresH.Item("Manzana"), Nothing)
                 nuevoHogarH.Comuna = IIf(hogaresH.Item("Comuna") IsNot DBNull.Value, hogaresH.Item("Comuna"), Nothing)
@@ -805,6 +806,9 @@ Public Class RestaurarBase
                     nuevaPersonaH.ViajesLab = IIf(personasH.Item("ViajesLab") IsNot DBNull.Value, personasH.Item("ViajesLab"), Nothing)
                     nuevaPersonaH.ViajesSab = IIf(personasH.Item("ViajesSab") IsNot DBNull.Value, personasH.Item("ViajesSab"), Nothing)
                     nuevaPersonaH.ViajesDom = IIf(personasH.Item("ViajesDom") IsNot DBNull.Value, personasH.Item("ViajesDom"), Nothing)
+                    nuevaPersonaH.Discapacitado = IIf(personasH.Item("Discapacitado") IsNot DBNull.Value, personasH.Item("Discapacitado"), Nothing)
+                    nuevaPersonaH.TipoDiscapacidad = IIf(personasH.Item("TipoDiscapacidad") IsNot DBNull.Value, personasH.Item("TipoDiscapacidad"), Nothing)
+                    nuevaPersonaH.DiscapacidadAutosuficiente = IIf(personasH.Item("DiscapacidadAutosuficiente") IsNot DBNull.Value, personasH.Item("DiscapacidadAutosuficiente"), Nothing)
                 Catch ex As Exception
 
                 End Try
