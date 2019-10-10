@@ -249,7 +249,7 @@ Partial Class AgregarPersona
         Me.RibbonControl.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide
         Me.RibbonControl.ShowQatLocationSelector = False
         Me.RibbonControl.ShowToolbarCustomizeItem = False
-        Me.RibbonControl.Size = New System.Drawing.Size(674, 32)
+        Me.RibbonControl.Size = New System.Drawing.Size(674, 27)
         Me.RibbonControl.Toolbar.ShowCustomizeItem = False
         '
         'btnCancelarPersona
@@ -1718,6 +1718,7 @@ Partial Class AgregarPersona
         Me.chkTipoDiscapacidad.Location = New System.Drawing.Point(232, 501)
         Me.chkTipoDiscapacidad.MenuManager = Me.RibbonControl
         Me.chkTipoDiscapacidad.Name = "chkTipoDiscapacidad"
+        Me.chkTipoDiscapacidad.Properties.AllowMultiSelect = True
         Me.chkTipoDiscapacidad.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.chkTipoDiscapacidad.Properties.AppearanceFocused.Options.UseBorderColor = True
         Me.chkTipoDiscapacidad.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
@@ -1727,6 +1728,7 @@ Partial Class AgregarPersona
         Me.chkTipoDiscapacidad.Properties.NullText = "[Vacío]"
         Me.chkTipoDiscapacidad.Properties.PopupFormMinSize = New System.Drawing.Size(431, 80)
         Me.chkTipoDiscapacidad.Properties.PopupFormSize = New System.Drawing.Size(431, 80)
+        Me.chkTipoDiscapacidad.Properties.SelectAllItemVisible = False
         Me.chkTipoDiscapacidad.Properties.ValueMember = "ID"
         Me.chkTipoDiscapacidad.Size = New System.Drawing.Size(380, 20)
         Me.chkTipoDiscapacidad.TabIndex = 56

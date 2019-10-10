@@ -506,7 +506,7 @@ Partial Class NuevoHogar
         Me.RibbonControl.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide
         Me.RibbonControl.ShowQatLocationSelector = False
         Me.RibbonControl.ShowToolbarCustomizeItem = False
-        Me.RibbonControl.Size = New System.Drawing.Size(984, 32)
+        Me.RibbonControl.Size = New System.Drawing.Size(984, 27)
         Me.RibbonControl.Toolbar.ShowCustomizeItem = False
         '
         'tabPaneHogar
@@ -516,12 +516,12 @@ Partial Class NuevoHogar
         Me.tabPaneHogar.Controls.Add(Me.tabPagePersonas)
         Me.tabPaneHogar.Controls.Add(Me.tabPageFecha)
         Me.tabPaneHogar.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tabPaneHogar.Location = New System.Drawing.Point(0, 32)
+        Me.tabPaneHogar.Location = New System.Drawing.Point(0, 27)
         Me.tabPaneHogar.Name = "tabPaneHogar"
         Me.tabPaneHogar.Pages.AddRange(New DevExpress.XtraBars.Navigation.NavigationPageBase() {Me.tabPageHogar, Me.tabPageVehículos, Me.tabPagePersonas, Me.tabPageFecha})
-        Me.tabPaneHogar.RegularSize = New System.Drawing.Size(984, 557)
+        Me.tabPaneHogar.RegularSize = New System.Drawing.Size(984, 562)
         Me.tabPaneHogar.SelectedPage = Me.tabPageVehículos
-        Me.tabPaneHogar.Size = New System.Drawing.Size(984, 557)
+        Me.tabPaneHogar.Size = New System.Drawing.Size(984, 562)
         Me.tabPaneHogar.TabIndex = 2
         Me.tabPaneHogar.Text = "TabPane1"
         '
@@ -1418,7 +1418,7 @@ Partial Class NuevoHogar
         Me.tabPageVehículos.Controls.Add(Me.GroupControl1)
         Me.tabPageVehículos.Controls.Add(Me.btnGuardarVehiculo)
         Me.tabPageVehículos.Name = "tabPageVehículos"
-        Me.tabPageVehículos.Size = New System.Drawing.Size(966, 513)
+        Me.tabPageVehículos.Size = New System.Drawing.Size(966, 517)
         '
         'btnRechazoVehiculo
         '
@@ -1838,7 +1838,7 @@ Partial Class NuevoHogar
         Me.tabPagePersonas.Controls.Add(Me.lkpSexo)
         Me.tabPagePersonas.Controls.Add(Me.LabelControl2)
         Me.tabPagePersonas.Name = "tabPagePersonas"
-        Me.tabPagePersonas.Size = New System.Drawing.Size(966, 513)
+        Me.tabPagePersonas.Size = New System.Drawing.Size(966, 517)
         '
         'spcDiscapacidad
         '
@@ -1922,13 +1922,18 @@ Partial Class NuevoHogar
         Me.chkTipoDiscapacidad.Location = New System.Drawing.Point(219, 6)
         Me.chkTipoDiscapacidad.MenuManager = Me.RibbonControl
         Me.chkTipoDiscapacidad.Name = "chkTipoDiscapacidad"
+        Me.chkTipoDiscapacidad.Properties.AllowMultiSelect = True
         Me.chkTipoDiscapacidad.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.chkTipoDiscapacidad.Properties.AppearanceFocused.Options.UseBorderColor = True
         Me.chkTipoDiscapacidad.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
         Me.chkTipoDiscapacidad.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.chkTipoDiscapacidad.Properties.DataSource = Me.TipoDiscapacidadBindingSource
+        Me.chkTipoDiscapacidad.Properties.DisplayMember = "TipoDiscapacidad"
         Me.chkTipoDiscapacidad.Properties.NullText = "[Vacío]"
         Me.chkTipoDiscapacidad.Properties.PopupFormMinSize = New System.Drawing.Size(431, 80)
         Me.chkTipoDiscapacidad.Properties.PopupFormSize = New System.Drawing.Size(431, 80)
+        Me.chkTipoDiscapacidad.Properties.SelectAllItemVisible = False
+        Me.chkTipoDiscapacidad.Properties.ValueMember = "ID"
         Me.chkTipoDiscapacidad.Size = New System.Drawing.Size(380, 20)
         Me.chkTipoDiscapacidad.TabIndex = 52
         '

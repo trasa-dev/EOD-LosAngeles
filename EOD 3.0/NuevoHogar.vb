@@ -182,7 +182,7 @@ Public Class NuevoHogar
             nuevoHogar.Propiedad = Me.lkpPropiedad.EditValue.ToString
             nuevoHogar.Telefono = Me.txtTelefono.Text
             nuevoHogar.TipoViviendaActual = Me.lkpTipoVivienda.EditValue.ToString
-            nuevoHogar.IndicaGFT = Me.lkpIndicaGFT.EditValue
+            nuevoHogar.IndicaGFT = IIf(Me.lkpIndicaGFT.EditValue = 1, True, False)
             If nuevoHogar.IndicaGFT Then
                 nuevoHogar.GastoFamiliarTransporte = Me.txtMontoGFT.Text
             End If
@@ -926,10 +926,10 @@ Public Class NuevoHogar
             nuevaPersona.NoViajaSab = -1
             nuevaPersona.NoViajaDom = -1
             nuevaPersona.Encuestado = False
-            nuevaPersona.Discapacitado = Me.lkpDiscapacitado.EditValue
+            nuevaPersona.Discapacitado = IIf(Me.lkpDiscapacitado.EditValue = 1, True, False)
             If nuevaPersona.Discapacitado Then
                 nuevaPersona.TipoDiscapacidad = Me.chkTipoDiscapacidad.EditValue
-                nuevaPersona.DiscapacidadAutosuficiente = Me.lkpAutosuficiente.EditValue
+                nuevaPersona.DiscapacidadAutosuficiente = IIf(Me.lkpAutosuficiente.EditValue = 1, True, False)
             End If
 
             'Validador Servicio doméstico y no trabaja
@@ -2962,7 +2962,11 @@ Public Class NuevoHogar
     End Sub
 
     Private Sub LkpDiscapacitado_EditValueChanged(sender As Object, e As EventArgs) Handles lkpDiscapacitado.EditValueChanged
-        Dim opcion As Integer = Integer.TryParse(lkpDiscapacitado.EditValue, 0)
+        Dim opcion As Integer
+
+        If lkpDiscapacitado.EditValue IsNot Nothing AndAlso lkpDiscapacitado.EditValue.ToString <> "" Then
+            opcion = lkpDiscapacitado.EditValue
+        End If
 
         spcDiscapacidad.Collapsed = True
         If opcion = 1 Then

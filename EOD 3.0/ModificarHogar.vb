@@ -165,6 +165,10 @@ Public Class ModificarHogar
         Me.lkpComuna.EditValue = hogar.Comuna
         Me.txtCalle.Text = hogar.NombreCalle
         Me.txtNumero.Text = hogar.Numero
+        Me.lkpIndicaGFT.EditValue = hogar.IndicaGFT
+        If hogar.IndicaGFT Then
+            Me.txtMontoGFT.Text = hogar.GastoFamiliarTransporte
+        End If
 
         Try
             Me.txtCasaDepto.Text = hogar.CasaDepto
@@ -382,7 +386,7 @@ Public Class ModificarHogar
             hogar.Telefono = Me.txtTelefono.Text
             hogar.TipoViviendaActual = Me.lkpTipoVivienda.EditValue.ToString
 
-            hogar.IndicaGFT = Me.lkpIndicaGFT.EditValue
+            hogar.IndicaGFT = IIf(Me.lkpIndicaGFT.EditValue = 1, True, False)
             If hogar.IndicaGFT Then
                 hogar.GastoFamiliarTransporte = Me.txtMontoGFT.Text
             End If
