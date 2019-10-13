@@ -1461,10 +1461,11 @@ Public Class IngresoViajes
                                     etapa1.CostoNSNR = Me.chkNSNRPagoE1.Checked
                                     If Not etapa1.CostoNSNR Then
                                         etapa1.CostoEstacionamiento = Me.txtCuantoPagoE1.Text
+                                        If etapa1.CostoEstacionamiento > 0 Then
+                                            etapa1.FormaPago = Me.lkpFormaPagoE1.EditValue
+                                        End If
                                     End If
-                                    If etapa1.CostoEstacionamiento > 0 Then
-                                        etapa1.FormaPago = Me.lkpFormaPagoE1.EditValue
-                                    End If
+
                                     etapa1.DondeEstaciona = Me.lkpDondeEstacionaE1.EditValue
                                 End If
                                 etapa1.LugarBajadaAuto = Me.lkpLugarBajadaAutoE1.EditValue
@@ -1587,10 +1588,11 @@ Public Class IngresoViajes
                                         etapa2.CostoNSNR = Me.chkNSNRPagoE2.Checked
                                         If Not etapa2.CostoNSNR Then
                                             etapa2.CostoEstacionamiento = Me.txtCuantoPagoE2.Text
+                                            If etapa2.CostoEstacionamiento > 0 Then
+                                                etapa2.FormaPago = Me.lkpFormaPagoE2.EditValue
+                                            End If
                                         End If
-                                        If etapa2.CostoEstacionamiento > 0 Then
-                                            etapa2.FormaPago = Me.lkpFormaPagoE2.EditValue
-                                        End If
+
                                         etapa2.DondeEstaciona = Me.lkpDondeEstacionaE2.EditValue
                                     End If
                                     etapa2.LugarBajadaAuto = Me.lkpLugarBajadaAutoE2.EditValue
@@ -1693,10 +1695,11 @@ Public Class IngresoViajes
                                             etapa3.CostoNSNR = Me.chkNSNRPagoE3.Checked
                                             If Not etapa3.CostoNSNR Then
                                                 etapa3.CostoEstacionamiento = Me.txtCuantoPagoE3.Text
+                                                If etapa3.CostoEstacionamiento > 0 Then
+                                                    etapa3.FormaPago = Me.lkpFormaPagoE3.EditValue
+                                                End If
                                             End If
-                                            If etapa3.CostoEstacionamiento > 0 Then
-                                                etapa3.FormaPago = Me.lkpFormaPagoE3.EditValue
-                                            End If
+
                                             etapa3.DondeEstaciona = Me.lkpDondeEstacionaE3.EditValue
                                         End If
                                         etapa3.LugarBajadaAuto = Me.lkpLugarBajadaAutoE3.EditValue
@@ -7533,8 +7536,10 @@ Public Class IngresoViajes
 
             If monto > 0 Then
                 spcFormaPagoE1.Collapsed = False
+                lkpFormaPagoE1.Visible = True
             Else
                 spcFormaPagoE1.Collapsed = True
+                lkpFormaPagoE1.Visible = False
             End If
         End If
 
@@ -7543,12 +7548,14 @@ Public Class IngresoViajes
     Private Sub TxtCuantoPagoE2_Leave(sender As Object, e As EventArgs) Handles txtCuantoPagoE2.Leave
 
         If txtCuantoPagoE2 IsNot Nothing AndAlso txtCuantoPagoE2.Text <> "" Then
-            Dim monto As Integer = Integer.Parse(txtCuantoPagoE2.Text.Replace("$", "").Replace("€", "").Trim)
+            Dim monto As Integer = Integer.Parse(txtCuantoPagoE2.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
 
             If monto > 0 Then
                 spcFormaPagoE2.Collapsed = False
+                lkpFormaPagoE2.Visible = True
             Else
                 spcFormaPagoE2.Collapsed = True
+                lkpFormaPagoE2.Visible = False
             End If
         End If
 
@@ -7557,12 +7564,14 @@ Public Class IngresoViajes
     Private Sub TxtCuantoPagoE3_Leave(sender As Object, e As EventArgs) Handles txtCuantoPagoE3.Leave
 
         If txtCuantoPagoE3 IsNot Nothing AndAlso txtCuantoPagoE3.Text <> "" Then
-            Dim monto As Integer = Integer.Parse(txtCuantoPagoE3.Text.Replace("$", "").Replace("€", "").Trim)
+            Dim monto As Integer = Integer.Parse(txtCuantoPagoE3.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
 
             If monto > 0 Then
                 spcFormaPagoE3.Collapsed = False
+                lkpFormaPagoE3.Visible = True
             Else
                 spcFormaPagoE3.Collapsed = True
+                lkpFormaPagoE3.Visible = False
             End If
         End If
 
@@ -7577,8 +7586,10 @@ Public Class IngresoViajes
 
         If opcion = 2 Then
             spcMotivoNoUsaE1.Collapsed = False
+            txtMotivoNoUsaE1.Visible = True
         Else
             spcMotivoNoUsaE1.Collapsed = True
+            txtMotivoNoUsaE1.Visible = False
         End If
     End Sub
 
@@ -7591,8 +7602,10 @@ Public Class IngresoViajes
 
         If opcion = 2 Then
             spcMotivoNoUsaE2.Collapsed = False
+            txtMotivoNoUsaE2.Visible = True
         Else
             spcMotivoNoUsaE2.Collapsed = True
+            txtMotivoNoUsaE2.Visible = False
         End If
     End Sub
 
@@ -7605,9 +7618,46 @@ Public Class IngresoViajes
 
         If opcion = 2 Then
             spcMotivoNoUsaE3.Collapsed = False
+            txtMotivoNoUsaE3.Visible = True
         Else
             spcMotivoNoUsaE3.Collapsed = True
+            txtMotivoNoUsaE3.Visible = False
         End If
     End Sub
 
+    Private Sub LkpDondeEstacionaE1_Enter(sender As Object, e As EventArgs) Handles lkpDondeEstacionaE1.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub LkpDondeEstacionaE2_Enter(sender As Object, e As EventArgs) Handles lkpDondeEstacionaE2.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub LkpDondeEstacionaE3_Enter(sender As Object, e As EventArgs) Handles lkpDondeEstacionaE3.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub LkpCicloviaE1_Enter(sender As Object, e As EventArgs) Handles lkpCicloviaE1.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub LkpEstacionamientoBiciE1_Enter(sender As Object, e As EventArgs) Handles lkpEstacionamientoBiciE1.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub LkpCicloviaE2_Enter(sender As Object, e As EventArgs) Handles lkpCicloviaE2.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub LkpEstacionamientoBiciE2_Enter(sender As Object, e As EventArgs) Handles lkpEstacionamientoBiciE2.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub LkpCicloviaE3_Enter(sender As Object, e As EventArgs) Handles lkpCicloviaE3.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub LkpEstacionamientoBiciE3_Enter(sender As Object, e As EventArgs) Handles lkpEstacionamientoBiciE3.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
 End Class

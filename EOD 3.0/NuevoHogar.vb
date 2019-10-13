@@ -1205,15 +1205,15 @@ Public Class NuevoHogar
         End If
     End Sub
 
-    Private Sub lkpTipoDia_Enter(sender As Object, e As EventArgs)
+    Private Sub lkpTipoDia_Enter(sender As Object, e As EventArgs) Handles lkpTipoDia.Enter
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub deFechaViajes_Enter(sender As Object, e As EventArgs)
+    Private Sub deFechaViajes_Enter(sender As Object, e As EventArgs) Handles deFechaViajes.Enter
         BeginInvoke(New MethodInvoker(Sub() CType(sender, DateEdit).ShowPopup()))
     End Sub
 
-    Private Sub deSabadoLV_Enter(sender As Object, e As EventArgs)
+    Private Sub deSabadoLV_Enter(sender As Object, e As EventArgs) Handles deSabadoLV.Enter
         BeginInvoke(New MethodInvoker(Sub() CType(sender, DateEdit).ShowPopup()))
     End Sub
 
@@ -1521,7 +1521,7 @@ Public Class NuevoHogar
     Private Sub chkNSNRDividendo_Leave(sender As Object, e As EventArgs) Handles chkNSNRDividendo.Leave
         If Not txtDividendo.Focus Then
             Dim opcion As Boolean = chkNSNRDividendo.Checked
-            Dim dividendo As String = txtDividendo.Text.Replace("$", "").Replace(".", "")
+            Dim dividendo As String = txtDividendo.Text.Replace("$", "").Replace(".", "").Replace("€", "")
             Dim monto As Integer
 
             If Not opcion Then
@@ -1536,7 +1536,7 @@ Public Class NuevoHogar
                             txtDividendo.Focus()
                             validadorHogar.Val10 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtMontoGFT.Focus()
+                            lkpIndicaGFT.Focus()
                             validadorHogar.Val10Resp = True
                         End If
                     ElseIf monto > 900000 Then
@@ -1547,11 +1547,11 @@ Public Class NuevoHogar
                             txtDividendo.Focus()
                             validadorHogar.Val11 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtMontoGFT.Focus()
+                            lkpIndicaGFT.Focus()
                             validadorHogar.Val11Resp = True
                         End If
                     Else
-                        txtMontoGFT.Focus()
+                        lkpIndicaGFT.Focus()
                     End If
                 Else
                     MessageBox.Show("No ha indicado monto de dividendo, ni ha especificado si el encuestado no sabe o no contesta la información. Corrija con uno de estos antecedentes.", "Dato requerido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -1579,7 +1579,7 @@ Public Class NuevoHogar
                             txtEstimaArriendo.Focus()
                             validadorHogar.Val12 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtMontoGFT.Focus()
+                            lkpIndicaGFT.Focus()
                             validadorHogar.Val12Resp = True
                         End If
                     ElseIf monto > 900000 Then
@@ -1590,11 +1590,11 @@ Public Class NuevoHogar
                             txtEstimaArriendo.Focus()
                             validadorHogar.Val13 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtMontoGFT.Focus()
+                            lkpIndicaGFT.Focus()
                             validadorHogar.Val13Resp = True
                         End If
                     Else
-                        txtMontoGFT.Focus()
+                        lkpIndicaGFT.Focus()
                     End If
                 Else
                     MessageBox.Show("No ha indicado estimación de arriendo, ni ha especificado si el encuestado no sabe o no contesta la información. Corrija con uno de estos antecedentes.", "Dato requerido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -1608,7 +1608,7 @@ Public Class NuevoHogar
     Private Sub chkNSNRArriendo_Leave(sender As Object, e As EventArgs) Handles chkNSNRArriendo.Leave
         If Not txtArriendo.Focus Then
             Dim opcion As Boolean = chkNSNRArriendo.Checked
-            Dim arriendo As String = txtArriendo.Text.Replace("$", "").Replace(".", "")
+            Dim arriendo As String = txtArriendo.Text.Replace("$", "").Replace(".", "").Replace("€", "")
             Dim monto As Integer
 
             If Not opcion Then
@@ -1623,7 +1623,7 @@ Public Class NuevoHogar
                             txtArriendo.Focus()
                             validadorHogar.Val12 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtMontoGFT.Focus()
+                            lkpIndicaGFT.Focus()
                             validadorHogar.Val12Resp = True
                         End If
                     ElseIf monto > 900000 Then
@@ -1634,11 +1634,11 @@ Public Class NuevoHogar
                             txtArriendo.Focus()
                             validadorHogar.Val13 = False
                         ElseIf confirma = Windows.Forms.DialogResult.Yes Then
-                            txtMontoGFT.Focus()
+                            lkpIndicaGFT.Focus()
                             validadorHogar.Val13Resp = True
                         End If
                     Else
-                        txtMontoGFT.Focus()
+                        lkpIndicaGFT.Focus()
                     End If
                 Else
                     MessageBox.Show("No ha indicado monto de arriendo, ni ha especificado si el encuestado no sabe o no contesta la información. Corrija con uno de estos antecedentes.", "Dato requerido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -2945,16 +2945,16 @@ Public Class NuevoHogar
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpPersonaDiscapacidad_Enter(sender As Object, e As EventArgs)
+    Private Sub lkpDiscapacitado_Enter(sender As Object, e As EventArgs) Handles lkpDiscapacitado.Enter
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpPersonaAutosuficiente_Enter(sender As Object, e As EventArgs)
+    Private Sub lkpAutosuficiente_Enter(sender As Object, e As EventArgs) Handles lkpAutosuficiente.Enter
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
-    Private Sub lkpTipoDiscapacidad_Enter(sender As Object, e As EventArgs)
-        BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    Private Sub lkpTipoDiscapacidad_Enter(sender As Object, e As EventArgs) Handles chkTipoDiscapacidad.Enter
+        BeginInvoke(New MethodInvoker(Sub() CType(sender, CheckedComboBoxEdit).ShowPopup()))
     End Sub
 
     Private Sub lkpIndicaGFT_Enter(sender As Object, e As EventArgs) Handles lkpIndicaGFT.Enter
@@ -2969,8 +2969,15 @@ Public Class NuevoHogar
         End If
 
         spcDiscapacidad.Collapsed = True
+        lblTipoDiscapacidad.Visible = False
+        chkTipoDiscapacidad.Visible = False
+        lkpAutosuficiente.Visible = False
+
         If opcion = 1 Then
             spcDiscapacidad.Collapsed = False
+            lblTipoDiscapacidad.Visible = True
+            chkTipoDiscapacidad.Visible = True
+            lkpAutosuficiente.Visible = True
         End If
 
     End Sub

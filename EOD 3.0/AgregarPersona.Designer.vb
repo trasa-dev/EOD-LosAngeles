@@ -249,7 +249,7 @@ Partial Class AgregarPersona
         Me.RibbonControl.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide
         Me.RibbonControl.ShowQatLocationSelector = False
         Me.RibbonControl.ShowToolbarCustomizeItem = False
-        Me.RibbonControl.Size = New System.Drawing.Size(674, 27)
+        Me.RibbonControl.Size = New System.Drawing.Size(990, 27)
         Me.RibbonControl.Toolbar.ShowCustomizeItem = False
         '
         'btnCancelarPersona
@@ -262,7 +262,7 @@ Partial Class AgregarPersona
         Me.btnCancelarPersona.Appearance.Options.UseBorderColor = True
         Me.btnCancelarPersona.Appearance.Options.UseForeColor = True
         Me.btnCancelarPersona.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnCancelarPersona.Location = New System.Drawing.Point(577, 539)
+        Me.btnCancelarPersona.Location = New System.Drawing.Point(893, 483)
         Me.btnCancelarPersona.Name = "btnCancelarPersona"
         Me.btnCancelarPersona.Size = New System.Drawing.Size(85, 28)
         Me.btnCancelarPersona.TabIndex = 27
@@ -278,7 +278,7 @@ Partial Class AgregarPersona
         Me.btnGuardarPersona.Appearance.Options.UseBorderColor = True
         Me.btnGuardarPersona.Appearance.Options.UseForeColor = True
         Me.btnGuardarPersona.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnGuardarPersona.Location = New System.Drawing.Point(486, 539)
+        Me.btnGuardarPersona.Location = New System.Drawing.Point(802, 483)
         Me.btnGuardarPersona.Name = "btnGuardarPersona"
         Me.btnGuardarPersona.Size = New System.Drawing.Size(85, 28)
         Me.btnGuardarPersona.TabIndex = 26
@@ -288,7 +288,7 @@ Partial Class AgregarPersona
         '
         Me.spcTrabajaEstudia.Horizontal = False
         Me.spcTrabajaEstudia.IsSplitterFixed = True
-        Me.spcTrabajaEstudia.Location = New System.Drawing.Point(11, 185)
+        Me.spcTrabajaEstudia.Location = New System.Drawing.Point(11, 152)
         Me.spcTrabajaEstudia.Name = "spcTrabajaEstudia"
         Me.spcTrabajaEstudia.Panel1.Controls.Add(Me.y_trabajo)
         Me.spcTrabajaEstudia.Panel1.Controls.Add(Me.lkpJornadaTrabajo)
@@ -1179,7 +1179,7 @@ Partial Class AgregarPersona
         'lkpEstudiosCompletos
         '
         Me.lkpEstudiosCompletos.EditValue = ""
-        Me.lkpEstudiosCompletos.Location = New System.Drawing.Point(327, 109)
+        Me.lkpEstudiosCompletos.Location = New System.Drawing.Point(11, 114)
         Me.lkpEstudiosCompletos.MenuManager = Me.RibbonControl
         Me.lkpEstudiosCompletos.Name = "lkpEstudiosCompletos"
         Me.lkpEstudiosCompletos.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1219,7 +1219,7 @@ Partial Class AgregarPersona
         '
         'lblEstudiosCompletos
         '
-        Me.lblEstudiosCompletos.Location = New System.Drawing.Point(327, 90)
+        Me.lblEstudiosCompletos.Location = New System.Drawing.Point(11, 95)
         Me.lblEstudiosCompletos.Name = "lblEstudiosCompletos"
         Me.lblEstudiosCompletos.Size = New System.Drawing.Size(122, 13)
         Me.lblEstudiosCompletos.TabIndex = 11
@@ -1227,7 +1227,7 @@ Partial Class AgregarPersona
         '
         'txtActividadOtra
         '
-        Me.txtActividadOtra.Location = New System.Drawing.Point(391, 159)
+        Me.txtActividadOtra.Location = New System.Drawing.Point(555, 114)
         Me.txtActividadOtra.MenuManager = Me.RibbonControl
         Me.txtActividadOtra.Name = "txtActividadOtra"
         Me.txtActividadOtra.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1240,7 +1240,7 @@ Partial Class AgregarPersona
         '
         'lblActividadOtra
         '
-        Me.lblActividadOtra.Location = New System.Drawing.Point(391, 140)
+        Me.lblActividadOtra.Location = New System.Drawing.Point(555, 95)
         Me.lblActividadOtra.Name = "lblActividadOtra"
         Me.lblActividadOtra.Size = New System.Drawing.Size(68, 13)
         Me.lblActividadOtra.TabIndex = 17
@@ -1250,7 +1250,7 @@ Partial Class AgregarPersona
         'lkpLicencia
         '
         Me.lkpLicencia.EditValue = ""
-        Me.lkpLicencia.Location = New System.Drawing.Point(11, 159)
+        Me.lkpLicencia.Location = New System.Drawing.Point(175, 114)
         Me.lkpLicencia.MenuManager = Me.RibbonControl
         Me.lkpLicencia.Name = "lkpLicencia"
         Me.lkpLicencia.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1289,7 +1289,7 @@ Partial Class AgregarPersona
         '
         'LabelControl22
         '
-        Me.LabelControl22.Location = New System.Drawing.Point(168, 140)
+        Me.LabelControl22.Location = New System.Drawing.Point(332, 95)
         Me.LabelControl22.Name = "LabelControl22"
         Me.LabelControl22.Size = New System.Drawing.Size(148, 13)
         Me.LabelControl22.TabIndex = 15
@@ -1297,7 +1297,7 @@ Partial Class AgregarPersona
         '
         'lblLicencia
         '
-        Me.lblLicencia.Location = New System.Drawing.Point(8, 140)
+        Me.lblLicencia.Location = New System.Drawing.Point(172, 95)
         Me.lblLicencia.Name = "lblLicencia"
         Me.lblLicencia.Size = New System.Drawing.Size(131, 13)
         Me.lblLicencia.TabIndex = 13
@@ -1306,7 +1306,7 @@ Partial Class AgregarPersona
         'chkActividad
         '
         Me.chkActividad.EditValue = ""
-        Me.chkActividad.Location = New System.Drawing.Point(168, 159)
+        Me.chkActividad.Location = New System.Drawing.Point(332, 114)
         Me.chkActividad.MenuManager = Me.RibbonControl
         Me.chkActividad.Name = "chkActividad"
         Me.chkActividad.Properties.AllowMultiSelect = True
@@ -1332,7 +1332,7 @@ Partial Class AgregarPersona
         '
         'LabelControl15
         '
-        Me.LabelControl15.Location = New System.Drawing.Point(11, 90)
+        Me.LabelControl15.Location = New System.Drawing.Point(680, 45)
         Me.LabelControl15.Name = "LabelControl15"
         Me.LabelControl15.Size = New System.Drawing.Size(142, 13)
         Me.LabelControl15.TabIndex = 39
@@ -1341,7 +1341,7 @@ Partial Class AgregarPersona
         'lkpEstudios
         '
         Me.lkpEstudios.EditValue = ""
-        Me.lkpEstudios.Location = New System.Drawing.Point(11, 109)
+        Me.lkpEstudios.Location = New System.Drawing.Point(680, 64)
         Me.lkpEstudios.MenuManager = Me.RibbonControl
         Me.lkpEstudios.Name = "lkpEstudios"
         Me.lkpEstudios.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1387,7 +1387,7 @@ Partial Class AgregarPersona
         '
         'LabelControl14
         '
-        Me.LabelControl14.Location = New System.Drawing.Point(463, 45)
+        Me.LabelControl14.Location = New System.Drawing.Point(448, 45)
         Me.LabelControl14.Name = "LabelControl14"
         Me.LabelControl14.Size = New System.Drawing.Size(198, 13)
         Me.LabelControl14.TabIndex = 37
@@ -1400,7 +1400,7 @@ Partial Class AgregarPersona
         '
         'LabelControl13
         '
-        Me.LabelControl13.Location = New System.Drawing.Point(327, 45)
+        Me.LabelControl13.Location = New System.Drawing.Point(318, 45)
         Me.LabelControl13.Name = "LabelControl13"
         Me.LabelControl13.Size = New System.Drawing.Size(62, 13)
         Me.LabelControl13.TabIndex = 34
@@ -1408,7 +1408,7 @@ Partial Class AgregarPersona
         '
         'LabelControl12
         '
-        Me.LabelControl12.Location = New System.Drawing.Point(168, 45)
+        Me.LabelControl12.Location = New System.Drawing.Point(175, 45)
         Me.LabelControl12.Name = "LabelControl12"
         Me.LabelControl12.Size = New System.Drawing.Size(126, 13)
         Me.LabelControl12.TabIndex = 31
@@ -1475,7 +1475,7 @@ Partial Class AgregarPersona
         'lkpRelacion
         '
         Me.lkpRelacion.EditValue = ""
-        Me.lkpRelacion.Location = New System.Drawing.Point(463, 64)
+        Me.lkpRelacion.Location = New System.Drawing.Point(448, 64)
         Me.lkpRelacion.MenuManager = Me.RibbonControl
         Me.lkpRelacion.Name = "lkpRelacion"
         Me.lkpRelacion.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1515,7 +1515,7 @@ Partial Class AgregarPersona
         '
         'txtAnoNacimiento
         '
-        Me.txtAnoNacimiento.Location = New System.Drawing.Point(168, 64)
+        Me.txtAnoNacimiento.Location = New System.Drawing.Point(175, 64)
         Me.txtAnoNacimiento.MenuManager = Me.RibbonControl
         Me.txtAnoNacimiento.Name = "txtAnoNacimiento"
         Me.txtAnoNacimiento.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1540,7 +1540,7 @@ Partial Class AgregarPersona
         'lkpSexo
         '
         Me.lkpSexo.EditValue = ""
-        Me.lkpSexo.Location = New System.Drawing.Point(327, 64)
+        Me.lkpSexo.Location = New System.Drawing.Point(318, 64)
         Me.lkpSexo.MenuManager = Me.RibbonControl
         Me.lkpSexo.Name = "lkpSexo"
         Me.lkpSexo.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1596,7 +1596,7 @@ Partial Class AgregarPersona
         'lkpDiscapacitado
         '
         Me.lkpDiscapacitado.EditValue = ""
-        Me.lkpDiscapacitado.Location = New System.Drawing.Point(196, 475)
+        Me.lkpDiscapacitado.Location = New System.Drawing.Point(195, 434)
         Me.lkpDiscapacitado.MenuManager = Me.RibbonControl
         Me.lkpDiscapacitado.Name = "lkpDiscapacitado"
         Me.lkpDiscapacitado.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1636,7 +1636,7 @@ Partial Class AgregarPersona
         '
         'LabelControl35
         '
-        Me.LabelControl35.Location = New System.Drawing.Point(15, 478)
+        Me.LabelControl35.Location = New System.Drawing.Point(14, 437)
         Me.LabelControl35.Name = "LabelControl35"
         Me.LabelControl35.Size = New System.Drawing.Size(165, 13)
         Me.LabelControl35.TabIndex = 53
@@ -1644,17 +1644,17 @@ Partial Class AgregarPersona
         '
         'LabelControl34
         '
-        Me.LabelControl34.Location = New System.Drawing.Point(14, 441)
+        Me.LabelControl34.Location = New System.Drawing.Point(14, 408)
         Me.LabelControl34.Name = "LabelControl34"
-        Me.LabelControl34.Size = New System.Drawing.Size(581, 26)
+        Me.LabelControl34.Size = New System.Drawing.Size(818, 13)
         Me.LabelControl34.TabIndex = 51
         Me.LabelControl34.Text = "A nivel nacional, se tiene como objetivo dar accesibilidad universal a toda la po" &
-    "blación, por lo tanto, interesa saber cuáles" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "son las limitaciones y a cuántas p" &
-    "ersonas afecta."
+    "blación, por lo tanto, interesa saber cuáles son las limitaciones y a cuántas pe" &
+    "rsonas afecta."
         '
         'lblTipoDiscapacidad
         '
-        Me.lblTipoDiscapacidad.Location = New System.Drawing.Point(15, 504)
+        Me.lblTipoDiscapacidad.Location = New System.Drawing.Point(318, 437)
         Me.lblTipoDiscapacidad.Name = "lblTipoDiscapacidad"
         Me.lblTipoDiscapacidad.Size = New System.Drawing.Size(210, 13)
         Me.lblTipoDiscapacidad.TabIndex = 57
@@ -1664,7 +1664,7 @@ Partial Class AgregarPersona
         'lkpAutosuficiente
         '
         Me.lkpAutosuficiente.EditValue = ""
-        Me.lkpAutosuficiente.Location = New System.Drawing.Point(145, 526)
+        Me.lkpAutosuficiente.Location = New System.Drawing.Point(142, 462)
         Me.lkpAutosuficiente.MenuManager = Me.RibbonControl
         Me.lkpAutosuficiente.Name = "lkpAutosuficiente"
         Me.lkpAutosuficiente.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1705,7 +1705,7 @@ Partial Class AgregarPersona
         '
         'lblAutosuficiente
         '
-        Me.lblAutosuficiente.Location = New System.Drawing.Point(17, 529)
+        Me.lblAutosuficiente.Location = New System.Drawing.Point(14, 465)
         Me.lblAutosuficiente.Name = "lblAutosuficiente"
         Me.lblAutosuficiente.Size = New System.Drawing.Size(122, 13)
         Me.lblAutosuficiente.TabIndex = 59
@@ -1715,7 +1715,7 @@ Partial Class AgregarPersona
         'chkTipoDiscapacidad
         '
         Me.chkTipoDiscapacidad.EditValue = ""
-        Me.chkTipoDiscapacidad.Location = New System.Drawing.Point(232, 501)
+        Me.chkTipoDiscapacidad.Location = New System.Drawing.Point(535, 434)
         Me.chkTipoDiscapacidad.MenuManager = Me.RibbonControl
         Me.chkTipoDiscapacidad.Name = "chkTipoDiscapacidad"
         Me.chkTipoDiscapacidad.Properties.AllowMultiSelect = True
@@ -1726,11 +1726,11 @@ Partial Class AgregarPersona
         Me.chkTipoDiscapacidad.Properties.DataSource = Me.TipoDiscapacidadBindingSource
         Me.chkTipoDiscapacidad.Properties.DisplayMember = "TipoDiscapacidad"
         Me.chkTipoDiscapacidad.Properties.NullText = "[Vacío]"
-        Me.chkTipoDiscapacidad.Properties.PopupFormMinSize = New System.Drawing.Size(431, 80)
-        Me.chkTipoDiscapacidad.Properties.PopupFormSize = New System.Drawing.Size(431, 80)
+        Me.chkTipoDiscapacidad.Properties.PopupFormMinSize = New System.Drawing.Size(431, 120)
+        Me.chkTipoDiscapacidad.Properties.PopupFormSize = New System.Drawing.Size(431, 120)
         Me.chkTipoDiscapacidad.Properties.SelectAllItemVisible = False
         Me.chkTipoDiscapacidad.Properties.ValueMember = "ID"
-        Me.chkTipoDiscapacidad.Size = New System.Drawing.Size(380, 20)
+        Me.chkTipoDiscapacidad.Size = New System.Drawing.Size(443, 20)
         Me.chkTipoDiscapacidad.TabIndex = 56
         Me.chkTipoDiscapacidad.Visible = False
         '
@@ -1747,7 +1747,7 @@ Partial Class AgregarPersona
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(674, 579)
+        Me.ClientSize = New System.Drawing.Size(990, 523)
         Me.Controls.Add(Me.lblTipoDiscapacidad)
         Me.Controls.Add(Me.lkpAutosuficiente)
         Me.Controls.Add(Me.lblAutosuficiente)

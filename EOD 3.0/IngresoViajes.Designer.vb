@@ -252,6 +252,8 @@ Partial Class IngresoViajes
         Me.GridColumn11 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.tabsEtapa2 = New DevExpress.XtraTab.XtraTabControl()
         Me.tabTaxiE2 = New DevExpress.XtraTab.XtraTabPage()
+        Me.LabelControl34 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl45 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl212 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl40 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl41 = New DevExpress.XtraEditors.LabelControl()
@@ -414,6 +416,8 @@ Partial Class IngresoViajes
         Me.GridColumn90 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.tabsEtapa3 = New DevExpress.XtraTab.XtraTabControl()
         Me.tabTaxiE3 = New DevExpress.XtraTab.XtraTabPage()
+        Me.LabelControl71 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl77 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl217 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl72 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl73 = New DevExpress.XtraEditors.LabelControl()
@@ -751,10 +755,6 @@ Partial Class IngresoViajes
         Me.MuelleTableAdapter = New EOD.datasetEODTableAdapters.MuelleTableAdapter()
         Me.DondeEstacionaTableAdapter = New EOD.datasetEODTableAdapters.DondeEstacionaTableAdapter()
         Me.EstacionamientoBicicletaTableAdapter = New EOD.datasetEODTableAdapters.EstacionamientoBicicletaTableAdapter()
-        Me.LabelControl34 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl45 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl71 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl77 = New DevExpress.XtraEditors.LabelControl()
         CType(Me.tmHoraLlegada.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.lkpTrasnoche.Properties, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.SiNoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
@@ -1973,6 +1973,7 @@ Partial Class IngresoViajes
         Me.FormaPagoBindingSource.DataMember = "FormaPago"
         Me.FormaPagoBindingSource.DataSource = Me.datasetEOD
         Me.FormaPagoBindingSource.Filter = "id > 0"
+        Me.FormaPagoBindingSource.Sort = "FormaPago"
         '
         'GridView18
         '
@@ -1986,6 +1987,7 @@ Partial Class IngresoViajes
         Me.GridView18.OptionsView.ShowColumnHeaders = False
         Me.GridView18.OptionsView.ShowGroupPanel = False
         Me.GridView18.OptionsView.ShowIndicator = False
+        Me.GridView18.SortInfo.AddRange(New DevExpress.XtraGrid.Columns.GridColumnSortInfo() {New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.colID20, DevExpress.Data.ColumnSortOrder.Ascending)})
         '
         'colID20
         '
@@ -2031,6 +2033,8 @@ Partial Class IngresoViajes
         '
         Me.DondeEstacionaBindingSource.DataMember = "DondeEstaciona"
         Me.DondeEstacionaBindingSource.DataSource = Me.DatasetEODBindingSource
+        Me.DondeEstacionaBindingSource.Filter = "id > 0"
+        Me.DondeEstacionaBindingSource.Sort = "ID"
         '
         'DatasetEODBindingSource
         '
@@ -2407,7 +2411,7 @@ Partial Class IngresoViajes
         Me.lkpLugarBajadaBiciE1.Properties.ValueMember = "Id"
         Me.lkpLugarBajadaBiciE1.Properties.View = Me.GridView53
         Me.lkpLugarBajadaBiciE1.Size = New System.Drawing.Size(167, 20)
-        Me.lkpLugarBajadaBiciE1.TabIndex = 40
+        Me.lkpLugarBajadaBiciE1.TabIndex = 45
         '
         'GridView53
         '
@@ -2458,7 +2462,7 @@ Partial Class IngresoViajes
         Me.spcPropiedadBicicletaE1.Panel2.Text = "Panel2"
         Me.spcPropiedadBicicletaE1.Size = New System.Drawing.Size(779, 54)
         Me.spcPropiedadBicicletaE1.SplitterPosition = 121
-        Me.spcPropiedadBicicletaE1.TabIndex = 500
+        Me.spcPropiedadBicicletaE1.TabIndex = 37
         Me.spcPropiedadBicicletaE1.Text = "SplitContainerControl4"
         '
         'txtPropiedadBicicletaOtraE1
@@ -2541,6 +2545,7 @@ Partial Class IngresoViajes
         '
         Me.EstacionamientoBicicletaBindingSource.DataMember = "EstacionamientoBicicleta"
         Me.EstacionamientoBicicletaBindingSource.DataSource = Me.datasetEOD
+        Me.EstacionamientoBicicletaBindingSource.Sort = "ID"
         '
         'GridView37
         '
@@ -2654,7 +2659,7 @@ Partial Class IngresoViajes
         Me.lkpPropiedadBicicletaE1.Properties.ValueMember = "ID"
         Me.lkpPropiedadBicicletaE1.Properties.View = Me.GridView25
         Me.lkpPropiedadBicicletaE1.Size = New System.Drawing.Size(132, 20)
-        Me.lkpPropiedadBicicletaE1.TabIndex = 37
+        Me.lkpPropiedadBicicletaE1.TabIndex = 36
         '
         'PropiedadBicicletaBindingSource
         '
@@ -3512,6 +3517,24 @@ Partial Class IngresoViajes
         Me.tabTaxiE2.Size = New System.Drawing.Size(993, 177)
         Me.tabTaxiE2.Text = "XtraTabPage3"
         '
+        'LabelControl34
+        '
+        Me.LabelControl34.Location = New System.Drawing.Point(3, 5)
+        Me.LabelControl34.Name = "LabelControl34"
+        Me.LabelControl34.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl34.TabIndex = 96
+        Me.LabelControl34.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
+    "imilar)?"
+        '
+        'LabelControl45
+        '
+        Me.LabelControl45.Location = New System.Drawing.Point(445, 5)
+        Me.LabelControl45.Name = "LabelControl45"
+        Me.LabelControl45.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl45.TabIndex = 97
+        Me.LabelControl45.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
+    "similar)?"
+        '
         'LabelControl212
         '
         Me.LabelControl212.Location = New System.Drawing.Point(69, 76)
@@ -3812,6 +3835,7 @@ Partial Class IngresoViajes
         Me.GridView43.OptionsView.ShowColumnHeaders = False
         Me.GridView43.OptionsView.ShowGroupPanel = False
         Me.GridView43.OptionsView.ShowIndicator = False
+        Me.GridView43.SortInfo.AddRange(New DevExpress.XtraGrid.Columns.GridColumnSortInfo() {New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.GridColumn15, DevExpress.Data.ColumnSortOrder.Ascending)})
         '
         'GridColumn14
         '
@@ -4159,7 +4183,7 @@ Partial Class IngresoViajes
         Me.spcPropiedadBicicletaE2.Panel2.Text = "Panel2"
         Me.spcPropiedadBicicletaE2.Size = New System.Drawing.Size(784, 54)
         Me.spcPropiedadBicicletaE2.SplitterPosition = 121
-        Me.spcPropiedadBicicletaE2.TabIndex = 500
+        Me.spcPropiedadBicicletaE2.TabIndex = 37
         Me.spcPropiedadBicicletaE2.Text = "SplitContainerControl4"
         '
         'txtPropiedadBicicletaOtraE2
@@ -4358,7 +4382,7 @@ Partial Class IngresoViajes
         Me.lkpPropiedadBicicletaE2.Properties.ValueMember = "ID"
         Me.lkpPropiedadBicicletaE2.Properties.View = Me.GridView49
         Me.lkpPropiedadBicicletaE2.Size = New System.Drawing.Size(132, 20)
-        Me.lkpPropiedadBicicletaE2.TabIndex = 37
+        Me.lkpPropiedadBicicletaE2.TabIndex = 36
         '
         'GridView49
         '
@@ -4403,7 +4427,7 @@ Partial Class IngresoViajes
         Me.lkpLugarBajadaBiciE2.Properties.ValueMember = "Id"
         Me.lkpLugarBajadaBiciE2.Properties.View = Me.GridView14
         Me.lkpLugarBajadaBiciE2.Size = New System.Drawing.Size(167, 20)
-        Me.lkpLugarBajadaBiciE2.TabIndex = 42
+        Me.lkpLugarBajadaBiciE2.TabIndex = 45
         '
         'GridView14
         '
@@ -5254,6 +5278,24 @@ Partial Class IngresoViajes
         Me.tabTaxiE3.Size = New System.Drawing.Size(993, 177)
         Me.tabTaxiE3.Text = "XtraTabPage3"
         '
+        'LabelControl71
+        '
+        Me.LabelControl71.Location = New System.Drawing.Point(2, 6)
+        Me.LabelControl71.Name = "LabelControl71"
+        Me.LabelControl71.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl71.TabIndex = 96
+        Me.LabelControl71.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
+    "imilar)?"
+        '
+        'LabelControl77
+        '
+        Me.LabelControl77.Location = New System.Drawing.Point(444, 6)
+        Me.LabelControl77.Name = "LabelControl77"
+        Me.LabelControl77.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl77.TabIndex = 97
+        Me.LabelControl77.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
+    "similar)?"
+        '
         'LabelControl217
         '
         Me.LabelControl217.Location = New System.Drawing.Point(69, 76)
@@ -5901,7 +5943,7 @@ Partial Class IngresoViajes
         Me.spcPropiedadBicicletaE3.Panel2.Text = "Panel2"
         Me.spcPropiedadBicicletaE3.Size = New System.Drawing.Size(784, 54)
         Me.spcPropiedadBicicletaE3.SplitterPosition = 121
-        Me.spcPropiedadBicicletaE3.TabIndex = 500
+        Me.spcPropiedadBicicletaE3.TabIndex = 37
         Me.spcPropiedadBicicletaE3.Text = "SplitContainerControl5"
         '
         'txtPropiedadBicicletaOtraE3
@@ -6099,7 +6141,7 @@ Partial Class IngresoViajes
         Me.lkpPropiedadBicicletaE3.Properties.ValueMember = "ID"
         Me.lkpPropiedadBicicletaE3.Properties.View = Me.GridView65
         Me.lkpPropiedadBicicletaE3.Size = New System.Drawing.Size(132, 20)
-        Me.lkpPropiedadBicicletaE3.TabIndex = 37
+        Me.lkpPropiedadBicicletaE3.TabIndex = 36
         '
         'GridView65
         '
@@ -6144,7 +6186,7 @@ Partial Class IngresoViajes
         Me.lkpLugarBajadaBiciE3.Properties.ValueMember = "Id"
         Me.lkpLugarBajadaBiciE3.Properties.View = Me.GridView54
         Me.lkpLugarBajadaBiciE3.Size = New System.Drawing.Size(167, 20)
-        Me.lkpLugarBajadaBiciE3.TabIndex = 42
+        Me.lkpLugarBajadaBiciE3.TabIndex = 45
         '
         'GridView54
         '
@@ -8722,42 +8764,6 @@ Partial Class IngresoViajes
         'EstacionamientoBicicletaTableAdapter
         '
         Me.EstacionamientoBicicletaTableAdapter.ClearBeforeFill = True
-        '
-        'LabelControl34
-        '
-        Me.LabelControl34.Location = New System.Drawing.Point(3, 5)
-        Me.LabelControl34.Name = "LabelControl34"
-        Me.LabelControl34.Size = New System.Drawing.Size(419, 13)
-        Me.LabelControl34.TabIndex = 96
-        Me.LabelControl34.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
-    "imilar)?"
-        '
-        'LabelControl45
-        '
-        Me.LabelControl45.Location = New System.Drawing.Point(445, 5)
-        Me.LabelControl45.Name = "LabelControl45"
-        Me.LabelControl45.Size = New System.Drawing.Size(419, 13)
-        Me.LabelControl45.TabIndex = 97
-        Me.LabelControl45.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
-    "similar)?"
-        '
-        'LabelControl71
-        '
-        Me.LabelControl71.Location = New System.Drawing.Point(2, 6)
-        Me.LabelControl71.Name = "LabelControl71"
-        Me.LabelControl71.Size = New System.Drawing.Size(419, 13)
-        Me.LabelControl71.TabIndex = 96
-        Me.LabelControl71.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
-    "imilar)?"
-        '
-        'LabelControl77
-        '
-        Me.LabelControl77.Location = New System.Drawing.Point(444, 6)
-        Me.LabelControl77.Name = "LabelControl77"
-        Me.LabelControl77.Size = New System.Drawing.Size(419, 13)
-        Me.LabelControl77.TabIndex = 97
-        Me.LabelControl77.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
-    "similar)?"
         '
         'IngresoViajes
         '

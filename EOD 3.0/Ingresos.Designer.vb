@@ -214,6 +214,7 @@ Partial Class Ingresos
         Me.GridLookUpEdit2View.OptionsView.ShowColumnHeaders = False
         Me.GridLookUpEdit2View.OptionsView.ShowGroupPanel = False
         Me.GridLookUpEdit2View.OptionsView.ShowIndicator = False
+        Me.GridLookUpEdit2View.SortInfo.AddRange(New DevExpress.XtraGrid.Columns.GridColumnSortInfo() {New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.colTramoIngreso, DevExpress.Data.ColumnSortOrder.Ascending)})
         '
         'colTramoIngreso
         '

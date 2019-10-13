@@ -157,12 +157,12 @@ Partial Class ModificarPersona
         Me.GridColumn7 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.lblAutosuficiente = New DevExpress.XtraEditors.LabelControl()
         Me.chkTipoDiscapacidad = New DevExpress.XtraEditors.CheckedComboBoxEdit()
+        Me.TipoDiscapacidadBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.lkpDiscapacitado = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView33 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GridColumn6 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.LabelControl35 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl34 = New DevExpress.XtraEditors.LabelControl()
-        Me.TipoDiscapacidadBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TipoDiscapacidadTableAdapter = New EOD.datasetEODTableAdapters.TipoDiscapacidadTableAdapter()
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.spcTrabajaEstudia, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -232,9 +232,9 @@ Partial Class ModificarPersona
         CType(Me.lkpAutosuficiente.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView34, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkTipoDiscapacidad.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TipoDiscapacidadBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lkpDiscapacitado.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView33, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TipoDiscapacidadBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'RibbonControl
@@ -251,7 +251,7 @@ Partial Class ModificarPersona
         Me.RibbonControl.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide
         Me.RibbonControl.ShowQatLocationSelector = False
         Me.RibbonControl.ShowToolbarCustomizeItem = False
-        Me.RibbonControl.Size = New System.Drawing.Size(676, 27)
+        Me.RibbonControl.Size = New System.Drawing.Size(990, 27)
         Me.RibbonControl.Toolbar.ShowCustomizeItem = False
         '
         'btnCancelarPersona
@@ -264,7 +264,7 @@ Partial Class ModificarPersona
         Me.btnCancelarPersona.Appearance.Options.UseBorderColor = True
         Me.btnCancelarPersona.Appearance.Options.UseForeColor = True
         Me.btnCancelarPersona.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnCancelarPersona.Location = New System.Drawing.Point(576, 549)
+        Me.btnCancelarPersona.Location = New System.Drawing.Point(893, 468)
         Me.btnCancelarPersona.Name = "btnCancelarPersona"
         Me.btnCancelarPersona.Size = New System.Drawing.Size(85, 28)
         Me.btnCancelarPersona.TabIndex = 27
@@ -280,7 +280,7 @@ Partial Class ModificarPersona
         Me.btnGuardarPersona.Appearance.Options.UseBorderColor = True
         Me.btnGuardarPersona.Appearance.Options.UseForeColor = True
         Me.btnGuardarPersona.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnGuardarPersona.Location = New System.Drawing.Point(485, 549)
+        Me.btnGuardarPersona.Location = New System.Drawing.Point(802, 468)
         Me.btnGuardarPersona.Name = "btnGuardarPersona"
         Me.btnGuardarPersona.Size = New System.Drawing.Size(85, 28)
         Me.btnGuardarPersona.TabIndex = 26
@@ -290,7 +290,7 @@ Partial Class ModificarPersona
         '
         Me.spcTrabajaEstudia.Horizontal = False
         Me.spcTrabajaEstudia.IsSplitterFixed = True
-        Me.spcTrabajaEstudia.Location = New System.Drawing.Point(11, 185)
+        Me.spcTrabajaEstudia.Location = New System.Drawing.Point(11, 152)
         Me.spcTrabajaEstudia.Name = "spcTrabajaEstudia"
         Me.spcTrabajaEstudia.Panel1.Controls.Add(Me.y_trabajo)
         Me.spcTrabajaEstudia.Panel1.Controls.Add(Me.lkpJornadaTrabajo)
@@ -336,7 +336,7 @@ Partial Class ModificarPersona
         Me.spcTrabajaEstudia.Panel2.Controls.Add(Me.LabelControl39)
         Me.spcTrabajaEstudia.Panel2.Controls.Add(Me.lkpManzanaEstudio)
         Me.spcTrabajaEstudia.Panel2.Text = "Panel2"
-        Me.spcTrabajaEstudia.Size = New System.Drawing.Size(650, 241)
+        Me.spcTrabajaEstudia.Size = New System.Drawing.Size(970, 226)
         Me.spcTrabajaEstudia.SplitterPosition = 105
         Me.spcTrabajaEstudia.TabIndex = 99
         Me.spcTrabajaEstudia.Text = "SplitContainerControl2"
@@ -757,7 +757,7 @@ Partial Class ModificarPersona
         'lkpTieneTNE
         '
         Me.lkpTieneTNE.EditValue = ""
-        Me.lkpTieneTNE.Location = New System.Drawing.Point(236, 109)
+        Me.lkpTieneTNE.Location = New System.Drawing.Point(850, 83)
         Me.lkpTieneTNE.MenuManager = Me.RibbonControl
         Me.lkpTieneTNE.Name = "lkpTieneTNE"
         Me.lkpTieneTNE.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -812,7 +812,7 @@ Partial Class ModificarPersona
         '
         'LabelControl40
         '
-        Me.LabelControl40.Location = New System.Drawing.Point(3, 112)
+        Me.LabelControl40.Location = New System.Drawing.Point(617, 86)
         Me.LabelControl40.Name = "LabelControl40"
         Me.LabelControl40.Size = New System.Drawing.Size(210, 13)
         Me.LabelControl40.TabIndex = 69
@@ -1165,7 +1165,7 @@ Partial Class ModificarPersona
         'lkpEstudiosCompletos
         '
         Me.lkpEstudiosCompletos.EditValue = ""
-        Me.lkpEstudiosCompletos.Location = New System.Drawing.Point(327, 109)
+        Me.lkpEstudiosCompletos.Location = New System.Drawing.Point(11, 114)
         Me.lkpEstudiosCompletos.MenuManager = Me.RibbonControl
         Me.lkpEstudiosCompletos.Name = "lkpEstudiosCompletos"
         Me.lkpEstudiosCompletos.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1205,7 +1205,7 @@ Partial Class ModificarPersona
         '
         'lblEstudiosCompletos
         '
-        Me.lblEstudiosCompletos.Location = New System.Drawing.Point(327, 90)
+        Me.lblEstudiosCompletos.Location = New System.Drawing.Point(11, 95)
         Me.lblEstudiosCompletos.Name = "lblEstudiosCompletos"
         Me.lblEstudiosCompletos.Size = New System.Drawing.Size(122, 13)
         Me.lblEstudiosCompletos.TabIndex = 11
@@ -1213,7 +1213,7 @@ Partial Class ModificarPersona
         '
         'txtActividadOtra
         '
-        Me.txtActividadOtra.Location = New System.Drawing.Point(424, 159)
+        Me.txtActividadOtra.Location = New System.Drawing.Point(581, 114)
         Me.txtActividadOtra.MenuManager = Me.RibbonControl
         Me.txtActividadOtra.Name = "txtActividadOtra"
         Me.txtActividadOtra.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1227,7 +1227,7 @@ Partial Class ModificarPersona
         '
         'lblActividadOtra
         '
-        Me.lblActividadOtra.Location = New System.Drawing.Point(424, 140)
+        Me.lblActividadOtra.Location = New System.Drawing.Point(581, 95)
         Me.lblActividadOtra.Name = "lblActividadOtra"
         Me.lblActividadOtra.Size = New System.Drawing.Size(68, 13)
         Me.lblActividadOtra.TabIndex = 17
@@ -1237,7 +1237,7 @@ Partial Class ModificarPersona
         'lkpLicencia
         '
         Me.lkpLicencia.EditValue = ""
-        Me.lkpLicencia.Location = New System.Drawing.Point(11, 159)
+        Me.lkpLicencia.Location = New System.Drawing.Point(168, 114)
         Me.lkpLicencia.MenuManager = Me.RibbonControl
         Me.lkpLicencia.Name = "lkpLicencia"
         Me.lkpLicencia.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1276,7 +1276,7 @@ Partial Class ModificarPersona
         '
         'LabelControl22
         '
-        Me.LabelControl22.Location = New System.Drawing.Point(168, 140)
+        Me.LabelControl22.Location = New System.Drawing.Point(320, 95)
         Me.LabelControl22.Name = "LabelControl22"
         Me.LabelControl22.Size = New System.Drawing.Size(148, 13)
         Me.LabelControl22.TabIndex = 15
@@ -1284,7 +1284,7 @@ Partial Class ModificarPersona
         '
         'lblLicencia
         '
-        Me.lblLicencia.Location = New System.Drawing.Point(8, 140)
+        Me.lblLicencia.Location = New System.Drawing.Point(165, 95)
         Me.lblLicencia.Name = "lblLicencia"
         Me.lblLicencia.Size = New System.Drawing.Size(131, 13)
         Me.lblLicencia.TabIndex = 13
@@ -1293,7 +1293,7 @@ Partial Class ModificarPersona
         'chkActividad
         '
         Me.chkActividad.EditValue = ""
-        Me.chkActividad.Location = New System.Drawing.Point(168, 159)
+        Me.chkActividad.Location = New System.Drawing.Point(320, 114)
         Me.chkActividad.MenuManager = Me.RibbonControl
         Me.chkActividad.Name = "chkActividad"
         Me.chkActividad.Properties.AllowMultiSelect = True
@@ -1318,7 +1318,7 @@ Partial Class ModificarPersona
         '
         'LabelControl15
         '
-        Me.LabelControl15.Location = New System.Drawing.Point(11, 90)
+        Me.LabelControl15.Location = New System.Drawing.Point(683, 45)
         Me.LabelControl15.Name = "LabelControl15"
         Me.LabelControl15.Size = New System.Drawing.Size(142, 13)
         Me.LabelControl15.TabIndex = 39
@@ -1327,7 +1327,7 @@ Partial Class ModificarPersona
         'lkpEstudios
         '
         Me.lkpEstudios.EditValue = ""
-        Me.lkpEstudios.Location = New System.Drawing.Point(11, 109)
+        Me.lkpEstudios.Location = New System.Drawing.Point(683, 64)
         Me.lkpEstudios.MenuManager = Me.RibbonControl
         Me.lkpEstudios.Name = "lkpEstudios"
         Me.lkpEstudios.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1372,7 +1372,7 @@ Partial Class ModificarPersona
         '
         'LabelControl14
         '
-        Me.LabelControl14.Location = New System.Drawing.Point(463, 45)
+        Me.LabelControl14.Location = New System.Drawing.Point(450, 45)
         Me.LabelControl14.Name = "LabelControl14"
         Me.LabelControl14.Size = New System.Drawing.Size(198, 13)
         Me.LabelControl14.TabIndex = 37
@@ -1385,7 +1385,7 @@ Partial Class ModificarPersona
         '
         'LabelControl13
         '
-        Me.LabelControl13.Location = New System.Drawing.Point(327, 45)
+        Me.LabelControl13.Location = New System.Drawing.Point(322, 45)
         Me.LabelControl13.Name = "LabelControl13"
         Me.LabelControl13.Size = New System.Drawing.Size(62, 13)
         Me.LabelControl13.TabIndex = 34
@@ -1459,7 +1459,7 @@ Partial Class ModificarPersona
         'lkpRelacion
         '
         Me.lkpRelacion.EditValue = ""
-        Me.lkpRelacion.Location = New System.Drawing.Point(463, 64)
+        Me.lkpRelacion.Location = New System.Drawing.Point(450, 64)
         Me.lkpRelacion.MenuManager = Me.RibbonControl
         Me.lkpRelacion.Name = "lkpRelacion"
         Me.lkpRelacion.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1524,7 +1524,7 @@ Partial Class ModificarPersona
         'lkpSexo
         '
         Me.lkpSexo.EditValue = ""
-        Me.lkpSexo.Location = New System.Drawing.Point(327, 64)
+        Me.lkpSexo.Location = New System.Drawing.Point(322, 64)
         Me.lkpSexo.MenuManager = Me.RibbonControl
         Me.lkpSexo.Name = "lkpSexo"
         Me.lkpSexo.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1583,7 +1583,7 @@ Partial Class ModificarPersona
         Me.btnIngresos.Appearance.Options.UseBorderColor = True
         Me.btnIngresos.Appearance.Options.UseForeColor = True
         Me.btnIngresos.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat
-        Me.btnIngresos.Location = New System.Drawing.Point(11, 549)
+        Me.btnIngresos.Location = New System.Drawing.Point(11, 468)
         Me.btnIngresos.Name = "btnIngresos"
         Me.btnIngresos.Size = New System.Drawing.Size(128, 28)
         Me.btnIngresos.TabIndex = 101
@@ -1599,7 +1599,7 @@ Partial Class ModificarPersona
         '
         'lblTipoDiscapacidad
         '
-        Me.lblTipoDiscapacidad.Location = New System.Drawing.Point(14, 498)
+        Me.lblTipoDiscapacidad.Location = New System.Drawing.Point(310, 412)
         Me.lblTipoDiscapacidad.Name = "lblTipoDiscapacidad"
         Me.lblTipoDiscapacidad.Size = New System.Drawing.Size(210, 13)
         Me.lblTipoDiscapacidad.TabIndex = 107
@@ -1609,7 +1609,7 @@ Partial Class ModificarPersona
         'lkpAutosuficiente
         '
         Me.lkpAutosuficiente.EditValue = ""
-        Me.lkpAutosuficiente.Location = New System.Drawing.Point(144, 520)
+        Me.lkpAutosuficiente.Location = New System.Drawing.Point(144, 439)
         Me.lkpAutosuficiente.MenuManager = Me.RibbonControl
         Me.lkpAutosuficiente.Name = "lkpAutosuficiente"
         Me.lkpAutosuficiente.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1650,7 +1650,7 @@ Partial Class ModificarPersona
         '
         'lblAutosuficiente
         '
-        Me.lblAutosuficiente.Location = New System.Drawing.Point(16, 523)
+        Me.lblAutosuficiente.Location = New System.Drawing.Point(16, 442)
         Me.lblAutosuficiente.Name = "lblAutosuficiente"
         Me.lblAutosuficiente.Size = New System.Drawing.Size(122, 13)
         Me.lblAutosuficiente.TabIndex = 109
@@ -1660,7 +1660,7 @@ Partial Class ModificarPersona
         'chkTipoDiscapacidad
         '
         Me.chkTipoDiscapacidad.EditValue = ""
-        Me.chkTipoDiscapacidad.Location = New System.Drawing.Point(231, 495)
+        Me.chkTipoDiscapacidad.Location = New System.Drawing.Point(527, 409)
         Me.chkTipoDiscapacidad.MenuManager = Me.RibbonControl
         Me.chkTipoDiscapacidad.Name = "chkTipoDiscapacidad"
         Me.chkTipoDiscapacidad.Properties.AllowMultiSelect = True
@@ -1671,18 +1671,23 @@ Partial Class ModificarPersona
         Me.chkTipoDiscapacidad.Properties.DataSource = Me.TipoDiscapacidadBindingSource
         Me.chkTipoDiscapacidad.Properties.DisplayMember = "TipoDiscapacidad"
         Me.chkTipoDiscapacidad.Properties.NullText = "[Vacío]"
-        Me.chkTipoDiscapacidad.Properties.PopupFormMinSize = New System.Drawing.Size(431, 80)
-        Me.chkTipoDiscapacidad.Properties.PopupFormSize = New System.Drawing.Size(431, 80)
+        Me.chkTipoDiscapacidad.Properties.PopupFormMinSize = New System.Drawing.Size(451, 120)
+        Me.chkTipoDiscapacidad.Properties.PopupFormSize = New System.Drawing.Size(451, 120)
         Me.chkTipoDiscapacidad.Properties.SelectAllItemVisible = False
         Me.chkTipoDiscapacidad.Properties.ValueMember = "ID"
-        Me.chkTipoDiscapacidad.Size = New System.Drawing.Size(380, 20)
+        Me.chkTipoDiscapacidad.Size = New System.Drawing.Size(451, 20)
         Me.chkTipoDiscapacidad.TabIndex = 106
         Me.chkTipoDiscapacidad.Visible = False
+        '
+        'TipoDiscapacidadBindingSource
+        '
+        Me.TipoDiscapacidadBindingSource.DataMember = "TipoDiscapacidad"
+        Me.TipoDiscapacidadBindingSource.DataSource = Me.datasetEOD
         '
         'lkpDiscapacitado
         '
         Me.lkpDiscapacitado.EditValue = ""
-        Me.lkpDiscapacitado.Location = New System.Drawing.Point(195, 469)
+        Me.lkpDiscapacitado.Location = New System.Drawing.Point(195, 409)
         Me.lkpDiscapacitado.MenuManager = Me.RibbonControl
         Me.lkpDiscapacitado.Name = "lkpDiscapacitado"
         Me.lkpDiscapacitado.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1722,7 +1727,7 @@ Partial Class ModificarPersona
         '
         'LabelControl35
         '
-        Me.LabelControl35.Location = New System.Drawing.Point(14, 472)
+        Me.LabelControl35.Location = New System.Drawing.Point(14, 412)
         Me.LabelControl35.Name = "LabelControl35"
         Me.LabelControl35.Size = New System.Drawing.Size(165, 13)
         Me.LabelControl35.TabIndex = 105
@@ -1730,18 +1735,13 @@ Partial Class ModificarPersona
         '
         'LabelControl34
         '
-        Me.LabelControl34.Location = New System.Drawing.Point(15, 435)
+        Me.LabelControl34.Location = New System.Drawing.Point(15, 384)
         Me.LabelControl34.Name = "LabelControl34"
-        Me.LabelControl34.Size = New System.Drawing.Size(581, 26)
+        Me.LabelControl34.Size = New System.Drawing.Size(818, 13)
         Me.LabelControl34.TabIndex = 103
         Me.LabelControl34.Text = "A nivel nacional, se tiene como objetivo dar accesibilidad universal a toda la po" &
-    "blación, por lo tanto, interesa saber cuáles" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "son las limitaciones y a cuántas p" &
-    "ersonas afecta."
-        '
-        'TipoDiscapacidadBindingSource
-        '
-        Me.TipoDiscapacidadBindingSource.DataMember = "TipoDiscapacidad"
-        Me.TipoDiscapacidadBindingSource.DataSource = Me.datasetEOD
+    "blación, por lo tanto, interesa saber cuáles son las limitaciones y a cuántas pe" &
+    "rsonas afecta."
         '
         'TipoDiscapacidadTableAdapter
         '
@@ -1751,7 +1751,7 @@ Partial Class ModificarPersona
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(676, 589)
+        Me.ClientSize = New System.Drawing.Size(990, 509)
         Me.Controls.Add(Me.lblTipoDiscapacidad)
         Me.Controls.Add(Me.btnIngresos)
         Me.Controls.Add(Me.lkpSexo)
@@ -1855,9 +1855,9 @@ Partial Class ModificarPersona
         CType(Me.lkpAutosuficiente.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView34, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkTipoDiscapacidad.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TipoDiscapacidadBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.lkpDiscapacitado.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView33, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TipoDiscapacidadBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
