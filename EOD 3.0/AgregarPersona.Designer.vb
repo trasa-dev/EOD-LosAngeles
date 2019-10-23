@@ -162,6 +162,9 @@ Partial Class AgregarPersona
         Me.chkTipoDiscapacidad = New DevExpress.XtraEditors.CheckedComboBoxEdit()
         Me.TipoDiscapacidadBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TipoDiscapacidadTableAdapter = New EOD.datasetEODTableAdapters.TipoDiscapacidadTableAdapter()
+        Me.spDiscapacidadOtra = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtDiscapacidadOtra = New DevExpress.XtraEditors.TextEdit()
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.spcTrabajaEstudia, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.spcTrabajaEstudia.SuspendLayout()
@@ -233,6 +236,9 @@ Partial Class AgregarPersona
         CType(Me.GridView34, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkTipoDiscapacidad.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TipoDiscapacidadBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.spDiscapacidadOtra, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.spDiscapacidadOtra.SuspendLayout()
+        CType(Me.txtDiscapacidadOtra.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'RibbonControl
@@ -249,7 +255,7 @@ Partial Class AgregarPersona
         Me.RibbonControl.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide
         Me.RibbonControl.ShowQatLocationSelector = False
         Me.RibbonControl.ShowToolbarCustomizeItem = False
-        Me.RibbonControl.Size = New System.Drawing.Size(990, 27)
+        Me.RibbonControl.Size = New System.Drawing.Size(990, 32)
         Me.RibbonControl.Toolbar.ShowCustomizeItem = False
         '
         'btnCancelarPersona
@@ -1664,7 +1670,7 @@ Partial Class AgregarPersona
         'lkpAutosuficiente
         '
         Me.lkpAutosuficiente.EditValue = ""
-        Me.lkpAutosuficiente.Location = New System.Drawing.Point(142, 462)
+        Me.lkpAutosuficiente.Location = New System.Drawing.Point(133, 3)
         Me.lkpAutosuficiente.MenuManager = Me.RibbonControl
         Me.lkpAutosuficiente.Name = "lkpAutosuficiente"
         Me.lkpAutosuficiente.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1705,7 +1711,7 @@ Partial Class AgregarPersona
         '
         'lblAutosuficiente
         '
-        Me.lblAutosuficiente.Location = New System.Drawing.Point(14, 465)
+        Me.lblAutosuficiente.Location = New System.Drawing.Point(5, 6)
         Me.lblAutosuficiente.Name = "lblAutosuficiente"
         Me.lblAutosuficiente.Size = New System.Drawing.Size(122, 13)
         Me.lblAutosuficiente.TabIndex = 59
@@ -1743,14 +1749,49 @@ Partial Class AgregarPersona
         '
         Me.TipoDiscapacidadTableAdapter.ClearBeforeFill = True
         '
+        'spDiscapacidadOtra
+        '
+        Me.spDiscapacidadOtra.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
+        Me.spDiscapacidadOtra.Location = New System.Drawing.Point(14, 460)
+        Me.spDiscapacidadOtra.Name = "spDiscapacidadOtra"
+        Me.spDiscapacidadOtra.Panel1.Controls.Add(Me.txtDiscapacidadOtra)
+        Me.spDiscapacidadOtra.Panel1.Controls.Add(Me.LabelControl1)
+        Me.spDiscapacidadOtra.Panel1.Text = "Panel1"
+        Me.spDiscapacidadOtra.Panel2.Controls.Add(Me.lblAutosuficiente)
+        Me.spDiscapacidadOtra.Panel2.Controls.Add(Me.lkpAutosuficiente)
+        Me.spDiscapacidadOtra.Panel2.Text = "Panel2"
+        Me.spDiscapacidadOtra.Size = New System.Drawing.Size(557, 28)
+        Me.spDiscapacidadOtra.SplitterPosition = 294
+        Me.spDiscapacidadOtra.TabIndex = 61
+        Me.spDiscapacidadOtra.Text = "SplitContainerControl1"
+        '
+        'LabelControl1
+        '
+        Me.LabelControl1.Location = New System.Drawing.Point(3, 6)
+        Me.LabelControl1.Name = "LabelControl1"
+        Me.LabelControl1.Size = New System.Drawing.Size(123, 13)
+        Me.LabelControl1.TabIndex = 54
+        Me.LabelControl1.Text = "Indique otra discapacidad"
+        '
+        'txtDiscapacidadOtra
+        '
+        Me.txtDiscapacidadOtra.Location = New System.Drawing.Point(150, 3)
+        Me.txtDiscapacidadOtra.MenuManager = Me.RibbonControl
+        Me.txtDiscapacidadOtra.Name = "txtDiscapacidadOtra"
+        Me.txtDiscapacidadOtra.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.txtDiscapacidadOtra.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.txtDiscapacidadOtra.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.txtDiscapacidadOtra.Size = New System.Drawing.Size(126, 20)
+        Me.txtDiscapacidadOtra.TabIndex = 55
+        Me.txtDiscapacidadOtra.Visible = False
+        '
         'AgregarPersona
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(990, 523)
+        Me.Controls.Add(Me.spDiscapacidadOtra)
         Me.Controls.Add(Me.lblTipoDiscapacidad)
-        Me.Controls.Add(Me.lkpAutosuficiente)
-        Me.Controls.Add(Me.lblAutosuficiente)
         Me.Controls.Add(Me.chkTipoDiscapacidad)
         Me.Controls.Add(Me.lkpDiscapacitado)
         Me.Controls.Add(Me.LabelControl35)
@@ -1780,7 +1821,7 @@ Partial Class AgregarPersona
         Me.Name = "AgregarPersona"
         Me.Ribbon = Me.RibbonControl
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Agregando persona al hogar "
+        Me.Text = "e"
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.spcTrabajaEstudia, System.ComponentModel.ISupportInitialize).EndInit()
         Me.spcTrabajaEstudia.ResumeLayout(False)
@@ -1852,6 +1893,9 @@ Partial Class AgregarPersona
         CType(Me.GridView34, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkTipoDiscapacidad.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TipoDiscapacidadBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.spDiscapacidadOtra, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.spDiscapacidadOtra.ResumeLayout(False)
+        CType(Me.txtDiscapacidadOtra.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1999,4 +2043,7 @@ Partial Class AgregarPersona
     Friend WithEvents chkTipoDiscapacidad As DevExpress.XtraEditors.CheckedComboBoxEdit
     Friend WithEvents TipoDiscapacidadBindingSource As BindingSource
     Friend WithEvents TipoDiscapacidadTableAdapter As datasetEODTableAdapters.TipoDiscapacidadTableAdapter
+    Friend WithEvents spDiscapacidadOtra As DevExpress.XtraEditors.SplitContainerControl
+    Friend WithEvents txtDiscapacidadOtra As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
 End Class

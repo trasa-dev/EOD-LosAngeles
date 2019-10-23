@@ -301,6 +301,14 @@ Public Class ModificarPersona
             End If
             persona.Actividad = Me.chkActividad.EditValue
             persona.ActividadOtra = Me.txtActividadOtra.Text
+            persona.Discapacitado = IIf(Me.lkpDiscapacitado.EditValue = 1, True, False)
+            If persona.Discapacitado Then
+                persona.TipoDiscapacidad = Me.chkTipoDiscapacidad.EditValue
+                If persona.TipoDiscapacidad.Contains("4") Then
+                    persona.DiscapacidadOtra = txtDiscapacidadOtra.Text
+                End If
+                persona.DiscapacidadAutosuficiente = Me.lkpAutosuficiente.EditValue
+            End If
 
             'Datos de trabajo
             If persona.Actividad.Contains("1") Then
@@ -459,6 +467,10 @@ Public Class ModificarPersona
         Me.lkpDiscapacitado.EditValue = IIf(persona.Discapacitado, 1, 2)
         If persona.Discapacitado Then
             Me.chkTipoDiscapacidad.EditValue = persona.TipoDiscapacidad
+
+            If persona.TipoDiscapacidad.Contains("4") Then
+                Me.txtDiscapacidadOtra.Text = persona.DiscapacidadOtra
+            End If
             lkpAutosuficiente.EditValue = IIf(persona.DiscapacidadAutosuficiente, 1, 2)
         End If
 
@@ -672,6 +684,16 @@ Public Class ModificarPersona
                     chkTipoDiscapacidad.Properties.Appearance.BorderColor = Color.Red
                 Else
                     chkTipoDiscapacidad.Properties.Appearance.BorderColor = Nothing
+
+                    If chkTipoDiscapacidad.EditValue.ToString.Contains("4") Then
+                        'Campo Otra Discapacidad
+                        If txtDiscapacidadOtra.Text = "" Then
+                            completo = False
+                            txtDiscapacidadOtra.Properties.Appearance.BorderColor = Color.Red
+                        Else
+                            txtDiscapacidadOtra.Properties.Appearance.BorderColor = Nothing
+                        End If
+                    End If
                 End If
 
                 'Campo Autosuficiente
@@ -1583,5 +1605,15 @@ Public Class ModificarPersona
             lkpAutosuficiente.Visible = True
         End If
 
+    End Sub
+
+    Private Sub ChkTipoDiscapacidad_EditValueChanged(sender As Object, e As EventArgs) Handles chkTipoDiscapacidad.EditValueChanged
+        If chkTipoDiscapacidad.EditValue IsNot Nothing AndAlso chkTipoDiscapacidad.EditValue.ToString.Contains("4") Then
+            spDiscapacidadOtra.Collapsed = False
+            txtDiscapacidadOtra.Visible = True
+        Else
+            spDiscapacidadOtra.Collapsed = True
+            txtDiscapacidadOtra.Visible = False
+        End If
     End Sub
 End Class

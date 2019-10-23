@@ -175,6 +175,10 @@ Public Class ModificarHogar
         Catch ex As Exception
         End Try
 
+        If Not hogar.IsTelefonoNull Then
+            Me.txtTelefono.Text = hogar.Telefono
+        End If
+
         Me.lkpTipoVivienda.EditValue = hogar.TipoViviendaActual
         lkpPropiedad.EditValue = hogar.Propiedad
 

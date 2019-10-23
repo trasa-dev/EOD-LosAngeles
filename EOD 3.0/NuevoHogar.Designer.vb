@@ -325,6 +325,9 @@ Partial Class NuevoHogar
         Me.ConsultaCalle2EstudioTableAdapter = New EOD.datasetEODTableAdapters.ConsultaCalle2EstudioTableAdapter()
         Me.TipoMotorTableAdapter = New EOD.datasetEODTableAdapters.TipoMotorTableAdapter()
         Me.TipoDiscapacidadTableAdapter = New EOD.datasetEODTableAdapters.TipoDiscapacidadTableAdapter()
+        Me.spDiscapacidadOtra = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.txtDiscapacidadOtra = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl28 = New DevExpress.XtraEditors.LabelControl()
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tabPaneHogar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPaneHogar.SuspendLayout()
@@ -490,6 +493,9 @@ Partial Class NuevoHogar
         CType(Me.TipoDiaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridLookUpEdit28View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LayoutControlItem1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.spDiscapacidadOtra, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.spDiscapacidadOtra.SuspendLayout()
+        CType(Me.txtDiscapacidadOtra.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'RibbonControl
@@ -506,7 +512,7 @@ Partial Class NuevoHogar
         Me.RibbonControl.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Hide
         Me.RibbonControl.ShowQatLocationSelector = False
         Me.RibbonControl.ShowToolbarCustomizeItem = False
-        Me.RibbonControl.Size = New System.Drawing.Size(992, 27)
+        Me.RibbonControl.Size = New System.Drawing.Size(992, 32)
         Me.RibbonControl.Toolbar.ShowCustomizeItem = False
         '
         'tabPaneHogar
@@ -516,12 +522,12 @@ Partial Class NuevoHogar
         Me.tabPaneHogar.Controls.Add(Me.tabPagePersonas)
         Me.tabPaneHogar.Controls.Add(Me.tabPageFecha)
         Me.tabPaneHogar.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tabPaneHogar.Location = New System.Drawing.Point(0, 27)
+        Me.tabPaneHogar.Location = New System.Drawing.Point(0, 32)
         Me.tabPaneHogar.Name = "tabPaneHogar"
         Me.tabPaneHogar.Pages.AddRange(New DevExpress.XtraBars.Navigation.NavigationPageBase() {Me.tabPageHogar, Me.tabPageVehículos, Me.tabPagePersonas, Me.tabPageFecha})
-        Me.tabPaneHogar.RegularSize = New System.Drawing.Size(992, 508)
+        Me.tabPaneHogar.RegularSize = New System.Drawing.Size(992, 503)
         Me.tabPaneHogar.SelectedPage = Me.tabPageVehículos
-        Me.tabPaneHogar.Size = New System.Drawing.Size(992, 508)
+        Me.tabPaneHogar.Size = New System.Drawing.Size(992, 503)
         Me.tabPaneHogar.TabIndex = 2
         Me.tabPaneHogar.Text = "TabPane1"
         '
@@ -1418,7 +1424,7 @@ Partial Class NuevoHogar
         Me.tabPageVehículos.Controls.Add(Me.GroupControl1)
         Me.tabPageVehículos.Controls.Add(Me.btnGuardarVehiculo)
         Me.tabPageVehículos.Name = "tabPageVehículos"
-        Me.tabPageVehículos.Size = New System.Drawing.Size(974, 463)
+        Me.tabPageVehículos.Size = New System.Drawing.Size(974, 459)
         '
         'btnRechazoVehiculo
         '
@@ -1840,7 +1846,7 @@ Partial Class NuevoHogar
         Me.tabPagePersonas.Controls.Add(Me.lkpSexo)
         Me.tabPagePersonas.Controls.Add(Me.LabelControl2)
         Me.tabPagePersonas.Name = "tabPagePersonas"
-        Me.tabPagePersonas.Size = New System.Drawing.Size(974, 463)
+        Me.tabPagePersonas.Size = New System.Drawing.Size(974, 459)
         '
         'lblTipoDiscapacidad
         '
@@ -1855,21 +1861,20 @@ Partial Class NuevoHogar
         Me.spcDiscapacidad.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
         Me.spcDiscapacidad.Location = New System.Drawing.Point(6, 403)
         Me.spcDiscapacidad.Name = "spcDiscapacidad"
-        Me.spcDiscapacidad.Panel1.Controls.Add(Me.lkpAutosuficiente)
-        Me.spcDiscapacidad.Panel1.Controls.Add(Me.lblAutosuficiente)
+        Me.spcDiscapacidad.Panel1.Controls.Add(Me.spDiscapacidadOtra)
         Me.spcDiscapacidad.Panel1.Text = "Panel1"
         Me.spcDiscapacidad.Panel2.Controls.Add(Me.lkpOtraPersona)
         Me.spcDiscapacidad.Panel2.Controls.Add(Me.LabelControl46)
         Me.spcDiscapacidad.Panel2.Text = "Panel2"
         Me.spcDiscapacidad.Size = New System.Drawing.Size(921, 27)
-        Me.spcDiscapacidad.SplitterPosition = 239
+        Me.spcDiscapacidad.SplitterPosition = 563
         Me.spcDiscapacidad.TabIndex = 30
         Me.spcDiscapacidad.Text = "SplitContainerControl1"
         '
         'lkpAutosuficiente
         '
         Me.lkpAutosuficiente.EditValue = ""
-        Me.lkpAutosuficiente.Location = New System.Drawing.Point(132, 3)
+        Me.lkpAutosuficiente.Location = New System.Drawing.Point(142, 3)
         Me.lkpAutosuficiente.MenuManager = Me.RibbonControl
         Me.lkpAutosuficiente.Name = "lkpAutosuficiente"
         Me.lkpAutosuficiente.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
@@ -1909,7 +1914,7 @@ Partial Class NuevoHogar
         '
         'lblAutosuficiente
         '
-        Me.lblAutosuficiente.Location = New System.Drawing.Point(0, 6)
+        Me.lblAutosuficiente.Location = New System.Drawing.Point(10, 6)
         Me.lblAutosuficiente.Name = "lblAutosuficiente"
         Me.lblAutosuficiente.Size = New System.Drawing.Size(122, 13)
         Me.lblAutosuficiente.TabIndex = 55
@@ -3748,6 +3753,43 @@ Partial Class NuevoHogar
         '
         Me.TipoDiscapacidadTableAdapter.ClearBeforeFill = True
         '
+        'spDiscapacidadOtra
+        '
+        Me.spDiscapacidadOtra.Collapsed = True
+        Me.spDiscapacidadOtra.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
+        Me.spDiscapacidadOtra.Location = New System.Drawing.Point(3, 1)
+        Me.spDiscapacidadOtra.Name = "spDiscapacidadOtra"
+        Me.spDiscapacidadOtra.Panel1.Controls.Add(Me.txtDiscapacidadOtra)
+        Me.spDiscapacidadOtra.Panel1.Controls.Add(Me.LabelControl28)
+        Me.spDiscapacidadOtra.Panel1.Text = "Panel1"
+        Me.spDiscapacidadOtra.Panel2.Controls.Add(Me.lkpAutosuficiente)
+        Me.spDiscapacidadOtra.Panel2.Controls.Add(Me.lblAutosuficiente)
+        Me.spDiscapacidadOtra.Panel2.Text = "Panel2"
+        Me.spDiscapacidadOtra.Size = New System.Drawing.Size(557, 29)
+        Me.spDiscapacidadOtra.SplitterPosition = 294
+        Me.spDiscapacidadOtra.TabIndex = 62
+        Me.spDiscapacidadOtra.Text = "SplitContainerControl1"
+        '
+        'txtDiscapacidadOtra
+        '
+        Me.txtDiscapacidadOtra.Location = New System.Drawing.Point(150, 3)
+        Me.txtDiscapacidadOtra.MenuManager = Me.RibbonControl
+        Me.txtDiscapacidadOtra.Name = "txtDiscapacidadOtra"
+        Me.txtDiscapacidadOtra.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
+        Me.txtDiscapacidadOtra.Properties.AppearanceFocused.Options.UseBorderColor = True
+        Me.txtDiscapacidadOtra.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
+        Me.txtDiscapacidadOtra.Size = New System.Drawing.Size(126, 20)
+        Me.txtDiscapacidadOtra.TabIndex = 55
+        Me.txtDiscapacidadOtra.Visible = False
+        '
+        'LabelControl28
+        '
+        Me.LabelControl28.Location = New System.Drawing.Point(3, 6)
+        Me.LabelControl28.Name = "LabelControl28"
+        Me.LabelControl28.Size = New System.Drawing.Size(123, 13)
+        Me.LabelControl28.TabIndex = 54
+        Me.LabelControl28.Text = "Indique otra discapacidad"
+        '
         'NuevoHogar
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -3933,6 +3975,9 @@ Partial Class NuevoHogar
         CType(Me.TipoDiaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridLookUpEdit28View, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LayoutControlItem1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.spDiscapacidadOtra, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.spDiscapacidadOtra.ResumeLayout(False)
+        CType(Me.txtDiscapacidadOtra.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -4248,4 +4293,7 @@ Partial Class NuevoHogar
     Friend WithEvents LabelControl35 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents chkTipoDiscapacidad As DevExpress.XtraEditors.CheckedComboBoxEdit
     Friend WithEvents spcDiscapacidad As DevExpress.XtraEditors.SplitContainerControl
+    Friend WithEvents spDiscapacidadOtra As DevExpress.XtraEditors.SplitContainerControl
+    Friend WithEvents txtDiscapacidadOtra As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents LabelControl28 As DevExpress.XtraEditors.LabelControl
 End Class

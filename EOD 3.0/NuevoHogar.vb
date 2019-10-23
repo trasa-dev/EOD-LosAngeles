@@ -929,6 +929,9 @@ Public Class NuevoHogar
             nuevaPersona.Discapacitado = IIf(Me.lkpDiscapacitado.EditValue = 1, True, False)
             If nuevaPersona.Discapacitado Then
                 nuevaPersona.TipoDiscapacidad = Me.chkTipoDiscapacidad.EditValue
+                If nuevaPersona.TipoDiscapacidad.Contains("4") Then
+                    nuevaPersona.DiscapacidadOtra = txtDiscapacidadOtra.Text
+                End If
                 nuevaPersona.DiscapacidadAutosuficiente = IIf(Me.lkpAutosuficiente.EditValue = 1, True, False)
             End If
 
@@ -1064,6 +1067,16 @@ Public Class NuevoHogar
         Me.y_trabajo.Text = "0"
         Me.x_estudio.Text = "0"
         Me.y_estudio.Text = "0"
+
+        Me.lkpDiscapacitado.EditValue = -1
+        Me.lkpAutosuficiente.EditValue = -1
+        Me.txtDiscapacidadOtra.Text = ""
+
+        For Each item As CheckedListBoxItem In Me.chkTipoDiscapacidad.Properties.Items
+            If item.CheckState = CheckState.Checked Then
+                item.InvertCheckState()
+            End If
+        Next
 
         For Each item As CheckedListBoxItem In Me.chkActividad.Properties.Items
             If item.CheckState = CheckState.Checked Then
@@ -1981,6 +1994,16 @@ Public Class NuevoHogar
                     chkTipoDiscapacidad.Properties.Appearance.BorderColor = Color.Red
                 Else
                     chkTipoDiscapacidad.Properties.Appearance.BorderColor = Nothing
+
+                    If chkTipoDiscapacidad.EditValue.ToString.Contains("4") Then
+                        'Campo Otra Discapacidad
+                        If txtDiscapacidadOtra.Text = "" Then
+                            completo = False
+                            txtDiscapacidadOtra.Properties.Appearance.BorderColor = Color.Red
+                        Else
+                            txtDiscapacidadOtra.Properties.Appearance.BorderColor = Nothing
+                        End If
+                    End If
                 End If
 
                 'Campo Autosuficiente
@@ -2994,4 +3017,13 @@ Public Class NuevoHogar
         End If
     End Sub
 
+    Private Sub ChkTipoDiscapacidad_EditValueChanged(sender As Object, e As EventArgs) Handles chkTipoDiscapacidad.EditValueChanged
+        If chkTipoDiscapacidad.EditValue IsNot Nothing AndAlso chkTipoDiscapacidad.EditValue.ToString.Contains("4") Then
+            spDiscapacidadOtra.Collapsed = False
+            txtDiscapacidadOtra.Visible = True
+        Else
+            spDiscapacidadOtra.Collapsed = True
+            txtDiscapacidadOtra.Visible = False
+        End If
+    End Sub
 End Class

@@ -317,9 +317,12 @@ Public Class AgregarPersona
             persona.NoViajaLab = -1
             persona.NoViajaSab = -1
             persona.NoViajaDom = -1
-            persona.Discapacitado = Me.lkpDiscapacitado.EditValue
+            persona.Discapacitado = IIf(Me.lkpDiscapacitado.EditValue = 1, True, False)
             If persona.Discapacitado Then
                 persona.TipoDiscapacidad = Me.chkTipoDiscapacidad.EditValue
+                If persona.TipoDiscapacidad.Contains("4") Then
+                    persona.DiscapacidadOtra = txtDiscapacidadOtra.Text
+                End If
                 persona.DiscapacidadAutosuficiente = Me.lkpAutosuficiente.EditValue
             End If
 
@@ -600,6 +603,16 @@ Public Class AgregarPersona
                     chkTipoDiscapacidad.Properties.Appearance.BorderColor = Color.Red
                 Else
                     chkTipoDiscapacidad.Properties.Appearance.BorderColor = Nothing
+
+                    If chkTipoDiscapacidad.EditValue.ToString.Contains("4") Then
+                        'Campo Otra Discapacidad
+                        If txtDiscapacidadOtra.Text = "" Then
+                            completo = False
+                            txtDiscapacidadOtra.Properties.Appearance.BorderColor = Color.Red
+                        Else
+                            txtDiscapacidadOtra.Properties.Appearance.BorderColor = Nothing
+                        End If
+                    End If
                 End If
 
                 'Campo Autosuficiente
@@ -1492,6 +1505,16 @@ Public Class AgregarPersona
             lblTipoDiscapacidad.Visible = True
             lkpAutosuficiente.Visible = True
             chkTipoDiscapacidad.Visible = True
+        End If
+    End Sub
+
+    Private Sub ChkTipoDiscapacidad_EditValueChanged(sender As Object, e As EventArgs) Handles chkTipoDiscapacidad.EditValueChanged
+        If chkTipoDiscapacidad.EditValue IsNot Nothing AndAlso chkTipoDiscapacidad.EditValue.ToString.Contains("4") Then
+            spDiscapacidadOtra.Collapsed = False
+            txtDiscapacidadOtra.Visible = True
+        Else
+            spDiscapacidadOtra.Collapsed = True
+            txtDiscapacidadOtra.Visible = False
         End If
     End Sub
 End Class

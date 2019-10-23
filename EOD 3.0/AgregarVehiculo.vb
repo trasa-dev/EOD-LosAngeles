@@ -54,6 +54,8 @@ Public Class AgregarVehiculo
             vehiculo.TipoVeh = Integer.Parse(Me.lkpTipoVeh.EditValue.ToString)
             vehiculo.Propiedad = Integer.Parse(Me.lkpPropiedadVeh.EditValue.ToString)
             vehiculo.PropiedadOtro = Me.txtPropiedadVehOtro.Text
+            vehiculo.AnioFabricacion = Integer.Parse(Me.txtAnioFabricacion.Text.ToString)
+            vehiculo.TipoMotor = Integer.Parse(Me.lkpTipoMotor.EditValue.ToString)
 
 
             Try

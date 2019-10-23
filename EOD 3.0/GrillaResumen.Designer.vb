@@ -327,6 +327,7 @@ Partial Class GrillaResumen
         Me.LabelControl28 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpNuevoTipoEncuesta = New DevExpress.XtraEditors.GridLookUpEdit()
         Me.GridView3 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colTipoDia5 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.deDomingoLVActual = New DevExpress.XtraEditors.DateEdit()
         Me.lblDomingoLVActual = New DevExpress.XtraEditors.LabelControl()
@@ -390,7 +391,6 @@ Partial Class GrillaResumen
         Me.dialogExcel = New System.Windows.Forms.SaveFileDialog()
         Me.ComunaTableAdapter = New EOD.datasetEODTableAdapters.ComunaTableAdapter()
         Me.HogaresNoEncuestadosTableAdapter = New EOD.datasetEODTableAdapters.HogaresNoEncuestadosTableAdapter()
-        Me.colTipoDia5 = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.GraficoEncuestadosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.datasetEOD, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.menuBackstage, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1673,7 +1673,7 @@ Partial Class GrillaResumen
         '
         'colCombustible
         '
-        Me.colCombustible.FieldName = "Combustible"
+        Me.colCombustible.FieldName = "TipoMotor"
         Me.colCombustible.Name = "colCombustible"
         Me.colCombustible.OptionsColumn.AllowEdit = False
         Me.colCombustible.Visible = True
@@ -2209,13 +2209,13 @@ Partial Class GrillaResumen
         '
         'lblEncuestasRechazadas
         '
-        Me.lblEncuestasRechazadas.Appearance.Font = New System.Drawing.Font("Gill Sans MT", 32.0!)
+        Me.lblEncuestasRechazadas.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 32.0!)
         Me.lblEncuestasRechazadas.Appearance.Options.UseFont = True
         Me.lblEncuestasRechazadas.Appearance.Options.UseTextOptions = True
         Me.lblEncuestasRechazadas.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.lblEncuestasRechazadas.Location = New System.Drawing.Point(380, 5)
         Me.lblEncuestasRechazadas.Name = "lblEncuestasRechazadas"
-        Me.lblEncuestasRechazadas.Size = New System.Drawing.Size(22, 60)
+        Me.lblEncuestasRechazadas.Size = New System.Drawing.Size(24, 51)
         Me.lblEncuestasRechazadas.TabIndex = 8
         Me.lblEncuestasRechazadas.Text = "0"
         '
@@ -2233,13 +2233,13 @@ Partial Class GrillaResumen
         '
         'lblEncuestasInconsistentes
         '
-        Me.lblEncuestasInconsistentes.Appearance.Font = New System.Drawing.Font("Gill Sans MT", 32.0!)
+        Me.lblEncuestasInconsistentes.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 32.0!)
         Me.lblEncuestasInconsistentes.Appearance.Options.UseFont = True
         Me.lblEncuestasInconsistentes.Appearance.Options.UseTextOptions = True
         Me.lblEncuestasInconsistentes.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.lblEncuestasInconsistentes.Location = New System.Drawing.Point(266, 5)
         Me.lblEncuestasInconsistentes.Name = "lblEncuestasInconsistentes"
-        Me.lblEncuestasInconsistentes.Size = New System.Drawing.Size(22, 60)
+        Me.lblEncuestasInconsistentes.Size = New System.Drawing.Size(24, 51)
         Me.lblEncuestasInconsistentes.TabIndex = 6
         Me.lblEncuestasInconsistentes.Text = "0"
         '
@@ -2254,7 +2254,6 @@ Partial Class GrillaResumen
         Me.PictureEdit5.Properties.Appearance.Options.UseBackColor = True
         Me.PictureEdit5.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.PictureEdit5.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.[Auto]
-        Me.PictureEdit5.Properties.ZoomAccelerationFactor = 1.0R
         Me.PictureEdit5.Size = New System.Drawing.Size(44, 47)
         Me.PictureEdit5.TabIndex = 10
         '
@@ -2269,7 +2268,6 @@ Partial Class GrillaResumen
         Me.PictureEdit6.Properties.Appearance.Options.UseBackColor = True
         Me.PictureEdit6.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.PictureEdit6.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.[Auto]
-        Me.PictureEdit6.Properties.ZoomAccelerationFactor = 1.0R
         Me.PictureEdit6.Size = New System.Drawing.Size(44, 47)
         Me.PictureEdit6.TabIndex = 11
         '
@@ -2287,13 +2285,13 @@ Partial Class GrillaResumen
         '
         'lblEncuestasIncompletas
         '
-        Me.lblEncuestasIncompletas.Appearance.Font = New System.Drawing.Font("Gill Sans MT", 32.0!)
+        Me.lblEncuestasIncompletas.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 32.0!)
         Me.lblEncuestasIncompletas.Appearance.Options.UseFont = True
         Me.lblEncuestasIncompletas.Appearance.Options.UseTextOptions = True
         Me.lblEncuestasIncompletas.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.lblEncuestasIncompletas.Location = New System.Drawing.Point(161, 5)
         Me.lblEncuestasIncompletas.Name = "lblEncuestasIncompletas"
-        Me.lblEncuestasIncompletas.Size = New System.Drawing.Size(22, 60)
+        Me.lblEncuestasIncompletas.Size = New System.Drawing.Size(24, 51)
         Me.lblEncuestasIncompletas.TabIndex = 2
         Me.lblEncuestasIncompletas.Text = "0"
         '
@@ -2311,13 +2309,13 @@ Partial Class GrillaResumen
         '
         'lblEncuestasCompletas
         '
-        Me.lblEncuestasCompletas.Appearance.Font = New System.Drawing.Font("Gill Sans MT", 32.0!)
+        Me.lblEncuestasCompletas.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 32.0!)
         Me.lblEncuestasCompletas.Appearance.Options.UseFont = True
         Me.lblEncuestasCompletas.Appearance.Options.UseTextOptions = True
         Me.lblEncuestasCompletas.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.lblEncuestasCompletas.Location = New System.Drawing.Point(55, 5)
         Me.lblEncuestasCompletas.Name = "lblEncuestasCompletas"
-        Me.lblEncuestasCompletas.Size = New System.Drawing.Size(22, 60)
+        Me.lblEncuestasCompletas.Size = New System.Drawing.Size(24, 51)
         Me.lblEncuestasCompletas.TabIndex = 0
         Me.lblEncuestasCompletas.Text = "0"
         '
@@ -2332,7 +2330,6 @@ Partial Class GrillaResumen
         Me.PictureEdit3.Properties.Appearance.Options.UseBackColor = True
         Me.PictureEdit3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.PictureEdit3.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.[Auto]
-        Me.PictureEdit3.Properties.ZoomAccelerationFactor = 1.0R
         Me.PictureEdit3.Size = New System.Drawing.Size(44, 47)
         Me.PictureEdit3.TabIndex = 4
         '
@@ -2348,7 +2345,6 @@ Partial Class GrillaResumen
         Me.PictureEdit4.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.PictureEdit4.Properties.ErrorImage = CType(resources.GetObject("PictureEdit4.Properties.ErrorImage"), System.Drawing.Image)
         Me.PictureEdit4.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.[Auto]
-        Me.PictureEdit4.Properties.ZoomAccelerationFactor = 1.0R
         Me.PictureEdit4.Size = New System.Drawing.Size(44, 47)
         Me.PictureEdit4.TabIndex = 5
         '
@@ -2381,13 +2377,13 @@ Partial Class GrillaResumen
         '
         'lblEncuestasRecogerHoy
         '
-        Me.lblEncuestasRecogerHoy.Appearance.Font = New System.Drawing.Font("Gill Sans MT", 32.0!)
+        Me.lblEncuestasRecogerHoy.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 32.0!)
         Me.lblEncuestasRecogerHoy.Appearance.Options.UseFont = True
         Me.lblEncuestasRecogerHoy.Appearance.Options.UseTextOptions = True
         Me.lblEncuestasRecogerHoy.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.lblEncuestasRecogerHoy.Location = New System.Drawing.Point(167, 5)
         Me.lblEncuestasRecogerHoy.Name = "lblEncuestasRecogerHoy"
-        Me.lblEncuestasRecogerHoy.Size = New System.Drawing.Size(22, 60)
+        Me.lblEncuestasRecogerHoy.Size = New System.Drawing.Size(24, 51)
         Me.lblEncuestasRecogerHoy.TabIndex = 2
         Me.lblEncuestasRecogerHoy.Text = "0"
         '
@@ -2405,13 +2401,13 @@ Partial Class GrillaResumen
         '
         'lblPersonasEncuestarDia
         '
-        Me.lblPersonasEncuestarDia.Appearance.Font = New System.Drawing.Font("Gill Sans MT", 32.0!)
+        Me.lblPersonasEncuestarDia.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 32.0!)
         Me.lblPersonasEncuestarDia.Appearance.Options.UseFont = True
         Me.lblPersonasEncuestarDia.Appearance.Options.UseTextOptions = True
         Me.lblPersonasEncuestarDia.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.lblPersonasEncuestarDia.Location = New System.Drawing.Point(60, 5)
         Me.lblPersonasEncuestarDia.Name = "lblPersonasEncuestarDia"
-        Me.lblPersonasEncuestarDia.Size = New System.Drawing.Size(22, 60)
+        Me.lblPersonasEncuestarDia.Size = New System.Drawing.Size(24, 51)
         Me.lblPersonasEncuestarDia.TabIndex = 0
         Me.lblPersonasEncuestarDia.Text = "0"
         '
@@ -2426,7 +2422,6 @@ Partial Class GrillaResumen
         Me.PictureEdit1.Properties.Appearance.Options.UseBackColor = True
         Me.PictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.PictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.[Auto]
-        Me.PictureEdit1.Properties.ZoomAccelerationFactor = 1.0R
         Me.PictureEdit1.Size = New System.Drawing.Size(44, 47)
         Me.PictureEdit1.TabIndex = 4
         '
@@ -2441,7 +2436,6 @@ Partial Class GrillaResumen
         Me.PictureEdit2.Properties.Appearance.Options.UseBackColor = True
         Me.PictureEdit2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
         Me.PictureEdit2.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.[Auto]
-        Me.PictureEdit2.Properties.ZoomAccelerationFactor = 1.0R
         Me.PictureEdit2.Size = New System.Drawing.Size(44, 47)
         Me.PictureEdit2.TabIndex = 5
         '
@@ -2537,13 +2531,13 @@ Partial Class GrillaResumen
         '
         'lblUltimaExportacion
         '
-        Me.lblUltimaExportacion.Appearance.Font = New System.Drawing.Font("Gill Sans MT", 14.0!)
+        Me.lblUltimaExportacion.Appearance.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!)
         Me.lblUltimaExportacion.Appearance.Options.UseFont = True
         Me.lblUltimaExportacion.Appearance.Options.UseTextOptions = True
         Me.lblUltimaExportacion.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.lblUltimaExportacion.Location = New System.Drawing.Point(55, 18)
         Me.lblUltimaExportacion.Name = "lblUltimaExportacion"
-        Me.lblUltimaExportacion.Size = New System.Drawing.Size(0, 27)
+        Me.lblUltimaExportacion.Size = New System.Drawing.Size(0, 24)
         Me.lblUltimaExportacion.TabIndex = 0
         '
         'pageCambioFolio
@@ -3170,6 +3164,15 @@ Partial Class GrillaResumen
         Me.GridView3.OptionsSelection.EnableAppearanceFocusedCell = False
         Me.GridView3.OptionsView.ShowGroupPanel = False
         '
+        'colTipoDia5
+        '
+        Me.colTipoDia5.FieldName = "TipoDia"
+        Me.colTipoDia5.Name = "colTipoDia5"
+        Me.colTipoDia5.OptionsColumn.AllowEdit = False
+        Me.colTipoDia5.OptionsColumn.ShowCaption = False
+        Me.colTipoDia5.Visible = True
+        Me.colTipoDia5.VisibleIndex = 0
+        '
         'GroupBox4
         '
         Me.GroupBox4.Controls.Add(Me.deDomingoLVActual)
@@ -3383,6 +3386,7 @@ Partial Class GrillaResumen
         Me.txtZonaDiaActual.MenuManager = Me.ribbonPrincipal
         Me.txtZonaDiaActual.Name = "txtZonaDiaActual"
         Me.txtZonaDiaActual.Properties.AppearanceDisabled.BackColor = System.Drawing.Color.White
+        Me.txtZonaDiaActual.Properties.AppearanceDisabled.Options.UseBackColor = True
         Me.txtZonaDiaActual.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
         Me.txtZonaDiaActual.Size = New System.Drawing.Size(137, 20)
         Me.txtZonaDiaActual.TabIndex = 12
@@ -3394,6 +3398,7 @@ Partial Class GrillaResumen
         Me.txtManzanaDiaActual.MenuManager = Me.ribbonPrincipal
         Me.txtManzanaDiaActual.Name = "txtManzanaDiaActual"
         Me.txtManzanaDiaActual.Properties.AppearanceDisabled.BackColor = System.Drawing.Color.White
+        Me.txtManzanaDiaActual.Properties.AppearanceDisabled.Options.UseBackColor = True
         Me.txtManzanaDiaActual.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
         Me.txtManzanaDiaActual.Size = New System.Drawing.Size(137, 20)
         Me.txtManzanaDiaActual.TabIndex = 13
@@ -3429,6 +3434,7 @@ Partial Class GrillaResumen
         Me.txtCalleDiaActual.MenuManager = Me.ribbonPrincipal
         Me.txtCalleDiaActual.Name = "txtCalleDiaActual"
         Me.txtCalleDiaActual.Properties.AppearanceDisabled.BackColor = System.Drawing.Color.White
+        Me.txtCalleDiaActual.Properties.AppearanceDisabled.Options.UseBackColor = True
         Me.txtCalleDiaActual.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
         Me.txtCalleDiaActual.Size = New System.Drawing.Size(136, 20)
         Me.txtCalleDiaActual.TabIndex = 17
@@ -3440,6 +3446,7 @@ Partial Class GrillaResumen
         Me.txtNumeroDiaActual.MenuManager = Me.ribbonPrincipal
         Me.txtNumeroDiaActual.Name = "txtNumeroDiaActual"
         Me.txtNumeroDiaActual.Properties.AppearanceDisabled.BackColor = System.Drawing.Color.White
+        Me.txtNumeroDiaActual.Properties.AppearanceDisabled.Options.UseBackColor = True
         Me.txtNumeroDiaActual.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
         Me.txtNumeroDiaActual.Size = New System.Drawing.Size(136, 20)
         Me.txtNumeroDiaActual.TabIndex = 18
@@ -3451,6 +3458,7 @@ Partial Class GrillaResumen
         Me.txtCasaDeptoDiaActual.MenuManager = Me.ribbonPrincipal
         Me.txtCasaDeptoDiaActual.Name = "txtCasaDeptoDiaActual"
         Me.txtCasaDeptoDiaActual.Properties.AppearanceDisabled.BackColor = System.Drawing.Color.White
+        Me.txtCasaDeptoDiaActual.Properties.AppearanceDisabled.Options.UseBackColor = True
         Me.txtCasaDeptoDiaActual.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
         Me.txtCasaDeptoDiaActual.Size = New System.Drawing.Size(136, 20)
         Me.txtCasaDeptoDiaActual.TabIndex = 19
@@ -3670,15 +3678,6 @@ Partial Class GrillaResumen
         'HogaresNoEncuestadosTableAdapter
         '
         Me.HogaresNoEncuestadosTableAdapter.ClearBeforeFill = True
-        '
-        'colTipoDia5
-        '
-        Me.colTipoDia5.FieldName = "TipoDia"
-        Me.colTipoDia5.Name = "colTipoDia5"
-        Me.colTipoDia5.OptionsColumn.AllowEdit = False
-        Me.colTipoDia5.OptionsColumn.ShowCaption = False
-        Me.colTipoDia5.Visible = True
-        Me.colTipoDia5.VisibleIndex = 0
         '
         'GrillaResumen
         '

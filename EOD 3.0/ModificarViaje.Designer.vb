@@ -100,6 +100,8 @@ Partial Class ModificarViaje
         Me.colComuna3 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.tabsEtapa1 = New DevExpress.XtraTab.XtraTabControl()
         Me.tabTaxi = New DevExpress.XtraTab.XtraTabPage()
+        Me.LabelControl82 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl88 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl211 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl83 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl85 = New DevExpress.XtraEditors.LabelControl()
@@ -295,6 +297,8 @@ Partial Class ModificarViaje
         Me.GridColumn11 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.tabsEtapa2 = New DevExpress.XtraTab.XtraTabControl()
         Me.tabTaxiE2 = New DevExpress.XtraTab.XtraTabPage()
+        Me.LabelControl34 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl45 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl208 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl40 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl41 = New DevExpress.XtraEditors.LabelControl()
@@ -480,6 +484,8 @@ Partial Class ModificarViaje
         Me.GridColumn90 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.tabsEtapa3 = New DevExpress.XtraTab.XtraTabControl()
         Me.tabTaxiE3 = New DevExpress.XtraTab.XtraTabPage()
+        Me.LabelControl71 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl77 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl216 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl72 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl73 = New DevExpress.XtraEditors.LabelControl()
@@ -802,12 +808,6 @@ Partial Class ModificarViaje
         Me.MuelleTableAdapter = New EOD.datasetEODTableAdapters.MuelleTableAdapter()
         Me.EstacionamientoBicicletaTableAdapter = New EOD.datasetEODTableAdapters.EstacionamientoBicicletaTableAdapter()
         Me.DondeEstacionaTableAdapter = New EOD.datasetEODTableAdapters.DondeEstacionaTableAdapter()
-        Me.LabelControl82 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl88 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl34 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl45 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl71 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl77 = New DevExpress.XtraEditors.LabelControl()
         CType(Me.SiNoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.datasetEOD, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.LugarPrimerViajeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
@@ -1849,6 +1849,24 @@ Partial Class ModificarViaje
         Me.tabTaxi.Name = "tabTaxi"
         Me.tabTaxi.Size = New System.Drawing.Size(995, 179)
         Me.tabTaxi.Text = "tabTaxi"
+        '
+        'LabelControl82
+        '
+        Me.LabelControl82.Location = New System.Drawing.Point(0, 5)
+        Me.LabelControl82.Name = "LabelControl82"
+        Me.LabelControl82.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl82.TabIndex = 96
+        Me.LabelControl82.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
+    "imilar)?"
+        '
+        'LabelControl88
+        '
+        Me.LabelControl88.Location = New System.Drawing.Point(442, 5)
+        Me.LabelControl88.Name = "LabelControl88"
+        Me.LabelControl88.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl88.TabIndex = 97
+        Me.LabelControl88.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
+    "similar)?"
         '
         'LabelControl211
         '
@@ -3896,6 +3914,24 @@ Partial Class ModificarViaje
         Me.tabTaxiE2.Size = New System.Drawing.Size(995, 179)
         Me.tabTaxiE2.Text = "XtraTabPage3"
         '
+        'LabelControl34
+        '
+        Me.LabelControl34.Location = New System.Drawing.Point(1, 5)
+        Me.LabelControl34.Name = "LabelControl34"
+        Me.LabelControl34.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl34.TabIndex = 96
+        Me.LabelControl34.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
+    "imilar)?"
+        '
+        'LabelControl45
+        '
+        Me.LabelControl45.Location = New System.Drawing.Point(443, 5)
+        Me.LabelControl45.Name = "LabelControl45"
+        Me.LabelControl45.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl45.TabIndex = 97
+        Me.LabelControl45.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
+    "similar)?"
+        '
         'LabelControl208
         '
         Me.LabelControl208.Location = New System.Drawing.Point(68, 85)
@@ -5874,6 +5910,24 @@ Partial Class ModificarViaje
         Me.tabTaxiE3.Name = "tabTaxiE3"
         Me.tabTaxiE3.Size = New System.Drawing.Size(995, 179)
         Me.tabTaxiE3.Text = "XtraTabPage3"
+        '
+        'LabelControl71
+        '
+        Me.LabelControl71.Location = New System.Drawing.Point(1, 5)
+        Me.LabelControl71.Name = "LabelControl71"
+        Me.LabelControl71.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl71.TabIndex = 96
+        Me.LabelControl71.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
+    "imilar)?"
+        '
+        'LabelControl77
+        '
+        Me.LabelControl77.Location = New System.Drawing.Point(443, 5)
+        Me.LabelControl77.Name = "LabelControl77"
+        Me.LabelControl77.Size = New System.Drawing.Size(419, 13)
+        Me.LabelControl77.TabIndex = 97
+        Me.LabelControl77.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
+    "similar)?"
         '
         'LabelControl216
         '
@@ -9205,60 +9259,6 @@ Partial Class ModificarViaje
         'DondeEstacionaTableAdapter
         '
         Me.DondeEstacionaTableAdapter.ClearBeforeFill = True
-        '
-        'LabelControl82
-        '
-        Me.LabelControl82.Location = New System.Drawing.Point(0, 5)
-        Me.LabelControl82.Name = "LabelControl82"
-        Me.LabelControl82.Size = New System.Drawing.Size(419, 13)
-        Me.LabelControl82.TabIndex = 96
-        Me.LabelControl82.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
-    "imilar)?"
-        '
-        'LabelControl88
-        '
-        Me.LabelControl88.Location = New System.Drawing.Point(442, 5)
-        Me.LabelControl88.Name = "LabelControl88"
-        Me.LabelControl88.Size = New System.Drawing.Size(419, 13)
-        Me.LabelControl88.TabIndex = 97
-        Me.LabelControl88.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
-    "similar)?"
-        '
-        'LabelControl34
-        '
-        Me.LabelControl34.Location = New System.Drawing.Point(1, 5)
-        Me.LabelControl34.Name = "LabelControl34"
-        Me.LabelControl34.Size = New System.Drawing.Size(419, 13)
-        Me.LabelControl34.TabIndex = 96
-        Me.LabelControl34.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
-    "imilar)?"
-        '
-        'LabelControl45
-        '
-        Me.LabelControl45.Location = New System.Drawing.Point(443, 5)
-        Me.LabelControl45.Name = "LabelControl45"
-        Me.LabelControl45.Size = New System.Drawing.Size(419, 13)
-        Me.LabelControl45.TabIndex = 97
-        Me.LabelControl45.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
-    "similar)?"
-        '
-        'LabelControl71
-        '
-        Me.LabelControl71.Location = New System.Drawing.Point(1, 5)
-        Me.LabelControl71.Name = "LabelControl71"
-        Me.LabelControl71.Size = New System.Drawing.Size(419, 13)
-        Me.LabelControl71.TabIndex = 96
-        Me.LabelControl71.Text = "¿Cuánto caminó antes de tomar este taxi, radiotaxi o aplicación (uber, cabify o s" &
-    "imilar)?"
-        '
-        'LabelControl77
-        '
-        Me.LabelControl77.Location = New System.Drawing.Point(443, 5)
-        Me.LabelControl77.Name = "LabelControl77"
-        Me.LabelControl77.Size = New System.Drawing.Size(419, 13)
-        Me.LabelControl77.TabIndex = 97
-        Me.LabelControl77.Text = "¿Cuánto rato esperó para abordar el taxi, radiotaxi o aplicación (uber, cabify o " &
-    "similar)?"
         '
         'ModificarViaje
         '

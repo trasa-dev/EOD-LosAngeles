@@ -44,8 +44,8 @@ Public Class ModificarVehiculo
             vehiculo.TipoVeh = Integer.Parse(Me.lkpTipoVeh.EditValue.ToString)
             vehiculo.Propiedad = Integer.Parse(Me.lkpPropiedadVeh.EditValue.ToString)
             vehiculo.PropiedadOtro = Me.txtPropiedadVehOtro.Text
-            vehiculo.TipoMotor = Me.lkpTipoMotor.EditValue
-            vehiculo.AnioFabricacion = Me.txtAnioFabricacion.Text
+            vehiculo.AnioFabricacion = Integer.Parse(Me.txtAnioFabricacion.Text.ToString)
+            vehiculo.TipoMotor = Integer.Parse(Me.lkpTipoMotor.EditValue.ToString)
 
             Try
                 VehiculoTableAdapter.Update(datasetEOD.Vehiculo)
