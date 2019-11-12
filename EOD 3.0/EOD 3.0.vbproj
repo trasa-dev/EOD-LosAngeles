@@ -212,6 +212,9 @@
     <Compile Include="MASCARA_REFERENCIA_VFDataSet.vb">
       <DependentUpon>MASCARA_REFERENCIA_VFDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Modelo\Hogar.vb" />
+    <Compile Include="Modelo\Persona.vb" />
+    <Compile Include="Modelo\Vehiculo.vb" />
     <Compile Include="RestaurarBase.Designer.vb">
       <DependentUpon>RestaurarBase.vb</DependentUpon>
     </Compile>
@@ -1583,6 +1586,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

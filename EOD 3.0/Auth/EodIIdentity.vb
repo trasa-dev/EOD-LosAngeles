@@ -86,7 +86,8 @@ Public Class EodIIdentity
         Else
             Return False
         End If
-
+        tableAdapter = Nothing
+        dataset = Nothing
         Return False
     End Function
 

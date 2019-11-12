@@ -65,7 +65,6 @@ Public Class ResumenViajes
                 'Filtro gridViewEtapas
                 Me.ResumenEtapasBindingSource.Filter = "Hogar = " & Me.hogar & " and Persona = " & Me.persona & " and viaje = " & viaje & " and diaviaje = " & tipoDia
 
-                actualizaVistaSecuencia()
             Catch ex As Exception
 
             End Try
@@ -101,176 +100,6 @@ Public Class ResumenViajes
 
        
 
-    End Sub
-
-    Private Sub actualizaVistaSecuencia()
-
-
-        'Carga tab con numero de etapas correcto
-        Dim etapas As String = Me.gridViewViajes.GetFocusedRowCellValue("Etapas").ToString()
-        panelEtapas.SelectedPageIndex = etapas - 1
-
-        Select Case etapas
-            Case 1
-                Me.tab2etapas.PageVisible = False
-                Me.tab3etapas.PageVisible = False
-
-                txtInicioViajeE1.Text = "Calle 1: " + Me.gridViewViajes.GetFocusedRowCellValue("NombreCalle1Origen").ToString() + vbCrLf + _
-                            "Calle 2: " + Me.gridViewViajes.GetFocusedRowCellValue("NumeroOCalle2Origen").ToString() + vbCrLf + _
-                            "Hito: " + Me.gridViewViajes.GetFocusedRowCellValue("HitoOrigen").ToString() + vbCrLf + _
-                            "Comuna: " + Me.gridViewViajes.GetFocusedRowCellValue("ComunaOri_Comuna").ToString()
-
-                txtFinViajeE1.Text = "Calle 1: " + Me.gridViewViajes.GetFocusedRowCellValue("NombreCalle1Destino").ToString() + vbCrLf + _
-                                    "Calle 2: " + Me.gridViewViajes.GetFocusedRowCellValue("NumeroOCalle2Destino").ToString() + vbCrLf + _
-                                    "Hito: " + Me.gridViewViajes.GetFocusedRowCellValue("HitoDestino").ToString() + vbCrLf + _
-                                    "Comuna: " + Me.gridViewViajes.GetFocusedRowCellValue("ComunaDes_Comuna").ToString()
-
-                txtHoraIniViajeE1.Text = "Hora: " + Convert.ToDateTime(Me.gridViewViajes.GetFocusedRowCellValue("HoraIni")).ToString("HH:mm")
-
-                txtHoraFinViajeE1.Text = "Hora: " + Convert.ToDateTime(Me.gridViewViajes.GetFocusedRowCellValue("Horafin")).ToString("HH:mm")
-
-                Dim filaEtapa As Integer = Me.gridViewEtapas.LocateByValue("Etapa", 1, Nothing)
-                gridViewEtapas.FocusedRowHandle = filaEtapa
-
-                txtEtapaE1.Text = "Calle 1: " + Me.gridViewEtapas.GetFocusedRowCellValue("NombreCalle1Destino").ToString() + vbCrLf + _
-                                     "Calle 2: " + Me.gridViewEtapas.GetFocusedRowCellValue("NumeroOCalle2Destino").ToString() + vbCrLf + _
-                                     "Hito: " + Me.gridViewEtapas.GetFocusedRowCellValue("HitoDestino").ToString() + vbCrLf + _
-                                     "Comuna: " + Me.gridViewEtapas.GetFocusedRowCellValue("ComunaDes_Comuna").ToString()
-
-                Dim strModo As String = Me.gridViewEtapas.GetFocusedRowCellValue("Modo").ToString()
-
-                txtMedioE1.Text = Split(strModo, ".")(1)
-
-                Dim intModo As Integer = Split(strModo, ".")(0)
-                intModo -= 1
-
-                imgTransporteE1.Image = imageCollectionModos.Images.Item(intModo)
-
-            Case 2
-                Me.tab1etapa.PageVisible = False
-                Me.tab3etapas.PageVisible = False
-
-                txtInicioViajeE2.Text = "Calle 1: " + Me.gridViewViajes.GetFocusedRowCellValue("NombreCalle1Origen").ToString() + vbCrLf + _
-                            "Calle 2: " + Me.gridViewViajes.GetFocusedRowCellValue("NumeroOCalle2Origen").ToString() + vbCrLf + _
-                            "Hito: " + Me.gridViewViajes.GetFocusedRowCellValue("HitoOrigen").ToString() + vbCrLf + _
-                            "Comuna: " + Me.gridViewViajes.GetFocusedRowCellValue("ComunaOri_Comuna").ToString()
-
-                txtFinViajeE2.Text = "Calle 1: " + Me.gridViewViajes.GetFocusedRowCellValue("NombreCalle1Destino").ToString() + vbCrLf + _
-                                    "Calle 2: " + Me.gridViewViajes.GetFocusedRowCellValue("NumeroOCalle2Destino").ToString() + vbCrLf + _
-                                    "Hito: " + Me.gridViewViajes.GetFocusedRowCellValue("HitoDestino").ToString() + vbCrLf + _
-                                    "Comuna: " + Me.gridViewViajes.GetFocusedRowCellValue("ComunaDes_Comuna").ToString()
-
-                txtHoraIniViajeE2.Text = "Hora: " + Convert.ToDateTime(Me.gridViewViajes.GetFocusedRowCellValue("HoraIni")).ToString("HH:mm")
-
-                txtHoraFinViajeE2.Text = "Hora: " + Convert.ToDateTime(Me.gridViewViajes.GetFocusedRowCellValue("Horafin")).ToString("HH:mm")
-
-                'ETAPA 1
-                Dim filaEtapa As Integer = Me.gridViewEtapas.LocateByValue("Etapa", 1, Nothing)
-                gridViewEtapas.FocusedRowHandle = 0
-
-                txtEtapa1E2.Text = "Calle 1: " + Me.gridViewEtapas.GetRowCellValue(0, "NombreCalle1Destino").ToString() + vbCrLf + _
-                 "Calle 2: " + Me.gridViewEtapas.GetRowCellValue(0, "NumeroOCalle2Destino").ToString() + vbCrLf + _
-                 "Hito: " + Me.gridViewEtapas.GetRowCellValue(0, "HitoDestino").ToString() + vbCrLf + _
-                 "Comuna: " + Me.gridViewEtapas.GetRowCellValue(0, "ComunaDes_Comuna").ToString()
-
-                Dim strModo As String = Me.gridViewEtapas.GetFocusedRowCellValue("Modo").ToString()
-
-                txtMedio1E2.Text = Split(strModo, ".")(1)
-
-                Dim intModo As Integer = Split(strModo, ".")(0)
-                intModo -= 1
-
-                imgTransporte1E2.Image = imageCollectionModos.Images.Item(intModo)
-
-                'ETAPA 2
-                filaEtapa = Me.gridViewEtapas.LocateByValue("Etapa", 2, Nothing)
-                gridViewEtapas.FocusedRowHandle = 1
-
-                txtEtapa2E2.Text = "Calle 1: " + Me.gridViewEtapas.GetRowCellValue(1, "NombreCalle1Destino").ToString() + vbCrLf + _
-                 "Calle 2: " + Me.gridViewEtapas.GetRowCellValue(1, "NumeroOCalle2Destino").ToString() + vbCrLf + _
-                 "Hito: " + Me.gridViewEtapas.GetRowCellValue(1, "HitoDestino").ToString() + vbCrLf + _
-                 "Comuna: " + Me.gridViewEtapas.GetRowCellValue(1, "ComunaDes_Comuna").ToString()
-
-                strModo = Me.gridViewEtapas.GetFocusedRowCellValue("Modo").ToString()
-
-                txtMedio2E2.Text = Split(strModo, ".")(1)
-
-                intModo = Split(strModo, ".")(0)
-                intModo -= 1
-
-                imgTransporte2E2.Image = imageCollectionModos.Images.Item(intModo)
-            Case 3
-                Me.tab1etapa.PageVisible = False
-                Me.tab2etapas.PageVisible = False
-
-                txtInicioViajeE3.Text = "Calle 1: " + Me.gridViewViajes.GetFocusedRowCellValue("NombreCalle1Origen").ToString() + vbCrLf +
-                            "Calle 2: " + Me.gridViewViajes.GetFocusedRowCellValue("NumeroOCalle2Origen").ToString() + vbCrLf +
-                            "Hito: " + Me.gridViewViajes.GetFocusedRowCellValue("HitoOrigen").ToString() + vbCrLf +
-                            "Comuna: " + Me.gridViewViajes.GetFocusedRowCellValue("ComunaOri_Comuna").ToString()
-
-                txtFinViajeE3.Text = "Calle 1: " + Me.gridViewViajes.GetFocusedRowCellValue("NombreCalle1Destino").ToString() + vbCrLf +
-                                    "Calle 2: " + Me.gridViewViajes.GetFocusedRowCellValue("NumeroOCalle2Destino").ToString() + vbCrLf +
-                                    "Hito: " + Me.gridViewViajes.GetFocusedRowCellValue("HitoDestino").ToString() + vbCrLf +
-                                    "Comuna: " + Me.gridViewViajes.GetFocusedRowCellValue("ComunaDes_Comuna").ToString()
-
-                txtHoraIniViajeE3.Text = "Hora: " + Convert.ToDateTime(Me.gridViewViajes.GetFocusedRowCellValue("HoraIni")).ToString("HH:mm")
-
-                txtHoraFinViajeE3.Text = "Hora: " + Convert.ToDateTime(Me.gridViewViajes.GetFocusedRowCellValue("Horafin")).ToString("HH:mm")
-
-                'ETAPA 1
-                Dim filaEtapa As Integer = Me.gridViewEtapas.LocateByValue("Etapa", 1, Nothing)
-                gridViewEtapas.FocusedRowHandle = 0
-
-                txtEtapa1E3.Text = "Calle 1: " + Me.gridViewEtapas.GetRowCellValue(0, "NombreCalle1Destino").ToString() + vbCrLf +
-                 "Calle 2: " + Me.gridViewEtapas.GetRowCellValue(0, "NumeroOCalle2Destino").ToString() + vbCrLf +
-                 "Hito: " + Me.gridViewEtapas.GetRowCellValue(0, "HitoDestino").ToString() + vbCrLf +
-                 "Comuna: " + Me.gridViewEtapas.GetRowCellValue(0, "ComunaDes_Comuna").ToString()
-
-                Dim strModo As String = Me.gridViewEtapas.GetFocusedRowCellValue("Modo").ToString()
-
-                txtMedio1E3.Text = Split(strModo, ".")(1)
-
-                Dim intModo As Integer = Split(strModo, ".")(0)
-                intModo -= 1
-
-                imgTransporte1E3.Image = imageCollectionModos.Images.Item(intModo)
-
-                'ETAPA 2
-                filaEtapa = Me.gridViewEtapas.LocateByValue("Etapa", 2, Nothing)
-                gridViewEtapas.FocusedRowHandle = 1
-
-                txtEtapa2E3.Text = "Calle 1: " + Me.gridViewEtapas.GetRowCellValue(1, "NombreCalle1Destino").ToString() + vbCrLf +
-                 "Calle 2: " + Me.gridViewEtapas.GetRowCellValue(1, "NumeroOCalle2Destino").ToString() + vbCrLf +
-                 "Hito: " + Me.gridViewEtapas.GetRowCellValue(1, "HitoDestino").ToString() + vbCrLf +
-                 "Comuna: " + Me.gridViewEtapas.GetRowCellValue(1, "ComunaDes_Comuna").ToString()
-
-                strModo = Me.gridViewEtapas.GetFocusedRowCellValue("Modo").ToString()
-
-                txtMedio2E3.Text = Split(strModo, ".")(1)
-
-                intModo = Split(strModo, ".")(0)
-                intModo -= 1
-
-                imgTransporte2E3.Image = imageCollectionModos.Images.Item(intModo)
-
-                'ETAPA 3
-                filaEtapa = Me.gridViewEtapas.LocateByValue("Etapa", 3, Nothing)
-                gridViewEtapas.FocusedRowHandle = 1
-
-                txtEtapa3E3.Text = "Calle 1: " + Me.gridViewEtapas.GetRowCellValue(1, "NombreCalle1Destino").ToString() + vbCrLf +
-                 "Calle 2: " + Me.gridViewEtapas.GetRowCellValue(1, "NumeroOCalle2Destino").ToString() + vbCrLf +
-                 "Hito: " + Me.gridViewEtapas.GetRowCellValue(1, "HitoDestino").ToString() + vbCrLf +
-                 "Comuna: " + Me.gridViewEtapas.GetRowCellValue(1, "ComunaDes_Comuna").ToString()
-
-                strModo = Me.gridViewEtapas.GetFocusedRowCellValue("Modo").ToString()
-
-                txtMedio3E3.Text = Split(strModo, ".")(1)
-
-                intModo = Split(strModo, ".")(0)
-                intModo -= 1
-
-                imgTransporte3E3.Image = imageCollectionModos.Images.Item(intModo)
-        End Select
     End Sub
 
     Private Sub btnIngresarViaje_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnIngresarViaje.ItemClick
@@ -311,11 +140,6 @@ Public Class ResumenViajes
         Catch ex As Exception
         End Try
 
-        Try
-            actualizaVistaSecuencia()
-        Catch ex As Exception
-        End Try
-
     End Sub
 
     Private Sub rgTipoDia_SelectedIndexChanged(sender As Object, e As EventArgs) Handles rgTipoDia.SelectedIndexChanged
@@ -330,7 +154,6 @@ Public Class ResumenViajes
                 If Me.gridViewViajes.RowCount > 0 Then
                     Dim viaje As Integer = Me.gridViewViajes.GetFocusedRowCellValue("Viaje").ToString()
                     Me.ResumenEtapasBindingSource.Filter = "Hogar = " & Me.hogar & " and Persona = " & Me.persona & " and diaviaje = " & tipoDia & " and viaje = " & viaje
-                    actualizaVistaSecuencia()
                 Else
                     bloqueaRecarga = True
                     MessageBox.Show("El día seleccionado no tiene viajes", "Resumen Viajes", MessageBoxButtons.OK, MessageBoxIcon.Information)
