@@ -601,9 +601,11 @@ Public Class IngresoViajes
         If opcion < 9 Then
             Me.lblCuantoPagoE1.Visible = True
             Me.txtCuantoPagoE1.Visible = True
+            spcPagoEstacionamientoE1.Collapsed = False
         Else
             Me.lblCuantoPagoE1.Visible = False
             Me.txtCuantoPagoE1.Visible = False
+            spcPagoEstacionamientoE1.Collapsed = True
         End If
 
     End Sub
@@ -1079,7 +1081,7 @@ Public Class IngresoViajes
         End Select
     End Sub
 
-    Private Sub lkpFormaPagoE2_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub lkpFormaPagoE2_EditValueChanged(sender As Object, e As EventArgs) Handles lkpFormaPagoE2.EditValueChanged
 
         Dim opcion As Integer
 
@@ -1090,9 +1092,31 @@ Public Class IngresoViajes
         If opcion < 9 Then
             Me.lblCuantoPagoE2.Visible = True
             Me.txtCuantoPagoE2.Visible = True
+            spcPagoEstacionamientoE2.Collapsed = False
         Else
             Me.lblCuantoPagoE2.Visible = False
             Me.txtCuantoPagoE2.Visible = False
+            spcPagoEstacionamientoE2.Collapsed = True
+        End If
+
+    End Sub
+
+    Private Sub lkpFormaPagoE3_EditValueChanged(sender As Object, e As EventArgs) Handles lkpFormaPagoE3.EditValueChanged
+
+        Dim opcion As Integer
+
+        If lkpFormaPagoE3.EditValue IsNot Nothing AndAlso lkpFormaPagoE3.EditValue.ToString <> "" Then
+            opcion = lkpFormaPagoE3.EditValue
+        End If
+
+        If opcion < 9 Then
+            Me.lblCuantoPagoE3.Visible = True
+            Me.txtCuantoPagoE3.Visible = True
+            spcPagoEstacionamientoE3.Collapsed = False
+        Else
+            Me.lblCuantoPagoE3.Visible = False
+            Me.txtCuantoPagoE3.Visible = False
+            spcPagoEstacionamientoE3.Collapsed = True
         End If
 
     End Sub
@@ -1458,15 +1482,12 @@ Public Class IngresoViajes
                                     etapa1.IdVehiculoHogar = Me.lkpVehHogarE1.EditValue
                                 End If
                                 If etapa1.ViajaComo = 1 Then
-                                    etapa1.CostoNSNR = Me.chkNSNRPagoE1.Checked
-                                    If Not etapa1.CostoNSNR Then
-                                        etapa1.CostoEstacionamiento = Me.txtCuantoPagoE1.Text
-                                        If etapa1.CostoEstacionamiento > 0 Then
-                                            etapa1.FormaPago = Me.lkpFormaPagoE1.EditValue
-                                        End If
-                                    End If
-
                                     etapa1.DondeEstaciona = Me.lkpDondeEstacionaE1.EditValue
+                                    etapa1.FormaPago = Me.lkpFormaPagoE1.EditValue
+                                    etapa1.MinutosEsperaEstacionamiento = txtMinutosEstacionaAutoE1.Text
+                                    If etapa1.FormaPago < 8 AndAlso etapa1.FormaPago > 0 Then
+                                        etapa1.CostoEstacionamiento = Me.txtCuantoPagoE1.Text
+                                    End If
                                 End If
                                 etapa1.LugarBajadaAuto = Me.lkpLugarBajadaAutoE1.EditValue
                                 etapa1.MinutosAntes = Me.txtMinutosAutoE1.Text
@@ -1585,15 +1606,12 @@ Public Class IngresoViajes
                                         etapa2.IdVehiculoHogar = Me.lkpVehHogarE2.EditValue
                                     End If
                                     If etapa2.ViajaComo = 1 Then
-                                        etapa2.CostoNSNR = Me.chkNSNRPagoE2.Checked
-                                        If Not etapa2.CostoNSNR Then
-                                            etapa2.CostoEstacionamiento = Me.txtCuantoPagoE2.Text
-                                            If etapa2.CostoEstacionamiento > 0 Then
-                                                etapa2.FormaPago = Me.lkpFormaPagoE2.EditValue
-                                            End If
-                                        End If
-
                                         etapa2.DondeEstaciona = Me.lkpDondeEstacionaE2.EditValue
+                                        etapa2.FormaPago = Me.lkpFormaPagoE2.EditValue
+                                        etapa2.MinutosEsperaEstacionamiento = txtMinutosEstacionaAutoE2.Text
+                                        If etapa2.FormaPago < 8 AndAlso etapa2.FormaPago > 0 Then
+                                            etapa2.CostoEstacionamiento = Me.txtCuantoPagoE2.Text
+                                        End If
                                     End If
                                     etapa2.LugarBajadaAuto = Me.lkpLugarBajadaAutoE2.EditValue
                                     etapa2.MinutosAntes = Me.txtMinutosAutoE2.Text
@@ -1692,15 +1710,13 @@ Public Class IngresoViajes
                                             etapa3.IdVehiculoHogar = Me.lkpVehHogarE3.EditValue
                                         End If
                                         If etapa3.ViajaComo = 1 Then
-                                            etapa3.CostoNSNR = Me.chkNSNRPagoE3.Checked
-                                            If Not etapa3.CostoNSNR Then
+                                            etapa3.DondeEstaciona = Me.lkpDondeEstacionaE3.EditValue
+                                            etapa3.FormaPago = Me.lkpFormaPagoE3.EditValue
+                                            etapa3.MinutosEsperaEstacionamiento = txtMinutosEstacionaAutoE3.Text
+                                            If etapa3.FormaPago < 8 AndAlso etapa3.FormaPago > 0 Then
                                                 etapa3.CostoEstacionamiento = Me.txtCuantoPagoE3.Text
-                                                If etapa3.CostoEstacionamiento > 0 Then
-                                                    etapa3.FormaPago = Me.lkpFormaPagoE3.EditValue
-                                                End If
                                             End If
 
-                                            etapa3.DondeEstaciona = Me.lkpDondeEstacionaE3.EditValue
                                         End If
                                         etapa3.LugarBajadaAuto = Me.lkpLugarBajadaAutoE3.EditValue
                                         etapa3.MinutosAntes = Me.txtMinutosAutoE3.Text
@@ -4457,7 +4473,7 @@ Public Class IngresoViajes
         Me.lkpDondeEstacionaE1.EditValue = -1
         Me.lkpVehHogarE1.EditValue = -1
         Me.txtCuantoPagoE1.Text = "0"
-        Me.chkNSNRPagoE1.Checked = False
+        Me.txtMinutosEstacionaAutoE1.Text = ""
         Me.lkpFormaPagoE1.EditValue = -1
         Me.lkpLugarBajadaAutoE1.EditValue = -1
     End Sub
@@ -4503,7 +4519,7 @@ Public Class IngresoViajes
         Me.lkpVehHogarE2.EditValue = -1
         Me.lkpDondeEstacionaE2.EditValue = -1
         Me.txtCuantoPagoE2.Text = "0"
-        Me.chkNSNRPagoE2.Checked = False
+        Me.txtMinutosEstacionaAutoE2.Text = ""
         Me.lkpFormaPagoE2.EditValue = -1
         Me.lkpLugarBajadaAutoE2.EditValue = -1
     End Sub
@@ -4549,7 +4565,7 @@ Public Class IngresoViajes
         Me.lkpVehHogarE3.EditValue = -1
         Me.lkpDondeEstacionaE3.EditValue = -1
         Me.txtCuantoPagoE3.Text = "0"
-        Me.chkNSNRPagoE3.Checked = False
+        Me.txtMinutosEstacionaAutoE3.Text = ""
         Me.lkpFormaPagoE3.EditValue = -1
         Me.lkpLugarBajadaAutoE3.EditValue = -1
     End Sub
@@ -5052,32 +5068,39 @@ Public Class IngresoViajes
                         lkpViajaComoE1.Properties.Appearance.BorderColor = Nothing
 
                         If lkpViajaComoE1.EditValue = 1 Then
-                            If Not chkNSNRPagoE1.Checked Then
-                                'Campo Cuánto Paga
-                                If txtCuantoPagoE1.Text = "" Then
-                                    completo = False
-                                    txtCuantoPagoE1.Properties.Appearance.BorderColor = Color.Red
-                                Else
-                                    txtCuantoPagoE1.Properties.Appearance.BorderColor = Nothing
-                                    Dim monto As Integer = Me.txtCuantoPagoE1.Text
-                                    If monto > 0 Then
-                                        'Campo Forma Pago
-                                        If lkpFormaPagoE1.EditValue Is Nothing OrElse lkpFormaPagoE1.EditValue.ToString = "" Then
-                                            completo = False
-                                            lkpFormaPagoE1.Properties.Appearance.BorderColor = Color.Red
-                                        Else
-                                            lkpFormaPagoE1.Properties.Appearance.BorderColor = Nothing
-                                        End If
+
+                            'Campo Donde Estaciona
+                            If lkpDondeEstacionaE1.EditValue Is Nothing OrElse lkpDondeEstacionaE1.EditValue.ToString = "" Then
+                                completo = False
+                                lkpDondeEstacionaE1.Properties.Appearance.BorderColor = Color.Red
+                            Else
+                                lkpDondeEstacionaE1.Properties.Appearance.BorderColor = Nothing
+                            End If
+
+                            'Campo Minutos Espera Estacionamiento
+                            If txtMinutosEstacionaAutoE1.Text = "" Then
+                                completo = False
+                                txtMinutosEstacionaAutoE1.Properties.Appearance.BorderColor = Color.Red
+                            Else
+                                txtMinutosEstacionaAutoE1.Properties.Appearance.BorderColor = Nothing
+                            End If
+
+                            'Campo Forma Pago
+                            If lkpFormaPagoE1.EditValue Is Nothing OrElse lkpFormaPagoE1.EditValue.ToString = "" Then
+                                completo = False
+                                lkpFormaPagoE1.Properties.Appearance.BorderColor = Color.Red
+
+                                If (lkpFormaPagoE1.EditValue > 0 AndAlso lkpFormaPagoE1.EditValue < 8) Then
+                                    'Campo Cuánto Paga
+                                    If txtCuantoPagoE1.Text = "" Then
+                                        completo = False
+                                        txtCuantoPagoE1.Properties.Appearance.BorderColor = Color.Red
+                                    Else
+                                        txtCuantoPagoE1.Properties.Appearance.BorderColor = Nothing
                                     End If
                                 End If
-
-                                'Campo Donde Estaciona
-                                If lkpDondeEstacionaE1.EditValue Is Nothing OrElse lkpDondeEstacionaE1.EditValue.ToString = "" Then
-                                    completo = False
-                                    lkpDondeEstacionaE1.Properties.Appearance.BorderColor = Color.Red
-                                Else
-                                    lkpDondeEstacionaE1.Properties.Appearance.BorderColor = Nothing
-                                End If
+                            Else
+                                lkpFormaPagoE1.Properties.Appearance.BorderColor = Nothing
                             End If
                         End If
                     End If
@@ -5386,32 +5409,38 @@ Public Class IngresoViajes
                     lkpViajaComoE2.Properties.Appearance.BorderColor = Nothing
 
                     If lkpViajaComoE2.EditValue = 1 Then
-                        If Not chkNSNRPagoE2.Checked Then
-                            'Campo Cuánto Paga
-                            If txtCuantoPagoE2.Text = "" Then
-                                completo = False
-                                txtCuantoPagoE2.Properties.Appearance.BorderColor = Color.Red
-                            Else
-                                txtCuantoPagoE2.Properties.Appearance.BorderColor = Nothing
-                                Dim monto As Integer = Me.txtCuantoPagoE2.Text
-                                If monto > 0 Then
-                                    'Campo Forma Pago
-                                    If lkpFormaPagoE2.EditValue Is Nothing OrElse lkpFormaPagoE2.EditValue.ToString = "" Then
-                                        completo = False
-                                        lkpFormaPagoE2.Properties.Appearance.BorderColor = Color.Red
-                                    Else
-                                        lkpFormaPagoE2.Properties.Appearance.BorderColor = Nothing
-                                    End If
+                        'Campo Donde Estaciona
+                        If lkpDondeEstacionaE2.EditValue Is Nothing OrElse lkpDondeEstacionaE2.EditValue.ToString = "" Then
+                            completo = False
+                            lkpDondeEstacionaE2.Properties.Appearance.BorderColor = Color.Red
+                        Else
+                            lkpDondeEstacionaE2.Properties.Appearance.BorderColor = Nothing
+                        End If
+
+                        'Campo Minutos Espera Estacionamiento
+                        If txtMinutosEstacionaAutoE2.Text = "" Then
+                            completo = False
+                            txtMinutosEstacionaAutoE2.Properties.Appearance.BorderColor = Color.Red
+                        Else
+                            txtMinutosEstacionaAutoE2.Properties.Appearance.BorderColor = Nothing
+                        End If
+
+                        'Campo Forma Pago
+                        If lkpFormaPagoE2.EditValue Is Nothing OrElse lkpFormaPagoE2.EditValue.ToString = "" Then
+                            completo = False
+                            lkpFormaPagoE2.Properties.Appearance.BorderColor = Color.Red
+
+                            If (lkpFormaPagoE2.EditValue > 0 AndAlso lkpFormaPagoE2.EditValue < 8) Then
+                                'Campo Cuánto Paga
+                                If txtCuantoPagoE2.Text = "" Then
+                                    completo = False
+                                    txtCuantoPagoE2.Properties.Appearance.BorderColor = Color.Red
+                                Else
+                                    txtCuantoPagoE2.Properties.Appearance.BorderColor = Nothing
                                 End If
                             End If
-
-                            'Campo Donde Estaciona
-                            If lkpDondeEstacionaE2.EditValue Is Nothing OrElse lkpDondeEstacionaE2.EditValue.ToString = "" Then
-                                completo = False
-                                lkpDondeEstacionaE2.Properties.Appearance.BorderColor = Color.Red
-                            Else
-                                lkpDondeEstacionaE2.Properties.Appearance.BorderColor = Nothing
-                            End If
+                        Else
+                            lkpFormaPagoE2.Properties.Appearance.BorderColor = Nothing
                         End If
                     End If
                 End If
@@ -5718,32 +5747,38 @@ Public Class IngresoViajes
                     lkpViajaComoE3.Properties.Appearance.BorderColor = Nothing
 
                     If lkpViajaComoE3.EditValue = 1 Then
-                        If Not chkNSNRPagoE3.Checked Then
-                            'Campo Cuánto Paga
-                            If txtCuantoPagoE3.Text = "" Then
-                                completo = False
-                                txtCuantoPagoE3.Properties.Appearance.BorderColor = Color.Red
-                            Else
-                                txtCuantoPagoE3.Properties.Appearance.BorderColor = Nothing
-                                Dim monto As Integer = Me.txtCuantoPagoE3.Text
-                                If monto > 0 Then
-                                    'Campo Forma Pago
-                                    If lkpFormaPagoE3.EditValue Is Nothing OrElse lkpFormaPagoE3.EditValue.ToString = "" Then
-                                        completo = False
-                                        lkpFormaPagoE3.Properties.Appearance.BorderColor = Color.Red
-                                    Else
-                                        lkpFormaPagoE3.Properties.Appearance.BorderColor = Nothing
-                                    End If
+                        'Campo Donde Estaciona
+                        If lkpDondeEstacionaE3.EditValue Is Nothing OrElse lkpDondeEstacionaE3.EditValue.ToString = "" Then
+                            completo = False
+                            lkpDondeEstacionaE3.Properties.Appearance.BorderColor = Color.Red
+                        Else
+                            lkpDondeEstacionaE3.Properties.Appearance.BorderColor = Nothing
+                        End If
+
+                        'Campo Minutos Espera Estacionamiento
+                        If txtMinutosEstacionaAutoE3.Text = "" Then
+                            completo = False
+                            txtMinutosEstacionaAutoE3.Properties.Appearance.BorderColor = Color.Red
+                        Else
+                            txtMinutosEstacionaAutoE3.Properties.Appearance.BorderColor = Nothing
+                        End If
+
+                        'Campo Forma Pago
+                        If lkpFormaPagoE3.EditValue Is Nothing OrElse lkpFormaPagoE3.EditValue.ToString = "" Then
+                            completo = False
+                            lkpFormaPagoE3.Properties.Appearance.BorderColor = Color.Red
+
+                            If (lkpFormaPagoE3.EditValue > 0 AndAlso lkpFormaPagoE3.EditValue < 8) Then
+                                'Campo Cuánto Paga
+                                If txtCuantoPagoE3.Text = "" Then
+                                    completo = False
+                                    txtCuantoPagoE3.Properties.Appearance.BorderColor = Color.Red
+                                Else
+                                    txtCuantoPagoE3.Properties.Appearance.BorderColor = Nothing
                                 End If
                             End If
-
-                            'Campo Donde Estaciona
-                            If lkpDondeEstacionaE3.EditValue Is Nothing OrElse lkpDondeEstacionaE3.EditValue.ToString = "" Then
-                                completo = False
-                                lkpDondeEstacionaE3.Properties.Appearance.BorderColor = Color.Red
-                            Else
-                                lkpDondeEstacionaE3.Properties.Appearance.BorderColor = Nothing
-                            End If
+                        Else
+                            lkpFormaPagoE3.Properties.Appearance.BorderColor = Nothing
                         End If
                     End If
                 End If
@@ -7419,39 +7454,6 @@ Public Class IngresoViajes
         Me.MuelleTableAdapter.Fill(Me.datasetEOD.Muelle)
     End Sub
 
-    Private Sub chkNSNRPagoE1_CheckedChanged(sender As Object, e As EventArgs) Handles chkNSNRPagoE1.CheckedChanged
-        Dim noSabe As Boolean = chkNSNRPagoE1.Checked
-        spcFormaPagoE1.Collapsed = True
-
-        If noSabe Then
-            txtCuantoPagoE1.Enabled = False
-        Else
-            txtCuantoPagoE1.Enabled = True
-        End If
-
-    End Sub
-
-    Private Sub chkNSNRPagoE2_CheckedChanged(sender As Object, e As EventArgs) Handles chkNSNRPagoE2.CheckedChanged
-        Dim noSabe As Boolean = chkNSNRPagoE2.Checked
-        spcFormaPagoE2.Collapsed = True
-
-        If noSabe Then
-            txtCuantoPagoE2.Enabled = False
-        Else
-            txtCuantoPagoE2.Enabled = True
-        End If
-    End Sub
-
-    Private Sub chkNSNRPagoE3_CheckedChanged(sender As Object, e As EventArgs) Handles chkNSNRPagoE3.CheckedChanged
-        Dim noSabe As Boolean = chkNSNRPagoE3.Checked
-        spcFormaPagoE3.Collapsed = True
-
-        If noSabe Then
-            txtCuantoPagoE3.Enabled = False
-        Else
-            txtCuantoPagoE3.Enabled = True
-        End If
-    End Sub
 
     Private Sub tmHoraSalida_Leave(sender As Object, e As EventArgs) Handles tmHoraSalida.Leave
         If primeraCarga = False Then
@@ -7531,15 +7533,31 @@ Public Class IngresoViajes
 
     Private Sub TxtCuantoPagoE1_Leave(sender As Object, e As EventArgs) Handles txtCuantoPagoE1.Leave
 
+        Dim formaPago As Integer
+
+        If Not Integer.TryParse(lkpFormaPagoE1.EditValue, formaPago) Then
+            formaPago = -1
+        End If
+
         If txtCuantoPagoE1 IsNot Nothing AndAlso txtCuantoPagoE1.Text <> "" Then
             Dim monto As Integer = Integer.Parse(txtCuantoPagoE1.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
 
-            If monto > 0 Then
-                spcFormaPagoE1.Collapsed = False
-                lkpFormaPagoE1.Visible = True
-            Else
-                spcFormaPagoE1.Collapsed = True
-                lkpFormaPagoE1.Visible = False
+            If monto < 0 Then
+                'Validar monto negativo
+                MessageBox.Show("No puede ingresar un monto menor a 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                txtCuantoPagoE1.Focus()
+            ElseIf monto = 0 AndAlso (formaPago < 8 AndAlso formaPago > 0) Then
+                'Validar monto 0 contra valor de forma pago
+                MessageBox.Show("En pregunta anterior indicó que pagó por estacionar, no puede indicar monto 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ElseIf monto > 50000 Then
+                'Validar monto superior a 50.000
+                Dim confirma As DialogResult = MessageBox.Show("Indicó un monto superior a $50.000, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                If confirma = DialogResult.No Then
+                    txtCuantoPagoE1.Focus()
+                    txtCuantoPagoE1.Text = ""
+                Else
+                    'TODO: Crear validador en tabla ValEtapa y setear valor desde aquí
+                End If
             End If
         End If
 
@@ -7547,15 +7565,31 @@ Public Class IngresoViajes
 
     Private Sub TxtCuantoPagoE2_Leave(sender As Object, e As EventArgs) Handles txtCuantoPagoE2.Leave
 
+        Dim formaPago As Integer
+
+        If Not Integer.TryParse(lkpFormaPagoE2.EditValue, formaPago) Then
+            formaPago = -1
+        End If
+
         If txtCuantoPagoE2 IsNot Nothing AndAlso txtCuantoPagoE2.Text <> "" Then
             Dim monto As Integer = Integer.Parse(txtCuantoPagoE2.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
 
-            If monto > 0 Then
-                spcFormaPagoE2.Collapsed = False
-                lkpFormaPagoE2.Visible = True
-            Else
-                spcFormaPagoE2.Collapsed = True
-                lkpFormaPagoE2.Visible = False
+            If monto < 0 Then
+                'Validar monto negativo
+                MessageBox.Show("No puede ingresar un monto menor a 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                txtCuantoPagoE2.Focus()
+            ElseIf monto = 0 AndAlso (formaPago < 8 AndAlso formaPago > 0) Then
+                'Validar monto 0 contra valor de forma pago 
+                MessageBox.Show("En pregunta anterior indicó que pagó por estacionar, no puede indicar monto 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ElseIf monto > 50000 Then
+                'Validar monto superior a 50.000
+                Dim confirma As DialogResult = MessageBox.Show("Indicó un monto superior a $50.000, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                If confirma = DialogResult.No Then
+                    txtCuantoPagoE2.Focus()
+                    txtCuantoPagoE2.Text = ""
+                Else
+                    'TODO: Crear validador en tabla ValEtapa y setear valor desde aquí
+                End If
             End If
         End If
 
@@ -7563,15 +7597,31 @@ Public Class IngresoViajes
 
     Private Sub TxtCuantoPagoE3_Leave(sender As Object, e As EventArgs) Handles txtCuantoPagoE3.Leave
 
+        Dim formaPago As Integer
+
+        If Not Integer.TryParse(lkpFormaPagoE3.EditValue, formaPago) Then
+            formaPago = -1
+        End If
+
         If txtCuantoPagoE3 IsNot Nothing AndAlso txtCuantoPagoE3.Text <> "" Then
             Dim monto As Integer = Integer.Parse(txtCuantoPagoE3.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
 
-            If monto > 0 Then
-                spcFormaPagoE3.Collapsed = False
-                lkpFormaPagoE3.Visible = True
-            Else
-                spcFormaPagoE3.Collapsed = True
-                lkpFormaPagoE3.Visible = False
+            If monto < 0 Then
+                'Validar monto negativo
+                MessageBox.Show("No puede ingresar un monto menor a 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                txtCuantoPagoE3.Focus()
+            ElseIf monto = 0 AndAlso (formaPago < 8 AndAlso formaPago > 0) Then
+                'Validar monto 0 contra valor de forma pago
+                MessageBox.Show("En pregunta anterior indicó que pagó por estacionar, no puede indicar monto 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            ElseIf monto > 50000 Then
+                'Validar monto superior a 50.000
+                Dim confirma As DialogResult = MessageBox.Show("Indicó un monto superior a $50.000, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                If confirma = DialogResult.No Then
+                    txtCuantoPagoE3.Focus()
+                    txtCuantoPagoE3.Text = ""
+                Else
+                    'TODO: Crear validador en tabla ValEtapa y setear valor desde aquí
+                End If
             End If
         End If
 
@@ -7625,7 +7675,7 @@ Public Class IngresoViajes
         End If
     End Sub
 
-    Private Sub LkpDondeEstacionaE1_Enter(sender As Object, e As EventArgs) Handles lkpDondeEstacionaE1.Enter
+    Private Sub LkpDondeEstacionaE1_Enter(sender As Object, e As EventArgs)
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
 
@@ -7659,5 +7709,47 @@ Public Class IngresoViajes
 
     Private Sub LkpEstacionamientoBiciE3_Enter(sender As Object, e As EventArgs) Handles lkpEstacionamientoBiciE3.Enter
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
+    End Sub
+
+    Private Sub txtMinutosEstacionaAutoE1_Leave(sender As Object, e As EventArgs) Handles txtMinutosEstacionaAutoE1.Leave
+        If txtMinutosEstacionaAutoE1.Text <> "" Then
+            Dim valor As Integer = txtMinutosEstacionaAutoE1.Text
+
+            If valor > 60 Then
+                Dim confirma As DialogResult = MessageBox.Show("Indicó que tardó más de 1 hora en estacionar, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                If confirma = DialogResult.No Then
+                    txtMinutosEstacionaAutoE1.Text = ""
+                    txtMinutosEstacionaAutoE1.Focus()
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub txtMinutosEstacionaAutoE2_Leave(sender As Object, e As EventArgs) Handles txtMinutosEstacionaAutoE2.Leave
+        If txtMinutosEstacionaAutoE2.Text <> "" Then
+            Dim valor As Integer = txtMinutosEstacionaAutoE2.Text
+
+            If valor > 60 Then
+                Dim confirma As DialogResult = MessageBox.Show("Indicó que tardó más de 1 hora en estacionar, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                If confirma = DialogResult.No Then
+                    txtMinutosEstacionaAutoE2.Text = ""
+                    txtMinutosEstacionaAutoE2.Focus()
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub txtMinutosEstacionaAutoE3_Leave(sender As Object, e As EventArgs) Handles txtMinutosEstacionaAutoE3.Leave
+        If txtMinutosEstacionaAutoE3.Text <> "" Then
+            Dim valor As Integer = txtMinutosEstacionaAutoE3.Text
+
+            If valor > 60 Then
+                Dim confirma As DialogResult = MessageBox.Show("Indicó que tardó más de 1 hora en estacionar, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                If confirma = DialogResult.No Then
+                    txtMinutosEstacionaAutoE3.Text = ""
+                    txtMinutosEstacionaAutoE3.Focus()
+                End If
+            End If
+        End If
     End Sub
 End Class

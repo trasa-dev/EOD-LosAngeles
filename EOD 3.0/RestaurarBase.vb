@@ -382,11 +382,11 @@ Public Class RestaurarBase
                         nuevaEtapa.LugarBajadaAuto = IIf(etapas.Item("LugarBajadaAuto") IsNot DBNull.Value, etapas.Item("LugarBajadaAuto"), Nothing)
                         If nuevaEtapa.ViajaComo = 1 Then
                             nuevaEtapa.DondeEstaciona = IIf(etapas.Item("DondeEstaciona") IsNot DBNull.Value, etapas.Item("DondeEstaciona"), Nothing)
-                            nuevaEtapa.CostoNSNR = IIf(etapas.Item("CostoNSNR") IsNot DBNull.Value, etapas.Item("CostoNSNR"), Nothing)
-                            If Not nuevaEtapa.CostoNSNR Then
+                            nuevaEtapa.FormaPago = IIf(etapas.Item("FormaPago") IsNot DBNull.Value, etapas.Item("FormaPago"), Nothing)
+                            nuevaEtapa.MinutosEsperaEstacionamiento = IIf(etapas.Item("MinutosEsperaEstacionamiento") IsNot DBNull.Value, etapas.Item("MinutosEsperaEstacionamiento"), Nothing)
+                            If nuevaEtapa.FormaPago > 0 AndAlso nuevaEtapa.FormaPago < 8 Then
                                 nuevaEtapa.CostoEstacionamiento = IIf(etapas.Item("CostoEstacionamiento") IsNot DBNull.Value, etapas.Item("CostoEstacionamiento"), Nothing)
                             End If
-                            nuevaEtapa.FormaPago = IIf(etapas.Item("FormaPago") IsNot DBNull.Value, etapas.Item("FormaPago"), Nothing)
 
                         End If
                         If nuevaEtapa.QueVehiculo = 1 Then
@@ -976,7 +976,7 @@ Public Class RestaurarBase
                 nuevaEtapaH.Autopista = IIf(etapasH.Item("Autopista") IsNot DBNull.Value, etapasH.Item("Autopista"), Nothing)
                 nuevaEtapaH.DondeEstaciona = IIf(etapasH.Item("DondeEstaciona") IsNot DBNull.Value, etapasH.Item("DondeEstaciona"), Nothing)
                 nuevaEtapaH.CostoEstacionamiento = IIf(etapasH.Item("CostoEstacionamiento") IsNot DBNull.Value, etapasH.Item("CostoEstacionamiento"), Nothing)
-                nuevaEtapaH.CostoNSNR = IIf(etapasH.Item("CostoNSNR") IsNot DBNull.Value, etapasH.Item("CostoNSNR"), Nothing)
+                nuevaEtapaH.MinutosEsperaEstacionamiento = IIf(etapasH.Item("MinutosEsperaEstacionamiento") IsNot DBNull.Value, etapasH.Item("MinutosEsperaEstacionamiento"), Nothing)
                 nuevaEtapaH.FormaPago = IIf(etapasH.Item("FormaPago") IsNot DBNull.Value, etapasH.Item("FormaPago"), Nothing)
                 nuevaEtapaH.LugarBajadaAuto = IIf(etapasH.Item("LugarBajadaAuto") IsNot DBNull.Value, etapasH.Item("LugarBajadaAuto"), Nothing)
                 nuevaEtapaH.TiempoEsperaBus = IIf(etapasH.Item("TiempoEsperaBus") IsNot DBNull.Value, etapasH.Item("TiempoEsperaBus"), Nothing)

@@ -265,7 +265,10 @@ Public Class CopiarViajes
                 If Not etapa.IsCostoEstacionamientoNull Then
                     etapaNueva.CostoEstacionamiento = etapa.CostoEstacionamiento
                 End If
-                etapaNueva.CostoNSNR = etapa.CostoNSNR
+                If Not etapa.IsMinutosEsperaEstacionamientoNull Then
+                    etapaNueva.MinutosEsperaEstacionamiento = etapa.MinutosEsperaEstacionamiento
+                End If
+
                 If Not etapa.IsFormaPagoNull Then
                     etapaNueva.FormaPago = etapa.FormaPago
                 End If

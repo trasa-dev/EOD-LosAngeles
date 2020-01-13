@@ -266,8 +266,8 @@ Partial Class ModificarVehiculo
         Me.lkpTipoMotor.Properties.DataSource = Me.TipoMotorBindingSource
         Me.lkpTipoMotor.Properties.DisplayMember = "TipoMotor"
         Me.lkpTipoMotor.Properties.ImmediatePopup = True
-        Me.lkpTipoMotor.Properties.PopupFormMinSize = New System.Drawing.Size(177, 40)
-        Me.lkpTipoMotor.Properties.PopupFormSize = New System.Drawing.Size(177, 40)
+        Me.lkpTipoMotor.Properties.PopupFormMinSize = New System.Drawing.Size(162, 120)
+        Me.lkpTipoMotor.Properties.PopupFormSize = New System.Drawing.Size(162, 120)
         Me.lkpTipoMotor.Properties.ShowFooter = False
         Me.lkpTipoMotor.Properties.ValueMember = "ID"
         Me.lkpTipoMotor.Properties.View = Me.GridView2
@@ -299,7 +299,7 @@ Partial Class ModificarVehiculo
         '
         'GridColumn2
         '
-        Me.GridColumn2.FieldName = "PropiedadVehiculo"
+        Me.GridColumn2.FieldName = "TipoMotor"
         Me.GridColumn2.Name = "GridColumn2"
         Me.GridColumn2.OptionsColumn.AllowEdit = False
         Me.GridColumn2.Visible = True

@@ -85,7 +85,7 @@
     <Shape ID="DesignTable:EncuestasRecoger2Dias" ZOrder="38" X="13954" Y="0" Height="172" Width="280" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
     <Shape ID="DesignTable:EncuestasRecogerMas2Dias" ZOrder="37" X="14304" Y="0" Height="153" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="102" />
     <Shape ID="DesignTable:UltimaExportacion" ZOrder="36" X="14674" Y="0" Height="96" Width="253" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
-    <Shape ID="DesignTable:Etapa_H" ZOrder="35" X="14997" Y="0" Height="305" Width="191" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
+    <Shape ID="DesignTable:Etapa_H" ZOrder="35" X="14997" Y="0" Height="305" Width="211" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignTable:Hogar_H" ZOrder="34" X="15258" Y="0" Height="305" Width="195" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignTable:Persona_H" ZOrder="33" X="15523" Y="0" Height="305" Width="205" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignTable:Vehiculo_H" ZOrder="32" X="15798" Y="0" Height="248" Width="209" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="197" />
