@@ -5023,7 +5023,7 @@ Public Class ModificarViaje
                     Else
                         lkpCicloviaE1.Properties.Appearance.BorderColor = Nothing
 
-                        If txtMotivoNoUsaE1.EditValue = 2 Then
+                        If lkpCicloviaE1.EditValue = 2 Then
                             'Campo Motivo No Usa
                             If txtMotivoNoUsaE1.Text = "" Then
                                 completo = False
@@ -5363,7 +5363,7 @@ Public Class ModificarViaje
                 Else
                     lkpCicloviaE2.Properties.Appearance.BorderColor = Nothing
 
-                    If txtMotivoNoUsaE2.EditValue = 2 Then
+                    If lkpCicloviaE2.EditValue = 2 Then
                         'Campo Motivo No Usa
                         If txtMotivoNoUsaE2.Text = "" Then
                             completo = False
@@ -5699,7 +5699,7 @@ Public Class ModificarViaje
                 Else
                     lkpCicloviaE3.Properties.Appearance.BorderColor = Nothing
 
-                    If txtMotivoNoUsaE3.EditValue = 2 Then
+                    If lkpCicloviaE3.EditValue = 2 Then
                         'Campo Motivo No Usa
                         If txtMotivoNoUsaE3.Text = "" Then
                             completo = False

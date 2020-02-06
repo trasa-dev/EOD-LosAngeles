@@ -163,8 +163,8 @@ Partial Class AgregarPersona
         Me.TipoDiscapacidadBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.TipoDiscapacidadTableAdapter = New EOD.datasetEODTableAdapters.TipoDiscapacidadTableAdapter()
         Me.spDiscapacidadOtra = New DevExpress.XtraEditors.SplitContainerControl()
-        Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.txtDiscapacidadOtra = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.spcTrabajaEstudia, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.spcTrabajaEstudia.SuspendLayout()
@@ -1765,14 +1765,6 @@ Partial Class AgregarPersona
         Me.spDiscapacidadOtra.TabIndex = 61
         Me.spDiscapacidadOtra.Text = "SplitContainerControl1"
         '
-        'LabelControl1
-        '
-        Me.LabelControl1.Location = New System.Drawing.Point(3, 6)
-        Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(123, 13)
-        Me.LabelControl1.TabIndex = 54
-        Me.LabelControl1.Text = "Indique otra discapacidad"
-        '
         'txtDiscapacidadOtra
         '
         Me.txtDiscapacidadOtra.Location = New System.Drawing.Point(150, 3)
@@ -1784,6 +1776,14 @@ Partial Class AgregarPersona
         Me.txtDiscapacidadOtra.Size = New System.Drawing.Size(126, 20)
         Me.txtDiscapacidadOtra.TabIndex = 55
         Me.txtDiscapacidadOtra.Visible = False
+        '
+        'LabelControl1
+        '
+        Me.LabelControl1.Location = New System.Drawing.Point(3, 6)
+        Me.LabelControl1.Name = "LabelControl1"
+        Me.LabelControl1.Size = New System.Drawing.Size(123, 13)
+        Me.LabelControl1.TabIndex = 54
+        Me.LabelControl1.Text = "Indique otra discapacidad"
         '
         'AgregarPersona
         '
@@ -1821,7 +1821,7 @@ Partial Class AgregarPersona
         Me.Name = "AgregarPersona"
         Me.Ribbon = Me.RibbonControl
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "e"
+        Me.Text = "Agregar persona"
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.spcTrabajaEstudia, System.ComponentModel.ISupportInitialize).EndInit()
         Me.spcTrabajaEstudia.ResumeLayout(False)
