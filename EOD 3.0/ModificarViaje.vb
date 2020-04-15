@@ -391,7 +391,7 @@ Public Class ModificarViaje
                 Me.lkpHitoDestino.EditValue = viaje.HitoDestino
             End If
 
-            Me.lkpManzanaDestino.EditValue = viaje.ManzanaDestino
+            Me.lkpManzanaDestino.EditValue = Integer.Parse(viaje.ManzanaDestino)
             Me.x_destino.Text = viaje.DestinoCoordX.ToString
             Me.y_destino.Text = viaje.DestinoCoordY.ToString
         End If
@@ -521,7 +521,7 @@ Public Class ModificarViaje
             If Not etapa1.IsHitoDestinoNull Then
                 lkpHitoEtapa1.EditValue = etapa1.HitoDestino
             End If
-            lkpManzanaEtapa1.EditValue = etapa1.ManzanaDestino
+            lkpManzanaEtapa1.EditValue = Integer.Parse(etapa1.ManzanaDestino)
             x_etapa1.Text = etapa1.DestinoCoordX
             y_etapa1.Text = etapa1.DestinoCoordY
         End If
@@ -607,7 +607,7 @@ Public Class ModificarViaje
                 If Not etapa2.IsHitoDestinoNull Then
                     lkpHitoEtapa2.EditValue = etapa2.HitoDestino
                 End If
-                lkpManzanaEtapa2.EditValue = etapa2.ManzanaDestino
+                lkpManzanaEtapa2.EditValue = Integer.Parse(etapa2.ManzanaDestino)
                 x_etapa2.Text = etapa2.DestinoCoordX
                 y_etapa2.Text = etapa2.DestinoCoordY
             End If
@@ -693,7 +693,7 @@ Public Class ModificarViaje
                 If Not etapa3.IsHitoDestinoNull Then
                     lkpHitoEtapa3.EditValue = etapa3.HitoDestino
                 End If
-                lkpManzanaEtapa3.EditValue = etapa3.ManzanaDestino
+                lkpManzanaEtapa3.EditValue = Integer.Parse(etapa3.ManzanaDestino)
                 x_etapa3.Text = etapa3.DestinoCoordX
                 y_etapa3.Text = etapa3.DestinoCoordY
             End If
@@ -4447,7 +4447,7 @@ Public Class ModificarViaje
                 Catch ex As Exception
                 End Try
                 Try
-                    Me.lkpManzanaDestino.EditValue = persona.ManzanaTrabajo
+                    Me.lkpManzanaDestino.EditValue = Integer.Parse(persona.ManzanaTrabajo)
                 Catch ex As Exception
                 End Try
                 Try
@@ -4503,7 +4503,7 @@ Public Class ModificarViaje
                 Catch ex As Exception
                 End Try
                 Try
-                    Me.lkpManzanaDestino.EditValue = persona.ManzanaTrabajo
+                    Me.lkpManzanaDestino.EditValue = Integer.Parse(persona.ManzanaTrabajo)
                 Catch ex As Exception
                 End Try
                 Try

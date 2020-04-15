@@ -19,21 +19,21 @@ Partial Class Incidencia
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Incidencia))
         Me.RibbonControl = New DevExpress.XtraBars.Ribbon.RibbonControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.lkpTipoIncidencia = New DevExpress.XtraEditors.GridLookUpEdit()
-        Me.TipoIncidenciaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.TipoIncidenciaBindingSource = New System.Windows.Forms.BindingSource()
         Me.datasetEOD = New EOD.datasetEOD()
         Me.GridLookUpEdit1View = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colTipoIncidencia = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.btnCancelar = New DevExpress.XtraEditors.SimpleButton()
         Me.btnGuardar = New DevExpress.XtraEditors.SimpleButton()
         Me.TipoIncidenciaTableAdapter = New EOD.datasetEODTableAdapters.TipoIncidenciaTableAdapter()
         Me.txtDescripcion = New DevExpress.XtraEditors.MemoEdit()
         Me.IncidenciaTableAdapter = New EOD.datasetEODTableAdapters.IncidenciaTableAdapter()
-        Me.IncidenciaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.colTipoIncidencia = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.IncidenciaBindingSource = New System.Windows.Forms.BindingSource()
         CType(Me.RibbonControl, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.lkpTipoIncidencia.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TipoIncidenciaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -103,6 +103,17 @@ Partial Class Incidencia
         Me.GridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = False
         Me.GridLookUpEdit1View.OptionsView.ShowGroupPanel = False
         '
+        'colTipoIncidencia
+        '
+        Me.colTipoIncidencia.FieldName = "TipoIncidencia"
+        Me.colTipoIncidencia.Name = "colTipoIncidencia"
+        Me.colTipoIncidencia.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.[False]
+        Me.colTipoIncidencia.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.[False]
+        Me.colTipoIncidencia.OptionsColumn.ShowCaption = False
+        Me.colTipoIncidencia.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value
+        Me.colTipoIncidencia.Visible = True
+        Me.colTipoIncidencia.VisibleIndex = 0
+        '
         'btnCancelar
         '
         Me.btnCancelar.Appearance.BackColor = System.Drawing.SystemColors.HotTrack
@@ -156,17 +167,6 @@ Partial Class Incidencia
         Me.IncidenciaBindingSource.DataMember = "Incidencia"
         Me.IncidenciaBindingSource.DataSource = Me.datasetEOD
         '
-        'colTipoIncidencia
-        '
-        Me.colTipoIncidencia.FieldName = "TipoIncidencia"
-        Me.colTipoIncidencia.Name = "colTipoIncidencia"
-        Me.colTipoIncidencia.OptionsColumn.AllowGroup = DevExpress.Utils.DefaultBoolean.[False]
-        Me.colTipoIncidencia.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.[False]
-        Me.colTipoIncidencia.OptionsColumn.ShowCaption = False
-        Me.colTipoIncidencia.SortMode = DevExpress.XtraGrid.ColumnSortMode.Value
-        Me.colTipoIncidencia.Visible = True
-        Me.colTipoIncidencia.VisibleIndex = 0
-        '
         'Incidencia
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -179,6 +179,7 @@ Partial Class Incidencia
         Me.Controls.Add(Me.LabelControl1)
         Me.Controls.Add(Me.txtDescripcion)
         Me.Controls.Add(Me.RibbonControl)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Incidencia"

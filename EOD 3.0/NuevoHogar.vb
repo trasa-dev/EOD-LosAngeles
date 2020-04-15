@@ -2443,7 +2443,7 @@ Public Class NuevoHogar
 
 
                     If conflictiva = 1 Then
-                        MessageBox.Show("Debe escoger una manzana del siguiente mapa para identificar el lugar de bajada del transporte.", "Intersección conflictiva", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        MessageBox.Show("Debe escoger una manzana del siguiente mapa para identificar el lugar de trabajo del encuestado.", "Intersección conflictiva", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         Dim mapaInterseccion As New MapaInterseccion(codigoTrasa)
                         mapaInterseccion.ShowDialog()
                         lkpManzanaTrabajo.Focus()
@@ -2520,7 +2520,7 @@ Public Class NuevoHogar
 
 
                     If conflictiva = 1 Then
-                        MessageBox.Show("Debe escoger una manzana del siguiente mapa para identificar el lugar de bajada del transporte.", "Intersección conflictiva", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        MessageBox.Show("Debe escoger una manzana del siguiente mapa para identificar el lugar de estudios del encuestado.", "Intersección conflictiva", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         Dim mapaInterseccion As New MapaInterseccion(codigoTrasa)
                         mapaInterseccion.ShowDialog()
                         lkpManzanaEstudio.Focus()

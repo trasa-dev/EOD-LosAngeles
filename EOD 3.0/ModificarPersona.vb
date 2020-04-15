@@ -492,7 +492,7 @@ Public Class ModificarPersona
                     lkpHitoTrabajo.EditValue = persona.HitoTrabajo
                 End If
                 If Not persona.IsManzanaTrabajoNull Then
-                    lkpManzanaTrabajo.EditValue = persona.ManzanaTrabajo
+                    lkpManzanaTrabajo.EditValue = Integer.Parse(persona.ManzanaTrabajo)
                 End If
 
                 If Not persona.IsDirActividadCoordXNull Then
@@ -531,7 +531,7 @@ Public Class ModificarPersona
                     lkpHitoEstudio.EditValue = persona.HitoEstudio
                 End If
                 If Not persona.IsManzanaEstudioNull Then
-                    lkpManzanaEstudio.EditValue = persona.ManzanaEstudio
+                    lkpManzanaEstudio.EditValue = Integer.Parse(persona.ManzanaEstudio)
                 End If
 
                 If Not persona.IsDirEstudiosCoordXNull Then
@@ -1299,8 +1299,8 @@ Public Class ModificarPersona
                     End Try
 
 
-                    If conflictiva = 1 And Not primeraCargaTrabajo Then
-                        MessageBox.Show("Debe escoger una manzana del siguiente mapa para identificar el lugar de bajada del transporte.", "Intersección conflictiva", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    If conflictiva = 1 AndAlso Not primeraCargaTrabajo Then
+                        MessageBox.Show("Debe escoger una manzana del siguiente mapa para identificar el lugar de trabajo del encuestado.", "Intersección conflictiva", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         Dim mapaInterseccion As New MapaInterseccion(codigoTrasa)
                         mapaInterseccion.ShowDialog()
                         lkpManzanaTrabajo.Focus()
@@ -1378,8 +1378,8 @@ Public Class ModificarPersona
                     End Try
 
 
-                    If conflictiva = 1 And Not primeraCargaEstudio Then
-                        MessageBox.Show("Debe escoger una manzana del siguiente mapa para identificar el lugar de bajada del transporte.", "Intersección conflictiva", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    If conflictiva = 1 AndAlso Not primeraCargaEstudio Then
+                        MessageBox.Show("Debe escoger una manzana del siguiente mapa para identificar el lugar de estudios del encuestado.", "Intersección conflictiva", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         Dim mapaInterseccion As New MapaInterseccion(codigoTrasa)
                         mapaInterseccion.ShowDialog()
                         lkpManzanaEstudio.Focus()

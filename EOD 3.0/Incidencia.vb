@@ -57,6 +57,7 @@ Public Class Incidencia
             IncidenciaTableAdapter.Fill(Me.datasetEOD.Incidencia)
 
             MessageBox.Show("Incidencia guardada correctamente.", "Datos guardados", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Me.Dispose()
         Else
             MessageBox.Show("Por favor, complete los campos marcados con rojo para grabar la incidencia.", "Datos insuficientes", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If

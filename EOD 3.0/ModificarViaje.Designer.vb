@@ -808,6 +808,7 @@ Partial Class ModificarViaje
         Me.MuelleTableAdapter = New EOD.datasetEODTableAdapters.MuelleTableAdapter()
         Me.EstacionamientoBicicletaTableAdapter = New EOD.datasetEODTableAdapters.EstacionamientoBicicletaTableAdapter()
         Me.DondeEstacionaTableAdapter = New EOD.datasetEODTableAdapters.DondeEstacionaTableAdapter()
+        Me.BehaviorManager1 = New DevExpress.Utils.Behaviors.BehaviorManager(Me.components)
         CType(Me.SiNoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.datasetEOD, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.LugarPrimerViajeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit
@@ -1206,6 +1207,7 @@ Partial Class ModificarViaje
         CType(Me.Etapa1BindingSource, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.Etapa2BindingSource, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.Etapa3BindingSource, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.BehaviorManager1, System.ComponentModel.ISupportInitialize).BeginInit
         Me.SuspendLayout
         '
         'SiNoBindingSource
@@ -9695,6 +9697,7 @@ Partial Class ModificarViaje
         CType(Me.Etapa1BindingSource, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.Etapa2BindingSource, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.Etapa3BindingSource, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.BehaviorManager1, System.ComponentModel.ISupportInitialize).EndInit
         Me.ResumeLayout(False)
         Me.PerformLayout
 
@@ -10489,4 +10492,5 @@ Partial Class ModificarViaje
     Friend WithEvents LabelControl160 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtMinutosEstacionaAutoE3 As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl161 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents BehaviorManager1 As DevExpress.Utils.Behaviors.BehaviorManager
 End Class

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EOD 3.0", "EOD 3.0\EOD 3.0.vbproj", "{959EF4D3-288D-41E2-9912-649519DD9909}"
 EndProject
@@ -15,8 +15,8 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{959EF4D3-288D-41E2-9912-649519DD9909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{959EF4D3-288D-41E2-9912-649519DD9909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{959EF4D3-288D-41E2-9912-649519DD9909}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{959EF4D3-288D-41E2-9912-649519DD9909}.Debug|Any CPU.Build.0 = Debug|x86
 		{959EF4D3-288D-41E2-9912-649519DD9909}.Debug|x64.ActiveCfg = Debug|x64
 		{959EF4D3-288D-41E2-9912-649519DD9909}.Debug|x64.Build.0 = Debug|x64
 		{959EF4D3-288D-41E2-9912-649519DD9909}.Debug|x86.ActiveCfg = Debug|x86

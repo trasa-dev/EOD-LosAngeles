@@ -878,7 +878,7 @@ Public Class GrillaResumen
         xlHojaCompletas.Cells(3, 9) = "Tipo Encuesta"
 
         'Contenido de tabla   
-        For i = 0 To gridViewCompletas.DataRowCount - 1
+        For i As Integer = 0 To gridViewCompletas.DataRowCount - 1
             xlHojaCompletas.Cells(i + 4, 3) = gridViewCompletas.GetRowCellValue(i, "Hogar").ToString
             xlHojaCompletas.Cells(i + 4, 4) = gridViewCompletas.GetRowCellValue(i, "Zona").ToString
             xlHojaCompletas.Cells(i + 4, 5) = gridViewCompletas.GetRowCellValue(i, "NombreCalle").ToString
@@ -906,7 +906,7 @@ Public Class GrillaResumen
         xlHojaIncompletas.Cells(3, 10) = "Estado Encuesta"
 
         'Contenido de tabla
-        For i = 0 To gridViewIncompletas.DataRowCount - 1
+        For i As Integer = 0 To gridViewIncompletas.DataRowCount - 1
             xlHojaIncompletas.Cells(i + 4, 3) = gridViewIncompletas.GetRowCellValue(i, "Hogar").ToString
             xlHojaIncompletas.Cells(i + 4, 4) = gridViewIncompletas.GetRowCellValue(i, "Zona").ToString
             xlHojaIncompletas.Cells(i + 4, 5) = gridViewIncompletas.GetRowCellValue(i, "NombreCalle").ToString
@@ -932,7 +932,7 @@ Public Class GrillaResumen
         xlHojaInconsistentes.Cells(3, 10) = "Estado Encuesta"
 
         'Contenido de tabla
-        For i = 0 To gridViewInconsistentes.DataRowCount - 1
+        For i As Integer = 0 To gridViewInconsistentes.DataRowCount - 1
             xlHojaInconsistentes.Cells(i + 4, 3) = gridViewInconsistentes.GetRowCellValue(i, "Hogar").ToString
             xlHojaInconsistentes.Cells(i + 4, 4) = gridViewInconsistentes.GetRowCellValue(i, "Zona").ToString
             xlHojaInconsistentes.Cells(i + 4, 5) = gridViewInconsistentes.GetRowCellValue(i, "NombreCalle").ToString
@@ -957,7 +957,7 @@ Public Class GrillaResumen
         xlHojaRechazadas.Cells(3, 9) = "Tipo Encuesta"
 
         'Contenido de tabla
-        For i = 0 To gridViewRechazadas.DataRowCount - 1
+        For i As Integer = 0 To gridViewRechazadas.DataRowCount - 1
             xlHojaRechazadas.Cells(i + 4, 3) = gridViewRechazadas.GetRowCellValue(i, "Hogar").ToString
             xlHojaRechazadas.Cells(i + 4, 4) = gridViewRechazadas.GetRowCellValue(i, "Zona").ToString
             xlHojaRechazadas.Cells(i + 4, 5) = gridViewRechazadas.GetRowCellValue(i, "NombreCalle").ToString
