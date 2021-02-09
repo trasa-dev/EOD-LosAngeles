@@ -157,4 +157,23 @@ Public Class ModificarVehiculo
     Private Sub lkpPropiedadVeh_Enter(sender As Object, e As EventArgs) Handles lkpPropiedadVeh.Enter
         BeginInvoke(New MethodInvoker(Sub() CType(sender, GridLookUpEdit).ShowPopup()))
     End Sub
+
+    Private Sub txtAnioFabricacion_Leave(sender As Object, e As EventArgs) Handles txtAnioFabricacion.Leave
+        Dim valor As Integer
+        Try
+            If (txtAnioFabricacion.Text IsNot Nothing AndAlso txtAnioFabricacion.Text <> "") Then
+                valor = txtAnioFabricacion.Text
+                If (valor < 1950) Then
+                    MessageBox.Show("El año de fabricación indicado puede no ser válido, por favor verifique.", "Verificación de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf valor > Date.Today().Year + 1 Then
+                    MessageBox.Show("El año de fabricación no es válido, por favor corrija la información.", "Verificación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtAnioFabricacion.Text = ""
+                    txtAnioFabricacion.Focus()
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

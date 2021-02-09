@@ -289,6 +289,14 @@ Public Class ModificarHogar
         Else
             lkpPropiedad.Properties.Appearance.BorderColor = Nothing
 
+            'Campo Otra Propiedad Vivienda
+            If lkpPropiedad.EditValue = 4 AndAlso txtPropiedadOtra.Text = "" Then
+                completo = False
+                txtPropiedadOtra.Properties.Appearance.BorderColor = Color.Red
+            Else
+                txtPropiedadOtra.Properties.Appearance.BorderColor = Nothing
+            End If
+
             Select Case lkpPropiedad.EditValue.ToString
                 Case 1, 4
                     If txtEstimaArriendo.Text = "" AndAlso Not chkNSNREstima.Checked Then
@@ -823,5 +831,18 @@ Public Class ModificarHogar
             lblMontoGFT.Visible = True
             txtMontoGFT.Visible = True
         End If
+    End Sub
+    Private Sub txtMontoGFT_Leave(sender As Object, e As EventArgs) Handles txtMontoGFT.Leave
+        Try
+            Dim montoIngresado As Integer = txtMontoGFT.Text
+
+            If montoIngresado > 500000 Then
+                MessageBox.Show("Indicó un gasto mensual en transporte mayor a $500.000. Verifique que sea la información correcta.", "Verificación de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf montoIngresado = 0 Then
+                MessageBox.Show("Indicó un gasto mensual en transporte igual a 0. Verifique que sea la información correcta.", "Verificación de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

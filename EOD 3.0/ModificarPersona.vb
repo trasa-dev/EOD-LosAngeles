@@ -1079,6 +1079,7 @@ Public Class ModificarPersona
         If (lkpDondeEstudia.EditValue IsNot Nothing) AndAlso (lkpDondeEstudia.EditValue.ToString <> "") Then
             Dim lugarEstudios As Integer = lkpDondeEstudia.EditValue
             Dim nivelEstudios As Integer = lkpEstudios.EditValue
+            Dim edadEncuestado As Integer = DateTime.Now.Year - Convert.ToInt32(Me.txtAnoNacimiento.Text.ToString)
 
             'Ocultar Otro Lugar
             Me.txtDondeEstudiaOtro.Visible = False
@@ -1123,6 +1124,12 @@ Public Class ModificarPersona
             'Preuniversitario y tiene estudios primarios o superiores
             If (lugarEstudios = 3) AndAlso (nivelEstudios = 3 OrElse nivelEstudios = 5) Then
                 MessageBox.Show("Indicó un valor inconsistente con el nivel de estudios.", "Dato no válido", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                lkpDondeEstudia.EditValue = ""
+            End If
+
+            'Lugar de estudios es otro y no tiene estudios siendo mayor de 5 años
+            If (lugarEstudios = 5) AndAlso (nivelEstudios = 1) AndAlso edadEncuestado > 5 Then
+                MessageBox.Show("Indicó un valor inconsistente con el nivel de estudios y edad del encuestado.", "Dato no válido", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 lkpDondeEstudia.EditValue = ""
             End If
 
@@ -1185,7 +1192,7 @@ Public Class ModificarPersona
                 'Estudios primarios completos con menos de 13 años
                 If edadEncuestado < 13 AndAlso nivelEstudios = 3 AndAlso opcion = 1 Then
                     validadorPersona.Val23 = True
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios primarios completos con menos de 13 años. ¿Confirma que es correcto?.", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios primarios completos con menos de 13 años. ¿Confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
                     If confirma = Windows.Forms.DialogResult.No Then
                         lkpEstudiosCompletos.EditValue = ""
                         lkpEstudios.Focus()
@@ -1198,7 +1205,7 @@ Public Class ModificarPersona
                 'Estudios secundarios completos con menos de 17 años
                 If edadEncuestado < 17 AndAlso nivelEstudios = 4 AndAlso opcion = 1 Then
                     validadorPersona.Val24 = True
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios secundarios completos con menos de 17 años. Corrija la información.", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios secundarios completos con menos de 17 años. ¿Confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
                     If confirma = Windows.Forms.DialogResult.No Then
                         lkpEstudiosCompletos.EditValue = ""
                         lkpEstudios.Focus()
@@ -1211,7 +1218,7 @@ Public Class ModificarPersona
                 'Estudios profesionales completos con menos de 22 años
                 If edadEncuestado < 22 AndAlso nivelEstudios = 5 AndAlso opcion = 1 Then
                     validadorPersona.Val25 = True
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios superiores completos con menos de 22 años. Corrija la información.", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios superiores completos con menos de 22 años. ¿Confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
                     If confirma = Windows.Forms.DialogResult.No Then
                         lkpEstudiosCompletos.EditValue = ""
                         lkpEstudios.Focus()

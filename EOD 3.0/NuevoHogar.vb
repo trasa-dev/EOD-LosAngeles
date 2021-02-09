@@ -158,7 +158,13 @@ Public Class NuevoHogar
     End Sub
 
     Private Sub btnGuardarHogar_Click(sender As Object, e As EventArgs) Handles btnGuardarHogar.Click
+        Dim nuevoHogar As HogarRow
 
+        If Me.modoEdicionHogar Then
+            nuevoHogar = Me.datasetEOD.Hogar.FindByHogar(Me.lkpFolio.EditValue.ToString)
+        Else
+            nuevoHogar = datasetEOD.Hogar.NewHogarRow
+        End If
         Me.pressGrabarHogar = True
         'Revisar completitud de datos
 
@@ -170,7 +176,7 @@ Public Class NuevoHogar
             End If
 
             'Grabar hogar en base de datos con EstadoEncuesta = 1 
-            Dim nuevoHogar As HogarRow = datasetEOD.Hogar.NewHogarRow
+
 
             nuevoHogar.Hogar = Me.lkpFolio.EditValue.ToString
             nuevoHogar.Zona = Me.lkpZona.EditValue.ToString
@@ -1060,7 +1066,7 @@ Public Class NuevoHogar
         Me.lkpCalle2Estudio.EditValue = Nothing
         Me.lkpHitoEstudio.EditValue = Nothing
         Me.lkpManzanaEstudio.Properties.DataSource = Nothing
-        Me.lkpDondeEstudia.EditValue = 0
+        Me.lkpDondeEstudia.EditValue = Nothing
         Me.lkpTieneTNE.EditValue = -1
         Me.lkpOtraPersona.EditValue = -1
         Me.x_trabajo.Text = "0"
@@ -1494,6 +1500,7 @@ Public Class NuevoHogar
         If (lkpDondeEstudia.EditValue IsNot Nothing) AndAlso (lkpDondeEstudia.EditValue.ToString <> "") Then
             Dim lugarEstudios As Integer = lkpDondeEstudia.EditValue
             Dim nivelEstudios As Integer = lkpEstudios.EditValue
+            Dim edadEncuestado As Integer = DateTime.Now.Year - Convert.ToInt32(Me.txtAnoNacimiento.Text.ToString)
 
             'Ocultar Otro Lugar
             Me.txtDondeEstudiaOtro.Visible = False
@@ -1523,9 +1530,27 @@ Public Class NuevoHogar
                 lkpDondeEstudia.EditValue = ""
             End If
 
-            'Estudia en universidad/instituto y no tiene estudios universitarios o técnico profesionales
-            If lugarEstudios = 4 AndAlso (nivelEstudios <> 5) Then
+            'Estudios superiores y lugar inferior a preuniversitario
+            If (lugarEstudios < 4) AndAlso nivelEstudios = 5 Then
                 MessageBox.Show("Indicó un valor inconsistente con el nivel de estudios.", "Dato no válido", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                lkpDondeEstudia.EditValue = ""
+            End If
+
+            'Estudia en universidad/instituto y no tiene estudios universitarios o técnico profesionales
+            If lugarEstudios = 4 AndAlso (nivelEstudios <> 6 AndAlso nivelEstudios <> 5) Then
+                MessageBox.Show("Indicó un valor inconsistente con el nivel de estudios.", "Dato no válido", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                lkpDondeEstudia.EditValue = ""
+            End If
+
+            'Preuniversitario y tiene estudios primarios o superiores
+            If (lugarEstudios = 3) AndAlso (nivelEstudios = 3 OrElse nivelEstudios = 5) Then
+                MessageBox.Show("Indicó un valor inconsistente con el nivel de estudios.", "Dato no válido", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                lkpDondeEstudia.EditValue = ""
+            End If
+
+            'Lugar de estudios es otro y no tiene estudios siendo mayor de 5 años
+            If (lugarEstudios = 5) AndAlso (nivelEstudios = 1) AndAlso edadEncuestado > 5 Then
+                MessageBox.Show("Indicó un valor inconsistente con el nivel de estudios y edad del encuestado.", "Dato no válido", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 lkpDondeEstudia.EditValue = ""
             End If
         End If
@@ -1807,6 +1832,14 @@ Public Class NuevoHogar
             lkpPropiedad.Properties.Appearance.BorderColor = Color.Red
         Else
             lkpPropiedad.Properties.Appearance.BorderColor = Nothing
+
+            'Campo Otra Propiedad Vivienda
+            If lkpPropiedad.EditValue = 4 AndAlso txtPropiedadOtra.Text = "" Then
+                completo = False
+                txtPropiedadOtra.Properties.Appearance.BorderColor = Color.Red
+            Else
+                txtPropiedadOtra.Properties.Appearance.BorderColor = Nothing
+            End If
 
             Select Case lkpPropiedad.EditValue
                 Case 1, 4
@@ -2261,7 +2294,9 @@ Public Class NuevoHogar
     Private Sub lkpEstudiosCompletos_EditValueChanged(sender As Object, e As EventArgs) Handles lkpEstudiosCompletos.EditValueChanged
         If txtAnoNacimiento.Text <> "" AndAlso lkpEstudios.EditValue IsNot Nothing Then
             Dim nivelEstudios As Integer = Convert.ToInt32(IIf(lkpEstudios.EditValue IsNot Nothing AndAlso lkpEstudios.EditValue.ToString <> "", lkpEstudios.EditValue.ToString, 0))
-            Dim edadEncuestado As Integer = DateTime.Now.Year - Convert.ToInt32(Me.txtAnoNacimiento.Text.ToString)
+            Dim anioNacimiento As Integer = Convert.ToInt32(Me.txtAnoNacimiento.Text.ToString)
+            Dim anioActual As Integer = DateTime.Now.Year
+            Dim edadEncuestado As Integer = anioActual - anioNacimiento
 
             If lkpEstudiosCompletos.EditValue IsNot Nothing AndAlso lkpEstudiosCompletos.EditValue.ToString <> "" Then
                 Dim opcion As Integer = Integer.Parse(lkpEstudiosCompletos.EditValue.ToString)
@@ -2270,7 +2305,7 @@ Public Class NuevoHogar
                 'Estudios primarios completos con menos de 13 años
                 If edadEncuestado < 13 AndAlso nivelEstudios = 3 AndAlso opcion = 1 Then
                     validadorPersona.Val23 = True
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios primarios completos con menos de 13 años. ¿Confirma que es correcto?.", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios primarios completos con menos de 13 años. ¿Confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
                     If confirma = Windows.Forms.DialogResult.No Then
                         lkpEstudiosCompletos.EditValue = ""
                         lkpEstudios.Focus()
@@ -2283,7 +2318,7 @@ Public Class NuevoHogar
                 'Estudios secundarios completos con menos de 17 años
                 If edadEncuestado < 17 AndAlso nivelEstudios = 4 AndAlso opcion = 1 Then
                     validadorPersona.Val24 = True
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios secundarios completos con menos de 17 años. Corrija la información.", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios secundarios completos con menos de 17 años. ¿Confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
                     If confirma = Windows.Forms.DialogResult.No Then
                         lkpEstudiosCompletos.EditValue = ""
                         lkpEstudios.Focus()
@@ -2296,7 +2331,7 @@ Public Class NuevoHogar
                 'Estudios profesionales completos con menos de 22 años
                 If edadEncuestado < 22 AndAlso nivelEstudios = 5 AndAlso opcion = 1 Then
                     validadorPersona.Val25 = True
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios universitarios con menos de 17 años. Corrija la información.", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios universitarios completos con menos de 22 años. ¿Confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
                     If confirma = Windows.Forms.DialogResult.No Then
                         lkpEstudiosCompletos.EditValue = ""
                         lkpEstudios.Focus()
@@ -3025,5 +3060,38 @@ Public Class NuevoHogar
             spDiscapacidadOtra.Collapsed = True
             txtDiscapacidadOtra.Visible = False
         End If
+    End Sub
+
+    Private Sub txtAnioFabricacion_Leave(sender As Object, e As EventArgs) Handles txtAnioFabricacion.Leave
+        Dim valor As Integer
+        Try
+            If (txtAnioFabricacion.Text IsNot Nothing AndAlso txtAnioFabricacion.Text <> "") Then
+                valor = txtAnioFabricacion.Text
+                If (valor < 1950) Then
+                    MessageBox.Show("El año de fabricación indicado puede no ser válido, por favor verifique.", "Verificación de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                ElseIf valor > Date.Today().Year + 1 Then
+                    MessageBox.Show("El año de fabricación no es válido, por favor corrija la información.", "Verificación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtAnioFabricacion.Text = ""
+                    txtAnioFabricacion.Focus()
+                End If
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub txtMontoGFT_Leave(sender As Object, e As EventArgs) Handles txtMontoGFT.Leave
+        Try
+            Dim montoIngresado As Integer = txtMontoGFT.Text
+
+            If montoIngresado > 500000 Then
+                MessageBox.Show("Indicó un gasto mensual en transporte mayor a $500.000. Verifique que sea la información correcta.", "Verificación de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            ElseIf montoIngresado = 0 Then
+                MessageBox.Show("Indicó un gasto mensual en transporte igual a 0. Verifique que sea la información correcta.", "Verificación de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

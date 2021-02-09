@@ -33,7 +33,7 @@
     <PublisherName>Trasa Ingenieria Ltda.</PublisherName>
     <SuiteName>EOD 3.0</SuiteName>
     <WebPage>publish.html</WebPage>
-    <ApplicationRevision>239</ApplicationRevision>
+    <ApplicationRevision>249</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

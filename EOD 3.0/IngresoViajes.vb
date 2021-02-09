@@ -28,6 +28,8 @@ Public Class IngresoViajes
     Private mismaManzanaDestino As Boolean = False
     Private primeraCarga As Boolean = True
 
+    Private cargando As Boolean = False
+
     Public Sub New(ByVal idFolio As Integer, ByVal idPersona As Integer, ByVal idViaje As Integer, ByVal nombrePersona As String, ByVal idDiaViajes As Integer, ByVal tipoEncuesta As Integer)
         InitializeComponent()
         Me.idFolio = idFolio
@@ -38,6 +40,7 @@ Public Class IngresoViajes
         Me.tipoEncuesta = tipoEncuesta
 
         Me.KeyPreview = True
+        Me.cargando = True
     End Sub
 
     Private Sub IngresoViajes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -119,6 +122,7 @@ Public Class IngresoViajes
         Me.tabsEtapas.Visible = False
 
         cargaDatosViajeBackground.RunWorkerAsync()
+        cargando = False
     End Sub
 
     Private Sub lkpDondePrimerViaje_EditValueChanged(sender As Object, e As EventArgs) Handles lkpDondePrimerViaje.EditValueChanged
@@ -290,6 +294,7 @@ Public Class IngresoViajes
         Dim opTransporte1 As Integer
         Dim opTransporte2 As Integer
         Me.gcLugarBajadaEtapa1.Visible = True
+        txtMinutosDespues.Enabled = True
 
         ' Asigna valores de modos 1 y 2
         If lkpTransporte1.EditValue IsNot Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" Then
@@ -311,12 +316,12 @@ Public Class IngresoViajes
             Me.lkpTransporte2.Visible = True
             Me.lblTransporte2.Visible = True
             Me.DondeSeBajoE1BindingSource.Filter = "id > 0 "
-
         Else
             ' Viaje a pie, bloquea etapa 2
             Me.lkpTransporte2.EditValue = -1
             Me.lkpTransporte2.Visible = False
             Me.lblTransporte2.Visible = False
+            txtMinutosDespues.Enabled = False
         End If
 
         Me.x_etapa1.Text = "0"
@@ -713,49 +718,51 @@ Public Class IngresoViajes
             Me.lkpFormaPagoE1.Visible = True
             Me.lkpDondeEstacionaE1.Visible = True
 
-            'Validador viaja como chofer y no tiene licencia
-            Try
-                Dim licencia As Integer = persona.LicenciaConducir
+            If Not cargando Then
+                'Validador viaja como chofer y no tiene licencia
+                Try
+                    Dim licencia As Integer = persona.LicenciaConducir
 
-                If licencia = 2 Then
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val16 = True
-                    End If
-                    Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero no indicó que posea licencia de conducir, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    If confirma = Windows.Forms.DialogResult.No Then
-                        lkpViajaComoE1.EditValue = -1
-                        lkpViajaComoE1.Focus()
+                    If licencia = 2 Then
                         If validadorEtapa1 IsNot Nothing Then
-                            validadorEtapa1.Val16 = False
+                            validadorEtapa1.Val16 = True
                         End If
-                    Else
-                        If validadorEtapa1 IsNot Nothing Then
-                            validadorEtapa1.Val16Resp = True
+                        Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero no indicó que posea licencia de conducir, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                        If confirma = Windows.Forms.DialogResult.No Then
+                            lkpViajaComoE1.EditValue = -1
+                            lkpViajaComoE1.Focus()
+                            If validadorEtapa1 IsNot Nothing Then
+                                validadorEtapa1.Val16 = False
+                            End If
+                        Else
+                            If validadorEtapa1 IsNot Nothing Then
+                                validadorEtapa1.Val16Resp = True
+                            End If
                         End If
                     End If
-                End If
-            Catch
-            End Try
+                Catch
+                End Try
 
-            'Validador chofer menor de edad
-            Try
-                Dim edad As Integer = DateTime.Now.Year - persona.AnoNac
-                If edad < 18 Then
-                    Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero es menor de edad, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    If confirma = Windows.Forms.DialogResult.No Then
-                        lkpViajaComoE1.EditValue = -1
-                        lkpViajaComoE1.Focus()
-                        If validadorEtapa1 IsNot Nothing Then
-                            validadorEtapa1.Val16 = False
-                        End If
-                    Else
-                        If validadorEtapa1 IsNot Nothing Then
-                            validadorEtapa1.Val16Resp = True
+                'Validador chofer menor de edad
+                Try
+                    Dim edad As Integer = DateTime.Now.Year - persona.AnoNac
+                    If edad < 18 Then
+                        Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero es menor de edad, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                        If confirma = Windows.Forms.DialogResult.No Then
+                            lkpViajaComoE1.EditValue = -1
+                            lkpViajaComoE1.Focus()
+                            If validadorEtapa1 IsNot Nothing Then
+                                validadorEtapa1.Val16 = False
+                            End If
+                        Else
+                            If validadorEtapa1 IsNot Nothing Then
+                                validadorEtapa1.Val16Resp = True
+                            End If
                         End If
                     End If
-                End If
-            Catch ex As Exception
-            End Try
+                Catch ex As Exception
+                End Try
+            End If
 
 
         End If
@@ -1082,41 +1089,43 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub lkpFormaPagoE2_EditValueChanged(sender As Object, e As EventArgs) Handles lkpFormaPagoE2.EditValueChanged
+        If Not cargando Then
+            Dim opcion As Integer
 
-        Dim opcion As Integer
+            If lkpFormaPagoE2.EditValue IsNot Nothing AndAlso lkpFormaPagoE2.EditValue.ToString <> "" Then
+                opcion = lkpFormaPagoE2.EditValue
+            End If
 
-        If lkpFormaPagoE2.EditValue IsNot Nothing AndAlso lkpFormaPagoE2.EditValue.ToString <> "" Then
-            opcion = lkpFormaPagoE2.EditValue
-        End If
-
-        If opcion < 9 Then
-            Me.lblCuantoPagoE2.Visible = True
-            Me.txtCuantoPagoE2.Visible = True
-            spcPagoEstacionamientoE2.Collapsed = False
-        Else
-            Me.lblCuantoPagoE2.Visible = False
-            Me.txtCuantoPagoE2.Visible = False
-            spcPagoEstacionamientoE2.Collapsed = True
+            If opcion < 9 Then
+                Me.lblCuantoPagoE2.Visible = True
+                Me.txtCuantoPagoE2.Visible = True
+                spcPagoEstacionamientoE2.Collapsed = False
+            Else
+                Me.lblCuantoPagoE2.Visible = False
+                Me.txtCuantoPagoE2.Visible = False
+                spcPagoEstacionamientoE2.Collapsed = True
+            End If
         End If
 
     End Sub
 
     Private Sub lkpFormaPagoE3_EditValueChanged(sender As Object, e As EventArgs) Handles lkpFormaPagoE3.EditValueChanged
+        If Not cargando Then
+            Dim opcion As Integer
 
-        Dim opcion As Integer
+            If lkpFormaPagoE3.EditValue IsNot Nothing AndAlso lkpFormaPagoE3.EditValue.ToString <> "" Then
+                opcion = lkpFormaPagoE3.EditValue
+            End If
 
-        If lkpFormaPagoE3.EditValue IsNot Nothing AndAlso lkpFormaPagoE3.EditValue.ToString <> "" Then
-            opcion = lkpFormaPagoE3.EditValue
-        End If
-
-        If opcion < 9 Then
-            Me.lblCuantoPagoE3.Visible = True
-            Me.txtCuantoPagoE3.Visible = True
-            spcPagoEstacionamientoE3.Collapsed = False
-        Else
-            Me.lblCuantoPagoE3.Visible = False
-            Me.txtCuantoPagoE3.Visible = False
-            spcPagoEstacionamientoE3.Collapsed = True
+            If opcion < 9 Then
+                Me.lblCuantoPagoE3.Visible = True
+                Me.txtCuantoPagoE3.Visible = True
+                spcPagoEstacionamientoE3.Collapsed = False
+            Else
+                Me.lblCuantoPagoE3.Visible = False
+                Me.txtCuantoPagoE3.Visible = False
+                spcPagoEstacionamientoE3.Collapsed = True
+            End If
         End If
 
     End Sub
@@ -1284,7 +1293,7 @@ Public Class IngresoViajes
                     Dim viajesTrabajo() As ViajeRow = datasetEOD.Viaje.Select("hogar = " & Me.idFolio & " and persona = " & Me.idPersona & " and proposito = 1")
                     If viajesTrabajo Is Nothing OrElse viajesTrabajo.Length = 0 Then
                         If Me.lkpOtroViaje.EditValue = 2 Then
-                            If persona.Actividad.Contains("1") And Me.idDiaViajes = 1 Then
+                            If persona.Actividad.Contains("1") AndAlso persona.JornadaTrabajo < 3 AndAlso Me.idDiaViajes = 1 Then
                                 validadorPersona.Val18 = True
                                 confirma2 = MessageBox.Show("Se ha detectado que la persona es trabajadora y no registró viajes por Trabajo, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
                                 If confirma2 = Windows.Forms.DialogResult.No Then
@@ -1856,6 +1865,7 @@ Public Class IngresoViajes
 
                     'Resetear si tiene otro viaje
                     If Me.lkpOtroViaje.EditValue = 1 Then
+                        cargando = True
 
                         validadorViaje = datasetEOD.ValidaViaje.NewValidaViajeRow
                         validadorEtapa1 = Nothing
@@ -1963,6 +1973,7 @@ Public Class IngresoViajes
                         Me.DondeSeBajoE2BindingSource.Filter = "id > 0"
 
                         Me.tmHoraSalida.Focus()
+                        cargando = False
                     Else
                         'Sino, contestar ingresos o lanzar resumen viajes
 
@@ -2331,49 +2342,52 @@ Public Class IngresoViajes
             Me.lkpFormaPagoE2.Visible = True
             Me.lkpDondeEstacionaE2.Visible = True
 
-            'Validador viaja como chofer y no tiene licencia
-            Try
-                Dim licencia As Integer = persona.LicenciaConducir
+            If Not cargando Then
+                'Validador viaja como chofer y no tiene licencia
+                Try
+                    Dim licencia As Integer = persona.LicenciaConducir
 
-                If licencia = 2 Then
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val16 = True
-                    End If
-                    Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero no indicó que posea licencia de conducir, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    If confirma = Windows.Forms.DialogResult.No Then
-                        lkpViajaComoE2.EditValue = -1
-                        lkpViajaComoE2.Focus()
+                    If licencia = 2 Then
                         If validadorEtapa2 IsNot Nothing Then
-                            validadorEtapa2.Val16 = False
+                            validadorEtapa2.Val16 = True
                         End If
-                    Else
-                        If validadorEtapa2 IsNot Nothing Then
-                            validadorEtapa2.Val16Resp = True
+                        Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero no indicó que posea licencia de conducir, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                        If confirma = Windows.Forms.DialogResult.No Then
+                            lkpViajaComoE2.EditValue = -1
+                            lkpViajaComoE2.Focus()
+                            If validadorEtapa2 IsNot Nothing Then
+                                validadorEtapa2.Val16 = False
+                            End If
+                        Else
+                            If validadorEtapa2 IsNot Nothing Then
+                                validadorEtapa2.Val16Resp = True
+                            End If
                         End If
                     End If
-                End If
-            Catch
-            End Try
+                Catch
+                End Try
 
-            'Validador chofer menor de edad
-            Try
-                Dim edad As Integer = DateTime.Now.Year - persona.AnoNac
-                If edad < 18 Then
-                    Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero es menor de edad, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    If confirma = Windows.Forms.DialogResult.No Then
-                        lkpViajaComoE2.EditValue = -1
-                        lkpViajaComoE2.Focus()
-                        If validadorEtapa2 IsNot Nothing Then
-                            validadorEtapa2.Val16 = False
-                        End If
-                    Else
-                        If validadorEtapa2 IsNot Nothing Then
-                            validadorEtapa2.Val16Resp = True
+                'Validador chofer menor de edad
+                Try
+                    Dim edad As Integer = DateTime.Now.Year - persona.AnoNac
+                    If edad < 18 Then
+                        Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero es menor de edad, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                        If confirma = Windows.Forms.DialogResult.No Then
+                            lkpViajaComoE2.EditValue = -1
+                            lkpViajaComoE2.Focus()
+                            If validadorEtapa2 IsNot Nothing Then
+                                validadorEtapa2.Val16 = False
+                            End If
+                        Else
+                            If validadorEtapa2 IsNot Nothing Then
+                                validadorEtapa2.Val16Resp = True
+                            End If
                         End If
                     End If
-                End If
-            Catch ex As Exception
-            End Try
+                Catch ex As Exception
+                End Try
+            End If
+
 
         End If
     End Sub
@@ -2397,114 +2411,118 @@ Public Class IngresoViajes
             Me.txtCuantoPagoE3.Visible = True
             Me.lkpFormaPagoE3.Visible = True
 
-            'Validador viaja como chofer y no tiene licencia
-            Try
-                Dim licencia As Integer = persona.LicenciaConducir
+            If Not cargando Then
+                'Validador viaja como chofer y no tiene licencia
+                Try
+                    Dim licencia As Integer = persona.LicenciaConducir
 
-                If licencia = 2 Then
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val16 = True
-                    End If
-                    Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero no indicó que posea licencia de conducir, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    If confirma = Windows.Forms.DialogResult.No Then
-                        lkpViajaComoE3.EditValue = -1
-                        lkpViajaComoE3.Focus()
+                    If licencia = 2 Then
                         If validadorEtapa3 IsNot Nothing Then
-                            validadorEtapa3.Val16 = False
+                            validadorEtapa3.Val16 = True
                         End If
-                    Else
-                        If validadorEtapa3 IsNot Nothing Then
-                            validadorEtapa3.Val16Resp = True
+                        Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero no indicó que posea licencia de conducir, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                        If confirma = Windows.Forms.DialogResult.No Then
+                            lkpViajaComoE3.EditValue = -1
+                            lkpViajaComoE3.Focus()
+                            If validadorEtapa3 IsNot Nothing Then
+                                validadorEtapa3.Val16 = False
+                            End If
+                        Else
+                            If validadorEtapa3 IsNot Nothing Then
+                                validadorEtapa3.Val16Resp = True
+                            End If
                         End If
                     End If
-                End If
-            Catch
-            End Try
+                Catch
+                End Try
 
-            'Validador chofer menor de edad
-            Try
-                Dim edad As Integer = DateTime.Now.Year - persona.AnoNac
-                If edad < 18 Then
-                    Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero es menor de edad, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    If confirma = Windows.Forms.DialogResult.No Then
-                        lkpViajaComoE3.EditValue = -1
-                        lkpViajaComoE3.Focus()
-                        If validadorEtapa3 IsNot Nothing Then
-                            validadorEtapa3.Val16 = False
-                        End If
-                    Else
-                        If validadorEtapa3 IsNot Nothing Then
-                            validadorEtapa3.Val16Resp = True
+                'Validador chofer menor de edad
+                Try
+                    Dim edad As Integer = DateTime.Now.Year - persona.AnoNac
+                    If edad < 18 Then
+                        Dim confirma As DialogResult = MessageBox.Show("El encuestado viaja como chofer pero es menor de edad, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                        If confirma = Windows.Forms.DialogResult.No Then
+                            lkpViajaComoE3.EditValue = -1
+                            lkpViajaComoE3.Focus()
+                            If validadorEtapa3 IsNot Nothing Then
+                                validadorEtapa3.Val16 = False
+                            End If
+                        Else
+                            If validadorEtapa3 IsNot Nothing Then
+                                validadorEtapa3.Val16Resp = True
+                            End If
                         End If
                     End If
-                End If
-            Catch ex As Exception
-            End Try
+                Catch ex As Exception
+                End Try
+            End If
 
         End If
     End Sub
 
     Private Sub lkpTrasnoche_EditValueChanged(sender As Object, e As EventArgs) Handles lkpTrasnoche.EditValueChanged
-        Dim opcion As Integer
+        If Not cargando Then
+            Dim opcion As Integer
 
-        If Not (Me.lkpTrasnoche.EditValue Is Nothing OrElse Me.lkpTrasnoche.EditValue.ToString = "") Then
-            opcion = Me.lkpTrasnoche.EditValue
-        End If
-
-        Dim horaSalida As DateTime = Me.tmHoraSalida.EditValue
-        Dim horaLlegada As DateTime = Me.tmHoraLlegada.EditValue
-
-        If opcion = 2 Then
-            'Validador hora de llegada superior a hora de salida
-            If horaLlegada <= horaSalida Then
-                MessageBox.Show("Las horas de salida y llegada del viaje son inconsistentes. Por favor, revisar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                tmHoraSalida.Focus()
+            If Not (Me.lkpTrasnoche.EditValue Is Nothing OrElse Me.lkpTrasnoche.EditValue.ToString = "") Then
+                opcion = Me.lkpTrasnoche.EditValue
             End If
 
-            'Validador viaje intrazonal mayor a 30 minutos en modo distinto a caminata, viaje 1
-            If lkpComunaOrigen.EditValue IsNot Nothing AndAlso (lkpComunaOrigen.EditValue.ToString = "2" OrElse lkpComunaOrigen.EditValue.ToString = "3") AndAlso lkpComunaDestino.EditValue IsNot Nothing AndAlso (lkpComunaDestino.EditValue.ToString = "2" OrElse lkpComunaDestino.EditValue.ToString = "3") Then
-                If idViaje = 1 Then
-                    If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
-                        If Me.lkpTransporte1.EditValue <> 7 Then
-                            If Me.lkpManzanaOrigen.EditValue IsNot Nothing AndAlso Me.lkpManzanaDestino.EditValue IsNot Nothing Then
-                                If Me.lkpManzanaOrigen.EditValue.ToString <> "" AndAlso Me.lkpManzanaDestino.EditValue.ToString <> "" Then
-                                    If Not Me.lkpTransporte1.EditValue Is Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
-                                        Dim zonaOrigen As Integer = Me.lkpManzanaOrigen.EditValue \ 1000
-                                        Dim zonaDestino As Integer = Me.lkpManzanaDestino.EditValue \ 1000
-                                        If zonaOrigen = zonaDestino Then
-                                            validadorViaje.Val9 = True
-                                            Dim confirma As DialogResult = MessageBox.Show("Este viaje es intrazonal pero duró más de 30 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                                            If confirma = Windows.Forms.DialogResult.No Then
-                                                validadorViaje.Val9 = False
-                                                Me.lkpManzanaDestino.EditValue = ""
-                                                Me.lkpManzanaDestino.Focus()
-                                            Else
-                                                validadorViaje.Val9Resp = True
+            Dim horaSalida As DateTime = Me.tmHoraSalida.EditValue
+            Dim horaLlegada As DateTime = Me.tmHoraLlegada.EditValue
+
+            If opcion = 2 Then
+                'Validador hora de llegada superior a hora de salida
+                If horaLlegada <= horaSalida Then
+                    MessageBox.Show("Las horas de salida y llegada del viaje son inconsistentes. Por favor, revisar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    tmHoraSalida.Focus()
+                End If
+
+                'Validador viaje intrazonal mayor a 30 minutos en modo distinto a caminata, viaje 1
+                If lkpComunaOrigen.EditValue IsNot Nothing AndAlso (lkpComunaOrigen.EditValue.ToString = "2" OrElse lkpComunaOrigen.EditValue.ToString = "3") AndAlso lkpComunaDestino.EditValue IsNot Nothing AndAlso (lkpComunaDestino.EditValue.ToString = "2" OrElse lkpComunaDestino.EditValue.ToString = "3") Then
+                    If idViaje = 1 Then
+                        If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                            If Me.lkpTransporte1.EditValue <> 7 Then
+                                If Me.lkpManzanaOrigen.EditValue IsNot Nothing AndAlso Me.lkpManzanaDestino.EditValue IsNot Nothing Then
+                                    If Me.lkpManzanaOrigen.EditValue.ToString <> "" AndAlso Me.lkpManzanaDestino.EditValue.ToString <> "" Then
+                                        If Not Me.lkpTransporte1.EditValue Is Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                                            Dim zonaOrigen As Integer = Me.lkpManzanaOrigen.EditValue \ 1000
+                                            Dim zonaDestino As Integer = Me.lkpManzanaDestino.EditValue \ 1000
+                                            If zonaOrigen = zonaDestino Then
+                                                validadorViaje.Val9 = True
+                                                Dim confirma As DialogResult = MessageBox.Show("Este viaje es intrazonal pero duró más de 30 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                                                If confirma = Windows.Forms.DialogResult.No Then
+                                                    validadorViaje.Val9 = False
+                                                    Me.lkpManzanaDestino.EditValue = ""
+                                                    Me.lkpManzanaDestino.Focus()
+                                                Else
+                                                    validadorViaje.Val9Resp = True
+                                                End If
                                             End If
                                         End If
                                     End If
                                 End If
                             End If
                         End If
-                    End If
-                ElseIf idViaje > 1 Then
-                    If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
-                        If Me.lkpTransporte1.EditValue <> 7 Then
-                            If Not Me.txtManzanaAnterior.Text = "" AndAlso Me.lkpManzanaDestino.EditValue IsNot Nothing Then
-                                If Me.txtManzanaAnterior.Text <> "" AndAlso Me.lkpManzanaDestino.EditValue.ToString <> "" Then
-                                    If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
-                                        Dim manzanaAnterior As Integer = Me.txtManzanaAnterior.Text
-                                        Dim zonaOrigen As Integer = manzanaAnterior \ 1000
-                                        Dim zonaDestino As Integer = Me.lkpManzanaDestino.EditValue \ 1000
-                                        If zonaOrigen = zonaDestino Then
-                                            validadorViaje.Val9 = True
-                                            Dim confirma As DialogResult = MessageBox.Show("Este viaje es intrazonal pero duró más de 30 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                                            If confirma = Windows.Forms.DialogResult.No Then
-                                                validadorViaje.Val9 = False
-                                                Me.lkpManzanaDestino.EditValue = ""
-                                                Me.lkpManzanaDestino.Focus()
-                                            Else
-                                                validadorViaje.Val9Resp = True
+                    ElseIf idViaje > 1 Then
+                        If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                            If Me.lkpTransporte1.EditValue <> 7 Then
+                                If Not Me.txtManzanaAnterior.Text = "" AndAlso Me.lkpManzanaDestino.EditValue IsNot Nothing Then
+                                    If Me.txtManzanaAnterior.Text <> "" AndAlso Me.lkpManzanaDestino.EditValue.ToString <> "" Then
+                                        If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                                            Dim manzanaAnterior As Integer = Me.txtManzanaAnterior.Text
+                                            Dim zonaOrigen As Integer = manzanaAnterior \ 1000
+                                            Dim zonaDestino As Integer = Me.lkpManzanaDestino.EditValue \ 1000
+                                            If zonaOrigen = zonaDestino Then
+                                                validadorViaje.Val9 = True
+                                                Dim confirma As DialogResult = MessageBox.Show("Este viaje es intrazonal pero duró más de 30 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                                                If confirma = Windows.Forms.DialogResult.No Then
+                                                    validadorViaje.Val9 = False
+                                                    Me.lkpManzanaDestino.EditValue = ""
+                                                    Me.lkpManzanaDestino.Focus()
+                                                Else
+                                                    validadorViaje.Val9Resp = True
+                                                End If
                                             End If
                                         End If
                                     End If
@@ -2513,27 +2531,28 @@ Public Class IngresoViajes
                         End If
                     End If
                 End If
+            ElseIf opcion = 1 Then
+                'Validador hora de llegada superior a hora de salida
+                If horaLlegada >= horaSalida Then
+                    MessageBox.Show("Las horas de salida y llegada del viaje son inconsistentes. Por favor, revisar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    tmHoraSalida.Focus()
+                End If
             End If
-        ElseIf opcion = 1 Then
-            'Validador hora de llegada superior a hora de salida
-            If horaLlegada >= horaSalida Then
-                MessageBox.Show("Las horas de salida y llegada del viaje son inconsistentes. Por favor, revisar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                tmHoraSalida.Focus()
-            End If
-        End If
 
-        'Viaje a pie, calcular minutos viaje
-        If lkpTransporte1.EditValue IsNot Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" AndAlso lkpTransporte1.EditValue = 7 Then
-            Dim dtLlegada As DateTime = tmHoraLlegada.EditValue
-            Dim dtSalida As DateTime = tmHoraSalida.EditValue
-            Select Case opcion
-                Case 1
-                    Dim tpoViaje As Integer = (dtSalida - dtLlegada).TotalMinutes
-                    txtMinutosDespues.Text = tpoViaje
-                Case 2
-                    Dim tpoViaje As Integer = (dtLlegada - dtSalida).TotalMinutes
-                    txtMinutosDespues.Text = tpoViaje
-            End Select
+            'Viaje a pie, calcular minutos viaje
+            If lkpTransporte1.EditValue IsNot Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" AndAlso lkpTransporte1.EditValue = 7 Then
+                Dim dtLlegada As DateTime = tmHoraLlegada.EditValue
+                Dim dtSalida As DateTime = tmHoraSalida.EditValue
+                Select Case opcion
+                    Case 1
+                        Dim tpoViaje As Integer = (dtSalida - dtLlegada).TotalMinutes
+                        txtMinutosDespues.Text = tpoViaje
+                        txtMinutosDespues.Enabled = False
+                    Case 2
+                        Dim tpoViaje As Integer = (dtLlegada - dtSalida).TotalMinutes
+                        txtMinutosDespues.Text = tpoViaje
+                End Select
+            End If
         End If
     End Sub
 
@@ -2794,491 +2813,625 @@ Public Class IngresoViajes
         End Select
     End Sub
 
-    Private Sub txtCuadrasDespues_EditValueChanged(sender As Object, e As EventArgs) Handles txtCuadrasDespues.EditValueChanged
-        Dim cuadrasDespues As Integer = Convert.ToInt32(Me.txtCuadrasDespues.Text)
+    Private Function getLugarBajada() As Integer
+        Dim ultimoTransporte As Integer
+        Dim ultimaEtapa As Integer
+        Dim lugarBajada As Integer
 
-        'Validador más de 2 cuadras después en t. público
-        If cuadrasDespues > 2 Then
-            'Comprobar tercera etapa
-            Dim muestraValidadorTP As Boolean = False
+        If (lkpTransporte3.EditValue.ToString <> "" AndAlso lkpTransporte3.EditValue > 0) Then
+            ultimoTransporte = lkpTransporte2.EditValue
+            ultimaEtapa = 3
+        ElseIf (lkpTransporte2.EditValue.ToString <> "" AndAlso lkpTransporte2.EditValue > 0) Then
+            ultimoTransporte = lkpTransporte2.EditValue
+            ultimaEtapa = 2
+        ElseIf (lkpTransporte1.EditValue.ToString <> "" AndAlso lkpTransporte1.EditValue > 0) Then
+            ultimoTransporte = lkpTransporte1.EditValue
+            ultimaEtapa = 1
+        End If
 
-            If Not lkpTransporte3.EditValue Is Nothing AndAlso lkpTransporte3.EditValue.ToString <> "" Then
-                Dim etapa3 As Integer = Me.lkpTransporte3.EditValue
-
-                Select Case etapa3
-                    Case 2
-                        If Not lkpLugarBajadaBusE3.EditValue Is Nothing AndAlso Me.lkpLugarBajadaBusE3.EditValue = 1 Then
-                            muestraValidadorTP = True
-                        End If
-                    Case 3, 4
-                        If Not lkpLugarBajadaTXCE3.EditValue Is Nothing AndAlso Me.lkpLugarBajadaTXCE3.EditValue = 1 Then
-                            muestraValidadorTP = True
-                        End If
-                End Select
-
-                'Comprobar segunda etapa
-                If Not lkpTransporte2.EditValue Is Nothing AndAlso lkpTransporte2.EditValue.ToString <> "" Then
-                    Dim etapa2 As Integer = Me.lkpTransporte2.EditValue
-
-                    Select Case etapa2
+        If ultimoTransporte > 0 AndAlso ultimaEtapa > 0 Then
+            Select Case ultimoTransporte
+                Case 1, 5, 9
+                    Select Case ultimaEtapa
+                        Case 1
+                            lugarBajada = lkpLugarBajadaAutoE1.EditValue
                         Case 2
-                            If Not lkpLugarBajadaBusE2.EditValue Is Nothing AndAlso Me.lkpLugarBajadaBusE2.EditValue = 1 Then
-                                muestraValidadorTP = True
-                            End If
-                        Case 3, 4
-                            If Not lkpLugarBajadaTXCE2.EditValue Is Nothing AndAlso Me.lkpLugarBajadaTXCE2.EditValue = 1 Then
-                                muestraValidadorTP = True
-                            End If
+                            lugarBajada = lkpLugarBajadaAutoE2.EditValue
+                        Case 3
+                            lugarBajada = lkpLugarBajadaAutoE3.EditValue
                     End Select
+                Case 2, 10, 11, 12
+                    Select Case ultimaEtapa
+                        Case 1
+                            lugarBajada = lkpLugarBajadaBusE1.EditValue
+                        Case 2
+                            lugarBajada = lkpLugarBajadaBusE2.EditValue
+                        Case 3
+                            lugarBajada = lkpLugarBajadaBusE3.EditValue
+                    End Select
+                Case 3, 4
+                    Select Case ultimaEtapa
+                        Case 1
+                            lugarBajada = lkpLugarBajadaTXCE1.EditValue
+                        Case 2
+                            lugarBajada = lkpLugarBajadaTXCE2.EditValue
+                        Case 3
+                            lugarBajada = lkpLugarBajadaTXCE3.EditValue
+                    End Select
+                Case 6
+                    Select Case ultimaEtapa
+                        Case 1
+                            lugarBajada = lkpLugarBajadaTaxiE1.EditValue
+                        Case 2
+                            lugarBajada = lkpLugarBajadaTaxiE2.EditValue
+                        Case 3
+                            lugarBajada = lkpLugarBajadaTaxiE3.EditValue
+                    End Select
+                Case 8
+                    Select Case ultimaEtapa
+                        Case 1
+                            lugarBajada = lkpLugarBajadaBiciE1.EditValue
+                        Case 2
+                            lugarBajada = lkpLugarBajadaBiciE2.EditValue
+                        Case 3
+                            lugarBajada = lkpLugarBajadaBiciE3.EditValue
+                    End Select
+            End Select
+        End If
 
-                    'Comprobar primera etapa
-                    If Not lkpTransporte1.EditValue Is Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" Then
-                        Dim etapa1 As Integer = Me.lkpTransporte1.EditValue
+        Return lugarBajada
 
-                        Select Case etapa1
-                            Case 2
-                                If Not lkpLugarBajadaBusE1.EditValue Is Nothing AndAlso Me.lkpLugarBajadaBusE1.EditValue = 1 Then
-                                    muestraValidadorTP = True
+    End Function
+
+    Private Sub txtCuadrasDespues_Leave(sender As Object, e As EventArgs) Handles txtCuadrasDespues.Leave
+        If Not cargando Then
+
+            Dim lugarBajada As Integer = getLugarBajada()
+
+            If (txtCuadrasDespues.Text <> "") Then
+
+                Dim cuadrasDespues As Integer = Convert.ToInt32(Me.txtCuadrasDespues.Text)
+
+                'Validador más de 2 cuadras después en t. público
+                If cuadrasDespues > 2 Then
+                        'Comprobar tercera etapa
+                        Dim muestraValidadorTP As Boolean = False
+
+                        If Not lkpTransporte3.EditValue Is Nothing AndAlso lkpTransporte3.EditValue.ToString <> "" Then
+                            Dim etapa3 As Integer = Me.lkpTransporte3.EditValue
+
+                            Select Case etapa3
+                                Case 2
+                                    If Not lkpLugarBajadaBusE3.EditValue Is Nothing AndAlso Me.lkpLugarBajadaBusE3.EditValue = 1 Then
+                                        muestraValidadorTP = True
+                                    End If
+                                Case 3, 4
+                                    If Not lkpLugarBajadaTXCE3.EditValue Is Nothing AndAlso Me.lkpLugarBajadaTXCE3.EditValue = 1 Then
+                                        muestraValidadorTP = True
+                                    End If
+                            End Select
+
+                            'Comprobar segunda etapa
+                            If Not lkpTransporte2.EditValue Is Nothing AndAlso lkpTransporte2.EditValue.ToString <> "" Then
+                                Dim etapa2 As Integer = Me.lkpTransporte2.EditValue
+
+                                Select Case etapa2
+                                    Case 2
+                                        If Not lkpLugarBajadaBusE2.EditValue Is Nothing AndAlso Me.lkpLugarBajadaBusE2.EditValue = 1 Then
+                                            muestraValidadorTP = True
+                                        End If
+                                    Case 3, 4
+                                        If Not lkpLugarBajadaTXCE2.EditValue Is Nothing AndAlso Me.lkpLugarBajadaTXCE2.EditValue = 1 Then
+                                            muestraValidadorTP = True
+                                        End If
+                                End Select
+
+                                'Comprobar primera etapa
+                                If Not lkpTransporte1.EditValue Is Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" Then
+                                    Dim etapa1 As Integer = Me.lkpTransporte1.EditValue
+
+                                    Select Case etapa1
+                                        Case 2
+                                            If Not lkpLugarBajadaBusE1.EditValue Is Nothing AndAlso Me.lkpLugarBajadaBusE1.EditValue = 1 Then
+                                                muestraValidadorTP = True
+                                            End If
+                                        Case 3, 4
+                                            If Not lkpLugarBajadaTXCE1.EditValue Is Nothing AndAlso Me.lkpLugarBajadaTXCE1.EditValue = 1 Then
+                                                muestraValidadorTP = True
+                                            End If
+                                    End Select
                                 End If
-                            Case 3, 4
-                                If Not lkpLugarBajadaTXCE1.EditValue Is Nothing AndAlso Me.lkpLugarBajadaTXCE1.EditValue = 1 Then
-                                    muestraValidadorTP = True
-                                End If
-                        End Select
+                            End If
+                        End If
+
+                        If muestraValidadorTP Then
+                            Dim confirma As DialogResult = MessageBox.Show("Ha indicado que se baja en el lugar de destino pero posteriormente camina más de 2 cuadras, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                            If confirma = Windows.Forms.DialogResult.No Then
+                                txtCuadrasDespues.Text = ""
+                                txtCuadrasDespues.Focus()
+                            End If
+                        End If
+                    End If
+
+                'Validador caminata con cuadras 0
+                If Not lkpTransporte1.EditValue Is Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" Then
+                    If lkpTransporte1.EditValue = 7 AndAlso Me.txtCuadrasDespues.Text <> "" Then
+                        If Convert.ToInt32(Me.txtCuadrasDespues.Text) = 0 Then
+                            MessageBox.Show("Debe indicar un valor de cuadras caminadas mayor a 0", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                            txtCuadrasDespues.Text = ""
+                            txtCuadrasDespues.Focus()
+                        End If
+                    ElseIf txtMinutosDespues.Enabled = False AndAlso txtMinutosDespues.Text <> "" Then
+                        If txtCuadrasDespues.Text = "0" Then
+                            MessageBox.Show("Debe indicar un valor de cuadras caminadas mayor a 0", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                            txtCuadrasDespues.Text = ""
+                            txtCuadrasDespues.Focus()
+                        End If
+                    Else
+                        If txtCuadrasDespues.Text = "0" Then
+                            txtMinutosDespues.Text = "0"
+                            lkpOtroViaje.Focus()
+                        End If
                     End If
                 End If
-            End If
 
-            If muestraValidadorTP Then
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que se baja en el lugar de destino pero posteriormente camina más de 2 cuadras, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validar otro lugar de bajada con cuadras 0
+                If lugarBajada = 2 AndAlso cuadrasDespues = 0 Then
+                    MessageBox.Show("Debe indicar un valor de cuadras caminadas mayor a 0", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     txtCuadrasDespues.Text = ""
                     txtCuadrasDespues.Focus()
                 End If
+
             End If
         End If
-
-
-        'Validador caminata con cuadras 0
-        If Not lkpTransporte1.EditValue Is Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" Then
-            If lkpTransporte1.EditValue = 7 AndAlso Me.txtCuadrasDespues.Text <> "" Then
-                If Convert.ToInt32(Me.txtCuadrasDespues.Text) = 0 Then
-                    MessageBox.Show("Debe indicar un valor de cuadras caminadas mayor a 0", "Dato inconsistente", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    txtCuadrasDespues.Text = ""
-                    txtCuadrasDespues.Focus()
-                End If
-            Else
-                If txtCuadrasDespues.Text = "0" Then
-                    txtMinutosDespues.Text = "0"
-                    lkpOtroViaje.Focus()
-                End If
-            End If
-        End If
-
-
 
     End Sub
 
-    Private Sub txtMinutosDespues_EditValueChanged(sender As Object, e As EventArgs) Handles txtMinutosDespues.EditValueChanged
-        'Validador caminata con minutos 0
-        If Not lkpTransporte1.EditValue Is Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" Then
-            If lkpTransporte1.EditValue = 7 AndAlso Me.txtMinutosDespues.Text <> "" Then
-                If Convert.ToInt32(Me.txtMinutosDespues.Text) = 0 Then
-                    MessageBox.Show("Debe indicar un valor de minutos caminados mayor a 0", "Dato inconsistente", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    txtMinutosDespues.Text = ""
-                    txtMinutosDespues.Focus()
-                End If
-            End If
-        ElseIf Convert.ToInt32(txtMinutosDespues.Text) = 0 AndAlso txtCuadrasDespues.Text <> "" AndAlso Convert.ToInt32(txtCuadrasDespues.Text) > 0 Then
-            MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            txtMinutosDespues.Text = ""
-            txtCuadrasDespues.Text = ""
-            txtCuadrasDespues.Focus()
-        ElseIf Convert.ToInt32(txtMinutosDespues.Text) > 0 AndAlso txtCuadrasDespues.Text <> "" AndAlso Convert.ToInt32(txtCuadrasDespues.Text) = 0 Then
-            MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            txtCuadrasDespues.Focus()
+    Private Sub txtMinutosDespues_Leave(sender As Object, e As EventArgs) Handles txtMinutosDespues.Leave
+        If Not cargando Then
 
+            Dim lugarBajada As Integer = getLugarBajada()
+
+            If (txtMinutosDespues.Text <> "" AndAlso txtCuadrasDespues.Text <> "") Then
+                Try
+                    Dim minutos As Integer = txtMinutosDespues.Text
+                    Dim cuadras As Integer = txtCuadrasDespues.Text
+
+                    'Validador caminata con minutos 0
+                    If lkpTransporte1.EditValue IsNot Nothing AndAlso lkpTransporte1.EditValue.ToString = "7" Then
+                        If minutos = 0 Then
+                            MessageBox.Show("Debe indicar un valor de minutos caminados mayor a 0", "Dato inconsistente", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                            txtMinutosDespues.Text = ""
+                            txtMinutosDespues.Focus()
+                        End If
+                    ElseIf minutos = 0 AndAlso cuadras > 0 Then
+                        MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        txtMinutosDespues.Text = ""
+                        txtCuadrasDespues.Text = ""
+                        txtCuadrasDespues.Focus()
+                    ElseIf minutos > 0 AndAlso cuadras = 0 Then
+                        MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        txtCuadrasDespues.Text = ""
+                        txtCuadrasDespues.Focus()
+                    End If
+
+                    'Validar otro lugar de bajada con minutos 0
+                    If lugarBajada = 2 AndAlso minutos = 0 Then
+                        MessageBox.Show("Debe indicar un valor de minutos caminados mayor a 0", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        txtMinutosDespues.Text = ""
+                        txtMinutosDespues.Focus()
+                    End If
+                Catch ex As Exception
+
+                End Try
+            End If
         End If
     End Sub
 
     Private Sub txtCuadrasAutoE1_Leave(sender As Object, e As EventArgs) Handles txtCuadrasAutoE1.Leave
-        If txtCuadrasAutoE1.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasAutoE1.Text <> "" Then
 
-            'Validador cuadras para llegar a vehículo mayor a 5
-            If Convert.ToInt32(txtCuadrasAutoE1.Text) > 5 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val1 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasAutoE1.Text = ""
-                    txtCuadrasAutoE1.Focus()
+                'Validador cuadras para llegar a vehículo mayor a 5
+                If Convert.ToInt32(txtCuadrasAutoE1.Text) > 5 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val1 = False
+                        validadorEtapa1.Val1 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val1Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasAutoE1.Text = ""
+                        txtCuadrasAutoE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val1 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val1Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasAutoE1.Text) = 0 Then
+                    txtMinutosAutoE1.Text = 0
+                    lkpViajaComoE1.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasAutoE1.Text) = 0 Then
-                txtMinutosAutoE1.Text = 0
-                lkpViajaComoE1.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtCuadrasAutoE2_Leave(sender As Object, e As EventArgs) Handles txtCuadrasAutoE2.Leave
-        If txtCuadrasAutoE2.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasAutoE2.Text <> "" Then
 
-            'Validador cuadras para llegar a vehículo mayor a 5
-            If Convert.ToInt32(txtCuadrasAutoE2.Text) > 5 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val1 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasAutoE2.Text = ""
-                    txtCuadrasAutoE2.Focus()
+                'Validador cuadras para llegar a vehículo mayor a 5
+                If Convert.ToInt32(txtCuadrasAutoE2.Text) > 5 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val1 = False
+                        validadorEtapa2.Val1 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val1Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasAutoE2.Text = ""
+                        txtCuadrasAutoE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val1 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val1Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasAutoE2.Text) = 0 Then
+                    txtMinutosAutoE2.Text = 0
+                    lkpViajaComoE2.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasAutoE2.Text) = 0 Then
-                txtMinutosAutoE2.Text = 0
-                lkpViajaComoE2.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtCuadrasAutoE3_Leave(sender As Object, e As EventArgs) Handles txtCuadrasAutoE3.Leave
-        If txtCuadrasAutoE3.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasAutoE3.Text <> "" Then
 
-            'Validador cuadras para llegar a vehículo mayor a 5
-            If Convert.ToInt32(txtCuadrasAutoE3.Text) > 5 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val1 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasAutoE3.Text = ""
-                    txtCuadrasAutoE3.Focus()
+                'Validador cuadras para llegar a vehículo mayor a 5
+                If Convert.ToInt32(txtCuadrasAutoE3.Text) > 5 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val1 = False
+                        validadorEtapa3.Val1 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val1Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasAutoE3.Text = ""
+                        txtCuadrasAutoE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val1 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val1Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasAutoE3.Text) = 0 Then
+                    txtMinutosAutoE3.Text = 0
+                    lkpViajaComoE3.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasAutoE3.Text) = 0 Then
-                txtMinutosAutoE3.Text = 0
-                lkpViajaComoE3.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosAutoE1_Leave(sender As Object, e As EventArgs) Handles txtMinutosAutoE1.Leave
-        If txtMinutosAutoE1.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosAutoE1.Text <> "" Then
 
-            'Validador minutos para llegar a vehículo mayor a 10
-            If Convert.ToInt32(txtMinutosAutoE1.Text) > 10 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val2 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar a vehículo mayor a 10
+                If Convert.ToInt32(txtMinutosAutoE1.Text) > 10 Then
+                    If validadorEtapa1 IsNot Nothing Then
+                        validadorEtapa1.Val2 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosAutoE1.Text = ""
+                        txtMinutosAutoE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val2 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val2Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosAutoE1.Text) = 0 AndAlso txtCuadrasAutoE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE1.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosAutoE1.Text = ""
-                    txtMinutosAutoE1.Focus()
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val2 = False
-                    End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val2Resp = True
-                    End If
+                    txtCuadrasAutoE1.Text = ""
+                    txtCuadrasAutoE1.Focus()
+                ElseIf Convert.ToInt32(txtMinutosAutoE1.Text) > 0 AndAlso txtCuadrasAutoE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE1.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosAutoE1.Text = ""
+                    txtCuadrasAutoE1.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosAutoE1.Text) = 0 AndAlso txtCuadrasAutoE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE1.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosAutoE1.Text = ""
-                txtCuadrasAutoE1.Text = ""
-                txtCuadrasAutoE1.Focus()
-            ElseIf Convert.ToInt32(txtMinutosAutoE1.Text) > 0 AndAlso txtCuadrasAutoE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE1.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosAutoE1.Text = ""
-                txtCuadrasAutoE1.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosAutoE2_Leave(sender As Object, e As EventArgs) Handles txtMinutosAutoE2.Leave
-        If txtMinutosAutoE2.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosAutoE2.Text <> "" Then
 
-            'Validador minutos para llegar a vehículo mayor a 10
-            If Convert.ToInt32(txtMinutosAutoE2.Text) > 10 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val2 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar a vehículo mayor a 10
+                If Convert.ToInt32(txtMinutosAutoE2.Text) > 10 Then
+                    If validadorEtapa2 IsNot Nothing Then
+                        validadorEtapa2.Val2 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosAutoE2.Text = ""
+                        txtMinutosAutoE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val2 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val2Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosAutoE2.Text) = 0 AndAlso txtCuadrasAutoE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE2.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosAutoE2.Text = ""
-                    txtMinutosAutoE2.Focus()
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val2 = False
-                    End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val2Resp = True
-                    End If
+                    txtCuadrasAutoE2.Text = ""
+                    txtCuadrasAutoE2.Focus()
+                ElseIf Convert.ToInt32(txtMinutosAutoE2.Text) > 0 AndAlso txtCuadrasAutoE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE2.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosAutoE2.Text = ""
+                    txtCuadrasAutoE2.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosAutoE2.Text) = 0 AndAlso txtCuadrasAutoE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE2.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosAutoE2.Text = ""
-                txtCuadrasAutoE2.Text = ""
-                txtCuadrasAutoE2.Focus()
-            ElseIf Convert.ToInt32(txtMinutosAutoE2.Text) > 0 AndAlso txtCuadrasAutoE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE2.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosAutoE2.Text = ""
-                txtCuadrasAutoE2.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosAutoE3_Leave(sender As Object, e As EventArgs) Handles txtMinutosAutoE3.Leave
-        If txtMinutosAutoE3.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosAutoE3.Text <> "" Then
 
-            'Validador minutos para llegar a vehículo mayor a 10
-            If Convert.ToInt32(txtMinutosAutoE3.Text) > 10 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val2 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar a vehículo mayor a 10
+                If Convert.ToInt32(txtMinutosAutoE3.Text) > 10 Then
+                    If validadorEtapa3 IsNot Nothing Then
+                        validadorEtapa3.Val2 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al vehículo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosAutoE3.Text = ""
+                        txtMinutosAutoE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val2 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val2Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosAutoE3.Text) = 0 AndAlso txtCuadrasAutoE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE3.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosAutoE3.Text = ""
-                    txtMinutosAutoE3.Focus()
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val2 = False
-                    End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val2Resp = True
-                    End If
+                    txtCuadrasAutoE3.Text = ""
+                    txtCuadrasAutoE3.Focus()
+                ElseIf Convert.ToInt32(txtMinutosAutoE3.Text) > 0 AndAlso txtCuadrasAutoE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE3.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosAutoE3.Text = ""
+                    txtCuadrasAutoE3.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosAutoE3.Text) = 0 AndAlso txtCuadrasAutoE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE3.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosAutoE3.Text = ""
-                txtCuadrasAutoE3.Text = ""
-                txtCuadrasAutoE3.Focus()
-            ElseIf Convert.ToInt32(txtMinutosAutoE3.Text) > 0 AndAlso txtCuadrasAutoE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasAutoE3.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosAutoE3.Text = ""
-                txtCuadrasAutoE3.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtCuadrasBusE1_Leave(sender As Object, e As EventArgs) Handles txtCuadrasBusE1.Leave
-        If txtCuadrasBusE1.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasBusE1.Text <> "" Then
 
-            'Validador cuadras para llegar a vehículo mayor a 10
-            If Convert.ToInt32(txtCuadrasBusE1.Text) > 10 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val3 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasBusE1.Text = ""
-                    txtCuadrasBusE1.Focus()
+                'Validador cuadras para llegar a vehículo mayor a 10
+                If Convert.ToInt32(txtCuadrasBusE1.Text) > 10 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val3 = False
+                        validadorEtapa1.Val3 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val3Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasBusE1.Text = ""
+                        txtCuadrasBusE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val3 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val3Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasBusE1.Text) = 0 Then
+                    txtMinutosBusE1.Text = 0
+                    txtMinutosEsperaBusE1.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasBusE1.Text) = 0 Then
-                txtMinutosBusE1.Text = 0
-                txtMinutosEsperaBusE1.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtCuadrasBusE2_Leave(sender As Object, e As EventArgs) Handles txtCuadrasBusE2.Leave
-        If txtCuadrasBusE2.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasBusE2.Text <> "" Then
 
-            'Validador cuadras para llegar a vehículo mayor a 10
-            If Convert.ToInt32(txtCuadrasBusE2.Text) > 10 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val3 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasBusE2.Text = ""
-                    txtCuadrasBusE2.Focus()
+                'Validador cuadras para llegar a vehículo mayor a 10
+                If Convert.ToInt32(txtCuadrasBusE2.Text) > 10 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val3 = False
+                        validadorEtapa2.Val3 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val3Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasBusE2.Text = ""
+                        txtCuadrasBusE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val3 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val3Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasBusE2.Text) = 0 Then
+                    txtMinutosBusE2.Text = 0
+                    txtMinutosEsperaBusE2.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasBusE2.Text) = 0 Then
-                txtMinutosBusE2.Text = 0
-                txtMinutosEsperaBusE2.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtCuadrasBusE3_Leave(sender As Object, e As EventArgs) Handles txtCuadrasBusE3.Leave
-        If txtCuadrasBusE3.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasBusE3.Text <> "" Then
 
-            'Validador cuadras para llegar a vehículo mayor a 10
-            If Convert.ToInt32(txtCuadrasBusE3.Text) > 10 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val3 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasBusE3.Text = ""
-                    txtCuadrasBusE3.Focus()
+                'Validador cuadras para llegar a vehículo mayor a 10
+                If Convert.ToInt32(txtCuadrasBusE3.Text) > 10 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val3 = False
+                        validadorEtapa3.Val3 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val3Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasBusE3.Text = ""
+                        txtCuadrasBusE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val3 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val3Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasBusE3.Text) = 0 Then
+                    txtMinutosBusE3.Text = 0
+                    txtMinutosEsperaBusE3.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasBusE3.Text) = 0 Then
-                txtMinutosBusE3.Text = 0
-                txtMinutosEsperaBusE3.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosBusE1_Leave(sender As Object, e As EventArgs) Handles txtMinutosBusE1.Leave
-        If txtMinutosBusE1.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosBusE1.Text <> "" Then
 
-            'Validador minutos para llegar a bus mayor a 20
-            If Convert.ToInt32(txtMinutosBusE1.Text) > 20 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val4 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 20 minutos para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar a bus mayor a 20
+                If Convert.ToInt32(txtMinutosBusE1.Text) > 20 Then
+                    If validadorEtapa1 IsNot Nothing Then
+                        validadorEtapa1.Val4 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 20 minutos para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosBusE1.Text = ""
+                        txtMinutosBusE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val4 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val4Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosBusE1.Text) = 0 AndAlso txtCuadrasBusE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE1.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosBusE1.Text = ""
-                    txtMinutosBusE1.Focus()
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val4 = False
-                    End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val4Resp = True
-                    End If
+                    txtCuadrasBusE1.Text = ""
+                    txtCuadrasBusE1.Focus()
+                ElseIf Convert.ToInt32(txtMinutosBusE1.Text) > 0 AndAlso txtCuadrasBusE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE1.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosBusE1.Text = ""
+                    txtCuadrasBusE1.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosBusE1.Text) = 0 AndAlso txtCuadrasBusE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE1.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosBusE1.Text = ""
-                txtCuadrasBusE1.Text = ""
-                txtCuadrasBusE1.Focus()
-            ElseIf Convert.ToInt32(txtMinutosBusE1.Text) > 0 AndAlso txtCuadrasBusE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE1.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosBusE1.Text = ""
-                txtCuadrasBusE1.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosBusE2_Leave(sender As Object, e As EventArgs) Handles txtMinutosBusE2.Leave
-        If txtMinutosBusE2.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosBusE2.Text <> "" Then
 
-            'Validador minutos para llegar a bus mayor a 20
-            If Convert.ToInt32(txtMinutosBusE2.Text) > 20 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val4 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 20 minutos para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar a bus mayor a 20
+                If Convert.ToInt32(txtMinutosBusE2.Text) > 20 Then
+                    If validadorEtapa2 IsNot Nothing Then
+                        validadorEtapa2.Val4 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 20 minutos para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosBusE2.Text = ""
+                        txtMinutosBusE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val4 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val4Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosBusE2.Text) = 0 AndAlso txtCuadrasBusE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE2.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosBusE2.Text = ""
-                    txtMinutosBusE2.Focus()
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val4 = False
-                    End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val4Resp = True
-                    End If
+                    txtCuadrasBusE2.Text = ""
+                    txtCuadrasBusE2.Focus()
+                ElseIf Convert.ToInt32(txtMinutosBusE2.Text) > 0 AndAlso txtCuadrasBusE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE2.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosBusE2.Text = ""
+                    txtCuadrasBusE2.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosBusE2.Text) = 0 AndAlso txtCuadrasBusE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE2.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosBusE2.Text = ""
-                txtCuadrasBusE2.Text = ""
-                txtCuadrasBusE2.Focus()
-            ElseIf Convert.ToInt32(txtMinutosBusE2.Text) > 0 AndAlso txtCuadrasBusE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE2.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosBusE2.Text = ""
-                txtCuadrasBusE2.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosBusE3_Leave(sender As Object, e As EventArgs) Handles txtMinutosBusE3.Leave
-        If txtMinutosBusE3.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosBusE3.Text <> "" Then
 
-            'Validador minutos para llegar a bus mayor a 20
-            If Convert.ToInt32(txtMinutosBusE3.Text) > 20 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val4 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 20 minutos para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar a bus mayor a 20
+                If Convert.ToInt32(txtMinutosBusE3.Text) > 20 Then
+                    If validadorEtapa3 IsNot Nothing Then
+                        validadorEtapa3.Val4 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 20 minutos para llegar al bus, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosBusE3.Text = ""
+                        txtMinutosBusE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val4 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val4Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosBusE3.Text) = 0 AndAlso txtCuadrasBusE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE3.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosBusE3.Text = ""
-                    txtMinutosBusE3.Focus()
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val4 = False
-                    End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val4Resp = True
-                    End If
+                    txtCuadrasBusE3.Text = ""
+                    txtCuadrasBusE3.Focus()
+                ElseIf Convert.ToInt32(txtMinutosBusE3.Text) > 0 AndAlso txtCuadrasBusE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE3.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosBusE3.Text = ""
+                    txtCuadrasBusE3.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosBusE3.Text) = 0 AndAlso txtCuadrasBusE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE3.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosBusE3.Text = ""
-                txtCuadrasBusE3.Text = ""
-                txtCuadrasBusE3.Focus()
-            ElseIf Convert.ToInt32(txtMinutosBusE3.Text) > 0 AndAlso txtCuadrasBusE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasBusE3.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosBusE3.Text = ""
-                txtCuadrasBusE3.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosEsperaBusE1_Leave(sender As Object, e As EventArgs) Handles txtMinutosEsperaBusE1.Leave
-        If txtMinutosEsperaBusE1.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosEsperaBusE1.Text <> "" Then
 
-            'Validador minutos espera bus mayor a 15
-            If Convert.ToInt32(txtMinutosEsperaBusE1.Text) > 15 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val5 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al bus por más de 15 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos espera bus mayor a 15
+                If Convert.ToInt32(txtMinutosEsperaBusE1.Text) > 15 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val5 = False
+                        validadorEtapa1.Val5 = True
                     End If
-                    txtMinutosEsperaBusE1.Text = ""
-                    txtMinutosEsperaBusE1.Focus()
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val5Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al bus por más de 15 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val5 = False
+                        End If
+                        txtMinutosEsperaBusE1.Text = ""
+                        txtMinutosEsperaBusE1.Focus()
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val5Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3286,23 +3439,25 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtMinutosEsperaBusE2_Leave(sender As Object, e As EventArgs) Handles txtMinutosEsperaBusE2.Leave
-        If txtMinutosEsperaBusE2.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosEsperaBusE2.Text <> "" Then
 
-            'Validador minutos espera bus mayor a 15
-            If Convert.ToInt32(txtMinutosEsperaBusE2.Text) > 15 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val5 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al bus por más de 15 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos espera bus mayor a 15
+                If Convert.ToInt32(txtMinutosEsperaBusE2.Text) > 15 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val5 = False
+                        validadorEtapa2.Val5 = True
                     End If
-                    txtMinutosEsperaBusE2.Text = ""
-                    txtMinutosEsperaBusE2.Focus()
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val5Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al bus por más de 15 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val5 = False
+                        End If
+                        txtMinutosEsperaBusE2.Text = ""
+                        txtMinutosEsperaBusE2.Focus()
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val5Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3310,23 +3465,25 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtMinutosEsperaBusE3_Leave(sender As Object, e As EventArgs) Handles txtMinutosEsperaBusE3.Leave
-        If txtMinutosEsperaBusE3.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosEsperaBusE3.Text <> "" Then
 
-            'Validador minutos espera bus mayor a 15
-            If Convert.ToInt32(txtMinutosEsperaBusE3.Text) > 15 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val5 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al bus por más de 15 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos espera bus mayor a 15
+                If Convert.ToInt32(txtMinutosEsperaBusE3.Text) > 15 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val5 = False
+                        validadorEtapa3.Val5 = True
                     End If
-                    txtMinutosEsperaBusE3.Text = ""
-                    txtMinutosEsperaBusE3.Focus()
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val5Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al bus por más de 15 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val5 = False
+                        End If
+                        txtMinutosEsperaBusE3.Text = ""
+                        txtMinutosEsperaBusE3.Focus()
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val5Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3334,203 +3491,217 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtCuadrasTXCE1_Leave(sender As Object, e As EventArgs) Handles txtCuadrasTXCE1.Leave
-        If txtCuadrasTXCE1.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasTXCE1.Text <> "" Then
 
-            'Validador cuadras para llegar a TXC mayor a 10
-            If Convert.ToInt32(txtCuadrasTXCE1.Text) > 10 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val8 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasTXCE1.Text = ""
-                    txtCuadrasTXCE1.Focus()
+                'Validador cuadras para llegar a TXC mayor a 10
+                If Convert.ToInt32(txtCuadrasTXCE1.Text) > 10 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val8 = False
+                        validadorEtapa1.Val8 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val8Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasTXCE1.Text = ""
+                        txtCuadrasTXCE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val8 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val8Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasTXCE1.Text) = 0 Then
+                    txtMinutosTXCE1.Text = 0
+                    txtMinutosEsperaTXCE1.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasTXCE1.Text) = 0 Then
-                txtMinutosTXCE1.Text = 0
-                txtMinutosEsperaTXCE1.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtCuadrasTXCE2_Leave(sender As Object, e As EventArgs) Handles txtCuadrasTXCE2.Leave
-        If txtCuadrasTXCE2.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasTXCE2.Text <> "" Then
 
-            'Validador cuadras para llegar a TXC mayor a 10
-            If Convert.ToInt32(txtCuadrasTXCE2.Text) > 10 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val8 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasTXCE2.Text = ""
-                    txtCuadrasTXCE2.Focus()
+                'Validador cuadras para llegar a TXC mayor a 10
+                If Convert.ToInt32(txtCuadrasTXCE2.Text) > 10 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val8 = False
+                        validadorEtapa2.Val8 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val8Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasTXCE2.Text = ""
+                        txtCuadrasTXCE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val8 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val8Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasTXCE2.Text) = 0 Then
+                    txtMinutosTXCE2.Text = 0
+                    txtMinutosEsperaTXCE2.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasTXCE2.Text) = 0 Then
-                txtMinutosTXCE2.Text = 0
-                txtMinutosEsperaTXCE2.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtCuadrasTXCE3_Leave(sender As Object, e As EventArgs) Handles txtCuadrasTXCE3.Leave
-        If txtCuadrasTXCE3.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasTXCE3.Text <> "" Then
 
-            'Validador cuadras para llegar a TXC mayor a 10
-            If Convert.ToInt32(txtCuadrasTXCE3.Text) > 10 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val8 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasTXCE3.Text = ""
-                    txtCuadrasTXCE3.Focus()
+                'Validador cuadras para llegar a TXC mayor a 10
+                If Convert.ToInt32(txtCuadrasTXCE3.Text) > 10 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val8 = False
+                        validadorEtapa3.Val8 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val8Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 cuadras para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasTXCE3.Text = ""
+                        txtCuadrasTXCE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val8 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val8Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasTXCE3.Text) = 0 Then
+                    txtMinutosTXCE3.Text = 0
+                    txtMinutosEsperaTXCE3.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasTXCE3.Text) = 0 Then
-                txtMinutosTXCE3.Text = 0
-                txtMinutosEsperaTXCE3.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosTXCE1_Leave(sender As Object, e As EventArgs) Handles txtMinutosTXCE1.Leave
-        If txtMinutosTXCE1.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosTXCE1.Text <> "" Then
 
-            'Validador minutos para llegar a TXC mayor a 10
-            If Convert.ToInt32(txtMinutosTXCE1.Text) > 10 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val9 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar a TXC mayor a 10
+                If Convert.ToInt32(txtMinutosTXCE1.Text) > 10 Then
+                    If validadorEtapa1 IsNot Nothing Then
+                        validadorEtapa1.Val9 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosTXCE1.Text = ""
+                        txtMinutosTXCE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val9 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val9Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosTXCE1.Text) = 0 AndAlso txtCuadrasTXCE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE1.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosTXCE1.Text = ""
-                    txtMinutosTXCE1.Focus()
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val9 = False
-                    End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val9Resp = True
-                    End If
+                    txtCuadrasTXCE1.Text = ""
+                    txtCuadrasTXCE1.Focus()
+                ElseIf Convert.ToInt32(txtMinutosTXCE1.Text) > 0 AndAlso txtCuadrasTXCE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE1.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosTXCE1.Text = ""
+                    txtCuadrasTXCE1.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosTXCE1.Text) = 0 AndAlso txtCuadrasTXCE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE1.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTXCE1.Text = ""
-                txtCuadrasTXCE1.Text = ""
-                txtCuadrasTXCE1.Focus()
-            ElseIf Convert.ToInt32(txtMinutosTXCE1.Text) > 0 AndAlso txtCuadrasTXCE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE1.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTXCE1.Text = ""
-                txtCuadrasTXCE1.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosTXCE2_Leave(sender As Object, e As EventArgs) Handles txtMinutosTXCE2.Leave
-        If txtMinutosTXCE2.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosTXCE2.Text <> "" Then
 
-            'Validador minutos para llegar a TXC mayor a 10
-            If Convert.ToInt32(txtMinutosTXCE2.Text) > 10 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val9 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar a TXC mayor a 10
+                If Convert.ToInt32(txtMinutosTXCE2.Text) > 10 Then
+                    If validadorEtapa2 IsNot Nothing Then
+                        validadorEtapa2.Val9 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosTXCE2.Text = ""
+                        txtMinutosTXCE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val9 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val9Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosTXCE2.Text) = 0 AndAlso txtCuadrasTXCE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE2.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosTXCE2.Text = ""
-                    txtMinutosTXCE2.Focus()
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val9 = False
-                    End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val9Resp = True
-                    End If
+                    txtCuadrasTXCE2.Text = ""
+                    txtCuadrasTXCE2.Focus()
+                ElseIf Convert.ToInt32(txtMinutosTXCE2.Text) > 0 AndAlso txtCuadrasTXCE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE2.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosTXCE1.Text = ""
+                    txtCuadrasTXCE2.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosTXCE2.Text) = 0 AndAlso txtCuadrasTXCE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE2.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTXCE2.Text = ""
-                txtCuadrasTXCE2.Text = ""
-                txtCuadrasTXCE2.Focus()
-            ElseIf Convert.ToInt32(txtMinutosTXCE2.Text) > 0 AndAlso txtCuadrasTXCE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE2.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTXCE1.Text = ""
-                txtCuadrasTXCE2.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosTXCE3_Leave(sender As Object, e As EventArgs) Handles txtMinutosTXCE3.Leave
-        If txtMinutosTXCE3.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosTXCE3.Text <> "" Then
 
-            'Validador minutos para llegar a TXC mayor a 10
-            If Convert.ToInt32(txtMinutosTXCE3.Text) > 10 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val9 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar a TXC mayor a 10
+                If Convert.ToInt32(txtMinutosTXCE3.Text) > 10 Then
+                    If validadorEtapa3 IsNot Nothing Then
+                        validadorEtapa3.Val9 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi colectivo, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosTXCE3.Text = ""
+                        txtMinutosTXCE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val9 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val9Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosTXCE3.Text) = 0 AndAlso txtCuadrasTXCE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE3.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosTXCE3.Text = ""
-                    txtMinutosTXCE3.Focus()
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val9 = False
-                    End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val9Resp = True
-                    End If
+                    txtCuadrasTXCE3.Text = ""
+                    txtCuadrasTXCE3.Focus()
+                ElseIf Convert.ToInt32(txtMinutosTXCE3.Text) > 0 AndAlso txtCuadrasTXCE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE3.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosTXCE3.Text = ""
+                    txtCuadrasTXCE3.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosTXCE3.Text) = 0 AndAlso txtCuadrasTXCE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE3.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTXCE3.Text = ""
-                txtCuadrasTXCE3.Text = ""
-                txtCuadrasTXCE3.Focus()
-            ElseIf Convert.ToInt32(txtMinutosTXCE3.Text) > 0 AndAlso txtCuadrasTXCE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTXCE3.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTXCE3.Text = ""
-                txtCuadrasTXCE3.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosEsperaTXCE1_Leave(sender As Object, e As EventArgs) Handles txtMinutosEsperaTXCE1.Leave
-        If txtMinutosEsperaTXCE1.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosEsperaTXCE1.Text <> "" Then
 
-            'Validador minutos espera TXC mayor a 10
-            If Convert.ToInt32(txtMinutosEsperaTXCE1.Text) > 10 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val10 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi colectivo por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtMinutosEsperaTXCE1.Text = ""
-                    txtMinutosEsperaTXCE1.Focus()
+                'Validador minutos espera TXC mayor a 10
+                If Convert.ToInt32(txtMinutosEsperaTXCE1.Text) > 10 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val10 = False
+                        validadorEtapa1.Val10 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val10Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi colectivo por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosEsperaTXCE1.Text = ""
+                        txtMinutosEsperaTXCE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val10 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val10Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3538,23 +3709,25 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtMinutosEsperaTXCE2_Leave(sender As Object, e As EventArgs) Handles txtMinutosEsperaTXCE2.Leave
-        If txtMinutosEsperaTXCE2.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosEsperaTXCE2.Text <> "" Then
 
-            'Validador minutos espera TXC mayor a 10
-            If Convert.ToInt32(txtMinutosEsperaTXCE2.Text) > 10 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val10 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi colectivo por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtMinutosEsperaTXCE2.Text = ""
-                    txtMinutosEsperaTXCE2.Focus()
+                'Validador minutos espera TXC mayor a 10
+                If Convert.ToInt32(txtMinutosEsperaTXCE2.Text) > 10 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val10 = False
+                        validadorEtapa2.Val10 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val10Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi colectivo por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosEsperaTXCE2.Text = ""
+                        txtMinutosEsperaTXCE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val10 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val10Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3562,23 +3735,25 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtMinutosEsperaTXCE3_Leave(sender As Object, e As EventArgs) Handles txtMinutosEsperaTXCE3.Leave
-        If txtMinutosEsperaTXCE3.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosEsperaTXCE3.Text <> "" Then
 
-            'Validador minutos espera TXC mayor a 10
-            If Convert.ToInt32(txtMinutosEsperaTXCE3.Text) > 10 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val10 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi colectivo por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtMinutosEsperaTXCE3.Text = ""
-                    txtMinutosEsperaTXCE3.Focus()
+                'Validador minutos espera TXC mayor a 10
+                If Convert.ToInt32(txtMinutosEsperaTXCE3.Text) > 10 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val10 = False
+                        validadorEtapa3.Val10 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val10Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi colectivo por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosEsperaTXCE3.Text = ""
+                        txtMinutosEsperaTXCE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val10 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val10Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3586,203 +3761,217 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtCuadrasTaxiE1_Leave(sender As Object, e As EventArgs) Handles txtCuadrasTaxiE1.Leave
-        If txtCuadrasTaxiE1.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasTaxiE1.Text <> "" Then
 
-            'Validador cuadras para llegar al taxi mayor a 5
-            If Convert.ToInt32(txtCuadrasTaxiE1.Text) > 5 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val11 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para tomar el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasTaxiE1.Text = ""
-                    txtCuadrasTaxiE1.Focus()
+                'Validador cuadras para llegar al taxi mayor a 5
+                If Convert.ToInt32(txtCuadrasTaxiE1.Text) > 5 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val11 = False
+                        validadorEtapa1.Val11 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val11Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para tomar el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasTaxiE1.Text = ""
+                        txtCuadrasTaxiE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val11 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val11Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasTaxiE1.Text) = 0 Then
+                    txtMinutosTaxiE1.Text = 0
+                    txtMinutosEsperaTaxiE1.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasTaxiE1.Text) = 0 Then
-                txtMinutosTaxiE1.Text = 0
-                txtMinutosEsperaTaxiE1.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtCuadrasTaxiE2_Leave(sender As Object, e As EventArgs) Handles txtCuadrasTaxiE2.Leave
-        If txtCuadrasTaxiE2.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasTaxiE2.Text <> "" Then
 
-            'Validador cuadras para llegar al taxi mayor a 5
-            If Convert.ToInt32(txtCuadrasTaxiE2.Text) > 5 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val11 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para tomar el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasTaxiE2.Text = ""
-                    txtCuadrasTaxiE2.Focus()
+                'Validador cuadras para llegar al taxi mayor a 5
+                If Convert.ToInt32(txtCuadrasTaxiE2.Text) > 5 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val11 = False
+                        validadorEtapa2.Val11 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val11Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para tomar el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasTaxiE2.Text = ""
+                        txtCuadrasTaxiE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val11 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val11Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasTaxiE2.Text) = 0 Then
+                    txtMinutosTaxiE2.Text = 0
+                    txtMinutosEsperaTaxiE2.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasTaxiE2.Text) = 0 Then
-                txtMinutosTaxiE2.Text = 0
-                txtMinutosEsperaTaxiE2.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtCuadrasTaxiE3_Leave(sender As Object, e As EventArgs) Handles txtCuadrasTaxiE3.Leave
-        If txtCuadrasTaxiE3.Text <> "" Then
+        If Not cargando Then
+            If txtCuadrasTaxiE3.Text <> "" Then
 
-            'Validador cuadras para llegar al taxi mayor a 5
-            If Convert.ToInt32(txtCuadrasTaxiE3.Text) > 5 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val11 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para tomar el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtCuadrasTaxiE3.Text = ""
-                    txtCuadrasTaxiE3.Focus()
+                'Validador cuadras para llegar al taxi mayor a 5
+                If Convert.ToInt32(txtCuadrasTaxiE3.Text) > 5 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val11 = False
+                        validadorEtapa3.Val11 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val11Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 5 cuadras para tomar el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtCuadrasTaxiE3.Text = ""
+                        txtCuadrasTaxiE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val11 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val11Resp = True
+                        End If
                     End If
+                ElseIf Convert.ToInt32(txtCuadrasTaxiE3.Text) = 0 Then
+                    txtMinutosTaxiE3.Text = 0
+                    txtMinutosEsperaTaxiE3.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtCuadrasTaxiE3.Text) = 0 Then
-                txtMinutosTaxiE3.Text = 0
-                txtMinutosEsperaTaxiE3.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosTaxiE1_Leave(sender As Object, e As EventArgs) Handles txtMinutosTaxiE1.Leave
-        If txtMinutosTaxiE1.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosTaxiE1.Text <> "" Then
 
-            'Validador minutos para llegar al taxi mayor a 10
-            If Convert.ToInt32(txtMinutosTaxiE1.Text) > 10 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val12 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar al taxi mayor a 10
+                If Convert.ToInt32(txtMinutosTaxiE1.Text) > 10 Then
+                    If validadorEtapa1 IsNot Nothing Then
+                        validadorEtapa1.Val12 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosTaxiE1.Text = ""
+                        txtMinutosTaxiE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val12 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val12Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosTaxiE1.Text) = 0 AndAlso txtCuadrasTaxiE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE1.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosTaxiE1.Text = ""
-                    txtMinutosTaxiE1.Focus()
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val12 = False
-                    End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val12Resp = True
-                    End If
+                    txtCuadrasTaxiE1.Text = ""
+                    txtCuadrasTaxiE1.Focus()
+                ElseIf Convert.ToInt32(txtMinutosTaxiE1.Text) > 0 AndAlso txtCuadrasTaxiE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE1.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosTaxiE1.Text = ""
+                    txtCuadrasTaxiE1.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosTaxiE1.Text) = 0 AndAlso txtCuadrasTaxiE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE1.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTaxiE1.Text = ""
-                txtCuadrasTaxiE1.Text = ""
-                txtCuadrasTaxiE1.Focus()
-            ElseIf Convert.ToInt32(txtMinutosTaxiE1.Text) > 0 AndAlso txtCuadrasTaxiE1.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE1.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTaxiE1.Text = ""
-                txtCuadrasTaxiE1.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosTaxiE2_Leave(sender As Object, e As EventArgs) Handles txtMinutosTaxiE2.Leave
-        If txtMinutosTaxiE2.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosTaxiE2.Text <> "" Then
 
-            'Validador minutos para llegar al taxi mayor a 10
-            If Convert.ToInt32(txtMinutosTaxiE2.Text) > 10 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val12 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar al taxi mayor a 10
+                If Convert.ToInt32(txtMinutosTaxiE2.Text) > 10 Then
+                    If validadorEtapa2 IsNot Nothing Then
+                        validadorEtapa2.Val12 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosTaxiE2.Text = ""
+                        txtMinutosTaxiE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val12 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val12Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosTaxiE2.Text) = 0 AndAlso txtCuadrasTaxiE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE2.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosTaxiE2.Text = ""
-                    txtMinutosTaxiE2.Focus()
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val12 = False
-                    End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val12Resp = True
-                    End If
+                    txtCuadrasTaxiE2.Text = ""
+                    txtCuadrasTaxiE2.Focus()
+                ElseIf Convert.ToInt32(txtMinutosTaxiE2.Text) > 0 AndAlso txtCuadrasTaxiE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE2.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosTaxiE2.Text = ""
+                    txtCuadrasTaxiE2.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosTaxiE2.Text) = 0 AndAlso txtCuadrasTaxiE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE2.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTaxiE2.Text = ""
-                txtCuadrasTaxiE2.Text = ""
-                txtCuadrasTaxiE2.Focus()
-            ElseIf Convert.ToInt32(txtMinutosTaxiE2.Text) > 0 AndAlso txtCuadrasTaxiE2.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE2.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTaxiE2.Text = ""
-                txtCuadrasTaxiE2.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosTaxiE3_Leave(sender As Object, e As EventArgs) Handles txtMinutosTaxiE3.Leave
-        If txtMinutosTaxiE3.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosTaxiE3.Text <> "" Then
 
-            'Validador minutos para llegar al taxi mayor a 10
-            If Convert.ToInt32(txtMinutosTaxiE3.Text) > 10 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val12 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
+                'Validador minutos para llegar al taxi mayor a 10
+                If Convert.ToInt32(txtMinutosTaxiE3.Text) > 10 Then
+                    If validadorEtapa3 IsNot Nothing Then
+                        validadorEtapa3.Val12 = True
+                    End If
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que caminó más de 10 minutos para llegar al taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosTaxiE3.Text = ""
+                        txtMinutosTaxiE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val12 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val12Resp = True
+                        End If
+                    End If
+                ElseIf Convert.ToInt32(txtMinutosTaxiE3.Text) = 0 AndAlso txtCuadrasTaxiE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE3.Text) > 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtMinutosTaxiE3.Text = ""
-                    txtMinutosTaxiE3.Focus()
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val12 = False
-                    End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val12Resp = True
-                    End If
+                    txtCuadrasTaxiE3.Text = ""
+                    txtCuadrasTaxiE3.Focus()
+                ElseIf Convert.ToInt32(txtMinutosTaxiE3.Text) > 0 AndAlso txtCuadrasTaxiE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE3.Text) = 0 Then
+                    MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtMinutosTaxiE3.Text = ""
+                    txtCuadrasTaxiE3.Focus()
                 End If
-            ElseIf Convert.ToInt32(txtMinutosTaxiE3.Text) = 0 AndAlso txtCuadrasTaxiE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE3.Text) > 0 Then
-                MessageBox.Show("Ha indicado que caminó algunas cuadras en 0 minutos, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTaxiE3.Text = ""
-                txtCuadrasTaxiE3.Text = ""
-                txtCuadrasTaxiE3.Focus()
-            ElseIf Convert.ToInt32(txtMinutosTaxiE3.Text) > 0 AndAlso txtCuadrasTaxiE3.Text <> "" AndAlso Convert.ToInt32(txtCuadrasTaxiE3.Text) = 0 Then
-                MessageBox.Show("Ha indicado que caminó algunos minutos pero 0 cuadras, corrija para continuar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtMinutosTaxiE3.Text = ""
-                txtCuadrasTaxiE3.Focus()
             End If
         End If
     End Sub
 
     Private Sub txtMinutosEsperaTaxiE1_Leave(sender As Object, e As EventArgs) Handles txtMinutosEsperaTaxiE1.Leave
-        If txtMinutosEsperaTaxiE1.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosEsperaTaxiE1.Text <> "" Then
 
-            'Validador minutos espera taxi mayor a 10
-            If Convert.ToInt32(txtMinutosEsperaTaxiE1.Text) > 10 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val13 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtMinutosEsperaTaxiE1.Text = ""
-                    txtMinutosEsperaTaxiE1.Focus()
+                'Validador minutos espera taxi mayor a 10
+                If Convert.ToInt32(txtMinutosEsperaTaxiE1.Text) > 10 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val13 = False
+                        validadorEtapa1.Val13 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val13Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosEsperaTaxiE1.Text = ""
+                        txtMinutosEsperaTaxiE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val13 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val13Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3790,23 +3979,25 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtMinutosEsperaTaxiE2_Leave(sender As Object, e As EventArgs) Handles txtMinutosEsperaTaxiE2.Leave
-        If txtMinutosEsperaTaxiE2.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosEsperaTaxiE2.Text <> "" Then
 
-            'Validador minutos espera taxi mayor a 10
-            If Convert.ToInt32(txtMinutosEsperaTaxiE2.Text) > 10 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val13 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtMinutosEsperaTaxiE2.Text = ""
-                    txtMinutosEsperaTaxiE2.Focus()
+                'Validador minutos espera taxi mayor a 10
+                If Convert.ToInt32(txtMinutosEsperaTaxiE2.Text) > 10 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val13 = False
+                        validadorEtapa2.Val13 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val13Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosEsperaTaxiE2.Text = ""
+                        txtMinutosEsperaTaxiE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val13 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val13Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3814,23 +4005,25 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtMinutosEsperaTaxiE3_Leave(sender As Object, e As EventArgs) Handles txtMinutosEsperaTaxiE3.Leave
-        If txtMinutosEsperaTaxiE3.Text <> "" Then
+        If Not cargando Then
+            If txtMinutosEsperaTaxiE3.Text <> "" Then
 
-            'Validador minutos espera taxi mayor a 10
-            If Convert.ToInt32(txtMinutosEsperaTaxiE3.Text) > 10 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val13 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtMinutosEsperaTaxiE3.Text = ""
-                    txtMinutosEsperaTaxiE3.Focus()
+                'Validador minutos espera taxi mayor a 10
+                If Convert.ToInt32(txtMinutosEsperaTaxiE3.Text) > 10 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val13 = False
+                        validadorEtapa3.Val13 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val13Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que esperó al taxi por más de 10 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtMinutosEsperaTaxiE3.Text = ""
+                        txtMinutosEsperaTaxiE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val13 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val13Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3838,41 +4031,43 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtTarifaMontoTaxiE1_Leave(sender As Object, e As EventArgs) Handles txtTarifaMontoTaxiE1.Leave
-        If txtTarifaMontoTaxiE1.Text <> "" Then
+        If Not cargando Then
+            If txtTarifaMontoTaxiE1.Text <> "" Then
 
-            Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTaxiE1.Text.Replace("$", "").Replace(".", ""))
+                Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTaxiE1.Text.Replace("$", "").Replace(".", ""))
 
-            If monto < 500 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val14 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó menos de $500 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTaxiE1.Text = ""
-                    txtTarifaMontoTaxiE1.Focus()
+                If monto < 500 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val14 = False
+                        validadorEtapa1.Val14 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val14Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó menos de $500 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTaxiE1.Text = ""
+                        txtTarifaMontoTaxiE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val14 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val14Resp = True
+                        End If
                     End If
-                End If
 
-            ElseIf monto > 10000 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val14 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó más de $10.000 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTaxiE1.Text = ""
-                    txtTarifaMontoTaxiE1.Focus()
+                ElseIf monto > 10000 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val14 = False
+                        validadorEtapa1.Val14 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val14Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó más de $10.000 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTaxiE1.Text = ""
+                        txtTarifaMontoTaxiE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val14 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val14Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3880,41 +4075,43 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtTarifaMontoTaxiE2_Leave(sender As Object, e As EventArgs) Handles txtTarifaMontoTaxiE2.Leave
-        If txtTarifaMontoTaxiE2.Text <> "" Then
+        If Not cargando Then
+            If txtTarifaMontoTaxiE2.Text <> "" Then
 
-            Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTaxiE2.Text.Replace("$", "").Replace(".", ""))
+                Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTaxiE2.Text.Replace("$", "").Replace(".", ""))
 
-            If monto < 500 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val14 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó menos de $500 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTaxiE2.Text = ""
-                    txtTarifaMontoTaxiE2.Focus()
+                If monto < 500 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val14 = False
+                        validadorEtapa2.Val14 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val14Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó menos de $500 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTaxiE2.Text = ""
+                        txtTarifaMontoTaxiE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val14 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val14Resp = True
+                        End If
                     End If
-                End If
 
-            ElseIf monto > 10000 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val14 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó más de $10.000 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTaxiE2.Text = ""
-                    txtTarifaMontoTaxiE2.Focus()
+                ElseIf monto > 10000 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val14 = False
+                        validadorEtapa2.Val14 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val14Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó más de $10.000 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTaxiE2.Text = ""
+                        txtTarifaMontoTaxiE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val14 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val14Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3922,41 +4119,43 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtTarifaMontoTaxiE3_Leave(sender As Object, e As EventArgs) Handles txtTarifaMontoTaxiE3.Leave
-        If txtTarifaMontoTaxiE3.Text <> "" Then
+        If Not cargando Then
+            If txtTarifaMontoTaxiE3.Text <> "" Then
 
-            Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTaxiE3.Text.Replace("$", "").Replace(".", ""))
+                Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTaxiE3.Text.Replace("$", "").Replace(".", ""))
 
-            If monto < 500 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val14 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó menos de $500 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTaxiE3.Text = ""
-                    txtTarifaMontoTaxiE3.Focus()
+                If monto < 500 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val14 = False
+                        validadorEtapa3.Val14 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val14Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó menos de $500 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTaxiE3.Text = ""
+                        txtTarifaMontoTaxiE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val14 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val14Resp = True
+                        End If
                     End If
-                End If
 
-            ElseIf monto > 10000 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val14 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó más de $10.000 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTaxiE3.Text = ""
-                    txtTarifaMontoTaxiE3.Focus()
+                ElseIf monto > 10000 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val14 = False
+                        validadorEtapa3.Val14 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val14Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que pagó más de $10.000 por el taxi, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTaxiE3.Text = ""
+                        txtTarifaMontoTaxiE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val14 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val14Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -3964,6 +4163,7 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub lkpTipoTarifaBusE1_EditValueChanged(sender As Object, e As EventArgs) Handles lkpTipoTarifaBusE1.EditValueChanged
+
         Dim opcion As Integer
 
         If lkpTipoTarifaBusE1.EditValue IsNot Nothing AndAlso Me.lkpTipoTarifaBusE1.EditValue.ToString <> "" Then
@@ -3977,36 +4177,38 @@ Public Class IngresoViajes
         ElseIf opcion > 0 Then
             Me.spcCuantoPagoBusE1.Collapsed = False
 
-            Try
-                Dim estudia As Boolean = persona.Actividad.Contains("2")
+            If Not cargando Then
+                Try
+                    Dim estudia As Boolean = persona.Actividad.Contains("2")
 
-                'Validador es estudiante y paga tarifa adulto
-                If estudia And (opcion = 2 OrElse opcion = 3) Then
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val7 = True
+                    'Validador es estudiante y paga tarifa adulto
+                    If estudia And (opcion = 2 OrElse opcion = 3) Then
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val7 = True
+                        End If
+                        Dim confirma As DialogResult = MessageBox.Show("Ha indicado tarifa adulto, pero la persona es estudiante, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                        If confirma = Windows.Forms.DialogResult.No Then
+                            lkpTipoTarifaBusE1.EditValue = -1
+                            lkpTipoTarifaBusE1.Focus()
+                            If validadorEtapa1 IsNot Nothing Then
+                                validadorEtapa1.Val7 = False
+                            End If
+                        Else
+                            If validadorEtapa1 IsNot Nothing Then
+                                validadorEtapa1.Val7Resp = True
+                            End If
+                        End If
                     End If
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado tarifa adulto, pero la persona es estudiante, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    If confirma = Windows.Forms.DialogResult.No Then
-                        lkpTipoTarifaBusE1.EditValue = -1
+
+                    'Validador no es estudiante y paga tarifa estudiante
+                    If Not estudia And (opcion = 1) Then
+                        MessageBox.Show("Ha indicado tarifa escolar, pero la persona no es estudiante. Por favor, corrija para continuar.", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         lkpTipoTarifaBusE1.Focus()
-                        If validadorEtapa1 IsNot Nothing Then
-                            validadorEtapa1.Val7 = False
-                        End If
-                    Else
-                        If validadorEtapa1 IsNot Nothing Then
-                            validadorEtapa1.Val7Resp = True
-                        End If
                     End If
-                End If
-
-                'Validador no es estudiante y paga tarifa estudiante
-                If Not estudia And (opcion = 1) Then
-                    MessageBox.Show("Ha indicado tarifa escolar, pero la persona no es estudiante. Por favor, corrija para continuar.", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                    lkpTipoTarifaBusE1.Focus()
-                End If
-            Catch
-                MessageBox.Show("Error validando tarifa contra actividad del encuestado. No se puede leer la persona en base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
+                Catch
+                    MessageBox.Show("Error validando tarifa contra actividad del encuestado. No se puede leer la persona en base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
 
         End If
 
@@ -4029,36 +4231,38 @@ Public Class IngresoViajes
             Me.spcCuantoPagoBusE2.Collapsed = False
             Me.txtTarifaMontoBusE2.Visible = True
 
-            Try
-                Dim estudia As Boolean = persona.Actividad.Contains("2")
+            If Not cargando Then
+                Try
+                    Dim estudia As Boolean = persona.Actividad.Contains("2")
 
-                'Validador es estudiante y paga tarifa adulto
-                If estudia And (opcion = 2 OrElse opcion = 3) Then
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val7 = True
+                    'Validador es estudiante y paga tarifa adulto
+                    If estudia And (opcion = 2 OrElse opcion = 3) Then
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val7 = True
+                        End If
+                        Dim confirma As DialogResult = MessageBox.Show("Ha indicado tarifa adulto, pero la persona es estudiante, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                        If confirma = Windows.Forms.DialogResult.No Then
+                            lkpTipoTarifaBusE2.EditValue = -1
+                            lkpTipoTarifaBusE2.Focus()
+                            If validadorEtapa2 IsNot Nothing Then
+                                validadorEtapa2.Val7 = False
+                            End If
+                        Else
+                            If validadorEtapa2 IsNot Nothing Then
+                                validadorEtapa2.Val7Resp = True
+                            End If
+                        End If
                     End If
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado tarifa adulto, pero la persona es estudiante, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    If confirma = Windows.Forms.DialogResult.No Then
-                        lkpTipoTarifaBusE2.EditValue = -1
+
+                    'Validador no es estudiante y paga tarifa estudiante
+                    If Not estudia And (opcion = 1) Then
+                        MessageBox.Show("Ha indicado tarifa escolar, pero la persona no es estudiante. Por favor, corrija para continuar.", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         lkpTipoTarifaBusE2.Focus()
-                        If validadorEtapa2 IsNot Nothing Then
-                            validadorEtapa2.Val7 = False
-                        End If
-                    Else
-                        If validadorEtapa2 IsNot Nothing Then
-                            validadorEtapa2.Val7Resp = True
-                        End If
                     End If
-                End If
-
-                'Validador no es estudiante y paga tarifa estudiante
-                If Not estudia And (opcion = 1) Then
-                    MessageBox.Show("Ha indicado tarifa escolar, pero la persona no es estudiante. Por favor, corrija para continuar.", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                    lkpTipoTarifaBusE2.Focus()
-                End If
-            Catch
-                MessageBox.Show("Error validando tarifa contra actividad del encuestado. No se puede leer la persona en base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
+                Catch
+                    MessageBox.Show("Error validando tarifa contra actividad del encuestado. No se puede leer la persona en base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
         End If
     End Sub
 
@@ -4079,77 +4283,79 @@ Public Class IngresoViajes
             Me.spcCuantoPagoBusE3.Collapsed = False
             Me.txtTarifaMontoBusE3.Visible = True
 
-            Try
-                Dim estudia As Boolean = persona.Actividad.Contains("2")
+            If Not cargando Then
+                Try
+                    Dim estudia As Boolean = persona.Actividad.Contains("2")
 
-                'Validador es estudiante y paga tarifa adulto
-                If estudia And (opcion = 2 OrElse opcion = 3) Then
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val7 = True
+                    'Validador es estudiante y paga tarifa adulto
+                    If estudia And (opcion = 2 OrElse opcion = 3) Then
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val7 = True
+                        End If
+                        Dim confirma As DialogResult = MessageBox.Show("Ha indicado tarifa adulto, pero la persona es estudiante, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                        If confirma = Windows.Forms.DialogResult.No Then
+                            lkpTipoTarifaBusE3.EditValue = -1
+                            lkpTipoTarifaBusE3.Focus()
+                            If validadorEtapa3 IsNot Nothing Then
+                                validadorEtapa3.Val7 = False
+                            End If
+                        Else
+                            If validadorEtapa3 IsNot Nothing Then
+                                validadorEtapa3.Val7Resp = True
+                            End If
+                        End If
                     End If
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado tarifa adulto, pero la persona es estudiante, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                    If confirma = Windows.Forms.DialogResult.No Then
-                        lkpTipoTarifaBusE3.EditValue = -1
+
+                    'Validador no es estudiante y paga tarifa estudiante
+                    If Not estudia And (opcion = 1) Then
+                        MessageBox.Show("Ha indicado tarifa escolar, pero la persona no es estudiante. Por favor, corrija para continuar.", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         lkpTipoTarifaBusE3.Focus()
-                        If validadorEtapa3 IsNot Nothing Then
-                            validadorEtapa3.Val7 = False
-                        End If
-                    Else
-                        If validadorEtapa3 IsNot Nothing Then
-                            validadorEtapa3.Val7Resp = True
-                        End If
                     End If
-                End If
-
-                'Validador no es estudiante y paga tarifa estudiante
-                If Not estudia And (opcion = 1) Then
-                    MessageBox.Show("Ha indicado tarifa escolar, pero la persona no es estudiante. Por favor, corrija para continuar.", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                    lkpTipoTarifaBusE3.Focus()
-                End If
-            Catch
-                MessageBox.Show("Error validando tarifa contra actividad del encuestado. No se puede leer la persona en base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-
+                Catch
+                    MessageBox.Show("Error validando tarifa contra actividad del encuestado. No se puede leer la persona en base de datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
         End If
     End Sub
 
     Private Sub txtTarifaMontoBusE1_Leave(sender As Object, e As EventArgs) Handles txtTarifaMontoBusE1.Leave
+        If Not cargando Then
+            If Me.txtTarifaMontoBusE1.Text <> "" Then
 
-        If Me.txtTarifaMontoBusE1.Text <> "" Then
+                'Validador tarifa bus fuera de rango
+                Dim monto As Integer = Convert.ToInt32(txtTarifaMontoBusE1.Text.Replace("$", "").Replace(".", ""))
 
-            'Validador tarifa bus fuera de rango
-            Dim monto As Integer = Convert.ToInt32(txtTarifaMontoBusE1.Text.Replace("$", "").Replace(".", ""))
-
-            If monto < 200 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val19 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoBusE1.EditValue = ""
-                    txtTarifaMontoBusE1.Focus()
+                If monto < 200 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val19 = False
+                        validadorEtapa1.Val19 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val19Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoBusE1.EditValue = ""
+                        txtTarifaMontoBusE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val19 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val19Resp = True
+                        End If
                     End If
-                End If
-            ElseIf monto > 2000 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val19 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $2.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoBusE1.EditValue = ""
-                    txtTarifaMontoBusE1.Focus()
+                ElseIf monto > 2000 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val19 = False
+                        validadorEtapa1.Val19 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val19Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $2.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoBusE1.EditValue = ""
+                        txtTarifaMontoBusE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val19 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val19Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -4157,41 +4363,43 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtTarifaMontoBusE2_Leave(sender As Object, e As EventArgs) Handles txtTarifaMontoBusE2.Leave
-        If Me.txtTarifaMontoBusE2.Text <> "" Then
+        If Not cargando Then
+            If Me.txtTarifaMontoBusE2.Text <> "" Then
 
-            'Validador tarifa bus fuera de rango
-            Dim monto As Integer = Convert.ToInt32(txtTarifaMontoBusE2.Text.Replace("$", "").Replace(".", ""))
+                'Validador tarifa bus fuera de rango
+                Dim monto As Integer = Convert.ToInt32(txtTarifaMontoBusE2.Text.Replace("$", "").Replace(".", ""))
 
-            If monto < 200 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val19 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoBusE2.EditValue = ""
-                    txtTarifaMontoBusE2.Focus()
+                If monto < 200 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val19 = False
+                        validadorEtapa2.Val19 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val19Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoBusE2.EditValue = ""
+                        txtTarifaMontoBusE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val19 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val19Resp = True
+                        End If
                     End If
-                End If
-            ElseIf monto > 2000 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val19 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $2.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoBusE2.EditValue = ""
-                    txtTarifaMontoBusE2.Focus()
+                ElseIf monto > 2000 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val19 = False
+                        validadorEtapa2.Val19 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val19Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $2.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoBusE2.EditValue = ""
+                        txtTarifaMontoBusE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val19 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val19Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -4199,41 +4407,43 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtTarifaMontoBusE3_Leave(sender As Object, e As EventArgs) Handles txtTarifaMontoBusE3.Leave
-        If Me.txtTarifaMontoBusE3.Text <> "" Then
+        If Not cargando Then
+            If Me.txtTarifaMontoBusE3.Text <> "" Then
 
-            'Validador tarifa bus fuera de rango
-            Dim monto As Integer = Convert.ToInt32(txtTarifaMontoBusE3.Text.Replace("$", "").Replace(".", ""))
+                'Validador tarifa bus fuera de rango
+                Dim monto As Integer = Convert.ToInt32(txtTarifaMontoBusE3.Text.Replace("$", "").Replace(".", ""))
 
-            If monto < 200 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val19 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoBusE3.EditValue = ""
-                    txtTarifaMontoBusE3.Focus()
+                If monto < 200 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val19 = False
+                        validadorEtapa3.Val19 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val19Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoBusE3.EditValue = ""
+                        txtTarifaMontoBusE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val19 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val19Resp = True
+                        End If
                     End If
-                End If
-            ElseIf monto > 2000 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val19 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $2.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoBusE3.EditValue = ""
-                    txtTarifaMontoBusE3.Focus()
+                ElseIf monto > 2000 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val19 = False
+                        validadorEtapa3.Val19 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val19Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $2.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoBusE3.EditValue = ""
+                        txtTarifaMontoBusE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val19 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val19Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -4241,41 +4451,43 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtTarifaMontoTXCE1_Leave(sender As Object, e As EventArgs) Handles txtTarifaMontoTXCE1.Leave
-        If Me.txtTarifaMontoTXCE1.Text <> "" Then
+        If Not cargando Then
+            If Me.txtTarifaMontoTXCE1.Text <> "" Then
 
-            'Validador tarifa TXC fuera de rango
-            Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTXCE1.Text.Replace("$", "").Replace(".", ""))
+                'Validador tarifa TXC fuera de rango
+                Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTXCE1.Text.Replace("$", "").Replace(".", ""))
 
-            If monto < 200 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val18 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTXCE1.Text = ""
-                    txtTarifaMontoTXCE1.Focus()
+                If monto < 200 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val18 = False
+                        validadorEtapa1.Val18 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val18Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTXCE1.Text = ""
+                        txtTarifaMontoTXCE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val18 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val18Resp = True
+                        End If
                     End If
-                End If
-            ElseIf monto > 3000 Then
-                If validadorEtapa1 IsNot Nothing Then
-                    validadorEtapa1.Val18 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $3.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTXCE1.Text = ""
-                    txtTarifaMontoTXCE1.Focus()
+                ElseIf monto > 3000 Then
                     If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val18 = False
+                        validadorEtapa1.Val18 = True
                     End If
-                Else
-                    If validadorEtapa1 IsNot Nothing Then
-                        validadorEtapa1.Val18Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $3.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTXCE1.Text = ""
+                        txtTarifaMontoTXCE1.Focus()
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val18 = False
+                        End If
+                    Else
+                        If validadorEtapa1 IsNot Nothing Then
+                            validadorEtapa1.Val18Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -4283,41 +4495,43 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtTarifaMontoTXCE2_Leave(sender As Object, e As EventArgs) Handles txtTarifaMontoTXCE2.Leave
-        If Me.txtTarifaMontoTXCE2.Text <> "" Then
+        If Not cargando Then
+            If Me.txtTarifaMontoTXCE2.Text <> "" Then
 
-            'Validador tarifa TXC fuera de rango
-            Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTXCE2.Text.Replace("$", "").Replace(".", ""))
+                'Validador tarifa TXC fuera de rango
+                Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTXCE2.Text.Replace("$", "").Replace(".", ""))
 
-            If monto < 200 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val18 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTXCE2.Text = ""
-                    txtTarifaMontoTXCE2.Focus()
+                If monto < 200 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val18 = False
+                        validadorEtapa2.Val18 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val18Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTXCE2.Text = ""
+                        txtTarifaMontoTXCE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val18 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val18Resp = True
+                        End If
                     End If
-                End If
-            ElseIf monto > 3000 Then
-                If validadorEtapa2 IsNot Nothing Then
-                    validadorEtapa2.Val18 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $3.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTXCE2.Text = ""
-                    txtTarifaMontoTXCE2.Focus()
+                ElseIf monto > 3000 Then
                     If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val18 = False
+                        validadorEtapa2.Val18 = True
                     End If
-                Else
-                    If validadorEtapa2 IsNot Nothing Then
-                        validadorEtapa2.Val18Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $3.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTXCE2.Text = ""
+                        txtTarifaMontoTXCE2.Focus()
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val18 = False
+                        End If
+                    Else
+                        If validadorEtapa2 IsNot Nothing Then
+                            validadorEtapa2.Val18Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -4325,41 +4539,43 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtTarifaMontoTXCE3_Leave(sender As Object, e As EventArgs) Handles txtTarifaMontoTXCE3.Leave
-        If Me.txtTarifaMontoTXCE3.Text <> "" Then
+        If Not cargando Then
+            If Me.txtTarifaMontoTXCE3.Text <> "" Then
 
-            'Validador tarifa TXC fuera de rango
-            Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTXCE3.Text.Replace("$", "").Replace(".", ""))
+                'Validador tarifa TXC fuera de rango
+                Dim monto As Integer = Convert.ToInt32(txtTarifaMontoTXCE3.Text.Replace("$", "").Replace(".", ""))
 
-            If monto < 200 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val18 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTXCE3.Text = ""
-                    txtTarifaMontoTXCE3.Focus()
+                If monto < 200 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val18 = False
+                        validadorEtapa3.Val18 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val18Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa menor a $200, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTXCE3.Text = ""
+                        txtTarifaMontoTXCE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val18 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val18Resp = True
+                        End If
                     End If
-                End If
-            ElseIf monto > 3000 Then
-                If validadorEtapa3 IsNot Nothing Then
-                    validadorEtapa3.Val18 = True
-                End If
-                Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $3.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = Windows.Forms.DialogResult.No Then
-                    txtTarifaMontoTXCE3.Text = ""
-                    txtTarifaMontoTXCE3.Focus()
+                ElseIf monto > 3000 Then
                     If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val18 = False
+                        validadorEtapa3.Val18 = True
                     End If
-                Else
-                    If validadorEtapa3 IsNot Nothing Then
-                        validadorEtapa3.Val18Resp = True
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado una tarifa mayor a $3.000, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = Windows.Forms.DialogResult.No Then
+                        txtTarifaMontoTXCE3.Text = ""
+                        txtTarifaMontoTXCE3.Focus()
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val18 = False
+                        End If
+                    Else
+                        If validadorEtapa3 IsNot Nothing Then
+                            validadorEtapa3.Val18Resp = True
+                        End If
                     End If
                 End If
             End If
@@ -4473,7 +4689,7 @@ Public Class IngresoViajes
         Me.lkpDondeEstacionaE1.EditValue = -1
         Me.lkpVehHogarE1.EditValue = -1
         Me.txtCuantoPagoE1.Text = "0"
-        Me.txtMinutosEstacionaAutoE1.Text = ""
+        Me.txtMinutosEstacionaAutoE1.Text = "0"
         Me.lkpFormaPagoE1.EditValue = -1
         Me.lkpLugarBajadaAutoE1.EditValue = -1
     End Sub
@@ -4509,6 +4725,7 @@ Public Class IngresoViajes
         Me.txtMotivoNoUsaE1.Text = ""
         Me.lkpEstacionamientoBiciE1.EditValue = -1
         Me.lkpLugarBajadaBiciE1.EditValue = -1
+        Me.lkpCicloviaE1.EditValue = -1
     End Sub
 
     Private Sub limpiaAutoE2()
@@ -4519,7 +4736,7 @@ Public Class IngresoViajes
         Me.lkpVehHogarE2.EditValue = -1
         Me.lkpDondeEstacionaE2.EditValue = -1
         Me.txtCuantoPagoE2.Text = "0"
-        Me.txtMinutosEstacionaAutoE2.Text = ""
+        Me.txtMinutosEstacionaAutoE2.Text = "0"
         Me.lkpFormaPagoE2.EditValue = -1
         Me.lkpLugarBajadaAutoE2.EditValue = -1
     End Sub
@@ -4555,6 +4772,7 @@ Public Class IngresoViajes
         Me.lkpLugarBajadaBiciE2.EditValue = -1
         Me.txtMotivoNoUsaE2.Text = ""
         Me.lkpEstacionamientoBiciE2.EditValue = -1
+        Me.lkpCicloviaE2.EditValue = -1
     End Sub
 
     Private Sub limpiaAutoE3()
@@ -4565,7 +4783,7 @@ Public Class IngresoViajes
         Me.lkpVehHogarE3.EditValue = -1
         Me.lkpDondeEstacionaE3.EditValue = -1
         Me.txtCuantoPagoE3.Text = "0"
-        Me.txtMinutosEstacionaAutoE3.Text = ""
+        Me.txtMinutosEstacionaAutoE3.Text = "0"
         Me.lkpFormaPagoE3.EditValue = -1
         Me.lkpLugarBajadaAutoE3.EditValue = -1
     End Sub
@@ -4601,6 +4819,7 @@ Public Class IngresoViajes
         Me.lkpLugarBajadaBiciE3.EditValue = -1
         Me.txtMotivoNoUsaE3.Text = ""
         Me.lkpEstacionamientoBiciE3.EditValue = -1
+        Me.lkpCicloviaE3.EditValue = -1
     End Sub
 
 
@@ -5016,13 +5235,13 @@ Public Class IngresoViajes
         End If
 
         If lkpTransporte1.EditValue IsNot Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" AndAlso lkpTransporte1.EditValue > 0 Then
-            completo = etapa1Completa(Integer.Parse(Me.lkpTransporte1.EditValue))
+            completo = completo AndAlso etapa1Completa(Integer.Parse(Me.lkpTransporte1.EditValue))
         End If
         If lkpTransporte2.EditValue IsNot Nothing AndAlso lkpTransporte2.EditValue.ToString <> "" AndAlso lkpTransporte2.EditValue > 0 Then
-            completo = etapa2Completa(Integer.Parse(Me.lkpTransporte2.EditValue))
+            completo = completo AndAlso etapa2Completa(Integer.Parse(Me.lkpTransporte2.EditValue))
         End If
         If lkpTransporte3.EditValue IsNot Nothing AndAlso lkpTransporte3.EditValue.ToString <> "" AndAlso lkpTransporte3.EditValue > 0 Then
-            completo = etapa3Completa(Integer.Parse(Me.lkpTransporte3.EditValue))
+            completo = completo AndAlso etapa3Completa(Integer.Parse(Me.lkpTransporte3.EditValue))
         End If
 
         Return completo
@@ -6658,38 +6877,42 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub lkpManzanaEtapa1_Leave(sender As Object, e As EventArgs) Handles lkpManzanaEtapa1.Leave
-        If lkpTransporte2.EditValue IsNot Nothing AndAlso lkpTransporte2.EditValue.ToString <> "" AndAlso lkpTransporte2.EditValue > 0 Then
-            Me.tabsEtapas.SelectedTabPage = tabsEtapas.TabPages(1)
-            Select Case lkpTransporte2.EditValue
-                Case 1, 5, 9
-                    txtCuadrasAutoE2.Focus()
-                Case 2, 10, 11, 12
-                    txtCuadrasBusE2.Focus()
-                Case 3, 4
-                    txtCuadrasTXCE2.Focus()
-                Case 6
-                    txtCuadrasTaxiE2.Focus()
-                Case 8
-                    lkpPropiedadBicicletaE2.Focus()
-            End Select
+        If Not cargando Then
+            If lkpTransporte2.EditValue IsNot Nothing AndAlso lkpTransporte2.EditValue.ToString <> "" AndAlso lkpTransporte2.EditValue > 0 Then
+                Me.tabsEtapas.SelectedTabPage = tabsEtapas.TabPages(1)
+                Select Case lkpTransporte2.EditValue
+                    Case 1, 5, 9
+                        txtCuadrasAutoE2.Focus()
+                    Case 2, 10, 11, 12
+                        txtCuadrasBusE2.Focus()
+                    Case 3, 4
+                        txtCuadrasTXCE2.Focus()
+                    Case 6
+                        txtCuadrasTaxiE2.Focus()
+                    Case 8
+                        lkpPropiedadBicicletaE2.Focus()
+                End Select
+            End If
         End If
     End Sub
 
     Private Sub lkpManzanaEtapa2_Leave(sender As Object, e As EventArgs) Handles lkpManzanaEtapa2.Leave
-        If lkpTransporte3.EditValue IsNot Nothing AndAlso lkpTransporte3.EditValue.ToString <> "" AndAlso lkpTransporte3.EditValue > 0 Then
-            Me.tabsEtapas.SelectedTabPage = tabsEtapas.TabPages(2)
-            Select Case lkpTransporte3.EditValue
-                Case 1, 5, 9
-                    txtCuadrasAutoE3.Focus()
-                Case 2, 10, 11, 12
-                    txtCuadrasBusE3.Focus()
-                Case 3, 4
-                    txtCuadrasTXCE3.Focus()
-                Case 6
-                    txtCuadrasTaxiE3.Focus()
-                Case 8
-                    lkpPropiedadBicicletaE3.Focus()
-            End Select
+        If Not cargando Then
+            If lkpTransporte3.EditValue IsNot Nothing AndAlso lkpTransporte3.EditValue.ToString <> "" AndAlso lkpTransporte3.EditValue > 0 Then
+                Me.tabsEtapas.SelectedTabPage = tabsEtapas.TabPages(2)
+                Select Case lkpTransporte3.EditValue
+                    Case 1, 5, 9
+                        txtCuadrasAutoE3.Focus()
+                    Case 2, 10, 11, 12
+                        txtCuadrasBusE3.Focus()
+                    Case 3, 4
+                        txtCuadrasTXCE3.Focus()
+                    Case 6
+                        txtCuadrasTaxiE3.Focus()
+                    Case 8
+                        lkpPropiedadBicicletaE3.Focus()
+                End Select
+            End If
         End If
     End Sub
 
@@ -7470,6 +7693,100 @@ Public Class IngresoViajes
             End If
         End If
         primeraCarga = False
+
+        If Not cargando Then
+            Dim opcion As Integer
+
+            If Not (Me.lkpTrasnoche.EditValue Is Nothing OrElse Me.lkpTrasnoche.EditValue.ToString = "") Then
+                opcion = Me.lkpTrasnoche.EditValue
+            End If
+
+            Dim horaSalida As DateTime = Me.tmHoraSalida.EditValue
+            Dim horaLlegada As DateTime = Me.tmHoraLlegada.EditValue
+
+            If opcion = 2 Then
+                'Validador hora de llegada superior a hora de salida
+                If horaLlegada <= horaSalida Then
+                    MessageBox.Show("Las horas de salida y llegada del viaje son inconsistentes. Por favor, revisar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    tmHoraSalida.Focus()
+                End If
+
+                'Validador viaje intrazonal mayor a 30 minutos en modo distinto a caminata, viaje 1
+                If lkpComunaOrigen.EditValue IsNot Nothing AndAlso (lkpComunaOrigen.EditValue.ToString = "2" OrElse lkpComunaOrigen.EditValue.ToString = "3") AndAlso lkpComunaDestino.EditValue IsNot Nothing AndAlso (lkpComunaDestino.EditValue.ToString = "2" OrElse lkpComunaDestino.EditValue.ToString = "3") Then
+                    If idViaje = 1 Then
+                        If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                            If Me.lkpTransporte1.EditValue <> 7 Then
+                                If Me.lkpManzanaOrigen.EditValue IsNot Nothing AndAlso Me.lkpManzanaDestino.EditValue IsNot Nothing Then
+                                    If Me.lkpManzanaOrigen.EditValue.ToString <> "" AndAlso Me.lkpManzanaDestino.EditValue.ToString <> "" Then
+                                        If Not Me.lkpTransporte1.EditValue Is Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                                            Dim zonaOrigen As Integer = Me.lkpManzanaOrigen.EditValue \ 1000
+                                            Dim zonaDestino As Integer = Me.lkpManzanaDestino.EditValue \ 1000
+                                            If zonaOrigen = zonaDestino Then
+                                                validadorViaje.Val9 = True
+                                                Dim confirma As DialogResult = MessageBox.Show("Este viaje es intrazonal pero duró más de 30 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                                                If confirma = Windows.Forms.DialogResult.No Then
+                                                    validadorViaje.Val9 = False
+                                                    Me.lkpManzanaDestino.EditValue = ""
+                                                    Me.lkpManzanaDestino.Focus()
+                                                Else
+                                                    validadorViaje.Val9Resp = True
+                                                End If
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                            End If
+                        End If
+                    ElseIf idViaje > 1 Then
+                        If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                            If Me.lkpTransporte1.EditValue <> 7 Then
+                                If Not Me.txtManzanaAnterior.Text = "" AndAlso Me.lkpManzanaDestino.EditValue IsNot Nothing Then
+                                    If Me.txtManzanaAnterior.Text <> "" AndAlso Me.lkpManzanaDestino.EditValue.ToString <> "" Then
+                                        If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                                            Dim manzanaAnterior As Integer = Me.txtManzanaAnterior.Text
+                                            Dim zonaOrigen As Integer = manzanaAnterior \ 1000
+                                            Dim zonaDestino As Integer = Me.lkpManzanaDestino.EditValue \ 1000
+                                            If zonaOrigen = zonaDestino Then
+                                                validadorViaje.Val9 = True
+                                                Dim confirma As DialogResult = MessageBox.Show("Este viaje es intrazonal pero duró más de 30 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                                                If confirma = Windows.Forms.DialogResult.No Then
+                                                    validadorViaje.Val9 = False
+                                                    Me.lkpManzanaDestino.EditValue = ""
+                                                    Me.lkpManzanaDestino.Focus()
+                                                Else
+                                                    validadorViaje.Val9Resp = True
+                                                End If
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            ElseIf opcion = 1 Then
+                'Validador hora de llegada superior a hora de salida
+                If horaLlegada >= horaSalida Then
+                    MessageBox.Show("Las horas de salida y llegada del viaje son inconsistentes. Por favor, revisar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    tmHoraSalida.Focus()
+                End If
+            End If
+
+            'Viaje a pie, calcular minutos viaje
+            If lkpTransporte1.EditValue IsNot Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" AndAlso lkpTransporte1.EditValue = 7 Then
+                Dim dtLlegada As DateTime = tmHoraLlegada.EditValue
+                Dim dtSalida As DateTime = tmHoraSalida.EditValue
+                Select Case opcion
+                    Case 1
+                        Dim tpoViaje As Integer = (dtSalida - dtLlegada).TotalMinutes
+                        txtMinutosDespues.Text = tpoViaje
+                        txtMinutosDespues.Enabled = False
+                    Case 2
+                        Dim tpoViaje As Integer = (dtLlegada - dtSalida).TotalMinutes
+                        txtMinutosDespues.Text = tpoViaje
+                End Select
+            End If
+        End If
     End Sub
 
     Private Sub lkpMuelleSubidaBarcazaE2_Enter(sender As Object, e As EventArgs)
@@ -7532,31 +7849,33 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub TxtCuantoPagoE1_Leave(sender As Object, e As EventArgs) Handles txtCuantoPagoE1.Leave
+        If Not cargando Then
+            Dim formaPago As Integer
 
-        Dim formaPago As Integer
+            If Not Integer.TryParse(lkpFormaPagoE1.EditValue, formaPago) Then
+                formaPago = -1
+            End If
 
-        If Not Integer.TryParse(lkpFormaPagoE1.EditValue, formaPago) Then
-            formaPago = -1
-        End If
+            If txtCuantoPagoE1 IsNot Nothing AndAlso txtCuantoPagoE1.Text <> "" Then
+                Dim monto As Integer = Integer.Parse(txtCuantoPagoE1.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
 
-        If txtCuantoPagoE1 IsNot Nothing AndAlso txtCuantoPagoE1.Text <> "" Then
-            Dim monto As Integer = Integer.Parse(txtCuantoPagoE1.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
-
-            If monto < 0 Then
-                'Validar monto negativo
-                MessageBox.Show("No puede ingresar un monto menor a 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtCuantoPagoE1.Focus()
-            ElseIf monto = 0 AndAlso (formaPago < 8 AndAlso formaPago > 0) Then
-                'Validar monto 0 contra valor de forma pago
-                MessageBox.Show("En pregunta anterior indicó que pagó por estacionar, no puede indicar monto 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            ElseIf monto > 50000 Then
-                'Validar monto superior a 50.000
-                Dim confirma As DialogResult = MessageBox.Show("Indicó un monto superior a $50.000, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = DialogResult.No Then
+                If monto < 0 Then
+                    'Validar monto negativo
+                    MessageBox.Show("No puede ingresar un monto menor a 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtCuantoPagoE1.Focus()
-                    txtCuantoPagoE1.Text = ""
-                Else
-                    'TODO: Crear validador en tabla ValEtapa y setear valor desde aquí
+                ElseIf monto = 0 AndAlso (formaPago < 8 AndAlso formaPago > 0) Then
+                    'Validar monto 0 contra valor de forma pago
+                    MessageBox.Show("En pregunta anterior indicó que pagó por estacionar, no puede indicar monto 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtCuantoPagoE1.Focus()
+                ElseIf monto > 50000 Then
+                    'Validar monto superior a 50.000
+                    Dim confirma As DialogResult = MessageBox.Show("Indicó un monto superior a $50.000, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = DialogResult.No Then
+                        txtCuantoPagoE1.Focus()
+                        txtCuantoPagoE1.Text = ""
+                    Else
+                        'TODO: Crear validador en tabla ValEtapa y setear valor desde aquí
+                    End If
                 End If
             End If
         End If
@@ -7564,31 +7883,33 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub TxtCuantoPagoE2_Leave(sender As Object, e As EventArgs) Handles txtCuantoPagoE2.Leave
+        If Not cargando Then
+            Dim formaPago As Integer
 
-        Dim formaPago As Integer
+            If Not Integer.TryParse(lkpFormaPagoE2.EditValue, formaPago) Then
+                formaPago = -1
+            End If
 
-        If Not Integer.TryParse(lkpFormaPagoE2.EditValue, formaPago) Then
-            formaPago = -1
-        End If
+            If txtCuantoPagoE2 IsNot Nothing AndAlso txtCuantoPagoE2.Text <> "" Then
+                Dim monto As Integer = Integer.Parse(txtCuantoPagoE2.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
 
-        If txtCuantoPagoE2 IsNot Nothing AndAlso txtCuantoPagoE2.Text <> "" Then
-            Dim monto As Integer = Integer.Parse(txtCuantoPagoE2.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
-
-            If monto < 0 Then
-                'Validar monto negativo
-                MessageBox.Show("No puede ingresar un monto menor a 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtCuantoPagoE2.Focus()
-            ElseIf monto = 0 AndAlso (formaPago < 8 AndAlso formaPago > 0) Then
-                'Validar monto 0 contra valor de forma pago 
-                MessageBox.Show("En pregunta anterior indicó que pagó por estacionar, no puede indicar monto 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            ElseIf monto > 50000 Then
-                'Validar monto superior a 50.000
-                Dim confirma As DialogResult = MessageBox.Show("Indicó un monto superior a $50.000, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = DialogResult.No Then
+                If monto < 0 Then
+                    'Validar monto negativo
+                    MessageBox.Show("No puede ingresar un monto menor a 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtCuantoPagoE2.Focus()
-                    txtCuantoPagoE2.Text = ""
-                Else
-                    'TODO: Crear validador en tabla ValEtapa y setear valor desde aquí
+                ElseIf monto = 0 AndAlso (formaPago < 8 AndAlso formaPago > 0) Then
+                    'Validar monto 0 contra valor de forma pago 
+                    MessageBox.Show("En pregunta anterior indicó que pagó por estacionar, no puede indicar monto 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtCuantoPagoE2.Focus()
+                ElseIf monto > 50000 Then
+                    'Validar monto superior a 50.000
+                    Dim confirma As DialogResult = MessageBox.Show("Indicó un monto superior a $50.000, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = DialogResult.No Then
+                        txtCuantoPagoE2.Focus()
+                        txtCuantoPagoE2.Text = ""
+                    Else
+                        'TODO: Crear validador en tabla ValEtapa y setear valor desde aquí
+                    End If
                 End If
             End If
         End If
@@ -7596,31 +7917,33 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub TxtCuantoPagoE3_Leave(sender As Object, e As EventArgs) Handles txtCuantoPagoE3.Leave
+        If Not cargando Then
+            Dim formaPago As Integer
 
-        Dim formaPago As Integer
+            If Not Integer.TryParse(lkpFormaPagoE3.EditValue, formaPago) Then
+                formaPago = -1
+            End If
 
-        If Not Integer.TryParse(lkpFormaPagoE3.EditValue, formaPago) Then
-            formaPago = -1
-        End If
+            If txtCuantoPagoE3 IsNot Nothing AndAlso txtCuantoPagoE3.Text <> "" Then
+                Dim monto As Integer = Integer.Parse(txtCuantoPagoE3.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
 
-        If txtCuantoPagoE3 IsNot Nothing AndAlso txtCuantoPagoE3.Text <> "" Then
-            Dim monto As Integer = Integer.Parse(txtCuantoPagoE3.Text.Replace("$", "").Replace("€", "").Replace(".", "").Trim)
-
-            If monto < 0 Then
-                'Validar monto negativo
-                MessageBox.Show("No puede ingresar un monto menor a 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                txtCuantoPagoE3.Focus()
-            ElseIf monto = 0 AndAlso (formaPago < 8 AndAlso formaPago > 0) Then
-                'Validar monto 0 contra valor de forma pago
-                MessageBox.Show("En pregunta anterior indicó que pagó por estacionar, no puede indicar monto 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            ElseIf monto > 50000 Then
-                'Validar monto superior a 50.000
-                Dim confirma As DialogResult = MessageBox.Show("Indicó un monto superior a $50.000, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = DialogResult.No Then
+                If monto < 0 Then
+                    'Validar monto negativo
+                    MessageBox.Show("No puede ingresar un monto menor a 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     txtCuantoPagoE3.Focus()
-                    txtCuantoPagoE3.Text = ""
-                Else
-                    'TODO: Crear validador en tabla ValEtapa y setear valor desde aquí
+                ElseIf monto = 0 AndAlso (formaPago < 8 AndAlso formaPago > 0) Then
+                    'Validar monto 0 contra valor de forma pago
+                    MessageBox.Show("En pregunta anterior indicó que pagó por estacionar, no puede indicar monto 0", "Validación de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    txtCuantoPagoE3.Focus()
+                ElseIf monto > 50000 Then
+                    'Validar monto superior a 50.000
+                    Dim confirma As DialogResult = MessageBox.Show("Indicó un monto superior a $50.000, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = DialogResult.No Then
+                        txtCuantoPagoE3.Focus()
+                        txtCuantoPagoE3.Text = ""
+                    Else
+                        'TODO: Crear validador en tabla ValEtapa y setear valor desde aquí
+                    End If
                 End If
             End If
         End If
@@ -7712,43 +8035,146 @@ Public Class IngresoViajes
     End Sub
 
     Private Sub txtMinutosEstacionaAutoE1_Leave(sender As Object, e As EventArgs) Handles txtMinutosEstacionaAutoE1.Leave
-        If txtMinutosEstacionaAutoE1.Text <> "" Then
-            Dim valor As Integer = txtMinutosEstacionaAutoE1.Text
+        If Not cargando Then
+            If txtMinutosEstacionaAutoE1.Text <> "" Then
+                Dim valor As Integer = txtMinutosEstacionaAutoE1.Text
 
-            If valor > 60 Then
-                Dim confirma As DialogResult = MessageBox.Show("Indicó que tardó más de 1 hora en estacionar, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = DialogResult.No Then
-                    txtMinutosEstacionaAutoE1.Text = ""
-                    txtMinutosEstacionaAutoE1.Focus()
+                If valor > 60 Then
+                    Dim confirma As DialogResult = MessageBox.Show("Indicó que tardó más de 1 hora en estacionar, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = DialogResult.No Then
+                        txtMinutosEstacionaAutoE1.Text = ""
+                        txtMinutosEstacionaAutoE1.Focus()
+                    End If
                 End If
             End If
         End If
     End Sub
 
     Private Sub txtMinutosEstacionaAutoE2_Leave(sender As Object, e As EventArgs) Handles txtMinutosEstacionaAutoE2.Leave
-        If txtMinutosEstacionaAutoE2.Text <> "" Then
-            Dim valor As Integer = txtMinutosEstacionaAutoE2.Text
+        If Not cargando Then
+            If txtMinutosEstacionaAutoE2.Text <> "" Then
+                Dim valor As Integer = txtMinutosEstacionaAutoE2.Text
 
-            If valor > 60 Then
-                Dim confirma As DialogResult = MessageBox.Show("Indicó que tardó más de 1 hora en estacionar, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = DialogResult.No Then
-                    txtMinutosEstacionaAutoE2.Text = ""
-                    txtMinutosEstacionaAutoE2.Focus()
+                If valor > 60 Then
+                    Dim confirma As DialogResult = MessageBox.Show("Indicó que tardó más de 1 hora en estacionar, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = DialogResult.No Then
+                        txtMinutosEstacionaAutoE2.Text = ""
+                        txtMinutosEstacionaAutoE2.Focus()
+                    End If
                 End If
             End If
         End If
     End Sub
 
     Private Sub txtMinutosEstacionaAutoE3_Leave(sender As Object, e As EventArgs) Handles txtMinutosEstacionaAutoE3.Leave
-        If txtMinutosEstacionaAutoE3.Text <> "" Then
-            Dim valor As Integer = txtMinutosEstacionaAutoE3.Text
+        If Not cargando Then
+            If txtMinutosEstacionaAutoE3.Text <> "" Then
+                Dim valor As Integer = txtMinutosEstacionaAutoE3.Text
 
-            If valor > 60 Then
-                Dim confirma As DialogResult = MessageBox.Show("Indicó que tardó más de 1 hora en estacionar, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                If confirma = DialogResult.No Then
-                    txtMinutosEstacionaAutoE3.Text = ""
-                    txtMinutosEstacionaAutoE3.Focus()
+                If valor > 60 Then
+                    Dim confirma As DialogResult = MessageBox.Show("Indicó que tardó más de 1 hora en estacionar, ¿confirma que es correcto?", "Validación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    If confirma = DialogResult.No Then
+                        txtMinutosEstacionaAutoE3.Text = ""
+                        txtMinutosEstacionaAutoE3.Focus()
+                    End If
                 End If
+            End If
+        End If
+    End Sub
+
+    Private Sub tmHoraLlegada_Leave(sender As Object, e As EventArgs) Handles tmHoraLlegada.Leave
+        If Not cargando Then
+            Dim opcion As Integer
+
+            If Not (Me.lkpTrasnoche.EditValue Is Nothing OrElse Me.lkpTrasnoche.EditValue.ToString = "") Then
+                opcion = Me.lkpTrasnoche.EditValue
+            Else Return
+            End If
+
+            Dim horaSalida As DateTime = Me.tmHoraSalida.EditValue
+            Dim horaLlegada As DateTime = Me.tmHoraLlegada.EditValue
+
+            If opcion = 2 Then
+                'Validador hora de llegada superior a hora de salida
+                If horaLlegada <= horaSalida Then
+                    MessageBox.Show("Las horas de salida y llegada del viaje son inconsistentes. Por favor, revisar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    tmHoraSalida.Focus()
+                End If
+
+                'Validador viaje intrazonal mayor a 30 minutos en modo distinto a caminata, viaje 1
+                If lkpComunaOrigen.EditValue IsNot Nothing AndAlso (lkpComunaOrigen.EditValue.ToString = "2" OrElse lkpComunaOrigen.EditValue.ToString = "3") AndAlso lkpComunaDestino.EditValue IsNot Nothing AndAlso (lkpComunaDestino.EditValue.ToString = "2" OrElse lkpComunaDestino.EditValue.ToString = "3") Then
+                    If idViaje = 1 Then
+                        If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                            If Me.lkpTransporte1.EditValue <> 7 Then
+                                If Me.lkpManzanaOrigen.EditValue IsNot Nothing AndAlso Me.lkpManzanaDestino.EditValue IsNot Nothing Then
+                                    If Me.lkpManzanaOrigen.EditValue.ToString <> "" AndAlso Me.lkpManzanaDestino.EditValue.ToString <> "" Then
+                                        If Not Me.lkpTransporte1.EditValue Is Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                                            Dim zonaOrigen As Integer = Me.lkpManzanaOrigen.EditValue \ 1000
+                                            Dim zonaDestino As Integer = Me.lkpManzanaDestino.EditValue \ 1000
+                                            If zonaOrigen = zonaDestino Then
+                                                validadorViaje.Val9 = True
+                                                Dim confirma As DialogResult = MessageBox.Show("Este viaje es intrazonal pero duró más de 30 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                                                If confirma = Windows.Forms.DialogResult.No Then
+                                                    validadorViaje.Val9 = False
+                                                    Me.lkpManzanaDestino.EditValue = ""
+                                                    Me.lkpManzanaDestino.Focus()
+                                                Else
+                                                    validadorViaje.Val9Resp = True
+                                                End If
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                            End If
+                        End If
+                    ElseIf idViaje > 1 Then
+                        If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                            If Me.lkpTransporte1.EditValue <> 7 Then
+                                If Not Me.txtManzanaAnterior.Text = "" AndAlso Me.lkpManzanaDestino.EditValue IsNot Nothing Then
+                                    If Me.txtManzanaAnterior.Text <> "" AndAlso Me.lkpManzanaDestino.EditValue.ToString <> "" Then
+                                        If Me.lkpTransporte1.EditValue IsNot Nothing AndAlso Me.lkpTransporte1.EditValue.ToString <> "" Then
+                                            Dim manzanaAnterior As Integer = Me.txtManzanaAnterior.Text
+                                            Dim zonaOrigen As Integer = manzanaAnterior \ 1000
+                                            Dim zonaDestino As Integer = Me.lkpManzanaDestino.EditValue \ 1000
+                                            If zonaOrigen = zonaDestino Then
+                                                validadorViaje.Val9 = True
+                                                Dim confirma As DialogResult = MessageBox.Show("Este viaje es intrazonal pero duró más de 30 minutos, ¿confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                                                If confirma = Windows.Forms.DialogResult.No Then
+                                                    validadorViaje.Val9 = False
+                                                    Me.lkpManzanaDestino.EditValue = ""
+                                                    Me.lkpManzanaDestino.Focus()
+                                                Else
+                                                    validadorViaje.Val9Resp = True
+                                                End If
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            ElseIf opcion = 1 Then
+                'Validador hora de llegada superior a hora de salida
+                If horaLlegada >= horaSalida Then
+                    MessageBox.Show("Las horas de salida y llegada del viaje son inconsistentes. Por favor, revisar", "Dato inconsistente", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    tmHoraSalida.Focus()
+                End If
+            End If
+
+            'Viaje a pie, calcular minutos viaje
+            If lkpTransporte1.EditValue IsNot Nothing AndAlso lkpTransporte1.EditValue.ToString <> "" AndAlso lkpTransporte1.EditValue = 7 Then
+                Dim dtLlegada As DateTime = tmHoraLlegada.EditValue
+                Dim dtSalida As DateTime = tmHoraSalida.EditValue
+                Select Case opcion
+                    Case 1
+                        Dim tpoViaje As Integer = (dtSalida - dtLlegada).TotalMinutes
+                        txtMinutosDespues.Text = tpoViaje
+                        txtMinutosDespues.Enabled = False
+                    Case 2
+                        Dim tpoViaje As Integer = (dtLlegada - dtSalida).TotalMinutes
+                        txtMinutosDespues.Text = tpoViaje
+                End Select
             End If
         End If
     End Sub

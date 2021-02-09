@@ -1951,7 +1951,7 @@ Partial Class IngresoViajes
         Me.txtMinutosEstacionaAutoE1.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.txtMinutosEstacionaAutoE1.Properties.AppearanceFocused.Options.UseBorderColor = True
         Me.txtMinutosEstacionaAutoE1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.txtMinutosEstacionaAutoE1.Properties.Mask.EditMask = "c0"
+        Me.txtMinutosEstacionaAutoE1.Properties.Mask.EditMask = "n0"
         Me.txtMinutosEstacionaAutoE1.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtMinutosEstacionaAutoE1.Size = New System.Drawing.Size(76, 20)
         Me.txtMinutosEstacionaAutoE1.TabIndex = 31
@@ -3706,7 +3706,7 @@ Partial Class IngresoViajes
         Me.txtMinutosEstacionaAutoE2.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.txtMinutosEstacionaAutoE2.Properties.AppearanceFocused.Options.UseBorderColor = True
         Me.txtMinutosEstacionaAutoE2.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.txtMinutosEstacionaAutoE2.Properties.Mask.EditMask = "c0"
+        Me.txtMinutosEstacionaAutoE2.Properties.Mask.EditMask = "n0"
         Me.txtMinutosEstacionaAutoE2.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtMinutosEstacionaAutoE2.Size = New System.Drawing.Size(76, 20)
         Me.txtMinutosEstacionaAutoE2.TabIndex = 67
@@ -5463,7 +5463,7 @@ Partial Class IngresoViajes
         Me.txtMinutosEstacionaAutoE3.Properties.AppearanceFocused.BorderColor = System.Drawing.Color.Lime
         Me.txtMinutosEstacionaAutoE3.Properties.AppearanceFocused.Options.UseBorderColor = True
         Me.txtMinutosEstacionaAutoE3.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple
-        Me.txtMinutosEstacionaAutoE3.Properties.Mask.EditMask = "c0"
+        Me.txtMinutosEstacionaAutoE3.Properties.Mask.EditMask = "n0"
         Me.txtMinutosEstacionaAutoE3.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtMinutosEstacionaAutoE3.Size = New System.Drawing.Size(76, 20)
         Me.txtMinutosEstacionaAutoE3.TabIndex = 73

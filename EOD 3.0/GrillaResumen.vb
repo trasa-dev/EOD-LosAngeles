@@ -97,170 +97,174 @@ Public Class GrillaResumen
     End Sub
 
     Private Sub btnIngresarViajes_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnIngresarViajes.ItemClick
-        '  Try
-        Dim folio As Integer = Me.gridViewHogares.GetFocusedRowCellValue("Hogar").ToString()
-        Dim persona As Integer = Me.gridViewPersonas.GetFocusedRowCellValue("Persona").ToString()
-        Dim nombre As String = Me.gridViewPersonas.GetFocusedRowCellValue("NombrePila").ToString()
+        Try
+            Dim folio As Integer = Me.gridViewHogares.GetFocusedRowCellValue("Hogar").ToString()
+            Dim persona As Integer = Me.gridViewPersonas.GetFocusedRowCellValue("Persona").ToString()
+            Dim nombre As String = Me.gridViewPersonas.GetFocusedRowCellValue("NombrePila").ToString()
 
-        Dim viajes As Double
-        Dim noViaja As Integer
+            Dim viajes As Double
+            Dim noViaja As Integer
 
-        'comprobar fecha minima para segunda visita
+            'comprobar fecha minima para segunda visita
 
-        Dim hogar As HogarRow = datasetEOD.Hogar.FindByHogar(folio)
+            Dim hogar As HogarRow = datasetEOD.Hogar.FindByHogar(folio)
 
-        Dim tipoEncuesta As Integer = hogar.TipoDia
-        Dim hoy As DateTime = DateTime.Now
+            Dim tipoEncuesta As Integer = hogar.TipoDia
+            Dim hoy As DateTime = DateTime.Now
 
-        Select Case tipoEncuesta
-            Case 1
-                If hogar.FechaViajesLab < hoy OrElse My.Settings.IdUsuario = 2 Then
-                    'indicó no viaja?
+            Select Case tipoEncuesta
+                Case 1
+                    If hogar.FechaViajesLab < hoy OrElse My.Settings.IdUsuario = 2 Then
+                        'indicó no viaja?
 
-                    Dim personaBuscada As PersonaRow = datasetEOD.Persona.FindByHogarPersona(folio, persona)
+                        Dim personaBuscada As PersonaRow = datasetEOD.Persona.FindByHogarPersona(folio, persona)
 
-                    If personaBuscada IsNot Nothing Then
-                        noViaja = personaBuscada.NoViajaLab
-                        viajes = personaBuscada.ViajesLab
+                        If personaBuscada IsNot Nothing Then
+                            noViaja = personaBuscada.NoViajaLab
+                            viajes = personaBuscada.ViajesLab
 
-                        'no viaja = sí
-                        If noViaja > 0 Then
-                            Dim resultado As DialogResult = MessageBox.Show("Esta persona anteriormente indicó que no realizó viajes el día asignado, ¿está seguro de que realmente tiene al menos un viaje?", "Por favor confirme", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                            If resultado = DialogResult.Yes Then
-                                'actualizar noviaja
-                                personaBuscada.NoViajaLab = -1
+                            'no viaja = sí
+                            If noViaja > 0 Then
+                                Dim resultado As DialogResult = MessageBox.Show("Esta persona anteriormente indicó que no realizó viajes el día asignado, ¿está seguro de que realmente tiene al menos un viaje?", "Por favor confirme", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                                If resultado = DialogResult.Yes Then
+                                    'actualizar noviaja
+                                    personaBuscada.NoViajaLab = -1
 
-                                Try
-                                    PersonaTableAdapter.Update(datasetEOD.Persona)
-                                    'ingresar nuevo viaje
+                                    Try
+                                        PersonaTableAdapter.Update(datasetEOD.Persona)
+                                        'ingresar nuevo viaje
+                                        Dim ventanaIngresoViajes As New IngresoViajes(folio, persona, 1, nombre, 1, 1)
+                                        ventanaIngresoViajes.Show()
+                                    Catch ex As Exception
+                                        MessageBox.Show("No se pudo actualizar el dato de la persona en la base de datos.", "Error de actualización de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                    End Try
+                                End If
+                            Else
+                                'no viaja = no
+                                If personaBuscada.ViajesLab > 0 Then
+                                    'mostrar resumen viajes
+                                    Dim ventanaResumenViajes As New ResumenViajes(folio, persona, nombre, 1)
+                                    ventanaResumenViajes.Show()
+                                Else
+                                    'viaje1
                                     Dim ventanaIngresoViajes As New IngresoViajes(folio, persona, 1, nombre, 1, 1)
                                     ventanaIngresoViajes.Show()
-                                Catch ex As Exception
-                                    MessageBox.Show("No se pudo actualizar el dato de la persona en la base de datos.", "Error de actualización de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                                End Try
+                                End If
                             End If
-                        Else
-                            'no viaja = no
-                            If personaBuscada.ViajesLab > 0 Then
-                                'mostrar resumen viajes
-                                Dim ventanaResumenViajes As New ResumenViajes(folio, persona, nombre, 1)
-                                ventanaResumenViajes.Show()
-                            Else
-                                'viaje1
-                                Dim ventanaIngresoViajes As New IngresoViajes(folio, persona, 1, nombre, 1, 1)
-                                ventanaIngresoViajes.Show()
-                            End If
+                            'Catch ex As Exception
+                            'MessageBox.Show(ex.Message + vbCrLf + vbCrLf + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            ' End Try
                         End If
-                        'Catch ex As Exception
-                        'MessageBox.Show(ex.Message + vbCrLf + vbCrLf + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        ' End Try
+                    Else
+                        MessageBox.Show("Debe recoger la Encuesta de Viajes al menos un día después de la fecha programada para el hogar", "No se puede encuestar hoy", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Return
                     End If
-                Else
-                    MessageBox.Show("Debe recoger la Encuesta de Viajes al menos un día después de la fecha programada para el hogar", "No se puede encuestar hoy", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Return
-                End If
-            Case 2
-                If hogar.FechaViajesSab < hoy OrElse My.Settings.IdUsuario = 2 Then
-                    'indicó no viaja?
+                Case 2
+                    If hogar.FechaViajesSab < hoy OrElse My.Settings.IdUsuario = 2 Then
+                        'indicó no viaja?
 
-                    Dim personaBuscada As PersonaRow = datasetEOD.Persona.FindByHogarPersona(folio, persona)
+                        Dim personaBuscada As PersonaRow = datasetEOD.Persona.FindByHogarPersona(folio, persona)
 
-                    If personaBuscada IsNot Nothing Then
-                        noViaja = personaBuscada.NoViajaSab
-                        viajes = personaBuscada.ViajesSab
+                        If personaBuscada IsNot Nothing Then
+                            noViaja = personaBuscada.NoViajaSab
+                            viajes = personaBuscada.ViajesSab
 
-                        'no viaja = sí
-                        If noViaja > 0 Then
-                            Dim resultado As DialogResult = MessageBox.Show("Esta persona anteriormente indicó que no realizó viajes el día asignado, ¿está seguro de que realmente tiene al menos un viaje?", "Por favor confirme", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                            If resultado = DialogResult.Yes Then
-                                'actualizar noviaja
-                                personaBuscada.NoViajaSab = -1
+                            'no viaja = sí
+                            If noViaja > 0 Then
+                                Dim resultado As DialogResult = MessageBox.Show("Esta persona anteriormente indicó que no realizó viajes el día asignado, ¿está seguro de que realmente tiene al menos un viaje?", "Por favor confirme", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                                If resultado = DialogResult.Yes Then
+                                    'actualizar noviaja
+                                    personaBuscada.NoViajaSab = -1
 
-                                Try
-                                    PersonaTableAdapter.Update(datasetEOD.Persona)
-                                    'ingresar nuevo viaje
+                                    Try
+                                        PersonaTableAdapter.Update(datasetEOD.Persona)
+                                        'ingresar nuevo viaje
+                                        Dim ventanaIngresoViajes As New IngresoViajes(folio, persona, 1, nombre, 2, 2)
+                                        ventanaIngresoViajes.Show()
+                                    Catch ex As Exception
+                                        MessageBox.Show("No se pudo actualizar el dato de la persona en la base de datos.", "Error de actualización de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                    End Try
+                                End If
+                            Else
+                                'no viaja = no
+                                If personaBuscada.ViajesSab > 0 Then
+                                    'mostrar resumen viajes
+                                    Dim ventanaResumenViajes As New ResumenViajes(folio, persona, nombre, 2)
+                                    ventanaResumenViajes.Show()
+                                Else
+                                    'viaje1
                                     Dim ventanaIngresoViajes As New IngresoViajes(folio, persona, 1, nombre, 2, 2)
                                     ventanaIngresoViajes.Show()
-                                Catch ex As Exception
-                                    MessageBox.Show("No se pudo actualizar el dato de la persona en la base de datos.", "Error de actualización de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                                End Try
+                                End If
                             End If
-                        Else
-                            'no viaja = no
-                            If personaBuscada.ViajesSab > 0 Then
-                                'mostrar resumen viajes
-                                Dim ventanaResumenViajes As New ResumenViajes(folio, persona, nombre, 2)
-                                ventanaResumenViajes.Show()
-                            Else
-                                'viaje1
-                                Dim ventanaIngresoViajes As New IngresoViajes(folio, persona, 1, nombre, 2, 2)
-                                ventanaIngresoViajes.Show()
-                            End If
+                            'Catch ex As Exception
+                            'MessageBox.Show(ex.Message + vbCrLf + vbCrLf + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            ' End Try
                         End If
-                        'Catch ex As Exception
-                        'MessageBox.Show(ex.Message + vbCrLf + vbCrLf + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        ' End Try
+                    Else
+                        MessageBox.Show("Debe recoger la Encuesta de Viajes al menos un día después de la fecha programada para el hogar", "No se puede encuestar hoy", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Return
                     End If
-                Else
-                    MessageBox.Show("Debe recoger la Encuesta de Viajes al menos un día después de la fecha programada para el hogar", "No se puede encuestar hoy", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Return
-                End If
-            Case 3
-                If hogar.FechaViajesDom < hoy OrElse My.Settings.IdUsuario = 2 Then
-                    'indicó no viaja?
+                Case 3
+                    If hogar.FechaViajesDom < hoy OrElse My.Settings.IdUsuario = 2 Then
+                        'indicó no viaja?
 
-                    Dim personaBuscada As PersonaRow = datasetEOD.Persona.FindByHogarPersona(folio, persona)
+                        Dim personaBuscada As PersonaRow = datasetEOD.Persona.FindByHogarPersona(folio, persona)
 
-                    If personaBuscada IsNot Nothing Then
-                        noViaja = personaBuscada.NoViajaDom
-                        viajes = personaBuscada.ViajesDom
+                        If personaBuscada IsNot Nothing Then
+                            noViaja = personaBuscada.NoViajaDom
+                            viajes = personaBuscada.ViajesDom
 
-                        'no viaja = sí
-                        If noViaja > 0 Then
-                            Dim resultado As DialogResult = MessageBox.Show("Esta persona anteriormente indicó que no realizó viajes el día asignado, ¿está seguro de que realmente tiene al menos un viaje?", "Por favor confirme", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
-                            If resultado = DialogResult.Yes Then
-                                'actualizar noviaja 
-                                personaBuscada.NoViajaDom = -1
+                            'no viaja = sí
+                            If noViaja > 0 Then
+                                Dim resultado As DialogResult = MessageBox.Show("Esta persona anteriormente indicó que no realizó viajes el día asignado, ¿está seguro de que realmente tiene al menos un viaje?", "Por favor confirme", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                                If resultado = DialogResult.Yes Then
+                                    'actualizar noviaja 
+                                    personaBuscada.NoViajaDom = -1
 
-                                Try
-                                    PersonaTableAdapter.Update(datasetEOD.Persona)
-                                    'ingresar nuevo viaje
+                                    Try
+                                        PersonaTableAdapter.Update(datasetEOD.Persona)
+                                        'ingresar nuevo viaje
+                                        Dim ventanaIngresoViajes As New IngresoViajes(folio, persona, 1, nombre, 3, 3)
+                                        ventanaIngresoViajes.Show()
+                                    Catch ex As Exception
+                                        MessageBox.Show("No se pudo actualizar el dato de la persona en la base de datos.", "Error de actualización de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                    End Try
+                                End If
+                            Else
+                                'no viaja = no
+                                If personaBuscada.ViajesDom > 0 Then
+                                    'mostrar resumen viajes
+                                    Dim ventanaResumenViajes As New ResumenViajes(folio, persona, nombre, 3)
+                                    ventanaResumenViajes.Show()
+                                Else
+                                    'viaje1
                                     Dim ventanaIngresoViajes As New IngresoViajes(folio, persona, 1, nombre, 3, 3)
                                     ventanaIngresoViajes.Show()
-                                Catch ex As Exception
-                                    MessageBox.Show("No se pudo actualizar el dato de la persona en la base de datos.", "Error de actualización de datos", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                                End Try
+                                End If
                             End If
-                        Else
-                            'no viaja = no
-                            If personaBuscada.ViajesDom > 0 Then
-                                'mostrar resumen viajes
-                                Dim ventanaResumenViajes As New ResumenViajes(folio, persona, nombre, 3)
-                                ventanaResumenViajes.Show()
-                            Else
-                                'viaje1
-                                Dim ventanaIngresoViajes As New IngresoViajes(folio, persona, 1, nombre, 3, 3)
-                                ventanaIngresoViajes.Show()
-                            End If
+                            'Catch ex As Exception
+                            'MessageBox.Show(ex.Message + vbCrLf + vbCrLf + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                            ' End Try
                         End If
-                        'Catch ex As Exception
-                        'MessageBox.Show(ex.Message + vbCrLf + vbCrLf + ex.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        ' End Try
+                    Else
+                        MessageBox.Show("Debe recoger la Encuesta de Viajes al menos un día después de la fecha programada para el hogar", "No se puede encuestar hoy", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        Return
                     End If
-                Else
-                    MessageBox.Show("Debe recoger la Encuesta de Viajes al menos un día después de la fecha programada para el hogar", "No se puede encuestar hoy", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Return
-                End If
-            Case 4
+                Case 4
 
 
 
-                Dim ventanaTipoViaje As New TipoViaje(folio, persona, nombre, 4)
-                ventanaTipoViaje.Show()
-        End Select
+                    Dim ventanaTipoViaje As New TipoViaje(folio, persona, nombre, 4)
+                    ventanaTipoViaje.Show()
+            End Select
+
+        Catch ex As Exception
+        End Try
 
 
-        
+
+
 
     End Sub
 
@@ -300,7 +304,7 @@ Public Class GrillaResumen
         ValidaHogarTableAdapter.Fill(datasetEOD.ValidaHogar)
         ValidaPersonaTableAdapter.Fill(datasetEOD.ValidaPersona)
 
-        
+
     End Sub
 
     Private Sub cargaDatosBackground_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles cargaDatosBackground.RunWorkerCompleted
@@ -364,7 +368,7 @@ Public Class GrillaResumen
         Catch ex As NullReferenceException
 
         End Try
-        
+
     End Sub
 
     Private Sub btnModificarHogar_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnModificarHogar.ItemClick
@@ -385,7 +389,7 @@ Public Class GrillaResumen
         Catch ex As NullReferenceException
 
         End Try
-        
+
     End Sub
 
     Private Sub btnEliminarVehiculo_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnEliminarVehiculo.ItemClick
@@ -408,7 +412,7 @@ Public Class GrillaResumen
         Catch ex As NullReferenceException
 
         End Try
-        
+
     End Sub
 
     Private Sub btnEliminarHogar_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnEliminarHogar.ItemClick
@@ -435,7 +439,7 @@ Public Class GrillaResumen
         Catch ex As NullReferenceException
 
         End Try
-        
+
     End Sub
 
     Private Sub btnEliminarPersona_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnEliminarPersona.ItemClick
@@ -582,18 +586,16 @@ Public Class GrillaResumen
             Case 0
                 actualizaResumenAvance()
             Case 1
-                ResumenHogaresCompletosTableAdapter = New datasetEODTableAdapters.ResumenHogaresCompletosTableAdapter
+                'ResumenHogaresCompletosTableAdapter = New datasetEODTableAdapters.ResumenHogaresCompletosTableAdapter
                 ResumenHogaresCompletosTableAdapter.Fill(datasetEOD.ResumenHogaresCompletos)
-
-
             Case 2
-                ResumenHogaresIncompletosTableAdapter = New datasetEODTableAdapters.ResumenHogaresIncompletosTableAdapter
+                'ResumenHogaresIncompletosTableAdapter = New datasetEODTableAdapters.ResumenHogaresIncompletosTableAdapter
                 ResumenHogaresIncompletosTableAdapter.Fill(datasetEOD.ResumenHogaresIncompletos)
             Case 3
-                ResumenHogaresInconsistentesTableAdapter = New datasetEODTableAdapters.ResumenHogaresInconsistentesTableAdapter
+                'ResumenHogaresInconsistentesTableAdapter = New datasetEODTableAdapters.ResumenHogaresInconsistentesTableAdapter
                 ResumenHogaresInconsistentesTableAdapter.Fill(datasetEOD.ResumenHogaresInconsistentes)
             Case 4
-                ResumenHogaresRechazadosTableAdapter = New datasetEODTableAdapters.ResumenHogaresRechazadosTableAdapter
+                'ResumenHogaresRechazadosTableAdapter = New datasetEODTableAdapters.ResumenHogaresRechazadosTableAdapter
                 ResumenHogaresRechazadosTableAdapter.Fill(datasetEOD.ResumenHogaresRechazados)
             Case 5
                 If My.Settings.RolUsuario = 1 Then
@@ -636,20 +638,20 @@ Public Class GrillaResumen
     End Sub
 
     Private Sub actualizaResumenAvance()
-        GraficoEncuestadosTableAdapter = New datasetEODTableAdapters.GraficoEncuestadosTableAdapter
+        'GraficoEncuestadosTableAdapter = New datasetEODTableAdapters.GraficoEncuestadosTableAdapter
+        'EncuestasPorEstadoTableAdapter = New datasetEODTableAdapters.EncuestasPorEstadoTableAdapter
+        'EncuestasRecogerHoyTableAdapter = New datasetEODTableAdapters.EncuestasRecogerHoyTableAdapter
+        'UltimaExportacionTableAdapter = New datasetEODTableAdapters.UltimaExportacionTableAdapter
+        'PersonasEncuestarHoyTableAdapter = New datasetEODTableAdapters.PersonasEncuestarHoyTableAdapter
+        'EncuestasRecoger1DiaTableAdapter = New datasetEODTableAdapters.EncuestasRecoger1DiaTableAdapter
+        'EncuestasRecoger2DiasTableAdapter = New datasetEODTableAdapters.EncuestasRecoger2DiasTableAdapter
+        'EncuestasRecogerMas2DiasTableAdapter = New datasetEODTableAdapters.EncuestasRecogerMas2DiasTableAdapter
+        'EncuestasRecogerSemanaTableAdapter = New datasetEODTableAdapters.EncuestasRecogerSemanaTableAdapter
         GraficoEncuestadosTableAdapter.Fill(datasetEOD.GraficoEncuestados)
-        EncuestasPorEstadoTableAdapter = New datasetEODTableAdapters.EncuestasPorEstadoTableAdapter
         EncuestasPorEstadoTableAdapter.Fill(datasetEOD.EncuestasPorEstado)
-        EncuestasRecogerHoyTableAdapter = New datasetEODTableAdapters.EncuestasRecogerHoyTableAdapter
         EncuestasRecogerHoyTableAdapter.Fill(datasetEOD.EncuestasRecogerHoy)
-        PersonasEncuestarHoyTableAdapter = New datasetEODTableAdapters.PersonasEncuestarHoyTableAdapter
         PersonasEncuestarHoyTableAdapter.Fill(datasetEOD.PersonasEncuestarHoy)
-        UltimaExportacionTableAdapter = New datasetEODTableAdapters.UltimaExportacionTableAdapter
         UltimaExportacionTableAdapter.Fill(datasetEOD.UltimaExportacion)
-        EncuestasRecoger1DiaTableAdapter = New datasetEODTableAdapters.EncuestasRecoger1DiaTableAdapter
-        EncuestasRecoger2DiasTableAdapter = New datasetEODTableAdapters.EncuestasRecoger2DiasTableAdapter
-        EncuestasRecogerMas2DiasTableAdapter = New datasetEODTableAdapters.EncuestasRecogerMas2DiasTableAdapter
-        EncuestasRecogerSemanaTableAdapter = New datasetEODTableAdapters.EncuestasRecogerSemanaTableAdapter
         EncuestasRecoger1DiaTableAdapter.Fill(datasetEOD.EncuestasRecoger1Dia)
         EncuestasRecoger2DiasTableAdapter.Fill(datasetEOD.EncuestasRecoger2Dias)
         EncuestasRecogerMas2DiasTableAdapter.Fill(datasetEOD.EncuestasRecogerMas2Dias)
@@ -801,10 +803,10 @@ Public Class GrillaResumen
                     End If
                 Else
                     ' Display a message that the app MUST reboot. Display the minimum required version.
-                    MessageBox.Show("Esta aplicación ha detectado una actualización necesaria desde la versión " & _
-                        "actual a la versión " & info.MinimumRequiredVersion.ToString() & _
-                        ". La aplicación instalará ahora la actualización y se reiniciará.", _
-                        "Actualización disponible", MessageBoxButtons.OK, _
+                    MessageBox.Show("Esta aplicación ha detectado una actualización necesaria desde la versión " &
+                        "actual a la versión " & info.MinimumRequiredVersion.ToString() &
+                        ". La aplicación instalará ahora la actualización y se reiniciará.",
+                        "Actualización disponible", MessageBoxButtons.OK,
                         MessageBoxIcon.Information)
                 End If
 
@@ -832,21 +834,15 @@ Public Class GrillaResumen
     End Sub
 
     Private Sub dialogExcel_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles dialogExcel.FileOk
+        'ResumenHogaresIncompletosTableAdapter = New datasetEODTableAdapters.ResumenHogaresIncompletosTableAdapter
+        'ResumenHogaresCompletosTableAdapter = New datasetEODTableAdapters.ResumenHogaresCompletosTableAdapter
+        'ResumenHogaresInconsistentesTableAdapter = New datasetEODTableAdapters.ResumenHogaresInconsistentesTableAdapter
+        'ResumenHogaresRechazadosTableAdapter = New datasetEODTableAdapters.ResumenHogaresRechazadosTableAdapter
 
-
-
-        ResumenHogaresCompletosTableAdapter = New datasetEODTableAdapters.ResumenHogaresCompletosTableAdapter
         ResumenHogaresCompletosTableAdapter.Fill(datasetEOD.ResumenHogaresCompletos)
-
-        ResumenHogaresIncompletosTableAdapter = New datasetEODTableAdapters.ResumenHogaresIncompletosTableAdapter
         ResumenHogaresIncompletosTableAdapter.Fill(datasetEOD.ResumenHogaresIncompletos)
-
-        ResumenHogaresInconsistentesTableAdapter = New datasetEODTableAdapters.ResumenHogaresInconsistentesTableAdapter
         ResumenHogaresInconsistentesTableAdapter.Fill(datasetEOD.ResumenHogaresInconsistentes)
-
-        ResumenHogaresRechazadosTableAdapter = New datasetEODTableAdapters.ResumenHogaresRechazadosTableAdapter
         ResumenHogaresRechazadosTableAdapter.Fill(datasetEOD.ResumenHogaresRechazados)
-
 
         Dim xlApp As Excel.Application = New Excel.Application()
 
@@ -1070,7 +1066,7 @@ Public Class GrillaResumen
                 MessageBox.Show("No se pudo guardar los cambios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
 
-            
+
 
         End If
 
@@ -1091,7 +1087,7 @@ Public Class GrillaResumen
         Catch ex As Exception
 
         End Try
-        
+
     End Sub
 
     Private Sub lkpFolioCorregido_EditValueChanged(sender As Object, e As EventArgs) Handles lkpFolioCorregido.EditValueChanged
@@ -1280,7 +1276,7 @@ Public Class GrillaResumen
             deNuevoDiaViajes.Properties.Appearance.BorderColor = Nothing
         End If
 
-        
+
 
         'Campo Motivo
         If txtMotivoCambio.Text = "" Then

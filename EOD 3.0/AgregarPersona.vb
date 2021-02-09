@@ -31,12 +31,6 @@ Public Class AgregarPersona
     End Sub
 
     Private Sub AgregarPersona_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'TODO: esta línea de código carga datos en la tabla 'datasetEOD.TipoDiscapacidad' Puede moverla o quitarla según sea necesario.
-        Me.TipoDiscapacidadTableAdapter.Fill(Me.datasetEOD.TipoDiscapacidad)
-        'TODO: esta línea de código carga datos en la tabla 'datasetEOD.ConsultaCalle2Estudio' Puede moverla o quitarla según sea necesario.
-        'Me.ConsultaCalle2EstudioTableAdapter.Fill(Me.datasetEOD.ConsultaCalle2Estudio)
-        'TODO: esta línea de código carga datos en la tabla 'datasetEOD.ConsultaCalle2Trabajo' Puede moverla o quitarla según sea necesario.
-        'Me.ConsultaCalle2TrabajoTableAdapter.Fill(Me.datasetEOD.ConsultaCalle2Trabajo)
         cargaPersonaBackground.RunWorkerAsync()
     End Sub
 
@@ -410,6 +404,7 @@ Public Class AgregarPersona
         Invoke(DirectCast(AddressOf Me.fillJornadaTrabajo, MethodInvoker))
         Invoke(DirectCast(AddressOf Me.fillActividad, MethodInvoker))
         Invoke(DirectCast(AddressOf Me.fillEstudios, MethodInvoker))
+        Invoke(DirectCast(AddressOf Me.fillTipoDiscapacidad, MethodInvoker))
         Invoke(DirectCast(AddressOf Me.fillRelacion, MethodInvoker))
         Invoke(DirectCast(AddressOf Me.fillSexo, MethodInvoker))
         Invoke(DirectCast(AddressOf Me.fillHito, MethodInvoker))
@@ -418,7 +413,9 @@ Public Class AgregarPersona
         Invoke(DirectCast(AddressOf Me.fillSiNo, MethodInvoker))
 
     End Sub
-
+    Private Sub fillTipoDiscapacidad()
+        Me.TipoDiscapacidadTableAdapter.Fill(Me.datasetEOD.TipoDiscapacidad)
+    End Sub
     Private Sub fillComuna()
         Me.ComunaTableAdapter.Fill(Me.datasetEOD.Comuna)
     End Sub
@@ -1122,6 +1119,7 @@ Public Class AgregarPersona
         If (lkpDondeEstudia.EditValue IsNot Nothing) AndAlso (lkpDondeEstudia.EditValue.ToString <> "") Then
             Dim lugarEstudios As Integer = lkpDondeEstudia.EditValue
             Dim nivelEstudios As Integer = lkpEstudios.EditValue
+            Dim edadEncuestado As Integer = DateTime.Now.Year - Convert.ToInt32(Me.txtAnoNacimiento.Text.ToString)
 
             'Ocultar Otro Lugar
             Me.txtDondeEstudiaOtro.Visible = False
@@ -1166,6 +1164,12 @@ Public Class AgregarPersona
             'Preuniversitario y tiene estudios primarios o superiores
             If (lugarEstudios = 3) AndAlso (nivelEstudios = 3 OrElse nivelEstudios = 5) Then
                 MessageBox.Show("Indicó un valor inconsistente con el nivel de estudios.", "Dato no válido", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                lkpDondeEstudia.EditValue = ""
+            End If
+
+            'Lugar de estudios es otro y no tiene estudios siendo mayor de 5 años
+            If (lugarEstudios = 5) AndAlso (nivelEstudios = 1) AndAlso edadEncuestado > 5 Then
+                MessageBox.Show("Indicó un valor inconsistente con el nivel de estudios y edad del encuestado.", "Dato no válido", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 lkpDondeEstudia.EditValue = ""
             End If
         End If
@@ -1240,7 +1244,7 @@ Public Class AgregarPersona
                 'Estudios secundarios completos con menos de 17 años
                 If edadEncuestado < 17 AndAlso nivelEstudios = 4 AndAlso opcion = 1 Then
                     validadorPersona.Val24 = True
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios secundarios completos con menos de 17 años. Corrija la información.", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios secundarios completos con menos de 17 años. ¿Confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
                     If confirma = Windows.Forms.DialogResult.No Then
                         lkpEstudiosCompletos.EditValue = ""
                         lkpEstudios.Focus()
@@ -1253,7 +1257,7 @@ Public Class AgregarPersona
                 'Estudios profesionales completos con menos de 22 años
                 If edadEncuestado < 22 AndAlso nivelEstudios = 5 AndAlso opcion = 1 Then
                     validadorPersona.Val25 = True
-                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios universitarios con menos de 17 años. Corrija la información.", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+                    Dim confirma As DialogResult = MessageBox.Show("Ha indicado que tiene estudios universitarios completos con menos de 22 años. ¿Confirma que es correcto?", "Verificación de datos", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
                     If confirma = Windows.Forms.DialogResult.No Then
                         lkpEstudiosCompletos.EditValue = ""
                         lkpEstudios.Focus()

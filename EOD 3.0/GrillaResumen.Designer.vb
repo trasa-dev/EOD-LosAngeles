@@ -597,9 +597,9 @@ Partial Class GrillaResumen
         Me.hojaConfiguracion.Controls.Add(Me.txtServidorFTP)
         Me.hojaConfiguracion.Controls.Add(Me.LabelControl2)
         Me.hojaConfiguracion.Controls.Add(Me.LabelControl1)
-        Me.hojaConfiguracion.Location = New System.Drawing.Point(181, 63)
+        Me.hojaConfiguracion.Location = New System.Drawing.Point(162, 63)
         Me.hojaConfiguracion.Name = "hojaConfiguracion"
-        Me.hojaConfiguracion.Size = New System.Drawing.Size(769, 421)
+        Me.hojaConfiguracion.Size = New System.Drawing.Size(788, 421)
         Me.hojaConfiguracion.TabIndex = 3
         '
         'btnActualizar
@@ -1817,7 +1817,7 @@ Partial Class GrillaResumen
         '
         'colFecha1
         '
-        Me.colFecha1.FieldName = "Fecha"
+        Me.colFecha1.FieldName = "FechaViajes"
         Me.colFecha1.Name = "colFecha1"
         Me.colFecha1.Visible = True
         Me.colFecha1.VisibleIndex = 5
@@ -1914,7 +1914,7 @@ Partial Class GrillaResumen
         '
         'colFecha2
         '
-        Me.colFecha2.FieldName = "Fecha"
+        Me.colFecha2.FieldName = "FechaViajes"
         Me.colFecha2.Name = "colFecha2"
         Me.colFecha2.Visible = True
         Me.colFecha2.VisibleIndex = 6

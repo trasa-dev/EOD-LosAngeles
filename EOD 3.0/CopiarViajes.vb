@@ -589,7 +589,7 @@ Public Class CopiarViajes
 
             'Alertar cambiar propósito y modos si procede
             barraProg.Visible = False
-            MessageBox.Show("Los viajes fueron copiados correctamente. Por favor, recuerde verificar los siguientes datos en los viajes copiados: " + vbCrLf + vbCrLf + "- Propósito del viaje" + vbCrLf + "- Modos de transporte del viaje (conductor/pasajero)", "Viajes copiados", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Los viajes fueron copiados correctamente. Por favor, recuerde verificar los siguientes datos en los viajes copiados: " + vbCrLf + vbCrLf + "- Propósito del viaje" + vbCrLf + "- Modos de transporte del viaje (conductor/pasajero)" + vbCrLf + "- Contestar pregunta de Ingresos", "Viajes copiados", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Me.Dispose()
 
         End If
